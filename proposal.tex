@@ -1,0 +1,561 @@
+\documentclass[12pt]{cmuthesis}
+%\usepackage{fullpage,cmu-titlepage2}
+\usepackage{times}
+\usepackage[letterpaper,twoside,vscale=.8,hscale=.75,nomarginpar,hmarginratio=1:1]{geometry}
+
+\usepackage[
+%backref controls whether the bibliography has a list of backreferences
+%to where the citaiton is used
+%backref,
+pageanchor=true,
+plainpages=false,
+pdfpagelabels, % makes the status line page labels the same as latex ones
+bookmarks,
+bookmarksnumbered,
+pdfborder=0 0 0,
+pdfpagemode=UseOutlines]{hyperref}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage[bbsets,Dfprime]{math}
+\usepackage[prefixflatinterpret,bracketmodalinterpret,modernsign,substopindex,shortmquant,mquantifiertype,mconnectiveformal,bracketinterpret,fixformat,setfixinterpret,modifopindex,seqarrow,seqoptional,sidenotecalculus,abbrseqcontext,shortterms,nosigmaterms,novarterms]{logic}
+\usepackage[pretest,nocommandblocks]{progreg}
+\usepackage[bracketinterpret,prefixflatinterpret,bracketmodalinterpret,fixformat,differentialdL]{dL}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,snakes}
+\usepackage{pgfplots}
+\usepackage{alltt}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
+\usetikzlibrary{positioning,shadows}
+\usetikzlibrary{automata}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{trees,snakes}
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{bussproofs}
+\usepackage{proof}
+\usepackage{lscape}
+\usepackage{accents}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+\newcommand{\bebecomes}{\mathrel{::=}}
+\newcommand{\alternative}{~|~}
+\newcommand{\ivr}{\psi}
+
+\usepackage{prettyref}
+\newcommand{\rref}[2][]{\prettyref{#2}}
+\newrefformat{ch}{Chapter\,\ref{#1}}
+\newrefformat{sec}{Section\,\ref{#1}}
+\newrefformat{app}{Appendix\,\ref{#1}}
+\newrefformat{def}{Def.\,\ref{#1}}
+\newrefformat{thm}{Theorem\,\ref{#1}}
+\newrefformat{prop}{Proposition\,\ref{#1}}
+\newrefformat{lem}{Lemma\,\ref{#1}}
+\newrefformat{cor}{Corollary\,\ref{#1}}
+\newrefformat{ex}{Example\,\ref{#1}}
+\newrefformat{tab}{Table\,\ref{#1}}
+\newrefformat{fig}{Fig.\,\ref{#1}}
+\newrefformat{case}{case\,\ref{#1}}
+
+\newcommand{\ws}{\nu}
+\newcommand{\wt}{\omega}%
+\newcommand{\I}{\iconcat[state=\ws]{\stdI}}%
+\newcommand{\It}{\iconcat[state=\wt]{\stdI}}%
+
+\newcommand{\allint}{\mathcal{I}}
+\newcommand{\allworld}{\mathcal{W}}
+\newcommand{\allstate}{\mathcal{G}}
+\newcommand{\allnoms}{\mathcal{N}}
+\newcommand{\logname}{\text{\upshape\textsf{dH{\kern-0.05em}L}}\xspace}
+\newcommand{\dRL}{dR\mathcal{L}}
+\newcommand{\nom}[1]{{\it #1}}
+\newcommand{\rexists}[2]{\lexists[\mathbb{R}]{#1}{#2}}
+\newcommand{\sexists}[2]{\lexists[\allworld]{#1}{#2}}
+\newcommand{\rforall}[2]{\lforall[\mathbb{R}]{#1}{#2}}
+\newcommand{\sforall}[2]{\lforall[\allworld]{#1}{#2}}
+\newcommand{\mat}[2]{@_{#1}{#2}}
+\newcommand{\mbind}[2]{{\downarrow}#1~#2}
+\newcommand{\lequiv}{\leftrightarrow}
+\newcommand{\mposs}[1]{\lozenge{#1}}
+\newcommand{\mnecc}[1]{\square{#1}}
+\newcommand{\lnexp}[1]{{#1}}
+\newcommand{\lnom}[1]{\widebar{#1}}
+\newcommand{\tclass}{\Theta}
+\newcommand{\rtclass}{\theta}
+\newcommand{\wtclass}{w}
+\newcommand{\rtclassi}[1]{\theta_{#1}}
+\newcommand{\wtclassi}[1]{\w_{#1}}
+\newcommand{\tclassi}[1]{\Theta_{#1}}
+\newcommand{\lsvar}[1]{#1}
+\newcommand{\pconst}[1]{#1}
+\newcommand{\om}{\omega}
+\newcommand{\tom}{\tilde{\omega}}
+\newcommand{\CdGL}{\textsf{CdGL}\xspace}
+\newcommand{\ProofPlex}{ProofPlex\xspace}
+\newcommand{\Isabelle}{Isabelle/HOL\xspace}
+\newcommand{\VeriPhy}{VeriPhy\xspace}
+\newcommand{\ModelPlex}{ModelPlex\xspace}
+\newcommand{\dLi}{\ensuremath{\dL_\iota}}
+\newcommand{\tint}[2]{\lenvelope{#1}\renvelope{#2}}
+\newcommand{\fint}[1]{\lenvelope{#1}\renvelope}
+\newcommand{\pint}[3]{(#2,#3) \in \lenvelope{#1}\renvelope}
+
+
+\draftstamp{\today}{DRAFT}
+\begin{document}
+\frontmatter
+\pagestyle{empty}
+
+\title{  {\it \huge Thesis Proposal}\\
+{\bf Foundational End-to-End Hybrid Systems Verification and Synthesis}}
+\author{Brandon Bohrer}
+\date{\today}
+\Year{2019}
+\trnumber{}
+
+\committee{
+Andr\'e Platzer, Chair \\
+Stefan Mitsch? \\
+Bryan Parno? \\
+Jeremy Avigad? \\
+Frank Pfenning? \\
+Tobias Nipkow?
+}
+
+\support{}
+\disclaimer{}
+
+% copyright notice generated automatically from Year and author.
+% permission added if \permission{} given.
+
+\keywords{hybrid systems, theorem proving, end-to-end verification, hybrid games, hybrid logic}
+
+\maketitle
+
+%\begin{dedication}
+%Hi
+%\end{dedication}
+
+\begin{abstract}
+Cyber-physical systems (CPSs) combining discrete control and continuous physical dynamics are pervasive in modern society: examples include driver assistance in cars, industrial robotics, airborne collision avoidance systems, the electrical grid, and medical devices.
+Many of these systems are safety-critical or even life-critical because they operate in close proximity to humans and in some cases perform life-sustaining functions.
+Formal safety verification of these systems is a key tool for attaining the strongest possible guarantees that they meet their safety objectives.
+As CPSs cement their role in society, the field of formal verification for CPSs has matured too, particularly verification of hybrid systems models, which provide a common formalism for the discrete and continuous aspects of a CPS.
+Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic is notable for its strong logical foundations and successful application in a number of case studies using the theorem provers \KeYmaera and \KeYmaeraX.
+
+The use of abstract formalisms, such as hybrid systems, has undoubtedly been a boon to formal verification: hybrid systems provide enough abstraction to make verification tractable while providing enough detail to adequately capture realistic control logic and physics.
+Yet the verification of abstract models leaves major gaps to confidence in the safety of the real implementations of CPSs.
+These gaps can be seen from two sides: On the theoretical side, a theorem is only trustworthy insofar as it faithfully implements its underlying logic and insofar as that logic is \emph{sound}: that is, we must ensure a tool only says a model is safe when the model is truly safe.
+On the practical side, safety results about a model are only useful insofar as safety of the model ensures safety of the implementation, i.e., the implementation must be faithful to the formal model.
+
+My thesis is that both gaps are surmountable, and thus: \emph{Hybrid systems theorem-proving supports an end-to-end verification and synthesis process connecting realistic implementations down to bulletproof theoretical foundations}.
+The approach is multifaceted, but at its heart is the proof-driven synthesis.
+While a model such as a hybrid system (or in our case, hybrid \emph{games}, the generalization of hybrid systems with adversarial dynamics) is well-suited for verification, the gaps vs. implementation must be closed somehow, preferably automatically.
+Synthesis allows the process of closing that gap to be automated: A push-button process produces control software that makes provably-safe decisions and monitor software that detects illegal behavior in the environment.
+Verified compilation technology lowers that software to the machine-code level while maintaining formal correctness guarantees.
+The theoretical backend enabling synthesis of control and monitor software is a constructive logic for differential games \CdGL, which is proven sound.
+In the special case of hybrid systems, proofs are backed by mechanized soundness proof.
+\end{abstract}
+
+%\begin{acknowledgments}
+%Thanks to DARPA and friends for the dough
+%\end{acknowledgments}
+
+\pagestyle{plain}
+
+%\tableofcontents
+%\listoffigures
+%\listoftables
+\mainmatter
+
+
+\chapter{Introduction}
+Cyber-physical systems (CPSs) combining discrete control and continuous physical dynamics are pervasive in modern society: examples include driver assistance in cars, industrial robotics, airborne collision avoidance systems, the electrical grid, and medical devices.
+Many of these systems are safety-critical or even life-critical because they operate in close proximity to humans and in some cases perform life-sustaining functions.
+Formal safety verification of these systems is a key tool for attaining the strongest possible guarantees that they meet their safety objectives.
+As CPSs cement their role in society, the field of formal verification for CPSs has matured too, particularly verification of hybrid systems models, which provide a common formalism for the discrete and continuous aspects of a CPS.
+Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic is notable for its strong logical foundations and successful application in a number of case studies using the theorem provers \KeYmaera and \KeYmaeraX.
+
+The use of abstract formalisms, such as hybrid systems, has undoubtedly been a boon to formal verification: hybrid systems provide enough abstraction to make verification tractable while providing enough detail to adequately capture realistic control logic and physics.
+Yet the verification of abstract models leaves major gaps to confidence in the safety of the real implementations of CPSs.
+These gaps can be seen from two sides: On the theoretical side, a theorem is only trustworthy insofar as it faithfully implements its underlying logic and insofar as that logic is \emph{sound}: that is, we must ensure a tool only says a model is safe when the model is truly safe.
+On the practical side, safety results about a model are only useful insofar as safety of the model ensures safety of the implementation, i.e., the implementation must be faithful to the formal model.
+
+In prior work with my collaborators, I have addressed both aspects of this problem in the context of \emph{classical logics} for hybrid \emph{systems} (i.e., without adversarial dynamics).
+On the one hand, our experiences with these prior works have exposed the limitations of those works:
+In a classical logic, the connection between proof and computation is loose at best, and does not hold in every case.
+As a result, state-of-the-art synthesis technology exploits proof knowledge for synthesis only in limited cases, and even then is fragile.
+Developing a computational basis for a hybrid systems logic will give us an exhaustive and robust foundation for synthesis.
+Furthermore, the prior emphasis on hybrid \emph{systems} has limited synthesis approaches to monitoring only.
+While monitoring is in some sense the most essential synthesis problem, it is greatly limiting especially when we desire robust end-to-end guarantees: an approach that relies only on monitor synthesis can guarantee only safety of the implementation while an approach using games can ensure both safety and \emph{liveness}.
+For example, a car which stays in its garage is safe because it never collides with another car but is not live because it never reaches its objective, which might be to drive to a certain destination.
+A successful, practical system must not be simply safe because safety guarantees in isolation can be ensured trivially.
+The real challenge is to successfully meet the competing challenges of safety and liveness at the same time.
+
+On the foundations side, prior work has explored the classical hybrid systems case in detail:
+A formalization of the soundness theorem for \dL has been performed in \Isabelle.
+Follow-up work enabled the export of proof terms from \KeYmaeraX and rechecking in a verified proof term checker based on the \Isabelle formalization.
+That checker supported a significant fragment of the \KeYmaeraX core, including enough to recheck proofs of safety for monitor-based synthesized controllers.
+However, this was achieved largely through a lot of sweat and even then failed to cover some popular extensions used in practice.
+A recent paper has shown how a redesign of the \dL calculus can enable a simplified and more exhaustive foundation.
+
+Generalizing these results to the case of constructive differential games is an interesting challenge for a number of reasons.
+First off, all previous logical explorations of hybrid games have explored only the classical case.
+Constructive differential games are the more target because a solution of a constructive game corresponds exactly to a control function and monitor function, while the solution of a classical game corresponds only loosely.
+It is arguably a historical accident that hybrid games were discovered in the classical context first due to the large body of work on classical analysis, from which a classical logic for hybrid games followed.
+Consequently, one of the major contributions of this thesis is to develop a constructive semantics of hybrid games, of which the main challenge is expected to be a constructive semantics of differential equations using arbitrary-precision verifiable integration bounds.
+The subsequent development of a proof calculus for constructive hybrid games is also a contribution of the thesis.
+
+One potential stumbling block in the proposed work is supporting constructive hybrid games in the verified pipeline for code generation, including the verified \dL proof term checker.
+In particular it should be noted that the semantics of hybrid games generally and certainly of constructive hybrid games differ profoundly from classical hybrid systems, so supporting games directly would require near-total reimplementation of tools for minimal gain.
+To keep the generality and clarity provided by games without excessive implementation effort, I propose a looser integration between the components of the thesis: In much the same way as the prior work \ModelPlex functions, we can use proofs in \CdGL to extract a correct-by-construction monitor formula and control law from a proven-correct model.
+When we wish to employ the synthesized code in practice, we can (perhaps automatically) \emph{relax} the constructive game to a classical system, and use existing technology to foundationally check the proof and to generate verified monitors.
+Since the controller synthesized from the game is correct by construction, it will satisfy the monitors of the game relaxation except in cases where some compilation bug or conservativity introduced an error.
+This then also allows us more freedom in how the low-level details of and compilation of the synthesized controller are handled.
+
+\chapter{Background: Differential Game Logic \dGL}
+\emph{Differential dynamic logic} (\dL) is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
+\emph{Differential game logic} (\dGL) extends the programs $\alpha$ of \dL with a turn-taking operator $\pdual{\alpha}$ to enable representing and verifying hybrid \emph{games} combining discrete, continuous, and adversarial dynamics.
+While some of the works in thesis (\rref{ch:logical-foundations}, \rref{sec:veriphy}) are specific to \dL, we will present \dGL in its full generality here since 
+\begin{inparaenum}[i)]
+  \item the proposed works (\rref{ch:cdgl},\rref{ch:proofplex}) will require an understanding of full \dGL, and
+  \item an introductory understanding of \dGL will also provide an introductory understanding of \dL.
+\end{inparaenum}
+While the syntax of \dGL and \dL are nearly identical, their semantic differences are deep: \dL is a regular modal logic whose denotational semantics can be and are given in the forward-chaining, relational Kripke style, while \dGL is a subregular logic with a backward-chaining winning-region semantics.
+While many basic axioms are the same in \dL and \dGL, some are necessarily different because \dGL is subregular: for example, Kripke's axiom K fails in \dGL and is in practice subsumed by a monoticity rule.
+\section{Syntax}
+\label{sec:dgl-syntax}
+We introduce the syntax and informal meaning of \dGL here, then introduce the winning-region semantics formally in \rref{sec:dgl-semantics}.
+The syntax of \dGL consists of three syntactic classes: terms, formulas, and hybrid games.
+
+\begin{definition}[Terms of \dGL]
+Terms $\theta, \eta$ of \dGL are defined recursively according to the following grammar:
+\[\theta,\eta \bebecomes q \alternative x \alternative \theta + \eta \alternative \theta \cdot \eta \alternative \der{\theta} \]
+\end{definition}
+Where $q \in \mathbb{Q}$ is a rational constant, $x \in \allvars$ is a program variable and $\allvars$ is the (at most countable) set of all base variable names.
+For every base variable $x \in allvars,$ there is a differential variable $\D{x} \in \D{\allvars}$ standing for the differential of $x$.
+Terms $\theta + \eta$ and $\theta \cdot \eta$ are the sum and product of $\theta$ and $\eta,$ and $\der{\theta}$ is the \emph{differential} of term $\theta$.
+It is worth noting that the \dGL term language is restrictive, and for good reason: all terms are polynomials, so all terms are defined in every state and even $C^\infty$-smooth.
+Because \dGL terms are well-behaved, the theory of \dGL is simplified as a result.
+In \rref{sec:definite-description}, we show how to remove these simplifying assumptions in the context of \dL, enabling many more term constructs that are essential in practical proving, the most common constructs including quotients, roots, trigonometric functions, and conditionals.
+
+
+\begin{definition}[Formulas of \dGL]
+  Formulas are defined by the following grammar:
+\[\phi,\psi \bebecomes \theta \sim \eta \alternative \phi \land \psi \alternative \phi \lor \psi \alternative \neg \phi \alternative \phi \limply \psi \alternative \phi \lequiv \psi \alternative \lforall{x}{\phi} \alternative \lexists{x}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \ddiamond{\alpha}{\phi}\]
+\end{definition}
+where $\sim$ stands for any comparison operator $\sim \in \{\leq, <, =, \neq, >, \geq\}$.
+We write conjunctions $\phi \land \psi,$ negations $\phi \lor \psi,$ disjunctions $\phi \lor \psi,$ implications $\phi \limply \psi,$ biimplications $\phi \lequiv \psi$, and quantifiers over real numbers $\lexists{x}{\phi}$ and $\lforall{x}{\phi}$.
+The diamond modality $\ddiamond{\alpha}{\phi}$ says that the player who is actively making decisions (typically named Angel) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
+The box modality $\dbox{\alpha}{\phi}$ says that the player who is not currently making decisions (typically named Demon) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
+Because \dGL is a classical logic, it is worth noting that the formula syntax is not minimal: many constructs such as implication, equivalence, disjunction, universal quantifiers, and the box modality are all definable classically.
+This will not be the case in the proposed logic \CdGL because these dualities do not hold constructively.
+
+\begin{definition}[Hybrid games]
+Games are defined by the following grammar:  
+\[\alpha,\beta \bebecomes \pevolvein{\D{x}=\theta}{\ivr} \alternative \humod{x}{\theta} \alternative \prandom{\alpha} \alternative \ptest{\phi} \alternative \pchoice{\alpha}{\beta} \alternative \alpha;~\beta \alternative \prepeat{\alpha} \alternative \pdual{\alpha}\]
+\end{definition} 
+where $\humod{x}{\theta}$ stores the current value of term $\theta$ in program variable $x$  and test $\ptest{\phi}$ makes Angel lose if formula $\phi$ does not hold in the current state.
+In nondeterministic assignment $\prandom{x},$ Angel chooses a value $r \in \mathbb{R}$ to assign to $x$.
+Program $\pevolvein{\D{x}=\theta}{\phi}$ evolves $x$ continuously according to the differential equation (ODE) $\D{x}=\theta$ for a duration $d \geq 0$ of Angel's choosing, but Angel must ensure that $\phi$ is true throughout the evolution of $\D{x}=\theta,$ else they lose.
+In game $\pchoice{\alpha}{\beta},$ Angel chooses whether to play game $\alpha$ or game $\beta$.
+In game $\alpha;~\beta$ the players must first play $\alpha$ and then play $\beta$; this case is largely responsible for the need to employ backward-chaining semantics in \dGL, as it is most natural to first ask from what region $X$ $\beta$ is winnable, then ask from what region does Angel have a strategy to reach $X$ when playing $\alpha$.
+In the iterated game $\prepeat{\alpha}$, Angel decides at the end of each loop iteration whether to continue playing $\alpha$ another time.
+All plays must be finite (Angel must stop eventually), but Angel need not decide a-priori \emph{when} to stop, let alone announce that decision to Demon beforehand.
+If Angel cannot reach the goal region without repeating $\alpha$ infinitely, then Angel loses.
+To play the dual game $\pdual{\alpha},$ Angel and Demon switch roles then play game $\alpha$ in their new roles.
+That is, the player previously known as Demon makes the decisions in $\alpha,$ at least until another dual operator is encountered.
+We parenthesize hybrid games $\{ \alpha \}$ for clarity and disambiguation as needed.
+
+
+We now give an example hybrid game and example safety and liveness properties.
+The game in \rref{ex:driving-game} is a generalization of a standard hybrid systems model to a hybrid game.
+\newcommand{\obsvar}{{\it obs}\xspace}
+\newcommand{\Tvar}{{\it T}\xspace}
+\newcommand{\Avar}{{\it A}\xspace}
+\newcommand{\Bvar}{{\it B}\xspace}
+%\newcommand{\SBvar}{{\it SB }\xspace}
+\newcommand{\xvar}{{\it x}\xspace}
+\newcommand{\vvar}{{\it v}\xspace}
+\newcommand{\avar}{{\it a}\xspace}
+\begin{example}[Acceleration-Controlled 1D Driving]
+\label{ex:driving-game}
+\begin{align}
+\alpha_\times\equiv&\\
+\label{eq:driving-init}\humod{v}{0};~&\humod{x}{0};\pdual{(\prandom{\obsvar};\prandom{T};\prandom{A};\prandom{B}; \ptest{\obsvar > 0 \land T > 0 \land A > 0 \land B > 0})};\\
+\label{eq:driving-angel}\big\{ &\prandom{a};~\ptest{-B \leq a \land a \leq A};\\ 
+\label{eq:driving-demon}       &\pdual{\{\pevolvein{\D{x}=v, \D{v}=a, \D{t}=1}{t \leq T \land v \geq 0}\}}\big\}^\times
+\end{align}
+\end{example}
+The first line (\rref{eq:driving-init}) is an initialization phase: we (Angel) call the current position $x = 0$ and are initially stopped ($v = 0$).
+The opponent then picks how far away our obstacle (\obsvar) is and how long Angel will have to wait between control decisions ($T$).
+They also pick Angel's maximum braking rate $B$ and maximum acceleration rate $B$.
+One could argue on principle that neither player really picks the timestep $T,$ in practice this is determined by the speed of the robot's processors, sensors, and actuators, as well as the speed of its control program.
+However, what's important is that robot's controller (the Angel player) is \emph{not} the one who picks, so a conservative model should assume the worst, which is that their opponent (the environment) gets to pick.
+The same goes for the rates $A$ and $B$.
+It would also be eminently unreasonable if the obstacle already collided with the robot at the start of the game, and would be nonsensical if the control cycle lasted zero time or less, or if the robot could not accelerate or brake, thus the environment is responsible for picking positive $\obsvar, \Tvar, \Avar$, and  $\Bvar,$ else they lose by default and Angel wins immediately.
+The remainder of the game is a \emph{demonic loop} $\alpha^\times$ where the Demon player controls the duration, which can be derived $\alpha^\times \equiv \pdual{{\prepeat{{\pdual{{\alpha}}}}}}$.
+%TODO: write all the derived operators
+Angel's turn consists of making a control decision by setting the acceleration $a$.
+Angel has near complete freedom to set the acceleration: they may set any value ($\prandom{a}$) so long as it is within the physical limits of the car ($\ptest{-B \leq a \land a \leq A}$).
+It is Angel's responsibility to do so, and they lose the game if the acceleration is out of bounds.
+Next, the car moves according to ideal Newtonian physics: the velocity $v$ continuously changes according to acceleration $a$ while position changes continuously according to the velocity.
+Demon (the environment) controls the duration of the ODE, but is constrained to the timestep $t \leq T$: i.e., Angel's control action must be safe even if Demon chooses not to use the full time budget, but need not be safe past time $T:$ in that case Demon is responsible for breaking the rules, so Angel wins.
+The equation $\D{t}=1$ simply says that $t$ represents the time elapsed in the current ODE run.
+
+We write $\alpha_*$ for $\alpha_\times$ with an Angelic loop.
+
+We give examples of safety and liveness theorems:
+%TODO: Check these for correctness
+\begin{example}[1D Game Safety and Liveness]
+  \begin{align*}
+    \textit{safe} &\equiv \ddiamond{\alpha_\times}{\xvar \leq \obsvar}\\
+    \textit{live} &\equiv \ddiamond{\alpha_*}{(\xvar \geq \obsvar \lor t \leq \frac{T}{2})}
+  \end{align*}
+\end{example}
+The safety theorem \emph{safe} says that Angel (the robot) has a strategy to ensure $\xvar \leq \obsvar$ (i.e. a strategy not to hit the obstacle) regardless how long Demon runs the loop and the ODE.
+The liveness theorem \emph{live} says that Angel (the robot) has a strategy to reach the obstacle, \emph{so long as} Demon always runs the ODE long enough ($t \geq \frac{T}{2}$).
+The requirement on running the ODE long enough is to rule out \emph{Zeno} behaviors by Demon: without this restriction, Demon can run the ODE for shorter and shorter durations, with infinitely many iterations in finite time, which is not physically realizable but would falsify the liveness theorem.
+ 
+
+It is worth noting that in the present state of the art, case studies have thus far used \dL for hybrid systems in \KeYmaeraX (\rref{sec:veriphy},\rref{sec:ground-robotics}).
+One of the conclusions of this thesis is that such case studies can and should be written as hybrid games: using games as our modeling language both avoids common anomalies in models and also enables synthesis of not only monitors but also controllers.
+The reason for this is that the diamond modality $\ddiamond{\alpha}{\phi}$ can be understood as the \emph{control} modality while box modality $\dbox{\alpha}{\phi}$ can be understood as the \emph{monitoring} modality: that is, while we are the Angel player, it is our responsibilty to make control decisions that will achieve our goal condition, but while we are the Demon player we do not get to make the decisions, it is simply our responsibility to act as a referee for the Angel player, calling them out if they ever break the rules and hand us a victory.
+
+It is illustrative to compare \rref{ex:driving-game} to a previous hybrid system model of the same scenario:
+\begin{example}[Acceleration-Controlled 1D Driving System]
+\label{ex:driving-system}
+\begin{align}
+\label{eq:driving-sys-pre}
+\textrm{Pre}      & \equiv v=0 \land x=0 \land \obsvar > 0 \land T > 0 \land A > 0 \land B > 0\\
+\alpha_{\textrm{Sys}}& \equiv\\
+\label{eq:driving-sys-forward}\big\{\big\{~&\prandom{a};~\ptest{-B \leq a \land a \leq A};~\ptest{\frac{(v+a T)^2}{2\Bvar} \leq \obsvar - \left(\xvar + \vvar \Tvar + \avar\frac{\Tvar^2}{2}\right)}\\
+\label{eq:driving-sys-stay}     \cup&~\ptest{v = 0};~\humod{a}{0}\\
+\label{eq:driving-sys-brake}    \cup&~\ptest{v \geq 0};~\humod{a}{-B}\big\};\\
+\label{eq:driving-sys-demon}       &\{\pevolvein{\D{x}=v, \D{v}=a, \D{t}=1}{t \leq T \land v \geq 0}\}\big\}^*
+\end{align}
+\end{example}
+The most salient difference is that the hybrid system $\alpha_{\text{Sys}}$ of \rref{ex:driving-system} is more complex (and more explicit) than the game model \rref{ex:driving-game}.
+The controller now consists of three cases: \rref{eq:driving-sys-forward} says that we can choose velocity within the capabilities of the robot so long as after accelerating for time $\Tvar$ there will be enough time left to brake to stop without hitting the obstacle, \rref{eq:driving-sys-stay} says if the robot is currently stopped it can stay stopped, and \rref{eq:driving-sys-brake}.
+As before, \rref{eq:driving-sys-demon} gives Newtonian mechanics for the robot, but of course doesn't have a dual operator because $\alpha_{\textrm{Sys}}$ is not a hybrid game.
+
+Why is $\alpha_{\textrm{Sys}}$ so much longer than \rref{ex:driving-game}?
+The key is that in \rref{ex:driving-game}, the controller is existentially quantified in both the safety and liveness theorem: there need only exist some control decision within the constraints of the car that achieves the goal state.
+In the language of hybrid systems, we cannot make the controller existentially quantified in the safety theorem without doing the same for the physics (which would simply be wrong).
+Because the controller model is universally quantified, it must explicitly write out the sufficient conditions for a safe control decision.
+This alone is troublesome: in any verification task, the one thing that cannot be formally proven is that the correct theorem statement was indeed chosen.
+For this reason, it is of fundamental importance to achieve the simplest model and simplest theorem statement possible, but using hybrid systems as our modeling language instead of hybrid games imposes a needlessly low ceiling on the simplicity of models.
+This is not merely an abstract problem: concretely, experience has shown it is easy to write models in this style with \emph{incomplete controllers}, i.e., where the tests in the controller do not cover all possible program states, leading to safety ``proofs'' that do not cover all possible statess and to systems that would not be safe in practice.
+This class of mistakes is simply impossible in the existentially-quantified style of \rref{ex:driving-game}, thus I advocate making this style standard.
+
+The relationship between \rref{ex:driving-system} and \rref{ex:driving-game} is no coincidence:
+It is that known that once a winning strategy has been found for a hybrid game, a hybrid system can mechanically been derived.
+A similar relation can be expected to hold for \CdGL, and is a key step in end-to-end verification (\rref{ch:proofplex}).
+
+
+\section{Semantics}
+\label{sec:dgl-semantics}
+We give the denotational semantics for classical hybrid games logic, which is divided into a semantics for terms, formulas, and games.
+Throughout the semantics, states are written $\omega, \nu, \mu : \allstate$ where the set of states $\allstate$ is in bijection to $\mathbb{R}^n$ for $n = \abs{\allvars \cup \D{\allvars}}$ where $\allvars$ is the set of base variables and $\D{\allvars}$ the set of differential variables.
+
+\begin{definition}[Classical term semantics]\label{def:dgl-sem-term}
+The semantics of a term $\tint{\theta}{\om} : \mathbb{R}$ is the value of term $\theta$ in state $\om$, and is defined inductively on $\theta$:
+\begin{align*}
+  \tint{q}{\om} &= q \\
+  \tint{x}{\om} &= \om(x)\\
+  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} + \tint{\eta}{\om}\\
+  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}\\
+  \tint{\der{\theta}}{\om} &= \sum_{x \in \allvars} \frac{\partial \tint{\theta}{\om}}{\partial x} \cdot \omega(\D{x})
+\end{align*}
+\end{definition}
+That is, literals denote themselves, variables $x$ take their meaning from the state $\om,$ sums and products denote the sum and product of the denotatation of their operands respectively, and the differential $\der{\theta}$ denotes the sum of every partial derivative of the denotation of $\theta,$ each scaled by the value of the corresponding differential variable $\D{x}$.
+Because every term mentions at most a finite number of variables and the partial with respect to an unmentioned variable is uniformly zero, this sum always has finite support.
+An advantage of this semantics is that it is defined in every state while agreeing with the intuitive meaning of ``time derivative of $\tint{\theta}{\om}$'' whenever a differential appears in the postcondition of an ODE.
+
+\begin{definition}[Classical formula semantics]\label{def:dgl-sem-fml}
+The semantics of a formula $\phi$ is given by the relation $\fint{\phi}{\om},$ which is defined inductively on $\phi$
+\begin{align*}
+\fint{\theta \sim \eta}  &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\} && \text{ for }\sim \in \{\leq,<,=,\neq,>,\geq\}\\
+\fint{\neg \phi}         &= \fint{\phi}^C && \\
+\fint{\phi \land \psi}   &= \fint{\phi}{\om} \cap \fint{\psi}{\om}\\
+\fint{\phi \limply \psi} &= \{\om~|~ \om \in \fint{\phi}{\om} \text{ implies } \om \in \fint{\psi}\}\\
+\fint{\phi \lequiv \psi} &= \{\om~|~ \om \in \fint{\phi}{\om} \text{ iff } \om \in \fint{\psi}\}\\
+\fint{\lexists{x}{\phi}} &= \{\om~|~ \subst[\om]{x}{r} \in \fint{\phi}\} && \text{ for some }x \in \mathbb{R}\\
+\fint{\lforall{x}{\phi}} &= \{\om~|~ \subst[\om]{x}{r} \in \fint{\phi}\} && \text{ for all }x \in \mathbb{R}\\
+\fint{\ddiamond{\alpha}{\phi}} &=  \strategyfor[\alpha]{\fint{\phi}}\\
+\fint{\dbox{\alpha}{\phi}} &= \dstrategyfor[\alpha]{\fint{\phi}}
+\end{align*}
+where $\strategyfor[\alpha]{X}$ and $\dstrategyfor[\alpha]{X}$ are the regions from which Angel (or Demon, respectively) has a strategy to reach a region $X$.
+\end{definition}
+
+\begin{definition}[Classical game semantics]\label{def:dgl-sem-game}
+For any game $\alpha$ and goal region $X \subseteq \allstate$, we inductively define the \emph{winning region} $\strategyfor[\alpha]{X}$ for Angel, i.e., the region from which they have a strategy to enter region $X$ after playing game $\alpha$:
+\begin{align*}
+\strategyfor[\humod{x}{\theta}]{X} &= \{ \om \in \allstate~|~\subst[\om]{x}{\tint{\theta}{\om}}\} \\
+\strategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{r}{\tint{\theta}{\om}}\text{ for some }r \in \mathbb{R}\} \\
+\strategyfor[\pevolvein{\D{x}=\theta}{\ivr}]{X} &= \{\varphi(0) \in \allstate~|~\varphi(r) \in X\text{ for some }r \in \mathbb{R}_{\geq0}\text{ and (differentiable) }\varphi:[0,r]\to \allstate\\
+&\text{ such that }\varphi(\zeta) \in \fint{\ivr}\text{ and } \frac{\partial \varphi(t)(x)}{\partial t}(\zeta) = \tint{\theta}{\varphi(\zeta)}\text{ for all }0 \leq \zeta \leq r \}\\
+\strategyfor[\ptest{\phi}]{X}      &= \fint{\phi} \cap X \\
+\strategyfor[\alpha \cup \beta]{X} &= \strategyfor[\alpha]{X} \cup \strategyfor[\beta]{X}\\
+\strategyfor[\alpha;\beta]{X}      &= \strategyfor[\alpha]{\strategyfor[\beta]{X}}\\
+\strategyfor[\prepeat{\alpha}]{X}  &= \bigcap\{Z \subseteq \allstate~|~ X \cup \strategyfor[\alpha]{Z} \subseteq Z\}\\
+\strategyfor[\pdual{\alpha}]{X}    &= (\strategyfor[\alpha]{X^C})^C
+\end{align*}
+Likewise, we define the winning regions $\dstrategyfor[\alpha]{X}$ for \emph{Demon}, which are dual to those for Angel:
+\begin{align*}
+\dstrategyfor[\humod{x}{\theta}]{X} &= \{ \om \in \allstate~|~\subst[\om]{x}{\tint{\theta}{\om}}\}\\
+\dstrategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{r}{\tint{\theta}{\om}}\text{ for all }r \in \mathbb{R}\} \\
+\dstrategyfor[\pevolvein{\D{x}=\theta}{\ivr}]{X} &= \{\varphi(0) \in \allstate~|~\varphi(r) \in X\text{ for all }r \in \mathbb{R}_{\geq0}\text{ and (differentiable) }\varphi:[0,r]\to\allstate\\
+&\text{ such that }\varphi(\zeta) \in \fint{\ivr}\text{ and }\frac{\partial\varphi(t)(x)}{\partial t}(\zeta) = \tint{\theta}{\varphi(\zeta)\text{ for all }0 \leq \zeta \leq r}\}\\
+\dstrategyfor[\ptest{\phi}]{X}         &= (\fint{\phi})^C \cup X\\
+\dstrategyfor[\alpha\cup\beta]{X}   &= \dstrategyfor[\alpha]{X} \cap \dstrategyfor[\beta]{X}\\
+\dstrategyfor[\alpha;\beta]{X}      &=  \dstrategyfor[\alpha]{\dstrategyfor[\beta]{X}}\\
+\dstrategyfor[\prepeat{\alpha}]{X}  &= \bigcup\{Z \subseteq \allstate~|~ Z \subseteq X \cap \dstrategyfor[\alpha]{Z}\}\\
+\dstrategyfor[\pdual{\alpha}]{X}    &= (\dstrategyfor[\alpha]{X^C})^C
+\end{align*}
+\end{definition}
+
+
+%\strategyfor{}{}
+%\dstrategyfor{}{}
+\section{Proof Calculus}
+We recite the proof calculus for \dGL in \rref{fig:dgl-axioms}.
+The proof calculus is given as a Hilbert system: axioms are repeatedly applied to recursively decompose hybrid games.
+\begin{figure}
+  \centering
+  \begin{calculuscollections}{\columnwidth}
+    \begin{calculus}
+\cinferenceRule[dglbox|{$[\cdot]$}]{}
+{
+\linferenceRule[equiv]{\dbox{\alpha}{\phi}}{\neg\ddiamond{\alpha}{\neg\phi}}
+}{}
+\cinferenceRule[dglassign|{$\langle:=\rangle$}]{}
+{
+\linferenceRule[equiv]{\ddiamond{\humod{x}{\theta}}{\phi(x)}}{\phi(\theta)}
+}{}
+\cinferenceRule[dglrandom|{$\langle:*\rangle$}]{}
+{
+\linferenceRule[equiv]{\ddiamond{\humod{x}{\theta}}{\phi(x)}}{\lexists{x}{\phi(x)}}
+}{}
+\cinferenceRule[dglsolve|{$\langle'\rangle$}]{$\D{y}(t)=\theta$}
+{
+\linferenceRule[equiv]{\ddiamond{\pevolve{\D{x}=\theta}}{\phi}}{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}
+}{}
+\cinferenceRule[dgltest|{$\langle?\rangle$}]{}
+{
+\linferenceRule[equiv]{\ddiamond{\ptest{\psi}}{\phi}}{(\phi \land \psi)}
+}{}
+\cinferenceRule[dglchoice|{$\langle\cup\rangle$}]{}
+{
+\linferenceRule[equiv]{\ddiamond{\alpha \cup \beta}{\phi}}{\ddiamond{\alpha}{\phi} \lor \ddiamond{\beta}{\phi}}
+}{}
+\cinferenceRule[dglcompose|{$\langle;\rangle$}]{}
+{
+\linferenceRule[equiv]{\ddiamond{\alpha;\beta}{\phi}}{\ddiamond{\alpha}{\ddiamond{\beta}{\phi}}}
+}{}
+\cinferenceRule[dgliter|{$\langle*\rangle$}]{}
+{
+\linferenceRule[impl]{\phi\lor\ddiamond{\alpha}{\ddiamond{\prepeat{\alpha}}{\phi}}}{\ddiamond{\prepeat{\alpha}}{\phi}}
+}{}
+\cinferenceRule[dgldual|{$\langle{}^d\rangle$}]{}
+{
+\linferenceRule[equiv]{\ddiamond{\pdual{\alpha}}{\phi}}{\neg\ddiamond{\alpha}{\neg\phi}}
+}{}
+\cinferenceRule[dglMon|M]{}
+{
+\linferenceRule[formula]{\phi\limply\psi}{\ddiamond{\alpha}{\phi}\limply\ddiamond{\alpha}{\psi}}
+}{}
+\cinferenceRule[dglfixpoint|FP]{}
+{
+\linferenceRule[formula]{\phi\lor\ddiamond{\alpha}{\psi} \limply \psi}{\ddiamond{\prepeat{\alpha}}{\phi} \to \psi}
+}{}
+    \end{calculus}
+  \end{calculuscollections}
+  \caption{Selected axioms for \dGL}
+  \label{fig:dgl-axioms}
+\end{figure}
+Axiom \irref{dglbox} says that the modalities $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ are dual to each other for arbitrary games $\alpha,$ whereas the axiom \irref{dgldual} says game 
+$\pdual{\alpha}$ is dual to $\alpha$.
+In practical proofs it is often easier to say that the $\pdual{\alpha}$ operation switches players and then plays $\alpha,$ e.g. the derived axiom:
+\[\ddiamond{\pdual{\alpha}}{\phi} \lequiv \dbox{\alpha}{\phi}\]
+Axiom \irref{dglassign} says assignments can be eliminated by substituting in the postcondition, while \irref{dglrandom} says random assignments can be converted to quantifiers.
+Axiom \irref{dglsolve} says that if there exists a function $y(t)$ which solves an ODE, then the ODE can be eliminated by substituting in $y(t)$.
+This axiom gives the case where there is no domain constraint because ODEs with domain constraints are derivable from those without them.
+The practicality of this axiom depends on the complexity of $y(t)$. 
+Especially when $y(t)$ is not a polynomial, it is preferable to reason with \emph{differential invariants}.
+Axiom \irref{dgltest} says a test passes when the test condition holds.
+Axiom \irref{dglchoice} says Angel chooses which game to play.
+Axiom \irref{dglcompose} says game $\alpha;\beta$ is played by playing $\alpha$ first, then $\beta$ in the resulting state.
+Axiom \irref{dgliter} says a repetition game can be played by choosing between playing zero rounds or playing some strategy for the first round followed by some strategy for the repetition.
+Axiom \irref{dglMon} says hybrid games satisfy monotonicity.
+Axiom \irref{dglfixpoint} says repetition $\prepeat{\alpha}$ is a fixpoint of $\alpha$.
+
+\chapter{Prior Work:  Logical Foundations}
+\label{ch:logical-foundations}
+\section{Formalization of dL in \Isabelle}
+\section{Definite Descriptions in dL}
+\label{sec:definite-description}
+
+\chapter{Prior Work:  End-to-End Robot Verification}
+\section{\VeriPhy Pipeline for End-to-End Verification}
+\label{sec:veriphy}
+\section{Case Study: End-to-End Ground Robotics Verification}
+\label{sec:ground-robotics}
+
+\chapter{Proposed Work: \CdGL: Constructive Differential Game Logic}
+\label{ch:cdgl}
+\chapter{Proposed Work: \ProofPlex: Proof-Directed Game Synthesis}
+\label{ch:proofplex}
+\chapter{Conclusion} 
+\section{Timeline}
+The timeline given below is from the time this document is completed (say, April 2019).
+Due to geographic issues, I expect to propose in early Fall (Sep 2019).
+If all goes according to plan, I intend to defend in late Spring 2020.
+I also intend to go on the academic job market Fall 2019.
+Realistically some of the time below will be spent on job searching.
+I have tried to make my timeline permissive enough to allow time for that.
+
+Total time: 13 months
+\begin{itemize}
+\item 1 month: Extend \dL formalization in Isabelle to support \dLi
+\item 1 month: Refine \KeYmaeraX to \Isabelle interface, ensure sufficient support for case study
+\item 4 months: Develop \CdGL theory
+\item 2 months: Implement \CdGL proof checking
+\item 2 months: Develop \ProofPlex implementation
+\item 1 month: Generalize ground robotics case study to \CdGL
+\item 2 months: Write thesis document
+\end{itemize}
+
+%\appendix
+
+\backmatter
+
+%\renewcommand{\bibsection}{\chapter{\bibname}}
+%\newcommand{\bibpreamble}{This text goes between the ``Bibliography''
+%  header and the actual list of references}
+%\bibliographystyle{plainnat}
+%\bibliography{proposal} %your bib file
+
+
+\end{document}
