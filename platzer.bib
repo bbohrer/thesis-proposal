@@ -1,0 +1,3189 @@
+@proceedings{DBLP:conf/cade/2018,
+  editor    = {Didier Galmiche and
+               Stephan Schulz and
+               Roberto Sebastiani},
+  title     = {Automated Reasoning - 9th International Joint Conference, {IJCAR}
+               2018, Held as Part of the Federated Logic Conference, FloC 2018, Oxford,
+               UK, July 14-17, 2018, Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {10900},
+  publisher = {Springer},
+  year      = {2018},
+  url       = {https://doi.org/10.1007/978-3-319-94205-6},
+  doi       = {10.1007/978-3-319-94205-6},
+  isbn      = {978-3-319-94204-9},
+  timestamp = {Mon, 09 Jul 2018 12:59:13 +0200},
+  biburl    = {https://dblp.org/rec/bib/conf/cade/2018},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@MISC{Platzer_2004,
+  author    = {Andr{\'e} Platzer},
+  title     = {Using a Program Verification Calculus for
+               Constructing Specifications from
+               Implementations},
+  howpublished = {Minor thesis,
+        University of Karlsruhe, Department of Computer
+        Science. Institute for Logic, Complexity and
+        Deduction Systems},
+  OPTmonth  = {Feb},
+  year      = {2004},
+  school    = {University of Karlsruhe, Department of
+               Computer Science. Institute for Logic,
+               Complexity and Deduction Systems},
+  pages     = {83},
+  abstract  = {
+    In this thesis we examine the possibility of
+    automatically constructing the program specification
+    from an implementation, both from a theoretical
+    perspective and as a practical approach with a sequent
+    calculus. As a setting for program specifications we
+    choose dynamic logic for the Java programming language.
+    We show that---despite the undecidable nature of
+    program analysis---the strongest specification of any
+    program can always be constructed algorithmically.
+    Further we outline a practical approach embedded into a
+    sequent calculus for dynamic logic and with a higher
+    focus on readability. Therefor, the central aspect of
+    describing unbounded state changes incorporates the
+    concept of modifies lists for expressing the modifiable
+    portion of the state space. The underlying deductions
+    are carried out by the theorem prover of the KeY
+    System.
+    },
+  pdf = {http://symbolaris.com/logic/Minoranthe.pdf},
+}
+@MASTERSTHESIS{Platzer_2004b,
+  author    = {Andr{\'e} Platzer},
+  title     = {An Object-oriented Dynamic Logic with
+               Updates},
+  school    = {University of Karlsruhe, Department of
+               Computer Science. Institute for Logic,
+               Complexity and Deduction Systems},
+  year      = {2004},
+  OPTmonth  = {Sep},
+  pages     = {193},
+  abstract  = {
+    With the goal of this thesis being to create a dynamic
+    logic for object-oriented languages, ODL is developed
+    along with a sound and relatively complete calculus.
+    The dynamic logic contains only the absolute logical
+    essentials of object-orientation, yet still allows a
+    ``natural'' representation of all other features of
+    common object-oriented programming languages. ODL is an
+    extension of a dynamic logic for imperative While
+    programs by function modification and dynamic type
+    checks. A generalisation of substitutions, called
+    updates, constitute the central technical device for
+    dealing with object aliasing arising from function
+    modification and for retaining a manageable calculus in
+    practical application scenarios. Further, object
+    enumerators realise object creation in a natural yet
+    powerful way. Finally, completeness is proven relative
+    to first-order arithmetic. Along with the soundness
+    result, this proof constitutes the central part of this
+    thesis and even copes with states containing
+    uncomputable functions.},
+  pdf = {http://i12www.ira.uka.de/~key/doc/2004/odlMasterThesis.pdf},
+}
+@INPROCEEDINGS{DBLP:conf/cade/BeckertP06,
+  author    = {Bernhard Beckert and
+               Andr{\'e} Platzer},
+  title     = {Dynamic Logic with Non-rigid Functions:
+               A Basis for Object-oriented Program
+               Verification.},
+  booktitle = {IJCAR},
+  longbooktitle = {Automated Reasoning, Third International
+               Joint Conference, IJCAR 2006, Seattle, WA,
+               USA, Proceedings},
+  year      = {2006},
+  pages     = {266-280},
+  doi       = {10.1007/11814771_23},
+  editor    = {Ulrich Furbach and
+               Natarajan Shankar},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {4130},
+  isbn      = {3-540-37187-7},
+  issn      = {0302-9743},
+  subseries = {LNAI},
+  keywords  = {dynamic logic, sequent calculus, program
+               logic, software verification, logical
+               foundations of programming languages,
+               object-orientation},
+  abstract = {
+    We introduce a dynamic logic that is enriched by
+    non-rigid functions, i.e., functions that may change
+    their value from state to state (during program
+    execution), and we present a (relatively) complete
+    sequent calculus for this logic. In conjunction with
+    dynamically typed object enumerators, non-rigid
+    functions allow to embed notions of object-orientation
+    in dynamic logic, thereby forming a basis for
+    verification of object-oriented programs. A semantical
+    generalisation of substitutions, called state update,
+    which we add to the logic, constitutes the central
+    technical device for dealing with object aliasing
+    during function modification. With these few
+    extensions, our dynamic logic captures the essential
+    aspects of the complex verification system KeY and,
+    hence, constitutes a foundation for object-oriented
+    verification with the principles of reasoning that
+    underly the successful KeY case studies.},
+}
+@INPROCEEDINGS{DBLP:journals/entcs/Platzer07,
+  author    = {Andr{\'e} Platzer},
+  title     = {Towards a Hybrid Dynamic Logic for Hybrid
+               Dynamic Systems},
+  booktitle = {International Workshop on Hybrid Logic,
+               HyLo'06, Seattle, USA, Proceedings},
+  year      = {2007},
+  editor    = {Patrick Blackburn and
+               Thomas Bolander and
+               Torben Bra\"{u}ner and
+               Valeria de Paiva and
+               J{\o}rgen Villadsen},
+  series    = {ENTCS},
+  journal   = {Electr. Notes Theor. Comput. Sci.},
+  issn      = {1571-0661},
+  volume    = {174},
+  number    = {6},
+  month     = {Jun},
+  pages     = {63-77},
+  doi       = {10.1016/j.entcs.2006.11.026},
+  pdf       = {http://symbolaris.com/pub/hdL.pdf},
+  keywords  = {hybrid logic, dynamic logic, sequent
+               calculus, compositional verification,
+               real-time hybrid dynamic systems},
+  abstract  = {
+    We introduce a hybrid variant of a dynamic logic with
+    continuous state transitions along differential
+    equations, and we present a sequent calculus for this
+    extended hybrid dynamic logic. With the addition of
+    satisfaction operators, this hybrid logic provides
+    improved system introspection by referring to
+    properties of states during system evolution. In
+    addition to this, our calculus introduces state-based
+    reasoning as a paradigm for delaying expansion of
+    transitions using nominals as symbolic state labels.
+    With these extensions, our hybrid dynamic logic
+    advances the capabilities for compositional reasoning
+    about (semialgebraic) hybrid dynamic systems. Moreover,
+    the constructive reasoning support for goal-oriented
+    analytic verification of hybrid dynamic systems carries
+    over from the base calculus to our extended calculus.},
+}
+@INPROCEEDINGS{DBLP:journals/entcs/KemperP07,
+  author    = {Stephanie Kemper and
+               Andr{\'e} Platzer},
+  title     = {{SAT}-based Abstraction Refinement for
+               Real-time Systems},
+  booktitle = {Formal Aspects of Component Software, Third
+               International Workshop, FACS 2006, Prague,
+               Czech Republic, Proceedings},
+  year      = {2007},
+  editor    = {Frank S. de Boer and Vladimir Mencl},
+  journal   = {Electr. Notes Theor. Comput. Sci.},
+  volume    = {182},
+  series    = {ENTCS},
+  issn      = {1571-0661},
+  pages     = {107-122},
+  doi       = {10.1016/j.entcs.2006.09.034},
+  annote    = {Appeared as UNU-IIST Report No.~344
+    \url{http://www.iist.unu.edu/newrh/III/1/docs/techreports/report344.html}},
+  keywords = {abstraction refinement, model checking,
+              real-time systems, SAT, Craig interpolation},
+  abstract = {
+   In this paper, we present an abstraction refinement
+   approach for model checking safety properties of
+   real-time systems using SAT-solving. We present a
+   faithful embedding of bounded model checking for systems
+   of timed automata into propositional logic with linear
+   arithmetic and prove correctness. With this logical
+   representation, we achieve a linear-size representation
+   of parallel composition and introduce a quick
+   abstraction technique that works uniformly for clocks,
+   events, and states. When necessary, abstractions are
+   refined by analysing spurious counterexamples using a
+   promising extension of counterexample-guided abstraction
+   refinement with syntactic information about Craig
+   interpolants. To support generalisations, our overall
+   approach identifies the algebraic and logical principles
+   required for logic-based abstraction refinement.}
+}
+@INPROCEEDINGS{DBLP:conf/hybrid/Platzer07,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Logic for Reasoning about
+               Hybrid Systems},
+  booktitle = {HSCC},
+  longbooktitle = {Hybrid Systems: Computation and Control,
+               10th International Conference, HSCC 2007,
+               Pisa, Italy, Proceedings},
+  year      = {2007},
+  pages     = {746-749},
+  doi       = {10.1007/978-3-540-71493-4_75},
+  editor    = {Alberto Bemporad and
+               Antonio Bicchi and
+               Giorgio Buttazzo},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {4416},
+  isbn      = {978-3-540-71492-7},
+  keywords  = {dynamic logic, hybrid systems, parametric
+               verification},
+  abstract  = {
+    We propose a first-order dynamic logic for reasoning
+    about hybrid systems. As a uniform model for discrete
+    and continuous evolutions in hybrid systems, we
+    introduce hybrid programs with differential actions.
+    Our logic can be used to specify and verify correctness
+    statements about hybrid programs, which are suitable
+    for symbolic processing by calculus rules. Using
+    first-order variables, our logic supports systems with
+    symbolic parameters. With dynamic modalities, it is
+    prepared to handle multiple system components.}
+}
+@INPROCEEDINGS{DBLP:conf/hybrid/PlatzerC07,
+  author    = {Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {The Image Computation Problem in Hybrid
+               Systems Model Checking},
+  booktitle = {HSCC},
+  longbooktitle = {Hybrid Systems: Computation and Control,
+               10th International Conference, HSCC 2007,
+               Pisa, Italy, Proceedings},
+  year      = {2007},
+  pages     = {473-486},
+  doi       = {10.1007/978-3-540-71493-4_37},
+  editor    = {Alberto Bemporad and
+               Antonio Bicchi and
+               Giorgio Buttazzo},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {4416},
+  isbn      = {978-3-540-71492-7},
+  keywords  = {model checking, hybrid systems, image
+               computation},
+  abstract  = {
+    In this paper, we analyze limits of approximation
+    techniques for (non-linear) continuous image
+    computation in model checking hybrid systems. In
+    particular, we show that even a single step of
+    continuous image computation is not semidecidable
+    numerically even for a very restricted class of
+    functions. Moreover, we show that symbolic insight
+    about derivative bounds provides sufficient additional
+    information for approximation refinement model
+    checking. Finally, we prove that purely numerical
+    algorithms can perform continuous image computation
+    with arbitrarily high probability. Using these results,
+    we analyze the prerequisites for a safe operation of
+    the roundabout maneuver in air traffic collision
+    avoidance.},
+}
+@INPROCEEDINGS{DBLP:conf/lfcs/Platzer07,
+  author    = {Andr{\'e} Platzer},
+  title     = {A Temporal Dynamic Logic for Verifying
+               Hybrid System Invariants},
+  booktitle = {LFCS},
+  longbooktitle = {Logical Foundations of Computer Science,
+               5th International Symposium, LFCS'07, New
+               York, USA, June 4-7, 2007, Proceedings},
+  year      = {2007},
+  pages     = {457-471},
+  doi       = {10.1007/978-3-540-72734-7_32},
+  editor    = {Sergei N. Art{\"e}mov and
+               Anil Nerode},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {4514},
+  isbn      = {978-3-540-72732-3},
+  keywords  = {dynamic logic, temporal logic, sequent
+               calculus, logic for hybrid systems,
+               deductive verification of embedded systems},
+  abstract  = {
+    We combine first-order dynamic logic for reasoning
+    about possible behaviour of hybrid systems with
+    temporal logic for reasoning about the temporal
+    behaviour during their operation. Our logic supports
+    verification of hybrid programs with first-order
+    definable flows and provides a uniform treatment of
+    discrete and continuous evolution. For our combined
+    logic, we generalise the semantics of dynamic
+    modalities to refer to hybrid traces instead of final
+    states. Further, we prove that this gives a
+    conservative extension of dynamic logic. On this basis,
+    we provide a modular verification calculus that reduces
+    correctness of temporal behaviour of hybrid systems to
+    non-temporal reasoning. Using this calculus, we analyse
+    safety invariants in a train control system and
+    symbolically synthesise parametric safety constraints.
+  }
+}
+@TECHREPORT{DBLP:conf/lfcs/Platzer07:TR,
+  author    = {Andr{\'e} Platzer},
+  title     = {A Temporal Dynamic Logic for Verifying
+               Hybrid System Invariants},
+  number    = {12},
+  year      = {2007},
+  month     = {Feb},
+  editor    = {Bernd Becker and
+               Werner Damm and
+               Martin Fr{\"a}nzle and
+               Ernst-R{\"u}diger Olderog and
+               Andreas Podelski and
+               Reinhard Wilhelm},
+  institution = {Reports of {SFB/TR~14 AVACS}},
+  OPTtype     = {Reports of {SFB/TR~14 AVACS}},
+  series    = {ATR},
+  note      = {ISSN: 1860-9821, http://www.avacs.org.},
+  pdf={http://www.avacs.org/Publikationen/Open/avacs_technical_report_012.pdf},
+}
+@INPROCEEDINGS{Platzer2007Dagstuhl,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Logic for Hybrid System
+               Verification -- Reasoning about Interacting
+               Discrete and Continuous Change},
+  booktitle = {Dagstuhl ``zehn plus eins'' -- Zehn
+        Informatik-Graduiertenkollegs und ein
+        Informatik-Forschungskolleg stellen sich vor},
+  year      = {2007},
+  pages     = {80},
+  address   = {Aachen},
+  month     = {Jun},
+  publisher = {Verlagshaus Mainz}
+}
+@INPROCEEDINGS{DBLP:conf/tableaux/Platzer07,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Dynamic Logic for Verifying
+               Parametric Hybrid Systems.},
+  booktitle = {TABLEAUX},
+  longbooktitle = {Automated Reasoning with Analytic
+               Tableaux and Related Methods, 16th
+               International Conference, TABLEAUX 2007,
+               Aix en Provence, France, July 3-6, 2007,
+               Proceedings},
+  year      = {2007},
+  pages     = {216-232},
+  doi       = {10.1007/978-3-540-73099-6_17},
+  editor    = {Nicola Olivetti},
+  volume    = {4548},
+  series    = {LNCS},
+  publisher = {Springer},
+  isbn      = {978-3-540-73098-9},
+  keywords  = {dynamic logic, sequent calculus,
+               verification of parametric hybrid systems,
+               quantifier elimination},
+  abstract  = {
+    We introduce a first-order dynamic logic for reasoning
+    about systems with discrete and continuous state
+    transitions, and we present a sequent calculus for this
+    logic. As a uniform model, our logic supports hybrid
+    programs with discrete and differential actions. For
+    handling real arithmetic during proofs, we lift
+    quantifier elimination to dynamic logic. To obtain a
+    modular combination, we use side deductions for
+    verifying interacting dynamics. With this, our logic
+    supports deductive verification of hybrid systems with
+    symbolic parameters and first-order definable flows.
+    Using our calculus, we prove a parametric inductive
+    safety constraint for speed supervision in a train
+    control system.}
+}
+@TECHREPORT{DBLP:conf/tableaux/Platzer07:TR,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Dynamic Logic for Verifying
+               Parametric Hybrid Systems.},
+  number    = {15},
+  year      = {2007},
+  month     = {May},
+  editor    = {Bernd Becker and
+               Werner Damm and
+               Martin Fr{\"a}nzle and
+               Ernst-R{\"u}diger Olderog and
+               Andreas Podelski and
+               Reinhard Wilhelm},
+  institution = {Reports of {SFB/TR~14 AVACS}},
+  OPTtype     = {Reports of {SFB/TR~14 AVACS}},
+  series    = {ATR},
+  note      = {ISSN: 1860-9821, http://www.avacs.org.},
+  pdf={http://www.avacs.org/Publikationen/Open/avacs_technical_report_015.pdf},
+}
+@INPROCEEDINGS{DBLP:conf/verify/Platzer07,
+  author    = {Andr{\'e} Platzer},
+  title     = {Combining Deduction and Algebraic
+               Constraints for Hybrid System Analysis.},
+  booktitle = {VERIFY'07 at CADE, Bremen, Germany},
+  longbooktitle = {4th International Verification Workshop
+               VERIFY'07, at CADE-21, Bremen, Germany, July
+               15-16, 2007},
+  year      = {2007},
+  pages     = {164-178},
+  editor    = {Bernhard Beckert},
+  volume    = {259},
+  publisher = {CEUR-WS.org},
+  series    = {CEUR Workshop Proceedings},
+  issn      = {1613-0073},
+  pdf       = {http://ceur-ws.org/Vol-259/paper14.pdf},
+  keywords  = {modular prover combination, analytic
+               tableaux, verification of hybrid systems,
+               dynamic logic},
+  abstract  = {
+    We show how theorem proving and methods for handling
+    real algebraic constraints can be combined for hybrid
+    system verification. In particular, we highlight the
+    interaction of deductive and algebraic reasoning that
+    is used for handling the joint discrete and continuous
+    behaviour of hybrid systems. We illustrate proof tasks
+    that occur when verifying scenarios with cooperative
+    traffic agents. From the experience with these
+    examples, we analyse proof strategies for dealing with
+    the practical challenges for integrated algebraic and
+    deductive verification of hybrid systems, and we
+    propose an iterative background closure strategy.}
+}
+@INPROCEEDINGS{DBLP:conf/birthday/DammMOOPPSW07,
+  author    = {Werner Damm and
+               Alfred Mikschl and
+               Jens Oehlerking and
+               Ernst-R{\"u}diger Olderog and
+               Jun Pang and
+               Andr{\'e} Platzer and
+               Marc Segelken and
+               Boris Wirtz},
+  title     = {Automating Verification of Cooperation,
+               Control, and Design in Traffic
+               Applications},
+  booktitle = {Formal Methods and Hybrid Real-Time
+               Systems},
+  longbooktitle = {Formal Methods and Hybrid Real-Time
+               Systems, Essays in Honor of Dines Bj{\o}rner
+               and Chaochen Zhou on the Occasion of Their
+               70th Birthdays},
+  year      = {2007},
+  pages     = {115-169},
+  doi       = {10.1007/978-3-540-75221-9_6},
+  editor    = {Cliff B. Jones and
+               Zhiming Liu and
+               Jim Woodcock},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {4700},
+  isbn      = {978-3-540-75220-2},
+  keywords  = {},
+  abstract  = {
+    We present a verification methodology for cooperating
+    traffic agents covering analysis of cooperation
+    strategies, realization of strategies through control,
+    and implementation of control. For each layer, we
+    provide dedicated approaches to formal verification of
+    safety and stability properties of the design. The
+    range of employed verification techniques invoked to
+    span this verification space includes application of
+    pre-verified design patterns, automatic synthesis of
+    Lyapunov functions, constraint generation for
+    parameterized designs, model-checking in rich theories,
+    and abstraction refinement. We illustrate this approach
+    with a variant of the European Train Control System
+    (ETCS), employing layer specific verification
+    techniques to layer specific views of an ETCS design.},
+}
+@ARTICLE{DBLP:journals/jar/Platzer08,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Dynamic Logic for Hybrid
+               Systems.},
+  journal   = {J. Autom. Reas.},
+  longjournal = {Journal of Automated Reasoning},
+  year      = {2008},
+  volume    = {41},
+  number    = {2},
+  pages     = {143-189},
+  doi       = {10.1007/s10817-008-9103-8},
+  issn      = {0168-7433},
+  keywords  = {dynamic logic, differential equations,
+               sequent calculus, axiomatisation, automated
+               theorem proving, verification of hybrid
+               systems},
+  abstract  = {
+    Hybrid systems are models for complex physical systems
+    and are defined as dynamical systems with interacting
+    discrete transitions and continuous evolutions along
+    differential equations. With the goal of developing a
+    theoretical and practical foundation for deductive
+    verification of hybrid systems, we introduce a dynamic
+    logic for hybrid programs, which is a program notation
+    for hybrid systems. As a verification technique that is
+    suitable for automation, we introduce a free variable
+    proof calculus with a novel combination of real-valued
+    free variables and Skolemisation for lifting quantifier
+    elimination for real arithmetic to dynamic logic. The
+    calculus is compositional, i.e., it reduces properties
+    of hybrid programs to properties of their parts. Our
+    main result proves that this calculus axiomatises the
+    transition behaviour of hybrid systems completely
+    relative to differential equations. In a case study
+    with cooperating traffic agents of the European Train
+    Control System, we further show that our calculus is
+    well-suited for verifying realistic hybrid systems with
+    parametric system dynamics.
+  }
+}
+@INPROCEEDINGS{DBLP:conf/hybrid/PlatzerQ08,
+  author    = {Andr{\'e} Platzer and
+               Jan-David Quesel},
+  title     = {Logical Verification and Systematic
+               Parametric Analysis in Train Control.},
+  booktitle = {HSCC},
+  longbooktitle = {Hybrid Systems: Computation and Control,
+               10th International Conference, HSCC 2008,
+               St. Louis, USA, Proceedings},
+  year      = {2008},
+  pages     = {646-649},
+  doi       = {10.1007/978-3-540-78929-1_55},
+  editor    = {Magnus Egerstedt and
+               Bud Mishra},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {4981},
+  isbn      = {978-3-540-78928-4},
+  keywords  = {parametric verification, logic for hybrid
+               systems, symbolic decomposition},
+  abstract  = {
+    We formally verify hybrid safety properties of
+    cooperation protocols in a fully parametric version of
+    the European Train Control System (ETCS). We present a
+    formal model using hybrid programs and verify
+    correctness using our logic-based decomposition
+    procedure. This procedure supports free parameters and
+    parameter discovery, which is required to determine
+    correct design choices for free parameters of ETCS.}
+}
+@ARTICLE{DBLP:journals/logcom/Platzer10,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential-algebraic Dynamic Logic for
+               Differential-algebraic Programs},
+  journal   = {J. Log. Comput.},
+  longjournal = {Journal of Logic and Computation},
+  year      = {2010},
+  volume    = {20},
+  number    = {1},
+  pages     = {309-352},
+  note      = {Advance Access published on November 18,
+               2008},
+  doi       = {10.1093/logcom/exn070},
+  keywords  = {dynamic logic, differential constraints,
+               sequent calculus, verification of hybrid
+               systems, differential induction,
+               theorem proving},
+  abstract  = {
+    We generalise dynamic logic to a logic for
+    differential-algebraic programs, i.e., discrete
+    programs augmented with first-order
+    differential-algebraic formulas as continuous evolution
+    constraints in addition to first-order discrete jump
+    formulas. These programs characterise interacting
+    discrete and continuous dynamics of hybrid systems
+    elegantly and uniformly. For our logic, we introduce a
+    calculus over real arithmetic with discrete induction
+    and a new differential induction with which
+    differential-algebraic programs can be verified by
+    exploiting their differential constraints algebraically
+    without having to solve them. We develop the theory of
+    differential induction and differential refinement and
+    analyse their deductive power. As a case study, we
+    present parametric tangential roundabout maneuvers in
+    air traffic control and prove collision avoidance in
+    our calculus.},
+}
+@TECHREPORT{DBLP:conf/cav/PlatzerC08:TR,
+  author    = {Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Computing Differential Invariants of Hybrid
+               Systems as Fixedpoints},
+  number    = {CMU-CS-08-103},
+  year      = {2008},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2008/CMU-CS-08-103.pdf}
+}
+@INPROCEEDINGS{Platzer2008Dagstuhl,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Dynamic Logics. Automated
+               Theorem Proving for Hybrid Systems},
+  booktitle = {Proceedings des gemeinsamen Workshops der
+               Graduiertenkollegs 2008, Dagstuhl},
+  year      = {2008},
+  editor    = {Malte Diehl and
+               Henrik Lipskoch and
+               Roland Meyer and
+               Christian Storm},
+  series    = {Trustworthy Software Systems},
+  pages     = {29},
+  address   = {Berlin},
+  month     = {may},
+  publisher = {Gito Verlag},
+  isbn      = {978-3-940019-39-4},
+  location  = {May 19--21, 2008, Dagstuhl, Germany}
+}
+@INPROCEEDINGS{DBLP:conf/cav/PlatzerC08,
+  author    = {Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Computing Differential Invariants of Hybrid
+               Systems as Fixedpoints},
+  booktitle = {CAV},
+  longbooktitle = {Computer Aided Verification, 20th
+               International Conference, CAV 2008,
+               Princeton, NJ, USA, July 7-14, 2008,
+               Proceedings},
+  year      = {2008},
+  pages     = {176-189},
+  month     = {},
+  editor    = {Aarti Gupta and
+               Sharad Malik},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {5123},
+  isbn      = {978-3-540-70543-7},
+  doi       = {10.1007/978-3-540-70545-1_17},
+  keywords  = {verification of hybrid systems,
+               differential invariants, verification logic,
+               fixedpoint engine},
+  abstract  = {
+    We introduce a fixedpoint algorithm for verifying
+    safety properties of hybrid systems with differential
+    equations whose right-hand sides are polynomials in the
+    state variables. In order to verify nontrivial systems
+    without solving their differential equations and
+    without numerical errors, we use a continuous
+    generalization of induction, for which our algorithm
+    computes the required differential invariants. As a
+    means for combining local differential invariants into
+    global system invariants in a sound way, our fixedpoint
+    algorithm works with a compositional verification logic
+    for hybrid systems. To improve the verification power,
+    we further introduce a saturation procedure that
+    refines the system dynamics successively with
+    differential invariants until safety becomes provable.
+    By complementing our symbolic verification algorithm
+    with a robust version of numerical falsification, we
+    obtain a fast and sound verification procedure. We
+    verify roundabout maneuvers in air traffic management
+    and collision avoidance in train control.}
+}
+@INPROCEEDINGS{DBLP:conf/cade/PlatzerQ08,
+  author    = {Andr{\'e} Platzer and
+               Jan-David Quesel},
+  title     = {{KeYmaera}: A Hybrid Theorem Prover for
+               Hybrid Systems.},
+  booktitle = {IJCAR},
+  longbooktitle = {Automated Reasoning, Fourth
+               International Joint Conference, IJCAR 2008,
+               Sydney, Australia, Proceedings},
+  year      = {2008},
+  pages     = {171-178},
+  editor    = {Alessandro Armando and
+               Peter Baumgartner and
+               Gilles Dowek},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {5195},
+  isbn      = {978-3-540-71069-1},
+  issn      = {0302-9743},
+  subseries = {LNAI},
+  doi       = {10.1007/978-3-540-71070-7_15},
+  keywords  = {dynamic logic, automated theorem proving,
+               decision procedures, computer algebra,
+               verification of hybrid systems},
+  abstract  = {
+    KeYmaera is a hybrid verification tool for hybrid
+    systems that combines deductive, real algebraic, and
+    computer algebraic prover technologies. It is an
+    automated and interactive theorem prover for a natural
+    specification and verification logic for hybrid
+    systems. KeYmaera supports differential dynamic logic,
+    which is a real-valued first-order dynamic logic for
+    hybrid programs, a program notation for hybrid
+    automata. For automating the verification process,
+    KeYmaera implements a generalized free-variable sequent
+    calculus and automatic proof strategies that decompose
+    the hybrid system specification symbolically. To
+    overcome the complexity of real arithmetic, we
+    integrate real quantifier elimination following an
+    iterative background closure strategy. Our tool is
+    particularly suitable for verifying parametric hybrid
+    systems and has been used successfully for verifying
+    collision avoidance in case studies from train control
+    and air traffic management.}
+}
+@PHDTHESIS{Platzer08,
+  author  = {Andr{\'e} Platzer},
+  title   = {Differential Dynamic Logics:
+             Automated Theorem Proving for Hybrid Systems},
+  school  = {Department of Computing Science,
+             University of Oldenburg},
+  year    = {2008},
+  pages   = {299},
+}
+@INPROCEEDINGS{ClarkeKPR08,
+  author    = {Edmund M. Clarke and
+               Bruce Krogh and
+               Andr{\'e} Platzer and
+               Raj Rajkumar},
+  title     = {Analysis and Verification Challenges for
+               Cyber-Physical Transportation Systems},
+  year      = {2008},
+  booktitle = {NITRD National Workshop for Research on
+               Transportation Cyber-Physical Systems:
+               Automotive, Aviation, and Rail},
+  pdf =
+{http://www.ee.washington.edu/research/nsl/aar-cps/AndrePlatzer-20081020163241.pdf},
+  abstract  = {
+    Substantial technological and engineering advances in
+    various disciplines make it possible more than ever
+    before to provide autonomous control choices for cars,
+    trains, and aircraft. Correct automatic control can
+    improve overall safety tremendously. Yet, ensuring a
+    safe operation of those control assistants under all
+    circumstances requires analysis techniques that are
+    prepared for the rising complexity resulting from
+    combinations of several computerized safety measures.
+    We identify cases where cyber-physical transportation
+    systems pose particularly demanding challenges for
+    future research in formal analysis techniques.}
+}
+@ARTICLE{DBLP:journals/fmsd/PlatzerC09,
+  author    = {Andr{\'e} Platzer and Edmund M. Clarke},
+  title     = {Computing Differential Invariants of Hybrid
+               Systems as Fixedpoints},
+  journal   = {Form. Methods Syst. Des.},
+  longjournal = {Formal Methods in System Design},
+  year      = {2009},
+  volume    = {35},
+  number    = {1},
+  pages     = {98-120},
+  doi       = {10.1007/s10703-009-0079-8},
+  keywords  = {verification of hybrid systems,
+               differential invariants, verification logic,
+               fixedpoint engine},
+  abstract  = {
+    We introduce a fixedpoint algorithm for verifying
+    safety properties of hybrid systems with differential
+    equations whose right-hand sides are polynomials in the
+    state variables. In order to verify nontrivial systems
+    without solving their differential equations and
+    without numerical errors, we use a continuous
+    generalization of induction, for which our algorithm
+    computes the required differential invariants. As a
+    means for combining local differential invariants into
+    global system invariants in a sound way, our fixedpoint
+    algorithm works with a compositional verification logic
+    for hybrid systems. With this compositional approach we
+    exploit locality in system designs. To improve the
+    verification power, we further introduce a saturation
+    procedure that refines the system dynamics successively
+    with differential invariants until safety becomes
+    provable. By complementing our symbolic verification
+    algorithm with a robust version of numerical
+    falsification, we obtain a fast and sound verification
+    procedure. We verify roundabout maneuvers in air
+    traffic management and collision avoidance in train
+    control and car control.}
+}
+@INPROCEEDINGS{DBLP:conf/cade/PlatzerQR09,
+  author    = {Andr{\'e} Platzer and
+               Jan-David Quesel and
+               Philipp R{\"u}mmer},
+  title     = {Real World Verification},
+  booktitle = {CADE},
+  longbooktitle = {International Conference on Automated
+               Deduction, CADE'09, Montreal, Canada,
+               Proceedings},
+  year      = {2009},
+  pages     = {485-501},
+  editor    = {Renate A. Schmidt},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {5663},
+  doi       = {10.1007/978-3-642-02959-2_35},
+  keywords  = {real-closed fields, decision procedures,
+               hybrid systems, software verification},
+  abstract  = {
+    Scalable handling of real arithmetic is a crucial part
+    of the verification of hybrid systems, mathematical
+    algorithms, and mixed analog/digital circuits. Despite
+    substantial advances in verification technology,
+    complexity issues with classical decision procedures
+    are still a major obstacle for formal verification of
+    real-world applications, e.g., in automotive and
+    avionic industries. To identify strengths and
+    weaknesses, we examine state of the art symbolic
+    techniques and implementations for the universal
+    fragment of real-closed fields: approaches based on
+    quantifier elimination, Gr\"obner Bases, and
+    semidefinite programming for the Positivstellensatz.
+    Within a uniform context of the verification tool
+    KeYmaera, we compare these approaches qualitatively and
+    quantitatively on verification benchmarks from hybrid
+    systems, textbook algorithms, and on geometric
+    problems. Finally, we introduce a new decision
+    procedure combining Gr\"obner Bases and semidefinite
+    programming for the real Nullstellensatz that
+    outperforms the individual approaches on an interesting
+    set of problems.}
+}
+@ARTICLE{DBLP:journals/ki/Platzer10,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Dynamic Logics:
+               Automated Theorem Proving for Hybrid
+               Systems},
+  journal   = {K\"unstliche Intelligenz},
+  year      = {2010},
+  volume    = {24},
+  number    = {1},
+  doi       = {10.1007/s13218-010-0014-6},
+  pages     = {75-77},
+  issn      = {0933-1875},
+  abstract  = {
+    Designing and analyzing hybrid systems, which are
+    models for complex physical systems, is expensive and
+    error-prone. The dissertation presented in this article
+    introduces a verification logic that is suitable for
+    analyzing the behavior of hybrid systems. It presents a
+    proof calculus and a new deductive verification tool
+    for hybrid systems that has been used successfully to
+    verify aircraft and train control.}
+}
+@TECHREPORT{DBLP:conf/cmsb/JhaCLLPZ09:TR,
+  author    = {Sumit Kumar Jha and
+               Edmund Clarke and
+               Christopher Langmead and
+               Axel Legay and
+               Andr{\'e} Platzer and
+               Paolo Zuliani},
+  title     = {Statistical Model Checking for Complex
+               Stochastic Models in Systems Biology},
+  number    = {CMU-CS-09-110},
+  year      = {2009},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2009/CMU-CS-09-110.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/cmsb/JhaCLLPZ09,
+  author    = {Sumit Kumar Jha and
+               Edmund Clarke and
+               Christopher Langmead and
+               Axel Legay and
+               Andr{\'e} Platzer and
+               Paolo Zuliani},
+  title     = {A {Bayesian} Approach to Model Checking
+               Biological Systems},
+  booktitle = {CMSB},
+  year      = {2009},
+  pages     = {218-234},
+  editor    = {Pierpaolo Degano and
+               Roberto Gorrieri},
+  longbooktitle = {Computational Methods in Systems
+               Biology, 7th International Conference, CMSB
+               2009, Bologna, Italy, Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {5688},
+  doi       = {10.1007/978-3-642-03845-7_15},
+  abstract  = {
+    Recently, there has been considerable interest in the
+    use of Model Checking for Systems Biology.
+    Unfortunately, the state space of stochastic biological
+    models is often too large for classical Model Checking
+    techniques. For these models, a statistical approach to
+    Model Checking has been shown to be an effective
+    alternative. Extending our earlier work, we present the
+    first algorithm for performing statistical Model
+    Checking using Bayesian Sequential Hypothesis Testing.
+    We show that our Bayesian approach outperforms current
+    statistical Model Checking techniques, which rely on
+    tests from Classical (aka Frequentist) statistics, by
+    requiring fewer system simulations. Another advantage
+    of our approach is the ability to incorporate prior
+    Biological knowledge about the model being verified. We
+    demonstrate our algorithm on a variety of models from
+    the Systems Biology literature and show that it enables
+    faster verification than state-of-the-art techniques,
+    even when no prior knowledge is available.}
+}
+@TECHREPORT{DBLP:conf/cade/PlatzerQR09:TR,
+  author    = {Andr{\'e} Platzer and
+               Jan-David Quesel and
+               Philipp R{\"u}mmer},
+  title     = {Real World Verification},
+  number    = {52},
+  year      = {2009},
+  month     = {Jun},
+  editor    = {Bernd Becker and
+               Werner Damm and
+               Martin Fr{\"a}nzle and
+               Ernst-R{\"u}diger Olderog and
+               Andreas Podelski and
+               Reinhard Wilhelm},
+  institution = {Reports of {SFB/TR~14 AVACS}},
+  OPTtype      = {Reports of {SFB/TR~14 AVACS}},
+  series    = {ATR},
+  note      = {ISSN: 1860-9821, http://www.avacs.org.},
+  pdf={http://www.avacs.org/Publikationen/Open/avacs_technical_report_052.pdf},
+}
+@ARTICLE{DBLP:journals/expert/Platzer09,
+  author    = {Andr{\'e} Platzer},
+  title     = {Verification of Cyberphysical Transportation
+               Systems},
+  journal   = {IEEE Intelligent Systems},
+  volume    = {24},
+  number    = {4},
+  year      = {2009},
+  pages     = {10-13},
+  doi       = {10.1109/MIS.2009.81},
+  issn      = {1541-1672},
+  keywords  = {cyber-physical transportation systems,
+               train control, air traffic control,
+               logic-based analysis, verification},
+  abstract  = {
+    Cyberphysical system technology has an important share
+    in modern intelligent transportation systems, including
+    next generation flight, rail, and car control. This
+    control technology is intended to help improve
+    performance objectives like throughput and improve
+    overall system safety. To ensure that these
+    transportation systems operate correctly, new analysis
+    techniques are needed that consider physical movement
+    combined with computational control to establish
+    properties like collision freedom. Logic-based analysis
+    can verify the correct functioning of these
+    cyberphysical systems.}
+}
+@INPROCEEDINGS{DBLP:conf/fm/PlatzerC09,
+  author    = {Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Formal Verification of Curved Flight
+               Collision Avoidance Maneuvers:
+               A Case Study},
+  booktitle = {FM},
+  year      = {2009},
+  pages     = {547-562},
+  doi       = {10.1007/978-3-642-05089-3_35},
+  editor    = {Ana Cavalcanti and
+               Dennis Dams},
+  longbooktitle = {FM 2009: Formal Methods, 16th
+               International Symposium on Formal Methods,
+               Eindhoven, Netherlands, November 2-6, 2009,
+               Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {5850},
+  keywords  = {formal verification of hybrid systems,
+               deduction, air traffic control,
+               logic for hybrid systems},
+  abstract  = {
+    Aircraft collision avoidance maneuvers are important
+    and complex applications. Curved flight exhibits
+    nontrivial continuous behavior. In combination with the
+    control choices during air traffic maneuvers, this
+    yields hybrid systems with challenging interactions of
+    discrete and continuous dynamics. As a case study
+    illustrating the use of a new proof assistant for a
+    logic for nonlinear hybrid systems, we analyze
+    collision freedom of roundabout maneuvers in air
+    traffic control, where appropriate curved flight, good
+    timing, and compatible maneuvering are crucial for
+    guaranteeing safe spatial separation of aircraft
+    throughout their flight. We show that formal
+    verification of hybrid systems can scale to curved
+    flight maneuvers required in aircraft control
+    applications. We introduce a fully flyable variant of
+    the roundabout collision avoidance maneuver and verify
+    safety properties by compositional verification.}
+}
+@TECHREPORT{DBLP:conf/fm/PlatzerC09:TR,
+  author    = {Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Formal Verification of Curved Flight
+               Collision Avoidance Maneuvers:
+               A Case Study},
+  number    = {CMU-CS-09-147},
+  year      = {2009},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2008/CMU-CS-09-147.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/icfem/PlatzerQ09,
+  author    = {Andr{\'e} Platzer and
+               Jan-David Quesel},
+  title     = {{European Train Control System}:
+               A Case Study in Formal Verification},
+  booktitle = {ICFEM},
+  year      = {2009},
+  pages     = {246-265},
+  doi       = {10.1007/978-3-642-10373-5_13},
+  editor    = {Karin Breitman and
+               Ana Cavalcanti},
+  longbooktitle = {Formal Methods and Software Engineering,
+               11th International Conference on Formal
+               Engineering Methods, ICFEM 2009,
+               Rio de Janeiro, Brasil, December 9-12, 2009.
+               Proceedings},
+  booktitle = {ICFEM},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {5885},
+  isbn      = {},
+  keywords  = {formal verification of hybrid systems,
+               train control, theorem proving,
+               parameter constraint identification,
+               disturbances},
+  abstract  = {
+    Complex physical systems have several degrees of
+    freedom. They only work correctly when their control
+    parameters obey corresponding constraints. Based on the
+    informal specification of the European Train Control
+    System (ETCS), we design a controller for its
+    cooperation protocol. For its free parameters, we
+    successively identify constraints that are required to
+    ensure collision freedom. We formally prove the
+    parameter constraints to be sharp by characterizing
+    them equivalently in terms of reachability properties
+    of the hybrid system dynamics. Using our deductive
+    verification tool KeYmaera, we formally verify
+    controllability, safety, liveness, and reactivity
+    properties of the ETCS protocol that entail collision
+    freedom. We prove that the ETCS protocol remains
+    correct even in the presence of perturbation by
+    disturbances in the dynamics. We verify that safety is
+    preserved when a PI controlled speed supervision is
+    used.}
+}
+@TECHREPORT{DBLP:conf/icfem/PlatzerQ09:TR,
+  author    = {Andr{\'e} Platzer and
+               Jan-David Quesel},
+  title     = {{European Train Control System}:
+               A Case Study in Formal Verification},
+  number    = {54},
+  year      = {2009},
+  month     = {Sep},
+  editor    = {Bernd Becker and
+               Werner Damm and
+               Martin Fr{\"a}nzle and
+               Ernst-R{\"u}diger Olderog and
+               Andreas Podelski and
+               Reinhard Wilhelm},
+  institution = {Reports of {SFB/TR~14 AVACS}},
+  OPTtype   = {Reports of {SFB/TR~14 AVACS}},
+  series    = {ATR},
+  note      = {ISSN: 1860-9821, http://www.avacs.org.},
+  pdf={http://www.avacs.org/Publikationen/Open/avacs_technical_report_054.pdf},
+}
+@INPROCEEDINGS{DBLP:conf/hybrid/ZulianiPC10,
+  author    = {Paolo Zuliani and
+               Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Bayesian Statistical Model Checking with
+               Application to {Simulink/Stateflow}
+               Verification},
+  booktitle = {HSCC},
+  year      = {2010},
+  pages     = {243-252},
+  doi       = {10.1145/1755952.1755987},
+  editor    = {Karl Henrik Johansson and
+               Wang Yi},
+  longbooktitle = {Proceedings of the 13th ACM
+               International Conference on
+               Hybrid Systems: Computation and Control,
+               HSCC 2010, Stockholm,
+               Sweden, April 12-15, 2010},
+  booktitle = {HSCC},
+  publisher = {ACM},
+  year      = {2010},
+  isbn      = {978-1-60558-955-8},
+  abstract  = {
+    We address the problem of model checking stochastic
+    systems, i.e. checking whether a stochastic system
+    satisfies a certain temporal property with a
+    probability greater (or smaller) than a fixed
+    threshold. In particular, we present a novel
+    Statistical Model Checking (SMC) approach based on
+    Bayesian statistics. We show that our approach is
+    feasible for hybrid systems with stochastic
+    transitions, a generalization of Simulink/Stateflow
+    models. Standard approaches to stochastic (discrete)
+    systems require numerical solutions for large
+    optimization problems and quickly become infeasible
+    with larger state spaces. Generalizations of these
+    techniques to hybrid systems with stochastic effects
+    are even more challenging. The SMC approach was
+    pioneered by Younes and Simmons in the discrete and
+    non-Bayesian case. It solves the verification problem
+    by combining randomized sampling of system traces
+    (which is very efficient for Simulink/Stateflow) with
+    hypothesis testing or estimation. We believe SMC is
+    essential for scaling up to large Stateflow/Simulink
+    models. While the answer to the verification problem is
+    not guaranteed to be correct, we prove that Bayesian
+    SMC can make the probability of giving a wrong answer
+    arbitrarily small. The advantage is that answers can
+    usually be obtained much faster than with standard,
+    exhaustive model checking techniques. We apply our
+    Bayesian SMC approach to a representative example of
+    stochastic discrete-time hybrid system models in
+    Stateflow/Simulink: a fuel control system featuring
+    hybrid behavior and fault tolerance. We show that our
+    technique enables faster verification than
+    state-of-the-art statistical techniques, while
+    retaining the same error bounds. We emphasize that
+    Bayesian SMC is by no means restricted to
+    Stateflow/Simulink models: we have in fact successfully
+    applied it to very large stochastic models from Systems
+    Biology.}
+}
+@TECHREPORT{DBLP:conf/hybrid/ZulianiPC10:TR,
+  author    = {Paolo Zuliani and
+               Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Bayesian Statistical Model Checking with
+               Application to  {Simulink/Stateflow}
+               Verification.},
+  number    = {CMU-CS-10-100},
+  year      = {2010},
+  month     = {Jan},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2010/CMU-CS-10-100.pdf}
+}
+@BOOK{Platzer10,
+  author    = {Andr{\'e} Platzer},
+  title     = {Logical Analysis of Hybrid Systems:
+               Proving Theorems for Complex Dynamics},
+  publisher = {Springer},
+  address   = {Heidelberg},
+  year      = {2010},
+  isbn      = {978-3-642-14508-7},
+  doi       = {10.1007/978-3-642-14509-4},
+}
+@INPROCEEDINGS{DBLP:conf/csl/Platzer10,
+  author    = {Andr{\'e} Platzer},
+  title     = {Quantified Differential Dynamic Logic
+               for Distributed Hybrid Systems},
+  booktitle = {CSL},
+  year      = {2010},
+  pages     = {469-483},
+  editor    = {Anuj Dawar and
+               Helmut Veith},
+  longbooktitle = {Computer Science Logic
+               24th International Workshop, CSL 2010,
+               19th Annual Conference of the EACSL, Brno,
+               Czech Republic, August 23-27, 2010.
+               Proceedings},
+  booktitle = {CSL},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {6247},
+  year      = {2010},
+  doi       = {10.1007/978-3-642-15205-4_36},
+  isbn      = {978-3-642-15204-7},
+  keywords  = {Dynamic logic, Distributed hybrid systems,
+               Axiomatization, Theorem proving,
+               Quantified differential equations},
+  abstract  = {
+    We address a fundamental mismatch between the
+    combinations of dynamics that occur in complex physical
+    systems and the limited kinds of dynamics supported in
+    analysis. Modern applications combine communication,
+    computation, and control. They may even form dynamic
+    networks, where neither structure nor dimension stay
+    the same while the system follows mixed discrete and
+    continuous dynamics.
+
+     We provide the logical foundations for closing this
+    analytic gap. We develop a system model for distributed
+    hybrid systems that combines quantified differential
+    equations with quantified assignments and dynamic
+    dimensionality-changes. We introduce a dynamic logic
+    for verifying distributed hybrid systems and present a
+    proof calculus for it. We prove that this calculus is a
+    sound and complete axiomatization of the behavior of
+    distributed hybrid systems relative to quantified
+    differential equations. In our calculus we have proven
+    collision freedom in distributed car control even when
+    new cars may appear dynamically on the road.}
+}
+@TECHREPORT{DBLP:conf/csl/Platzer10:TR,
+  author    = {Andr{\'e} Platzer},
+  title     = {Quantified Differential Dynamic Logic
+               for Distributed Hybrid Systems},
+  number    = {CMU-CS-10-126},
+  year      = {2010},
+  month     = {May},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2010/CMU-CS-10-126.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/hybrid/Platzer11,
+  author    = {Andr{\'e} Platzer},
+  title     = {Quantified Differential Invariants},
+  booktitle = {HSCC},
+  year      = {2011},
+  pages     = {63-72},
+  doi       = {10.1145/1967701.1967713},
+  editor    = {Emilio Frazzoli and
+               Radu Grosu},
+  longbooktitle = {Proceedings of the 14th ACM
+               International Conference on Hybrid Systems:
+               Computation and Control, HSCC 2011, Chicago,
+               USA, April 12-14, 2011},
+  booktitle = {HSCC},
+  publisher = {ACM},
+  isbn      = {},
+  keywords  = {distributed hybrid systems,
+               verification logic,
+               quantified differential equations,
+               quantified differential invariants},
+  abstract  = {
+    We address the verification problem for distributed
+    hybrid systems with nontrivial dynamics. Consider air
+    traffic collision avoidance maneuvers, for example.
+    Verifying dynamic appearance of aircraft during an
+    ongoing collision avoidance maneuver is a longstanding
+    and essentially unsolved problem. The resulting systems
+    are not hybrid systems and their state space is not of
+    the form R^n. They are distributed hybrid systems with
+    nontrivial continuous and discrete dynamics in
+    distributed state spaces whose dimension and topology
+    changes dynamically over time. We present the first
+    formal verification technique that can handle the
+    complicated nonlinear dynamics of these systems. We
+    introduce quantified differential invariants, which are
+    properties that can be checked for invariance along the
+    dynamics of the distributed hybrid system based on
+    differentiation, quantified substitution, and
+    quantifier elimination in real-closed fields. This
+    gives a computationally attractive technique, because
+    it works without having to solve the
+    infinite-dimensional differential equation systems
+    underlying distributed hybrid systems. We formally
+    verify a roundabout maneuver in which aircraft can
+    appear dynamically.}
+}
+@INPROCEEDINGS{DBLP:conf/aistats/ZawadzkiGP11,
+  author    = {Erik P. Zawadzki and
+               Geoffrey J. Gordon and
+               Andr{\'e} Platzer},
+  title     = {An Instantiation-Based Theorem Prover for
+               First-Order Programming},
+  shortbooktitle = {AISTATS},
+  year      = {2011},
+  pages     = {},
+  doi       = {},
+  booktitle = {Proceedings of the 14th International
+               Conference on Artifical Intelligence and
+               Statistics (AISTATS) 2011, Fort Lauderdale,
+               FL, USA},
+  year      = {2011},
+  pages     = {},
+  doi       = {},
+  volume    = {15},
+  series    = {JMLR W\&CP},
+}
+@INPROCEEDINGS{DBLP:conf/fm/LoosPN11,
+  author    = {Sarah M. Loos and
+               Andr{\'e} Platzer and
+               Ligia Nistor},
+  title     = {Adaptive Cruise Control:
+               Hybrid, Distributed, and Now Formally
+               Verified},
+  booktitle = {FM},
+  year      = {2011},
+  pages     = {42-56},
+  doi       = {10.1007/978-3-642-21437-0_6},
+  editor    = {Michael Butler and
+               Wolfram Schulte},
+  longbooktitle = {FM 2011: Formal Methods, 17th
+               International Symposium on Formal Methods,
+               Limerick, Ireland, June 20-24, 2011,
+               Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {6664},
+  isbn      = {},
+  keywords  = {distributed car control,
+               multi-agent systems, highway traffic safety,
+               formal verification, distributed hybrid
+               systems, adaptive cruise control},
+}
+@TECHREPORT{DBLP:conf/fm/LoosPN11:TR,
+  author    = {Sarah M. Loos and
+               Andr{\'e} Platzer and
+               Ligia Nistor},
+  title     = {Adaptive Cruise Control:
+               Hybrid, Distributed, and Now Formally
+               Verified},
+  number    = {CMU-CS-11-107},
+  year      = {2011},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2011/CMU-CS-11-107.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/cai/GaoPC11,
+  author    = {Sicun Gao and
+               Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Quantifier Elimination over Finite Fields
+               with {G}r{\"o}bner Bases},
+  booktitle = {CAI},
+  year      = {2011},
+  pages     = {140-157},
+  doi       = {10.1007/978-3-642-21493-6_9},
+  editor    = {Franz Winkler},
+  longbooktitle = {Algebraic Informatics, Fourth
+               International Conference, CAI
+               2011, Linz, Austria, June 21-24, 2011,
+               Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {6742},
+}
+@INPROCEEDINGS{DBLP:conf/cade/Platzer11,
+  author    = {Andr{\'e} Platzer},
+  title     = {Stochastic Differential Dynamic Logic for
+               Stochastic Hybrid Programs},
+  booktitle = {CADE},
+  longbooktitle = {International Conference on Automated
+               Deduction, CADE'11, Wroc{\l}aw, Poland,
+               Proceedings},
+  year      = {2011},
+  pages     = {446-460},
+  doi       = {10.1007/978-3-642-22438-6_34},
+  keywords  = {dynamic logic, proof calculus,
+               stochastic differential equations,
+               stochastic hybrid systems,
+               stochastic processes},
+  editor    = {Nikolaj Bj{\o}rner and
+               Viorica Sofronie-Stokkermans},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {6803},
+  isbn      = {},
+  abstract  = {
+    Logic is a powerful tool for analyzing and verifying
+    systems, including programs, discrete systems,
+    real-time systems, hybrid systems, and distributed
+    systems. Some applications also have a stochastic
+    behavior, however, either because of fundamental
+    properties of nature, uncertain environments, or
+    simplifications to overcome complexity. Discrete
+    probabilistic systems have been studied using logic.
+    But logic has been chronically underdeveloped in the
+    context of stochastic hybrid systems, i.e., systems
+    with interacting discrete, continuous, and stochastic
+    dynamics. We aim at overcoming this deficiency and
+    introduce a dynamic logic for stochastic hybrid
+    systems. Our results indicate that logic is a
+    promising tool for understanding stochastic hybrid
+    systems and can help taming some of their complexity.
+    We introduce a compositional model for stochastic
+    hybrid systems. We prove adaptivity, cadlag, and
+    Markov time properties, and prove that the semantics
+    of our logic is measurable. We present compositional
+    proof rules, including rules for stochastic
+    differential equations, and prove soundness.
+  }
+}
+@TECHREPORT{DBLP:conf/cade/Platzer11:TR,
+  author    = {Andr{\'e} Platzer},
+  title     = {Stochastic Differential Dynamic Logic for
+               Stochastic Hybrid Systems},
+  number    = {CMU-CS-11-111},
+  year      = {2011},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2011/CMU-CS-11-111.pdf}
+}
+@TECHREPORT{Platzer11:diffcut,
+  author    = {Andr{\'e} Platzer},
+  title     = {The Structure of Differential Invariants and
+               Differential Cut Elimination},
+  number    = {CMU-CS-11-112},
+  year      = {2011},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2011/CMU-CS-11-112.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/cav/Platzer11,
+  author    = {Andr{\'e} Platzer},
+  title     = {Logic and Compositional Verification of
+               Hybrid Systems
+               (Invited Tutorial)},
+  booktitle = {CAV},
+  longbooktitle = {Computer Aided Verification, 23rd
+               International Conference,
+               CAV 2011, Snowbird, UT, USA, July 14-20,
+               2011, Proceedings},
+  year      = {2011},
+  pages     = {28-43},
+  month     = {},
+  editor    = {Ganesh Gopalakrishnan and
+               Shaz Qadeer},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {6806},
+  doi       = {10.1007/978-3-642-22110-1_4},
+  abstract  = {
+    Hybrid systems are models for complex physical systems
+    and have become a widely used concept for understanding
+    their behavior. Many applications are safety-critical,
+    including car, railway, and air traffic control,
+    robotics, physical-chemical process control, and
+    biomedical devices. Hybrid systems analysis studies how
+    we can build computerised controllers for physical
+    systems which are guaranteed to meet their design
+    goals. The continuous dynamics of hybrid systems can be
+    modeled by differential equations, the discrete
+    dynamics by a combination of discrete state-transitions
+    and conditional execution. The discrete and continuous
+    dynamics interact to form hybrid systems, which makes
+    them quite challenging for verification.
+
+     In this tutorial, we survey state-of-the-art
+    verification techniques for hybrid systems. In
+    particular, we focus on a coherent logical approach for
+    systematic hybrid systems analysis. We survey theory,
+    practice, and applications, and show how hybrid systems
+    can be verified in the hybrid systems verification tool
+    KeYmaera. KeYmaera has been used successfully to verify
+    safety, reactivity, controllability, and liveness
+    properties, including collision freedom in air traffic,
+    car, and railway control systems. It has also been used
+    to verify properties of electrical circuits. }
+}
+@INPROCEEDINGS{DBLP:conf/icfem/RenshawLP11,
+  author    = {David W. Renshaw and
+               Sarah M. Loos and
+               Andr{\'e} Platzer},
+  title     = {Distributed Theorem Proving for Distributed
+               Hybrid Systems},
+  booktitle = {ICFEM},
+  year      = {2011},
+  pages     = {356-371},
+  doi       = {10.1007/978-3-642-24559-6_25},
+  editor    = {Shengchao Qin and
+               Zongyan Qiu},
+  longbooktitle = {Formal Methods and Software Engineering,
+               13th International Conference on Formal
+               Engineering Methods, ICFEM 2011, Durham,
+               UK, October 26-28, 2011. Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {6991},
+  isbn      = {},
+  keywords  = {Hybrid systems, theorem proving, formal
+               verification, distributed systems},
+}
+@INPROCEEDINGS{DBLP:conf/icfem/MartinsPL11,
+  author    = {Jo{\~a}o Martins and
+               Andr{\'e} Platzer and
+               Jo{\~a}o Leite},
+  title     = {Statistical Model Checking for Distributed
+               Probabilistic-Control Hybrid Automata with
+               Smart Grid Applications},
+  booktitle = {ICFEM},
+  year      = {2011},
+  pages     = {131-146},
+  doi       = {10.1007/978-3-642-24559-6_11},
+  editor    = {Shengchao Qin and
+               Zongyan Qiu},
+  longbooktitle = {Formal Methods and Software Engineering,
+               13th International Conference on Formal
+               Engineering Methods, ICFEM 2011, Durham,
+               UK, October 26-28, 2011. Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {6991},
+  isbn      = {},
+  keywords  = {Bayesian statistical model checking,
+               distributed hybrid systems,
+               probabilistic hybrid automata,
+               verification of smart grid},
+}
+@INPROCEEDINGS{DBLP:conf/itsc/LoosP11,
+  author    = {Sarah M. Loos and
+               Andr{\'e} Platzer},
+  title     = {Safe Intersections: At the Crossing of
+               Hybrid Systems and Verification},
+  booktitle = {ITSC},
+  longbooktitle = {Intelligent Transportation Systems
+               (ITSC), 14th International IEEE Conference
+               on, October 5-7, Washington, DC, USA,
+               Proceedings},
+  year      = {2011},
+  pages     = {1181-1186},
+  doi       = {10.1109/ITSC.2011.6083138},
+  keywords  = {},
+  editor    = {Kyongsu Yi},
+}
+@INPROCEEDINGS{DBLP:conf/cdc/RajhansBLKPG11,
+  author    = {Akshay Rajhans and
+               Ajinkya Bhave and
+               Sarah M. Loos and
+               Bruce H. Krogh and
+               Andr{\'e} Platzer and
+               David Garlan},
+  title     = {Using parameters in architectural views to
+               support heterogeneous design and
+               verification},
+  booktitle = {CDC},
+  longbooktitle = {50th IEEE Conference on Decision and
+               Control and European Control Conference},
+  year      = {2011},
+  pages     = {2705-2710},
+  doi       = {10.1109/CDC.2011.6161408},
+  isbn      = {978-1-61284-800-6},
+}
+@TECHREPORT{RenshawP11,
+  author    = {David W. Renshaw and
+               Andr{\'e} Platzer},
+  title     = {Differential Invariants and Symbolic Integration
+               for Distributed Hybrid Systems},
+  number    = {CMU-CS-12-107},
+  year      = {2011},
+  month     = {May},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2012/CMU-CS-12-107.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/iccps/MitschLP12,
+  author    = {Stefan Mitsch and
+               Sarah M. Loos and
+               Andr{\'e} Platzer},
+  title     = {Towards formal verification of freeway
+               traffic control},
+  booktitle = {ICCPS},
+  longbooktitle = {ACM/IEEE Third International Conference
+               on Cyber-Physical Systems, Beijing, China,
+               April 17-19},
+  year      = {2012},
+  pages     = {171-180},
+  publisher = {IEEE},
+  isbn      = {978-0-7695-4695-7},
+  doi       = {10.1109/ICCPS.2012.25},
+  editor    = {Chenyang Lu},
+}
+@TECHREPORT{DBLP:conf/lics/Platzer12b:TR,
+  author    = {Andr{\'e} Platzer},
+  title     = {The Complete Proof Theory of Hybrid Systems},
+  number    = {CMU-CS-11-144},
+  year      = {2011},
+  month     = {November},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2011/CMU-CS-11-144.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/acc/ArechigaLPK12,
+  author    = {Nikos Ar{\'e}chiga and
+               Sarah M. Loos and
+               Andr{\'e} Platzer and
+               Bruce H. Krogh},
+  title     = {Using Theorem Provers to Guarantee
+               Closed-Loop System Properties},
+  booktitle = {ACC},
+  longbooktitle = {American Control Conference, Montr\'eal,
+               Canada, June 27-29},
+  year      = {2012},
+  editor    = {Dawn Tilbury},
+  pages     = {3573-3580},
+  doi       = {10.1109/ACC.2012.6315388},
+}
+@ARTICLE{DBLP:journals/lmcs/Platzer12,
+  author    = {Andr{\'e} Platzer},
+  title     = {The Structure of Differential Invariants
+               and Differential Cut Elimination},
+  journal   = {Logical Methods in Computer Science},
+  volume    = {8},
+  number    = {4},
+  year      = {2012},
+  pages     = {1-38},
+  doi       = {10.2168/LMCS-8(4:16)2012},
+  keywords  = {Proof theory, differential equations,
+               differential invariants, differential cut
+               elimination, differential dynamic logic
+                hybrid systems, logics of programs,
+                real differential semialgebraic geometry},
+  abstract  = {
+    The biggest challenge in hybrid systems verification is
+    the handling of differential equations. Because
+    computable closed-form solutions only exist for very
+    simple differential equations, proof certificates have
+    been proposed for more scalable verification. Search
+    procedures for these proof certificates are still rather
+    ad-hoc, though, because the problem structure is only
+    understood poorly. We investigate differential
+    invariants, which define an induction principle for
+    differential equations and which can be checked for
+    invariance along a differential equation just by using
+    their differential structure, without having to solve
+    them. We study the structural properties of differential
+    invariants. To analyze trade-offs for proof search
+    complexity, we identify more than a dozen relations
+    between several classes of differential invariants and
+    compare their deductive power. As our main results, we
+    analyze the deductive power of differential cuts and the
+    deductive power of differential invariants with
+    auxiliary differential variables. We refute the
+    differential cut elimination hypothesis and show that,
+    unlike standard cuts, differential cuts are fundamental
+    proof principles that strictly increase the deductive
+    power. We also prove that the deductive power increases
+    further when adding auxiliary differential variables to
+    the dynamics.
+  }
+}
+@INPROCEEDINGS{DBLP:conf/lics/Platzer12a,
+  author    = {Andr{\'e} Platzer},
+  title     = {Logics of Dynamical Systems},
+  booktitle = {LICS},
+  year      = {2012},
+  pages     = {13-24},
+  doi       = {10.1109/LICS.2012.13},
+  longbooktitle = {Proceedings of the 27th Annual ACM/IEEE
+               Symposium on Logic in Computer Science, LICS
+               2012, Dubrovnik, Croatia, June 25???28, 2012},
+  publisher = {IEEE},
+  isbn      = {978-1-4673-2263-8},
+  keywords  = {logic of dynamical systems, dynamic logic,
+               differential dynamic logic, hybrid systems,
+               axiomatization, deduction},
+  abstract  = {
+    We study the logic of dynamical systems, that is,
+    logics and proof principles for properties of dynamical
+    systems. Dynamical systems are mathematical models
+    describing how the state of a system evolves over time.
+    They are important in modeling and understanding many
+    applications, including embedded systems and
+    cyber-physical systems. In discrete dynamical systems,
+    the state evolves in discrete steps, one step at a
+    time, as described by a difference equation or discrete
+    state transition relation. In continuous dynamical
+    systems, the state evolves continuously along a
+    function, typically described by a differential
+    equation. Hybrid dynamical systems or hybrid systems
+    combine both discrete and continuous dynamics.
+
+     This is a brief survey of differential dynamic logic
+    for specifying and verifying properties of hybrid
+    systems. We explain hybrid system models, differential
+    dynamic logic, its semantics, and its axiomatization
+    for proving logical formulas about hybrid systems. We
+    study differential invariants, i.e., induction
+    principles for differential equations. We briefly
+    survey theoretical results, including soundness and
+    completeness and deductive power. Differential dynamic
+    logic has been implemented in automatic and interactive
+    theorem provers and has been used successfully to
+    verify safety-critical applications in automotive,
+    aviation, railway, robotics, and analogue electrical
+    circuits.}
+}
+@INPROCEEDINGS{DBLP:conf/lics/Platzer12b,
+  author    = {Andr{\'e} Platzer},
+  title     = {The Complete Proof Theory of
+               Hybrid Systems},
+  booktitle = {LICS},
+  year      = {2012},
+  pages     = {541-550},
+  doi       = {10.1109/LICS.2012.64},
+  longbooktitle = {Proceedings of the 27th Annual ACM/IEEE
+               Symposium on Logic in Computer Science, LICS
+               2012, Dubrovnik, Croatia, June 25???28, 2012},
+  publisher = {IEEE},
+  isbn      = {978-1-4673-2263-8},
+  keywords  = {proof theory, hybrid dynamical systems,
+               differential dynamic logic, axiomatization,
+               completeness},
+  abstract  = {
+    Hybrid systems are a fusion of continuous dynamical
+    systems and discrete dynamical systems. They freely
+    combine dynamical features from both worlds. For that
+    reason, it has often been claimed that hybrid systems
+    are more challenging than continuous dynamical systems
+    and than discrete systems. We now show that,
+    proof-theoretically, this is not the case. We present a
+    complete proof-theoretical alignment that interreduces
+    the discrete dynamics and the continuous dynamics of
+    hybrid systems. We give a sound and complete
+    axiomatization of hybrid systems relative to continuous
+    dynamical systems and a sound and complete
+    axiomatization of hybrid systems relative to discrete
+    dynamical systems. Thanks to our axiomatization,
+    proving properties of hybrid systems is exactly the
+    same as proving properties of continuous dynamical
+    systems and again, exactly the same as proving
+    properties of discrete dynamical systems. This
+    fundamental cornerstone sheds light on the nature of
+    hybridness and enables flexible and provably perfect
+    combinations of discrete reasoning with continuous
+    reasoning that lift to all aspects of hybrid systems
+    and their fragments.}
+}
+@TECHREPORT{Platzer12:dGL,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Game Logic for Hybrid Games},
+  number    = {CMU-CS-12-105},
+  year      = {2012},
+  month     = {March},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2012/CMU-CS-12-105.pdf}
+}
+@ARTICLE{DBLP:journals/lmcs/Platzer12b,
+  author    = {Andr{\'e} Platzer},
+  title     = {A Complete Axiomatization of
+               Quantified Differential Dynamic Logic
+               for Distributed Hybrid Systems},
+  journal   = {Logical Methods in Computer Science},
+  volume    = {8},
+  number    = {4},
+  year      = {2012},
+  pages     = {1-44},
+  doi       = {10.2168/LMCS-8(4:17)2012},
+  note      = {Special issue for selected papers from
+               CSL'10}
+}
+@ARTICLE{DBLP:journals/corr/abs-1205-4788,
+  author    = {Andr{\'e} Platzer},
+  title     = {Dynamic Logics of Dynamical Systems},
+  journal   = {CoRR},
+  volume    = {abs/1205.4788},
+  year      = {2012},
+  url       = {http://arxiv.org/abs/1205.4788},
+}
+@INPROCEEDINGS{DBLP:conf/itp/Platzer12,
+  author    = {Andr{\'e} Platzer},
+  title     = {A Differential Operator Approach to
+               Equational Differential Invariants},
+  booktitle = {ITP},
+  longbooktitle = {Interactive Theorem Proving,
+               International Conference, ITP 2012, August
+               13-15, Princeton, USA},
+  year      = {2012},
+  pages     = {28-48},
+  month     = {},
+  editor    = {Lennart Beringer and
+               Amy Felty},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {7406},
+  doi       = {},
+  keywords  = {differential dynamic logic, differential
+               invariants, differential equations,
+               hybrid systems},
+  abstract  = {
+    Hybrid systems, i.e., dynamical systems combining
+    discrete and continuous dynamics, have a complete
+    axiomatization in differential dynamic logic relative
+    to differential equations. Differential invariants are
+    a natural induction principle for proving properties of
+    the remaining differential equations. We study the
+    equational case of differential invariants using a
+    differential operator view. We relate differential
+    invariants to Lie's seminal work and explain important
+    structural properties resulting from this view.
+    Finally, we study the connection of differential
+    invariants with partial differential equations in the
+    context of the inverse characteristic method for
+    computing differential invariants.
+  }
+}
+@INPROCEEDINGS{DBLP:conf/cade/QueselP12,
+  author    = {Jan-David Quesel and
+               Andr{\'e} Platzer},
+  title     = {Playing Hybrid Games with KeYmaera},
+  booktitle = {IJCAR},
+  year      = {2012},
+  pages     = {439-453},
+  doi       = {10.1007/978-3-642-31365-3_34},
+  editor    = {Bernhard Gramlich and
+               Dale Miller and
+               Ulrike Sattler},
+  longbooktitle = {Automated Reasoning - 6th International
+               Joint Conference, IJCAR 2012, Manchester, UK.
+               Proceedings},
+  series    = {LNCS},
+  volume    = {7364},
+  publisher = {Springer},
+  isbn      = {978-3-642-31364-6},
+}
+@INPROCEEDINGS{DBLP:conf/dcfs/Platzer12,
+  author    = {Andr{\'e} Platzer},
+  title     = {Logical Analysis of Hybrid Systems:
+               A Complete Answer to a Complexity Challenge},
+  booktitle = {DCFS},
+  longbooktitle  = {Descriptional Complexity of Formal
+               Systems - 14th International Workshop, DCFS
+               2012, Braga, Portugal, July 23-25, 2012.
+               Proceedings},
+  year      = {2012},
+  pages     = {43-49},
+  doi       = {10.1007/978-3-642-31623-4_3},
+  editor    = {Martin Kutrib and
+               Nelma Moreira and
+               Rog{\'e}rio Reis},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {7386},
+  isbn      = {978-3-642-31622-7},
+}
+@INPROCEEDINGS{DBLP:conf/qest/HenriquesMZPC12,
+  author    = {David Henriques and
+               Jo{\~a}o G. Martins and
+               Paolo Zuliani and
+               Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Statistical Model Checking for
+               {Markov} Decision Processes},
+  booktitle = {QEST},
+  year      = {2012},
+  pages     = {84-93},
+  doi       = {10.1109/QEST.2012.19},
+  longbooktitle = {Ninth International Conference on
+               Quantitative Evaluation of Systems, QEST
+               2012, London, UK, 17-20 September, 2012},
+  publisher = {IEEE Computer Society},
+  keywords  = {statistical model checking,
+               Markov decision processes,
+               reinforcement learning},
+  abstract  = {
+    Statistical Model Checking (SMC) is a computationally
+    very efficient verification technique based on
+    selective system sampling. One well identified
+    shortcoming of SMC is that, unlike probabilistic model
+    checking, it cannot be applied to systems featuring
+    nondeterminism, such as Markov Decision Processes
+    (MDP). We address this limitation by developing an
+    algorithm that resolves nondeterminism
+    probabilistically, and then uses multiple rounds of
+    sampling and Reinforcement Learning to provably
+    improve resolutions of nondeterminism with respect to
+    satisfying a Bounded Linear Temporal Logic (BLTL)
+    property. Our algorithm thus reduces an MDP to a fully
+    probabilistic Markov chain on which SMC may be applied
+    to give an approximate solution to the problem of
+    checking the probabilistic BLTL property. We integrate
+    our algorithm in a parallelised modification of the
+    PRISM simulation framework. Extensive validation with
+    both new and PRISM benchmarks demonstrates that the
+    approach scales very well in scenarios where symbolic
+    algorithms fail to do so.}
+}
+@TECHREPORT{DBLP:conf/hybrid/LoosRP13:TR,
+  author    = {David W. Renshaw and
+               Sarah Loos and
+               Andr{\'e} Platzer},
+  title     = {Mechanized Safety Proofs for
+               Disc-Constrained Aircraft},
+  number    = {CMU-CS-12-132},
+  year      = {2012},
+  month     = {August},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2012/CMU-CS-12-132.pdf}
+}
+@ARTICLE{DBLP:journals/jalc/Platzer12,
+  author    = {Andr{\'e} Platzer},
+  title     = {Logical Analysis of Hybrid Systems:
+               A Complete Answer to a Complexity Challenge},
+  journal   = {Journal of Automata, Languages and
+               Combinatorics},
+  volume  = {17},
+  number = {2-4},
+  year      = {2012},
+  pages     = {265-275},
+}
+@INPROCEEDINGS{DBLP:conf/hybrid/KouskoulasRPK13,
+  author    = {Yanni Kouskoulas and
+               David W. Renshaw and
+               Andr{\'e} Platzer and
+               Peter Kazanzides},
+  title     = {Certifying the Safe Design of a Virtual
+               Fixture Control Algorithm for a Surgical
+               Robot},
+  year      = {2013},
+  pages     = {263-272},
+  doi       = {10.1145/2461328.2461369},
+  publisher = {ACM},
+  editor    = {Calin Belta and
+               Franjo Ivancic},
+  booktitle = {Hybrid Systems: Computation and Control
+               (part of CPS Week 2013), HSCC'13,
+               Philadelphia, PA, USA, April 8-13, 2013},
+}
+@INPROCEEDINGS{DBLP:conf/hybrid/LoosRP13,
+  author    = {Sarah M. Loos and
+               David W. Renshaw and
+               Andr{\'e} Platzer},
+  title     = {Formal Verification of Distributed
+               Aircraft Controllers},
+  year      = {2013},
+  pages     = {125-130},
+  doi       = {10.1145/2461328.2461350},
+  publisher = {ACM},
+  editor    = {Calin Belta and
+               Franjo Ivancic},
+  booktitle = {Hybrid Systems: Computation and Control
+               (part of CPS Week 2013), HSCC'13,
+               Philadelphia, PA, USA, April 8-13, 2013},
+}
+@TECHREPORT{Platzer13:dGL,
+  author    = {Andr{\'e} Platzer},
+  title     = {A Complete Axiomatization for Differential
+               Game Logic for Hybrid Games},
+  number    = {CMU-CS-13-100R},
+  year      = {2013},
+  month     = {January},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  note      = {Extended in revised version from July 2013},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2013/CMU-CS-13-100R.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/cpsed/Platzer13,
+  author    = {Andr{\'e} Platzer},
+  title     = {Teaching {CPS} Foundations With Contracts},
+  year      = {2013},
+  booktitle = {CPS-Ed},
+  longbooktitle = {First Workshop on Cyber-Physical
+               Systems Education},
+  pages     = {7-10},
+}
+@INPROCEEDINGS{DBLP:conf/ijcai/ZawadzkiPG13,
+  author    = {Erik P. Zawadzki and
+               Andr{\'e} Platzer and
+               Geoffrey J. Gordon},
+  title     = {A Generalization of {SAT} and {\#SAT}
+               for Policy Evaluation},
+  booktitle = {IJCAI},
+  year      = {2013},
+  pages     = {2583-2589},
+  editor    = {Francesca Rossi},
+  longbooktitle = {IJCAI 2013, Proceedings of the 23nd
+               International Joint Conference on
+               Artificial Intelligence, Beijing,
+               China, August 3-9, 2013},
+  publisher = {IJCAI/AAAI},
+  isbn      = {},
+}
+@TECHREPORT{DBLP:conf/ijcai/ZawadzkiPG13:TR,
+  author    = {Erik P. Zawadzki and
+               Andr{\'e} Platzer and
+               Geoffrey J. Gordon},
+  title     = {A Generalization of {SAT} and {\#SAT}
+               for Policy Evaluation},
+  number    = {CMU-CS-13-107},
+  year      = {2013},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2013/CMU-CS-13-107.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/rss/MitschGP13,
+  author    = {Stefan Mitsch and
+               Khalil Ghorbal and
+               Andr{\'e} Platzer},
+  title     = {On Provably Safe Obstacle Avoidance for
+               Autonomous Robotic Ground Vehicles},
+  booktitle = {Robotics: Science and Systems},
+  year      = {2013},
+  editor    = {Paul Newman and
+               Dieter Fox and
+               David Hsu},
+  longbooktitle = {Robotics: Science and Systems IX,
+               Technische Universit{\"a}t Berlin, 
+               Berlin, Germany, June 24 - June 28, 
+               2013},
+  isbn      = {978-981-07-3937-9}
+}
+@ARTICLE{DBLP:journals/fmsd/ZulianiPC13,
+  author    = {Paolo Zuliani and
+               Andr{\'e} Platzer and
+               Edmund M. Clarke},
+  title     = {Bayesian Statistical Model Checking with
+               Application to {Simulink/Stateflow}
+               Verification},
+  journal   = {Formal Methods in System Design},
+  volume    = {43},
+  number    = {2},
+  year      = {2013},
+  pages     = {338-367},
+  doi       = {10.1007/s10703-013-0195-3},
+  issn      = {0925-9856},
+  keywords  = {Probabilistic verification, Hybrid systems,
+               Stochastic systems, Statistical model
+               checking, Hypothesis testing, Estimation},
+  abstract  = {
+        We address the problem of model checking
+        stochastic systems, i.e., checking whether a
+        stochastic system satisfies a certain temporal
+        property with a probability greater (or smaller)
+        than a fixed threshold. In particular, we present
+        a Statistical Model Checking (SMC) approach based
+        on Bayesian statistics. We show that our approach
+        is feasible for a certain class of hybrid systems
+        with stochastic transitions, a generalization of
+        Simulink/Stateflow models. Standard approaches to
+        stochastic discrete systems require numerical
+        solutions for large optimization problems and
+        quickly become infeasible with larger state
+        spaces. Generalizations of these techniques to
+        hybrid systems with stochastic effects are even
+        more challenging. The SMC approach was pioneered
+        by Younes and Simmons in the discrete and
+        non-Bayesian case. It solves the verification
+        problem by combining randomized sampling of system
+        traces (which is very efficient for
+        Simulink/Stateflow) with hypothesis testing (i.e.,
+        testing against a probability threshold) or
+        estimation (i.e., computing with high probability
+        a value close to the true probability). We believe
+        SMC is essential for scaling up to large
+        Stateflow/Simulink models. While the answer to the
+        verification problem is not guaranteed to be
+        correct, we prove that Bayesian SMC can make the
+        probability of giving a wrong answer arbitrarily
+        small. The advantage is that answers can usually
+        be obtained much faster than with standard,
+        exhaustive model checking techniques. We apply our
+        Bayesian SMC approach to a representative example
+        of stochastic discrete-time hybrid system models
+        in Stateflow/Simulink: a fuel control system
+        featuring hybrid behavior and fault tolerance. We
+        show that our technique enables faster
+        verification than state-of-the-art statistical
+        techniques. We emphasize that Bayesian SMC is by
+        no means restricted to Stateflow/Simulink models.
+        It is in principle applicable to a variety of
+        stochastic models from other domains, e.g.,
+        systems biology.
+  }
+}
+@INPROCEEDINGS{DBLP:conf/itsc/LoosWSP13,
+  author    = {Sarah M. Loos and
+               David Witmer and
+               Peter Steenkiste and
+               Andr{\'e} Platzer},
+  title     = {Efficiency Analysis of Formally
+               Verified Adaptive Cruise Controllers},
+  booktitle = {ITSC},
+  longbooktitle = {Intelligent Transportation Systems
+              (ITSC), 16th International IEEE
+              Conference on, October 6-9, The
+              Hague, Netherlands, Proceedings},
+  year      = {2013},
+  pages     = {1565-1570},
+  doi       = {10.1109/ITSC.2013.6728453},
+  editor    = {Andreas Hegyi and
+               Bart De Schutter},
+  isbn      = {978-1-4799-2914-613},
+  keywords  = {Traffic theory for ITS, Network
+               modeling, Driver assistance systems,
+               V2V wireless communication,
+               Hybrid systems, Formal verification},
+  abstract  = {
+
+  We consider an adaptive cruise control system
+in which control decisions are made based on position
+and velocity information received from other vehicles
+via V2V wireless communication. If the vehicles
+follow each other at a close distance, they have
+better wireless reception but collisions may occur
+when a follower car does not receive notice about the
+decelerations of the leader car fast enough to react
+before it is too late. If the vehicles are farther
+apart, they would have a bigger safety margin, but
+the wireless communication drops out more often, so
+that the follower car no longer receives what the
+leader car is doing. In order to guarantee safety,
+such a system must return control to the driver if it
+does not receive an update from a nearby vehicle
+within some timeout period. The value of this timeout
+parameter encodes a tradeoff between the likelihood
+that an update is received and the maximum safe
+acceleration. Combining formal verification
+techniques for hybrid systems with a wireless
+communication model, we analyze how the expected
+efficiency of a provably-safe adaptive cruise control
+syst em is affected by the value of this timeout.
+  }
+}
+@INPROCEEDINGS{DBLP:conf/tacas/GhorbalP14,
+  author    = {Khalil Ghorbal and
+               Andr{\'e} Platzer},
+  title     = {Characterizing Algebraic Invariants by
+               Differential Radical Invariants},
+  booktitle = {TACAS},
+  year      = {2014},
+  pages     = {279-294},
+  editor    = {Erika {\'A}brah{\'a}m and
+               Klaus Havelund},
+  longbooktitle  = {Tools and Algorithms for the
+               Construction and Analysis of Systems -
+               20th International Conference,
+               TACAS 2014, Held as Part of the
+               European Joint Conferences on Theory
+               and Practice of Software, ETAPS 2014,
+               Grenoble, France, April 5-13, 2014.
+               Proceedings},
+  publisher = {Springer},
+  volume    = {8413},
+}
+@TECHREPORT{DBLP:conf/tacas/GhorbalP14:TR,
+  author    = {Khalil Ghorbal and
+               Andr{\'e} Platzer},
+  title     = {Characterizing Algebraic Invariants by
+               Differential Radical Invariants},
+  number    = {CMU-CS-13-129},
+  year      = {2013},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2012/CMU-CS-13-129.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/fm/MitschQP14,
+  author    = {Stefan Mitsch and
+               Jan-David Quesel and
+               Andr{\'e} Platzer},
+  title     = {Refactoring, Refinement, and Reasoning:
+               A Logical Characterization for Hybrid
+               Systems},
+  booktitle = {FM},
+  year      = {2014},
+  pages     = {481-496},
+  doi       = {10.1007/978-3-319-06410-9_33},
+  editor    = {Cliff B. Jones and
+               Pekka Pihlajasaari and
+               Jun Sun},
+  longbooktitle = {FM 2014: Formal Methods, 19th
+               International Symposium on Formal
+               Methods, Singapore, May 12-16, 2014,
+               Proceedings},
+  publisher = {Springer},
+  volume    = {8442},
+}
+@ARTICLE{DBLP:journals/jhuapltechdigest/KouskoulasPK13,
+  author    = {Yanni Kouskoulas and
+               Andr{\'e} Platzer and
+               Peter Kazanzides},
+  title     = {Formal Methods for Robotic System Control
+               Software},
+  journal   = {Johns Hopkins APL Technical Digest},
+  volume    = {32},
+  number    = {2},
+  year      = {2013},
+  pages     = {490-498},
+  eprint = {http://techdigest.jhuapl.edu/TD/td3202/32_02-Kouskoulas.pdf},
+}
+@MISC{FCPS13,
+  author    = {Andr\'e Platzer},
+  title     = {Foundations of Cyber-Physical Systems},
+  year      = {2013},
+  howpublished = {Lecture Notes 15-424/624,
+               Carnegie Mellon University},
+  url = {http://www.cs.cmu.edu/~aplatzer/course/fcps13/fcps13.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/optml/ZawadzkiGP13,
+  author    = {Erik P. Zawadzki and
+               Geoffrey J. Gordon and
+               Andr{\'e} Platzer},
+  title     = {A Projection Algorithm for Strictly Monotone
+               Linear Complementarity Problems},
+  booktitle = {6th NIPS Workshop on Optimization for
+               Machine Learning},
+  year      = {2013},
+}
+@INPROCEEDINGS{DBLP:conf/tacas/GhorbalP14,
+  author    = {Khalil Ghorbal and
+               Andr{\'e} Platzer},
+  title     = {Characterizing Algebraic Invariants by
+               Differential Radical Invariants},
+  booktitle = {TACAS},
+  year      = {2014},
+  pages     = {279-294},
+  doi       = {10.1007/978-3-642-54862-8_19},
+  editor    = {Erika {\'A}brah{\'a}m and
+               Klaus Havelund},
+  longbooktitle = {Tools and Algorithms for the Construction
+               and Analysis of Systems - 20th International
+               Conference, TACAS 2014, Held as Part of the
+               European Joint Conferences on Theory and
+               Practice of Software, ETAPS 2014, Grenoble,
+               France, April 5-13, 2014. Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {8413},
+  isbn      = {978-3-642-54861-1},
+}
+@ARTICLE{DBLP:journals/mics/MitschPP14,
+  author    = {Stefan Mitsch and
+               Grant Olney Passmore and
+               Andr{\'e} Platzer},
+  title     = {Collaborative Verification-Driven
+               Engineering of Hybrid Systems},
+  journal   = {Mathematics in Computer Science},
+  volume    = {8},
+  number    = {1},
+  year      = {2014},
+  pages     = {71-97},
+  doi       = {10.1007/s11786-014-0176-y},
+}
+@INPROCEEDINGS{DBLP:conf/cade/JeanninP14,
+  author    = {Jean{-}Baptiste Jeannin and
+               Andr{\'e} Platzer},
+  title     = {{dTL$^2$}: Differential Temporal Dynamic
+               Logic with Nested Temporalities for
+               Hybrid Systems},
+  booktitle = {IJCAR},
+  year      = {2014},
+  pages     = {292-306},
+  doi       = {10.1007/978-3-319-08587-6_22},
+  editor    = {St{\'e}phane Demri and
+               Deepak Kapur and
+               Christoph Weidenbach},
+  longbooktitle = {Automated Reasoning - 7th International
+               Joint Conference, IJCAR 2014, Held as Part
+               of the Vienna Summer of Logic, VSL 2014,
+               Vienna, Austria, July 19-22, 2014.
+               Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  subseries = {LNAI},
+  volume    = {8562},
+  isbn      = {978-3-319-08586-9},
+}
+@ARTICLE{DBLP:jourals/tac/RajhansBRKGPS14,
+  author    = {Akshay Rajhans and
+               Ajinkya Bhave and
+               Ivan Ruchkin and
+               Bruce H. Krogh and
+               David Garlan and
+               Andr{\'e} Platzer and
+               Bradley Schmerl},
+  title     = {Supporting Heterogeneity in Cyber-Physical
+               Systems Architectures},
+  journal   = {IEEE Transactions on Automatic Control},
+  year      = {2014},
+  volume    = {59},
+  number    = {12},
+  pages     = {3178-3193},
+  doi       = {10.1109/TAC.2014.2351672},
+}
+@INPROCEEDINGS{DBLP:conf/sas/GhorbalSP14,
+  author    = {Khalil Ghorbal and
+               Andrew Sogokon and
+               Andr{\'e} Platzer},
+  title     = {Invariance of Conjunctions of Polynomial
+               Equalities for Algebraic Differential
+               Equations},
+  booktitle = {SAS},
+  year      = {2014},
+  pages     = {151-167},
+  editor    = {Markus M{\"u}ller-Olm and
+               Helmut Seidl},
+  longbooktitle = {Static Analysis - 21th International
+               Symposium, SAS 2014, Munich, Germany,
+              September 11-13, 2014. Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {8723},
+  isbn      = {978-3-319-10935-0},
+  doi       = {10.1007/978-3-319-10936-7_10}
+}
+@TECHREPORT{DBLP:conf/rv/MitschP14:TR,
+  author    = {Stefan Mitsch and
+               Andr{\'e} Platzer},
+  title     = {{ModelPlex}: Verified Runtime Validation
+               of Verified Cyber-Physical System Models},
+  number    = {CMU-CS-14-121},
+  year      = {2014},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2014/CMU-CS-14-121.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/rv/MitschP14,
+  author    = {Stefan Mitsch and
+               Andr{\'e} Platzer},
+  title     = {{ModelPlex}: Verified Runtime Validation
+               of Verified Cyber-Physical System Models},
+  booktitle = {RV},
+  year      = {2014},
+  pages     = {199-214},
+  doi       = {10.1007/978-3-319-11164-3_17},
+  editor    = {Borzoo Bonakdarpour and
+               Scott A. Smolka},
+  longbooktitle = {Runtime Verification - 5th 
+               International Conference, RV
+               2014, Toronto, ON, Canada, September 22--25,
+               2014. Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {8734},
+}
+@INPROCEEDINGS{DBLP:conf/fmra/MitschQP14,
+  author    = {Stefan Mitsch and
+               Jan-David Quesel and
+               Andr{\'e} Platzer},
+  title      = {From Safety to Guilty \& from Liveness to Niceness},
+  editor     = {Calin Belta and
+                Hadas Kress-Gazit},
+  booktitle  = {5th Workshop on Formal Methods for Robotics and Automation},
+  year       = {2014},
+}
+@ARTICLE{DBLP:journals/jais/GhorbalJZPGC14,
+  author    = {Khalil Ghorbal and
+               Jean{-}Baptiste Jeannin and
+               Erik P. Zawadzki and
+               Andr{\'e} Platzer and
+               Geoffrey J. Gordon and
+               Peter Capell},
+  title     = {Hybrid Theorem Proving of Aerospace Systems:
+               Applications and Challenges},
+  journal   = {Journal of Aerospace Information Systems},
+  volume    = {11},
+  pages     = {702-713},
+  doi        = {10.2514/1.I010178},
+}
+@ARTICLE{DBLP:journals/eatcs/Platzer14,
+  author    = {Andr{\'e} Platzer},
+  title     = {Analog and Hybrid Computation: Dynamical Systems and Programming Languages},
+  journal   = {Bulletin of the {EATCS}},
+  year      = {2014},
+  volume    = {114},
+  eprint    = {http://bulletin.eatcs.org/index.php/beatcs/article/viewFile/292/274},
+}
+@INPROCEEDINGS{DBLP:conf/vmcai/GhorbalSP15,
+  author    = {Khalil Ghorbal and
+               Andrew Sogokon and
+               Andr{\'e} Platzer},
+  title     = {A Hierarchy of Proof Rules for Checking
+               Differential Invariance of Algebraic Sets},
+  booktitle = {VMCAI},
+  year      = {2015},
+  pages     = {431-448},
+  doi       = {10.1007/978-3-662-46081-8_24},
+  editor    = {Deepak D'Souza and
+               Akash Lal and
+               Kim Guldstrand Larsen},
+  longbooktitle = {Verification, Model Checking, and Abstract
+               Interpretation - 16th International Conference,
+               {VMCAI} 2015, Mumbai, India, January 12-14, 2015,
+               Proceedings},
+  series    = {LNCS},
+  volume    = {8931},
+  publisher = {Springer},
+}
+@UNPUBLISHED{LoosP14:TeachCPS,
+  author    = {Sarah M. Loos and
+               Andr{\'e} Platzer},
+  title     = {Teaching Cyber-Physical Systems with Logic},
+  year      = {2014}
+}
+@TECHREPORT{JeanninGKGSZP14:TR,
+  author    = {Jean{-}Baptiste Jeannin and
+               Khalil Ghorbal and
+               Yanni Kouskoulas and
+               Ryan Garnder and
+               Aurora Schmidt and
+               Erik Zawadzki and
+               Andr{\'e} Platzer},
+  title     = {A Formally Verified Hybrid System for the
+               Next-Generation Airborne Collision Avoidance System},
+  number    = {CMU-CS-14-138},
+  year      = {2014},
+  month     = {},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2014/CMU-CS-14-138.pdf}
+}
+@MISC{FCPS14,
+  author    = {Andr\'e Platzer},
+  title     = {Foundations of Cyber-Physical Systems},
+  year      = {2014},
+  howpublished = {Lecture Notes 15-424/624,
+               Carnegie Mellon University},
+  url = {http://symbolaris.com/course/fcps14/fcps14.pdf}
+}
+@ARTICLE{DBLP:journals/sttt/QueselMLAP16,
+  author    = {Jan-David Quesel and
+               Stefan Mitsch and
+               Sarah Loos and
+               Nikos Ar{\'e}chiga and
+               Andr{\'e} Platzer},
+  title     = {How to Model and Prove Hybrid Systems
+               with {KeYmaera}:
+               A Tutorial on Safety},
+  journal   = {STTT},
+  year      = {2016},
+  volume    = {18},
+  number    = {1},
+  pages     = {67-91},
+  doi       = {10.1007/s10009-015-0367-0},
+}
+@INPROCEEDINGS{DBLP:conf/tacas/JeanninGKGSZP15,
+  author    = {Jean{-}Baptiste Jeannin and
+               Khalil Ghorbal and
+         Yanni Kouskoulas and
+         Ryan Gardner and
+         Aurora Schmidt and
+         Erik Zawadzki and
+               Andr{\'e} Platzer},
+  title     = {A Formally Verified Hybrid System for the
+               Next-generation Airborne Collision Avoidance System},
+  booktitle = {TACAS},
+  year      = {2015},
+  pages     = {21-36},
+  doi       = {10.1007/978-3-662-46681-0_2},
+  editor    = {Christel Baier and
+               Cesare Tinelli},
+  longbooktitle = {Tools and Algorithms for the Construction
+               and Analysis of Systems - 21st International
+         Conference, TACAS 2015, London, UK, April
+         11-18, 2015, Proceedings},
+  series    = {LNCS},
+  volume    = {9035},
+  publisher = {Springer},
+}
+@TECHREPORT{Platzer14:dGI,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Hybrid Games},
+  number    = {CMU-CS-14-102},
+  year      = {2014},
+  month     = {December},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2014/CMU-CS-14-102.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/cade/Platzer15,
+  author    = {Andr{\'e} Platzer},
+  title     = {A Uniform Substitution Calculus 
+               for Differential Dynamic Logic},
+  booktitle = {CADE},
+  longbooktitle = {International Conference on
+               Automated Deduction, CADE'15, Berlin,
+               Germany, Proceedings},
+  year      = {2015},
+  pages     = {467-481},
+  doi       = {10.1007/978-3-319-21401-6_32},
+  editor    = {Amy P. Felty and
+               Aart Middeldorp},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {9195},
+  eprint    = {1503.01981}
+}
+@INPROCEEDINGS{DBLP:conf/cade/FultonMQVP15,
+  author    = {Nathan Fulton and
+               Stefan Mitsch and
+               Jan-David Quesel and
+               Marcus V{\"o}lp and
+               Andr{\'e} Platzer},
+  title     = {{KeYmaera X}: An Axiomatic Tactical Theorem Prover
+               for Hybrid Systems},
+  booktitle = {CADE},
+  longbooktitle = {International Conference on Automated
+               Deduction, CADE'15, Berlin, Germany, Proceedings},
+  year      = {2015},
+  pages     = {527--538},
+  doi       = {10.1007/978-3-319-21401-6_36},
+  editor    = {Amy P. Felty and
+               Aart Middeldorp},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {9195},
+}
+@MISC{Peterson15,
+  author    = {Annika Peterson},
+  title     = {Formal Verification of a Controlled
+        Flight Between Two Robots: A Case Study},
+  howpublished = {Senior thesis,
+        Carnegie Mellon University, Computer
+        Science Department},
+  month  = {May},
+  year      = {2015},
+  school    = {Carnegie Mellon University,
+               Computer Science Department},
+}
+@ARTICLE{DBLP:journals/csur/MitschPRS15,
+  author    = {Stefan Mitsch and
+               Andr{\'e} Platzer and
+               Werner Retschitzegger and
+               Wieland Schwinger},
+  title     = {Logic-based Modeling Approaches for Qualitative and Hybrid Reasoning in Dynamic Spatial Systems},
+  journal   = {{ACM} Comput. Surv.},
+  volume    = {},
+  number    = {},
+  pages     = {},
+  year      = {2015},
+}
+@ARTICLE{DBLP:journals/tocl/Platzer15,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Game Logic},
+  journal   = {{ACM} Trans. Comput. Log.},
+  volume    = {17},
+  number    = {1},
+  year      = {2015},
+  pages     = {1:1--1:51},
+  doi       = {10.1145/2817824},
+  issn      = {1529-3785},
+}
+@INPROCEEDINGS{DBLP:conf/emsoft/JeanninGKGSZP15,
+  author    = {Jean{-}Baptiste Jeannin and
+               Khalil Ghorbal and
+               Yanni Kouskoulas and
+               Ryan Gardner and
+               Aurora Schmidt and
+               Erik Zawadzki and
+               Andr{\'e} Platzer},
+  title     = {Formal Verification of {ACAS X},
+               an Industrial Airborne Collision Avoidance System},
+  booktitle = {EMSOFT},
+  year      = {2015},
+  pages     = {127-136},
+  doi       = {10.1109/EMSOFT.2015.7318268},
+  editor    = {Alain Girault and
+               Nan Guan},
+  longbooktitle = {2015 International Conference on Embedded
+               Software, {EMSOFT} 2015, Amsterdam, The
+               Netherlands, October 4-9, 2015},
+  publisher = {IEEE Press},
+}
+@INPROCEEDINGS{DBLP:conf/emsoft/ArechigaKDPK15,
+  author    = {Nikos Arechiga and
+               James Kapinski and
+               Jyotirmoy V. Deshmukh and
+               Andr{\'e} Platzer and
+               Bruce H. Krogh},
+  title     = {Forward invariant cuts to simplify proofs of safety},
+  booktitle = {EMSOFT},
+  pages     = {227-236},
+  year      = {2015},
+  doi       = {10.1109/EMSOFT.2015.7318278},
+  editor    = {Alain Girault and
+               Nan Guan},
+  longbooktitle = {2015 International Conference on
+               Embedded Software, {EMSOFT} 2015,
+               Amsterdam, The Netherlands, October 4-9,
+               2015},
+  publisher = {IEEE},
+  isbn      = {978-1-4673-8079-9}
+}
+@INPROCEEDINGS{DBLP:conf/itsc/MullerMP15,
+  author    = {Andreas M{\"u}ller and
+               Stefan Mitsch and
+               Andr{\'e} Platzer},
+  title     = {Verified Traffic Networks: Component-Based
+               Verification of Cyber-Physical Flow Systems}, 
+  booktitle = {ITSC},
+  longbooktitle={Intelligent Transportation Systems (ITSC),
+               2015 IEEE 18th International Conference on},
+  year      = {2015},
+  pages     = {757-764},
+  doi       = {10.1109/ITSC.2015.128},
+  keywords  = {Automobiles, Contracts, Load modeling, Mathematical model, Roads, Safety},
+}
+@ARTICLE{DBLP:journals/sttt/JeanninGKSGMP17,
+  author    = {Jean{-}Baptiste Jeannin and
+               Khalil Ghorbal and
+               Yanni Kouskoulas and
+               Aurora Schmidt and
+               Ryan Gardner and
+               Stefan Mitsch and
+               Andr{\'e} Platzer},
+  title     = {A Formally Verified Hybrid System for Safe Advisories in the
+               Next-generation Airborne Collision Avoidance System},
+  journal   = {STTT},
+  longjournal = {International Journal on Software Tools for Technology Transfer},
+  year      = {2017},
+  volume    = {19},
+  number    = {6},
+  pages     = {717-741},
+  doi       = {10.1007/s10009-016-0434-1},
+}
+  @Comment url  = {http://www.cs.cmu.edu/~aplatzer/pub/acasx-zones-long.pdf}
+@INPROCEEDINGS{DBLP:conf/vmcai/SogokonGJP16,
+  author    = {Andrew Sogokon and
+               Khalil Ghorbal and
+               Paul B. Jackson and
+               Andr{\'e} Platzer},
+  title     = {A Method for Invariant Generation for
+               Polynomial Continuous Systems},
+  booktitle = {VMCAI},
+  year      = {2016},
+  pages     = {268-288},
+  doi       = {10.1007/978-3-662-49122-5_13},
+  editor    = {Barbara Jobstmann and
+               K. Rustan M. Leino},
+  longbooktitle = {Verification, Model Checking, and Abstract
+               Interpretation - 17th International
+               Conference, {VMCAI} 2016, St. Petersburg, FL,
+               USA, January 17-19, 2016, Proceedings},
+  series    = {LNCS},
+  volume    = {9583},
+  publisher = {Springer},
+}
+@INPROCEEDINGS{DBLP:conf/cpp/FultonP16,
+  author    = {Nathan Fulton and
+               Andr{\'e} Platzer},
+  title     = {A Logic of Proofs for Differential Dynamic Logic:
+               Toward Independently Checkable Proof Certificates for Dynamic Logics},
+  booktitle = {Proceedings of the 2016 Conference on Certified Programs and Proofs,
+               {CPP} 2016, St. Petersburg, FL, USA, January 18-19, 2016},
+  pages     = {110-121},
+  year      = {2016},
+  doi       = {10.1145/2854065.2854078},
+  editor    = {Jeremy Avigad and
+               Adam Chlipala},
+  publisher = {{ACM}},
+}
+@ARTICLE{DBLP:journals/cl/GhorbalSP17,
+  author    = {Khalil Ghorbal and
+               Andrew Sogokon and
+               Andr{\'e} Platzer},
+  title     = {A Hierarchy of Proof Rules for
+               Checking Positive Invariance of
+               Algebraic and Semi-Algebraic Sets},
+  journal   = {Computer Languages, Systems and Structures},
+  year      = {2017},
+  volume    = {47},
+  number    = {1},
+  pages     = {19-43},
+  doi       = {10.1016/j.cl.2015.11.003},
+}
+@ARTICLE{DBLP:journals/fmsd/MitschP16,
+  author    = {Stefan Mitsch and
+               Andr{\'e} Platzer},
+  title     = {{ModelPlex}: Verified Runtime Validation of
+               Verified Cyber-Physical System Models},
+  journal   = {Form. Methods Syst. Des.},
+  longjournal = {Formal Methods in System Design},
+  year      = {2016},
+  volume    = {49},
+  number    = {1},
+  pages     = {33-74},
+  doi       = {10.1007/s10703-016-0241-z},
+  issn      = {0925-9856},
+  note      = {Special issue of selected papers from RV'14},
+}
+@ARTICLE{DBLP:journals/jar/Platzer17,
+  author    = {Andr{\'e} Platzer},
+  title     = {A Complete Uniform Substitution Calculus 
+               for Differential Dynamic Logic},
+  journal   = {J. Autom. Reas.},
+  longjournal = {Journal of Automated Reasoning},
+  year      = {2017},
+  volume    = {59},
+  number    = {2},
+  pages     = {219-265},
+  doi       = {10.1007/s10817-016-9385-1},
+}
+@INPROCEEDINGS{DBLP:conf/cade/Platzer16,
+  author    = {Andr{\'e} Platzer},
+  title     = {Logic \& Proofs for Cyber-Physical Systems},
+  booktitle = {IJCAR},
+  longbooktitle = {Automated Reasoning, 8th International Joint Conference,
+               IJCAR 2016, Coimbra, Portugal, Proceedings},
+  year      = {2016},
+  pages     = {15-21},
+  doi       = {10.1007/978-3-319-40229-1_3},
+  volume    = {9706},
+  editor    = {Nicola Olivetti and
+               Ashish Tiwari},
+  publisher = {Springer},
+  series    = {LNCS},
+  keywords = {logic, cyber-physical systems, multi-dynamical systems,
+               differential dynamic logic, KeYmaera X},
+  abstract = {\emph{Cyber-physical systems} (CPS) combine cyber aspects
+               such as communication and computer control with physical
+               aspects such as movement in space, which arise frequently in
+               many safety-critical application domains, including aviation,
+               automotive, railway, and robotics. But how can we ensure that
+               these systems are guaranteed to meet their design goals, e.g.,
+               that an aircraft will not crash into another one?
+               
+               This paper highlights some of the most fascinating aspects of
+               cyber-physical systems and their dynamical systems models,
+               such as hybrid systems that combine discrete transitions and
+               continuous evolution along differential equations. Because of
+               the impact that they can have on the real world, CPSs
+               deserve proof as safety evidence.
+               
+               \emph{Multi-dynamical systems} understand complex systems
+               as a combination of multiple elementary dynamical aspects,
+               which makes them natural mathematical models for CPS,
+               since they tame their complexity by compositionality.
+               The family of \emph{differential dynamic logics} achieves
+               this compositionality by providing compositional logics,
+               programming languages, and reasoning principles for CPS.
+               Differential dynamic logics, as implemented in the theorem
+               prover KeYmaera X, have been instrumental in verifying many
+               applications, including the Airborne Collision Avoidance
+               System ACAS X, the European Train Control System ETCS,
+               automotive systems, mobile robot navigation, and a surgical
+               robot system for skull-base surgery. This combination of
+               strong theoretical foundations with practical theorem proving
+               challenges and relevant applications makes
+               \emph{Logic for CPS} an ideal area for compelling
+               and rewarding research.}
+}
+@INPROCEEDINGS{DBLP:conf/ifm/MullerMRSP16,
+  author    = {Andreas M{\"u}ller and
+               Stefan Mitsch and
+               Werner Retschitzegger and
+               Wieland Schwinger and
+               Andr{\'e} Platzer},
+  title     = {A Component-based Approach to
+               Hybrid Systems Safety Verification}, 
+  booktitle = {IFM},
+  longbooktitle={Integrated Formal Methods - 12th
+               International Conference, {IFM} 2016,
+               Reykjavik, Iceland, June 1-4, 2016, Proceedings},
+  year      = {2016},
+  pages     = {441-456},
+  doi       = {10.1007/978-3-319-33693-0_28},
+  editor    = {Erika Abraham and
+               Marieke Huisman},
+  series    = {LNCS},
+  volume    = {9681},
+  publisher = {Springer},
+  year      = {2016},
+}
+@TECHREPORT{DBLP:conf/ifm/MullerMRSP16:TR,
+  author    = {Andreas M{\"u}ller and
+               Stefan Mitsch and
+               Werner Retschitzegger and
+               Wieland Schwinger and
+               Andr{\'e} Platzer},
+  title     = {A Component-based Approach to
+               Hybrid Systems Safety Verification}, 
+  number    = {CMU-CS-16-100},
+  year      = {2016},
+  month     = {June},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2016/CMU-CS-16-100.pdf}
+}
+@MISC{FCPS16:videos,
+  author    = {Andr\'e Platzer},
+  title     = {Foundations of Cyber-Physical Systems},
+  year      = {2016},
+  howpublished = {Lecture Videos 15-424/624/824,
+               Carnegie Mellon University},
+}
+@MISC{FCPS16,
+  author    = {Andr\'e Platzer},
+  title     = {Foundations of Cyber-Physical Systems},
+  year      = {2016},
+  howpublished = {Lecture Notes 15-424/624/824,
+               Carnegie Mellon University},
+  url = {http://symbolaris.com/course/fcps16/fcps16.pdf}
+}
+@ARTICLE{DBLP:journals/ijrr/MitschGVP17,
+  author    = {Stefan Mitsch and
+               Khalil Ghorbal and
+               David Vogelbacher and
+               Andr{\'e} Platzer},
+  title     = {Formal Verification of Obstacle Avoidance
+               and Navigation of Ground Robots},
+  journal   = {I. J. Robotics Res.},
+  longjournal={International Journal of Robotics Research},
+  volume    = {36},
+  number    = {12},
+  pages     = {1312-1340},
+  year      = {2017},
+  doi       = {10.1177/0278364917733549},
+  arXiv     = {1605.00604}
+}
+@PHDTHESIS{Loos16,
+	author    = {Loos, Sarah M.},
+	school    = {Computer Science Department,
+               School of Computer Science,
+               Carnegie Mellon University},
+	title     = {Differential Refinement Logic},
+	year      = {2016},
+}
+@INPROCEEDINGS{DBLP:conf/lics/LoosP16,
+  author    = {Sarah M. Loos and
+               Andr{\'e} Platzer},
+  title     = {Differential Refinement Logic},
+  booktitle = {LICS},
+  year      = {2016},
+  pages     = {505-514},
+  doi       = {10.1145/2933575.2934555},
+  longbooktitle = {Proceedings of the 31st Annual
+               {ACM/IEEE} Symposium on Logic in Computer
+               Science, {LICS} '16, New York, NY, USA,
+               July 5-8, 2016},
+  publisher = {ACM},
+  editor    = {Martin Grohe and
+               Eric Koskinen and
+               Natarajan Shankar}
+}
+@INCOLLECTION{DoyenFPP18,
+  author    = {Laurent Doyen and
+               Goran Frehse and 
+               George J. Pappas and
+               Andr{\'e} Platzer},
+  title     = {Verification of Hybrid Systems},
+  booktitle = {Handbook of Model Checking},
+  editor    = {Edmund M. Clarke and Thomas A. Henzinger and Helmut Veith and Roderick Bloem},
+  publisher = {Springer},
+  year      = {2018},
+  pages     = {1047-1110},
+  doi       = {10.1007/978-3-319-10575-8_30},
+  addresss  = {Cham}
+}
+@INPROCEEDINGS{DBLP:conf/fide/MitschP16,
+  author    = {Stefan Mitsch and
+               Andr{\'e} Platzer},
+  title     = {The {KeYmaera X} proof {IDE}:
+               Concepts on usability in hybrid systems theorem proving},
+  booktitle = {3rd Workshop on Formal Integrated Development Environment},
+  pages     = {67-81},
+  year      = {2016},
+  doi       = {10.4204/EPTCS.240.5},
+  editor    = {Catherine Dubois and
+               Dominique Mery and
+               Paolo Masci},
+  publisher = {},
+  series    = {EPTCS},
+  volume    = {240},
+}
+@INPROCEEDINGS{DBLP:conf/cpp/BohrerRVVP17,
+  author    = {Brandon Bohrer and
+               Vincent Rahli and
+               Ivana Vukotic and
+               Marcus V{\"o}lp and
+               Andr{\'e} Platzer},
+  title     = {Formally Verified Differential Dynamic Logic},
+  pages     = {208-221},
+  year      = {2017},
+  doi       = {10.1145/3018610.3018616},
+  editor    = {Yves Bertot and
+               Viktor Vafeiadis},
+  booktitle = {CPP},
+  longbooktitle = {Certified Programs and Proofs -
+               6th ACM SIGPLAN Conference, CPP 2017,
+               Paris, France, January 16-17, 2017},
+  publisher = {{ACM}},
+  isbn      = {}
+}
+@MISC{FCPS17,
+  author    = {Andr\'e Platzer},
+  title     = {Foundations of Cyber-Physical Systems},
+  year      = {2017},
+  howpublished = {Lecture Notes 15-424/624/824,
+               Carnegie Mellon University},
+  url = {http://lfcps.org/course/fcps17.html}
+}
+@ARTICLE{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17,
+  author    = {Franz Franchetti and
+               Tze Meng Low and
+               Stefan Mitsch and
+               Juan Paolo Mendoza and
+               Liangyan Gui and
+               Amarin Phaosawasdi and
+               David Padua and
+               Soummya Kar and
+               Jos\'e M. F. Moura and
+               Mike Franusich and
+               Jeremy Johnson and
+               Andr{\'e} Platzer and
+               Manuela Veloso},
+  title     = {High-Assurance {SPIRAL}:
+               End-to-End Guarantees for Robot
+               and Car Control},
+  journal   = {IEEE Control Systems},
+  year      = {2017},
+  volume    = {37},
+  number    = {2},
+  pages     = {82-103},
+  doi       = {10.1109/MCS.2016.2643244},
+}
+@INPROCEEDINGS{DBLP:conf/fase/MullerMRSP17,
+  author    = {Andreas M{\"u}ller and
+               Stefan Mitsch and
+               Werner Retschitzegger and
+               Wieland Schwinger and
+               Andr{\'e} Platzer},
+  title     = {Change and Delay Contracts for
+               Hybrid System Component Verification}, 
+  booktitle = {FASE},
+  year      = {2017},
+  pages     = {134-151},
+  doi       = {10.1007/978-3-662-54494-5_8},
+  editor    = {Marieke Huisman and
+               Julia Rubin},
+  series    = {LNCS},
+  volume    = {10202},
+  publisher = {Springer},
+}
+@ARTICLE{DBLP:journals/tocl/Platzer17,
+  author    = {Andr{\'e} Platzer},
+  title     = {Differential Hybrid Games},
+  journal   = {{ACM} Trans. Comput. Log.},
+  volume    = {18},
+  number    = {3},
+  year      = {2017},
+  pages     = {19:1-19:44},
+  doi       = {10.1145/3091123},
+  issn      = {1529-3785},
+}
+@INPROCEEDINGS{DBLP:conf/itp/FultonMBP17,
+  author    = {Nathan Fulton and
+               Stefan Mitsch and
+               Brandon Bohrer and
+               Andr{\'e} Platzer},
+  title     = {Bellerophon: Tactical Theorem Proving
+               for Hybrid Systems},
+  booktitle = {ITP},
+  longbooktitle = {Interactive Theorem Proving,
+               International Conference, ITP 2017},
+  year      = {2017},
+  pages     = {207-224},
+  month     = {},
+  doi       = {10.1007/978-3-319-66107-0_14},
+  editor    = {Mauricio Ayala-Rinc{\'o}n and
+               C{\'e}sar A. Mu{\~n}oz},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {10499},
+  isbn      = {978-3-319-66106-3},
+}
+@BOOK{Platzer18,
+  author    = {Andr{\'e} Platzer},
+  title     = {Logical Foundations of Cyber-Physical Systems},
+  publisher = {Springer},
+  address   = {Switzerland},
+  year      = {2018},
+  isbn      = {978-3-319-63587-3},
+  e-isbn    = {},
+  doi       = {},
+  url       = {http://www.springer.com/978-3-319-63587-3}
+}
+@TECHREPORT{PlatzerY17:TR,
+  author    = {Andr{\'e} Platzer and
+               Yong Kiam Tan},
+  title     = {How to Prove ``All'' Differential Equation Properties},
+  number    = {CMU-CS-17-117},
+  year      = {2017},
+  month     = {August},
+  institution = {School of Computer Science,
+               Carnegie Mellon University},
+  address   = {Pittsburgh, PA},
+  pdf = {http://reports-archive.adm.cs.cmu.edu/anon/2017/CMU-CS-17-117.pdf}
+}
+@INPROCEEDINGS{DBLP:conf/rssrail/MitschGBGP17,
+  author    = {Stefan Mitsch and
+               Marco Gario and
+               Christof J. Budnik and
+               Michael Golm and 
+               Andr{\'e} Platzer},
+  title     = {Formal Verification of Train Control with
+               Air Pressure Brakes},
+  booktitle = {RSSRail},
+  longbooktitle = {RSSRail 2017: Reliability, Safety,
+               and Security of Railway Systems},
+  year      = {2017},
+  pages     = {173-191},
+  editor    = {Alessandro Fantechi and
+               Thierry Lecomte and
+               Alexander Romanovsky},
+  volume    = {10598},
+  doi       = {10.1007/978-3-319-68499-4_12},
+  series    = {LNCS},
+  publisher = {Springer},
+}
+@INPROCEEDINGS{DBLP:conf/aaai/FultonP18,
+  author    = {Nathan Fulton and
+               Andr{\'e} Platzer},
+  title     = {Safe Reinforcement Learning via Formal Methods:
+               Toward Safe Control Through Proof and Learning},
+  booktitle = {Proceedings of the Thirty-Second {AAAI} Conference
+               on Artificial Intelligence,
+               February 2-7, 2018, New Orleans, Louisiana, {USA.}},
+  pages     = {6485-6492},
+  year      = {2018},
+  editor    = {Sheila McIlraith and
+               Kilian Weinberger},
+  publisher = {{AAAI} Press},
+}
+@INPROCEEDINGS{DBLP:conf/pldi/BohrerTMMP18,
+  author    = {Brandon Bohrer and
+               Yong Kiam Tan and
+               Stefan Mitsch and
+               Magnus O. Myreen and
+               Andr{\'{e}} Platzer},
+  title     = {{VeriPhy}: Verified Controller Executables
+               from Verified Cyber-Physical System Models},
+  pages     = {617-630},
+  year      = {2018},
+  doi       = {10.1145/3192366.3192406},
+  publisher = {{ACM}},
+  editor    = {Dan Grossman},
+  booktitle = {PLDI},
+  longbooktitle = {Proceedings of the 39th {ACM} {SIGPLAN}
+               Conference on Programming Language
+               Design and Implementation, {PLDI} 2018},
+}
+
+@INPROCEEDINGS{DBLP:conf/cade/Platzer18,
+  author    = {Andr{\'{e}} Platzer},
+  title     = {Uniform Substitution for Differential Game Logic},
+  booktitle = {IJCAR},
+  longbooktitle = {Automated Reasoning, 9th International Joint Conference,
+               IJCAR 2018, Oxford, UK, Proceedings},
+  year      = {2018},
+  pages     = {211-227},
+  doi       = {10.1007/978-3-319-94205-6_15},
+  editor    = {Didier Galmiche and
+               Stephan Schulz and
+               Roberto Sebastiani},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {10900},
+  subseries = {LNAI},
+}
+@INPROCEEDINGS{DBLP:conf/lics/PlatzerT18,
+  author    = {Andr{\'{e}} Platzer and
+               Yong Kiam Tan},
+  title     = {Differential Equation Axiomatization:
+               The Impressive Power of Differential Ghosts},
+  booktitle = {LICS},
+  year      = {2018},
+  pages     = {819-828},
+  doi       = {10.1145/3209108.3209147},
+  editor    = {Anuj Dawar and
+               Erich Gr{\"{a}}del},
+  longbooktitle = {Proceedings of the 33rd Annual ACM/IEEE Symposium on Logic in
+               Computer Science},
+  publisher = {ACM},
+  year      = {2018},
+  key       = {LICS},
+  isbn      = {978-1-4503-5583-4},
+  address   = {New York},
+}
+@INPROCEEDINGS{DBLP:conf/lics/BohrerP18,
+  author    = {Brandon Bohrer and
+               Andr{\'{e}} Platzer},
+  title     = {A Hybrid, Dynamic Logic for Hybrid-Dynamic Information Flow},
+  booktitle = {LICS},
+  year      = {2018},
+  pages     = {115-124},
+  doi       = {10.1145/3209108.3209151},
+  editor    = {Anuj Dawar and
+               Erich Gr{\"{a}}del},
+  longbooktitle = {Proceedings of the 33rd Annual ACM/IEEE Symposium on Logic in
+               Computer Science},
+  publisher = {ACM},
+  year      = {2018},
+  key       = {LICS},
+  isbn      = {978-1-4503-5583-4},
+  address   = {New York},
+}
+@INPROCEEDINGS{DBLP:conf/fm/SogokonGTP18,
+  author    = {Andrew Sogokon and
+               Khalil Ghorbal and
+               Yong Kiam Tan and
+               Andr\'{e} Platzer},
+  title     = {Vector Barrier Certificates and Comparison Systems},
+  booktitle = {FM},
+  crossref  = {DBLP:conf/fm/2018},
+  year      = {2018},
+  pages     = {418-437},
+  doi       = {10.1007/978-3-319-95582-7_25},
+  editor    = {Klaus Havelund and
+               Bill Roscoe and
+               Jan Peleska},
+  longbooktitle = {{FM} 2018: Formal Methods - 
+               22nd International Symposium, Oxford,
+               UK, July 15-17, 2018, Proceedings},
+  publisher = {Springer},
+  series    = {LNCS},
+  volume    = {10951},
+  address   = {},
+}
+@ARTICLE{DBLP:conf/adhs/BohrerLCP18,
+  author   = {Brandon Bohrer and
+              Adriel Luo and
+              Xue An Chuang and
+              Andr{\'{e}} Platzer},
+  title    = {{CoasterX}: A Case Study in Component-Driven  Hybrid Systems Proof Automation},
+  journal  = {IFAC-PapersOnLine},
+  year     = {2018},
+  note     = {Analysis and Design of Hybrid Systems ADHS},
+}
+@ARTICLE{DBLP:journals/sttt/MullerMRSP18,
+  author   = {Andreas M{\"{u}}ller and
+              Stefan Mitsch and
+              Werner Retschitzegger and
+              Wieland Schwinger and
+              Andr{\'{e}} Platzer},
+  title     = {Tactical Contract Composition for Hybrid System Component Verification},
+  journal   = {STTT},
+  volume    = {20},
+  number    = {6},
+  year      = {2018},
+  pages     = {615-643},
+  note      = {Special issue for selected papers from FASE'17}
+}
+@INPROCEEDINGS{DBLP:conf/itc/FultonP18,
+  author    = {Nathan Fulton and
+               Andr{\'{e}} Platzer},
+  title     = {Safe AI for CPS},
+  booktitle = {{IEEE} International Test Conference, {ITC} 2018, Phoenix, AZ,
+               USA, October 28 - Nov. 2, 2018},
+  pages     = {},
+  year      = {2018},
+  publisher = {IEEE},
+  isbn      = {978-1-5386-8382-8},
+}
+@ARTICLE{DBLP:journals/corr/abs-1811-06502,
+  author    = {Stefan Mitsch and
+               Andr{\'e} Platzer},
+  title     = {Verified Runtime Validation for Partially Observable Hybrid Systems},
+  journal   = {CoRR},
+  volume    = {abs/1811.06502},
+  year      = {2018},
+  url       = {http://arxiv.org/abs/1811.06502},
+}
+@PHDTHESIS{Fulton18,
+	author    = {Fulton, Nathan},
+	school    = {Computer Science Department,
+               School of Computer Science,
+               Carnegie Mellon University},
+	title     = {Verifiably Safe Autonomy for Cyber-Physical Systems},
+	year      = {2018},
+}
