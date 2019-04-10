@@ -62,6 +62,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\bebecomes}{\mathrel{::=}}
 \newcommand{\alternative}{~|~}
 \newcommand{\ivr}{\psi}
+\newcommand{\meps}[2]{\iota{#1}~{#2}}
 
 \usepackage{prettyref}
 \newcommand{\rref}[2][]{\prettyref{#2}}
@@ -120,7 +121,6 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\tint}[2]{\lenvelope{#1}\renvelope{#2}}
 \newcommand{\fint}[1]{\lenvelope{#1}\renvelope}
 \newcommand{\pint}[3]{(#2,#3) \in \lenvelope{#1}\renvelope}
-
 
 \draftstamp{\today}{DRAFT}
 \begin{document}
@@ -191,6 +191,7 @@ In the special case of hybrid systems, proofs are backed by mechanized soundness
 
 
 \chapter{Introduction}
+\label{ch:introduction}
 Cyber-physical systems (CPSs) combining discrete control and continuous physical dynamics are pervasive in modern society: examples include driver assistance in cars, industrial robotics, airborne collision avoidance systems, the electrical grid, and medical devices.
 Many of these systems are safety-critical or even life-critical because they operate in close proximity to humans and in some cases perform life-sustaining functions.
 Formal safety verification of these systems is a key tool for attaining the strongest possible guarantees that they meet their safety objectives.
@@ -254,7 +255,7 @@ Terms $\theta, \eta$ of \dGL are defined recursively according to the following 
 \[\theta,\eta \bebecomes q \alternative x \alternative \theta + \eta \alternative \theta \cdot \eta \alternative \der{\theta} \]
 \end{definition}
 Where $q \in \mathbb{Q}$ is a rational constant, $x \in \allvars$ is a program variable and $\allvars$ is the (at most countable) set of all base variable names.
-For every base variable $x \in allvars,$ there is a differential variable $\D{x} \in \D{\allvars}$ standing for the differential of $x$.
+For every base variable $x \in \allvars,$ there is a differential variable $\D{x} \in \D{\allvars}$ standing for the differential of $x$.
 Terms $\theta + \eta$ and $\theta \cdot \eta$ are the sum and product of $\theta$ and $\eta,$ and $\der{\theta}$ is the \emph{differential} of term $\theta$.
 It is worth noting that the \dGL term language is restrictive, and for good reason: all terms are polynomials, so all terms are defined in every state and even $C^\infty$-smooth.
 Because \dGL terms are well-behaved, the theory of \dGL is simplified as a result.
@@ -512,9 +513,45 @@ Axiom \irref{dgliter} says a repetition game can be played by choosing between p
 Axiom \irref{dglMon} says hybrid games satisfy monotonicity.
 Axiom \irref{dglfixpoint} says repetition $\prepeat{\alpha}$ is a fixpoint of $\alpha$.
 
-\chapter{Prior Work:  Logical Foundations}
+\chapter{Completed Work:  Logical Foundations}
 \label{ch:logical-foundations}
-\section{Formalization of dL in \Isabelle}
+One of the key components of \emph{foundational} end-to-end synthesis and verification is a bulletproof theoretical foundation.
+Logics for verification of hybrid systems and hybrid games are the main formal tool with which we wish to develop correct CPS's, and as such it is doubly important that the logics themselves are developed with the absolute highest degree of certainty in their correctness.
+In this chapter, we discuss two completed works by the author.
+These works not only attest that an adequate theoretical foundation has been laid for the remaining chapters of the thesis, but also that the author is adequately experienced with developing logical foundations for the proposed works to succeed.
+
+\section{Formalization of \dL in \Isabelle}
+\label{sec:isabelle-fml}
+When we perform proofs in \dL (or likewise in \dGL), we wish to know that theorem we believe we have proved is indeed true.
+This property is called soundness, and paper proofs of soundness are provided in the papers which developed a sequent calculus~\cite{DBLP:journals/jar/Platzer08} and uniform substitution~\cite{DBLP:journals/jar/Platzer17} calculus for \dL, of which the latter is the basis for the implementation of \dL in the theorem prover \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
+However, proofs on paper are notoriously susceptible both to
+\begin{inparaenum}
+  \item errors in human logical reasoning and
+  \item even more often, errors by omission: paper proofs often focus on the simplest cases of the proof, providing no evidence that the implementation will continue to be correct in the most difficult cases, exactly when it is most in need of formal assurance.
+\end{inparaenum}
+Errors of both kinds can be most robustly addressed by formalizing the entire development of the proof system in a general-purpose proof assistant such as Isabelle~\cite{ISABELLE} or Coq~\cite{COQ}, starting from syntax and semantics up to axioms and ultimately a soundness theorem for an entire proof-checking procedure.
+Errors of the first kind are the easiest to address: assuming we have not accidentally exploited a bug in the host prover, an erroneous logical step in the mechanized proof will simply be rejected by the prover.
+To totally eliminate errors of the second kind requires a more ambitious effort: once we have formalized \dL in another prover, how do we know that we have formalized every important feature and that we have not forgotten one?
+After all, if we forget to include a certain feature in our paper proof, we might very easily forget it in a mechanized proof as well, and because this is not a soundness error, we will not catch it simply by attempting to prove soundness in the prover.
+
+Errors of the second kind can be addressed by completing the circle, so to speak: modern theorem provers contain code generation facilities which can be used to synthesize a proof checker from an appropriately-written formal development.
+If that proof checker is willing to accept the \dL proofs that are constructed in practice, then there is little question to the exhaustiveness of the development, because no matter whether the paper proof and mechanized proof forgot to account for some feature from the implementation, the implementation itself certainly cannot forget.
+While the work involved in bringing a mechanization up to speed with the practical implementation can be significant, there is also a second payoff: the resulting proof checker is guaranteed sound by construction, and can be used as a backup for the standard \KeYmaeraX prover core, effectively removing the core from the trusted computing base.
+
+The author has carried out all of the above developments for the \dL uniform substitution calculus~\cite{DBLP:journals/jar/Platzer17} using Isabelle~\cite{ISABELLE} as a host prover.
+The initial formalization is documented in \cite{DBLP:conf/cpp/BohrerRVVP17} and follow-up work in \cite{DBLP:conf/pldi/BohrerTMMP18}.
+In all, the formalization includes the syntax, static and dynamic semantics, proof calculus, and soundness theorem for \dL.
+The full formalization is $\approx$25,000 lines of Isabelle proof scripts.
+In addition, a proof checker was synthesized with the Isabelle code generation mechanism and evaluated by instrumenting \KeYmaeraX to output complete proof terms as it performs a proof.
+In \cite{DBLP:conf/pldi/BohrerTMMP18} this proof checker was evaluated on a proof that a velocity-controlled car driving in a straight line is safe under the supervision of a controller generated by \VeriPhy.
+The proof term in question is over 100,000 proof steps and is extracted directly from the actual \KeYmaeraX proof, attesting to the exhaustiveness of the formalization.
+
+These results contribute to the overall goals of the thesis in several ways.
+Firstly, the proof checker has been used to check the correctness of \dL proofs that end-to-end verified systems as produced throughout this thesis are actually safe, which in effect has bridged the high-level, practical foundation given by \dL with the lower-level foundations of Isabelle.
+Secondly, the work requires intimate knowledge of the foundations of \dL, including edge cases which were not addressed in prior works such as systems of (multiple) differential equations and a bound renaming rule, which was in fact unsound in \KeYmaeraX until the bug was discovered by doing the mechanized proof.
+Additional features include operations like division, absolute value, and min and max, which are not covered in previous presentations.
+This has prepared the author for the foundational work that remains in the proposed thesis chapters.
+
 \subsection{Related Work}
 \paragraph{Verification of Theorem Provers}
 %
@@ -574,6 +611,27 @@ That needs the syntactic exposition of a deep embedding, though.
 
 \section{Definite Descriptions in dL}
 \label{sec:definite-description}
+While \rref{sec:isabelle-fml} addresses the gap between theory presentations of \dL and its usage in the theorem \KeYmaeraX, it does so in a somewhat brute force way: manually formalizing every extension that has been added to the \KeYmaeraX core over time.
+This is unmaintainable as the number of extensions grows, and moreover we would prefer a definition mechanism where new constructs can be defined without increasing the size of the core.
+That is to say, one of the lessons learned from the work described in \rref{sec:isabelle-fml} is that a more maintainable way to put a theorem prover on bulletproof foundations is to work from both ends at once, not just formalizing the proof calculus in great detail but also redesigning the proof calculus to be more general in the first place, so that what were once a grabbag of extensions are now elegantly described in the core language.
+
+Recent work by the author~\cite{hilbert-epsilons} does exactly that by introducing the logic \dLi which extends \dL with a definite description construct $\meps{x}{\phi(x)}$ meaning the unique $x$ (if a unique one exists) such that $\phi(x)$ is true.
+The underlying reason for this extension is that an unending array of extensions to \dL, both past and future, are simply new term constructs which do not fall within the restrictive polynomial language of traditional \dL.
+Because the formula language of \dL is relatively unrestricted, containing all of first-order real arithmetic and dynamic modalities, one can achieve the desired power in the term language through the definite description construct, which effectively imports the powers of the formula language into the term language.
+
+This work is of relevance to the overall thesis in two ways.
+First, it justifies the choice to focus primarily on the core polynomial term language in the development of \CdGL, as the foundations of additional terms (albeit a classical foundation) have now been studied in detail.
+Moreover, it again demonstrates the author's ability to work with the foundations of the logic: whereas the work in \rref{sec:isabelle-fml} focused on a painstakingly detailed reproduction of a proof calculus which had largely already been developed, this work required a wholesale overhaul of the semantics underlying \dL, much in the way an extension from classical \dGL to constructive \CdGL will require another semantic overhaul.
+
+It is perhaps surprising that \dLi requires a new semantics in the first place.
+The simplicity of \dL terms is exploited in several ways throughout the theory of \dL, the main properties being that terms are defined everywhere and that they are everywhere infinitely differentiable and locally Lipschitz-continuous, meaning that all differential equations expressible in \dL have guaranteed uniqueness and existence of solutions by the Picard-Lindel\"of theorem.
+The simple addition of definite descriptions invalidates all of these assumptions.
+To deal with this generalization, the term semantics of \dLi are made partial and the formula semantics are recast a 3-valued {\L}ukasiewicz semantics.
+All axioms and proof rules of \dL are then revised so that hold valid over the 3-valued semantics of \dLi and are proven sound again with respect to the new semantics.
+The \dLi calculus maintains as much generality as reasonably possible, so that for example it is possible to prove properties even about systems which do not satisfy uniqueness of solutions.
+
+The theoretical developments for \dLi culminate in soundness and equi-expressiveness proofs with respect to \dL, which very much the same kind of results we aim to achieve for the \CdGL theory.
+
 \subsection{Related Work}
 Formalizations of \KeYmaeraX~\cite{DBLP:conf/pldi/BohrerTMMP18}, Coq~\cite{DBLP:journals/jfrea/Barras10}, and NuPRL~\cite{DBLP:conf/itp/AnandR14} all omit or simplify whichever practical features are most theoretically challenging for their specific logic: discontinuous and partial terms in \KeYmaeraX, termination-checking in Coq, or context management in NuPRL.
 When formalizations of theorem provers \emph{do} succeed in reflecting the implementation~\cite{DBLP:journals/jar/KumarAMO16}, they owe a credit to the generality of the underlying theory: it is much more feasible to formalize a general base theory than to formalize ad-hoc extensions as they arise.
@@ -585,10 +643,65 @@ In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b
 \irref{DI} is the \emph{differential induction}~\cite{DBLP:journals/logcom/Platzer10}
 Quantifier elimination rule \irref{QEeps} says first-order arithmetic, a fragment, is decidable~\cite{tarski1998decision}.
 
+\chapter{Completed Work:  End-to-End Robot Verification}
+\label{ch:end-to-end-v}
+This chapter describes  works by the author and collaborators which introduce a general approach that enables end-to-end verification while maintaining solid logical foundations and then apply the approach in a case study on the verification of free driving for 2D Dubins-like ground robots.
+These works already constitute a major cohmponent of the goals of the thesis: what remains in the proposed work is to extend this beyond only verification and monitor synthesis to include controller synthesis while maintaining rigorous foundations.
+We begin by motivating end-to-end verification and defining it, then give our approach and case study results in greater detail.
 
-\chapter{Prior Work:  End-to-End Robot Verification}
 \section{\VeriPhy Pipeline for End-to-End Verification}
 \label{sec:veriphy}
+As discussed in the introduction (\rref{ch:introduction}), end-to-end verification of CPS is in part motivated by the same factors as CPS in general: CPS such as self driving cars and robots are often safety critical because of their proximity to humans, and formal methods are a powerful tool for insuring that these critical systems are in fact safe enough to be trusted around humans. Because CPS are only growing more and more popular over time, any work that addresses their safety is poised to increase in impact, as well.
+
+To fully motivate end-to-end verification, however, one must assess the key question of what it even \emph{means} to verify the safety of a CPS.
+When we first learn how to prove theorems in math class, we may not always know how to do the proof, or we may not always know whether a proof has sufficient detail, but it is almosts always clear \emph{what} we are trying to do, because the theorems we prove come from a longstanding mathematical tradition with an established library of well-defined and well-understood mathematical terms: there is little debate today what it means to be a real number, nor what it means to be a group.
+As soon as we enter the realm of even discrete programs, this changes entirely. Not only might programs be written in an endless and ever changing array of programming languages, but it is no longer clear what we want to prove about a program. On one end of the spectrum we might simply prove that a program satisfies a simple property like termination or absence of segfaults and call it a day, while at the other end of the spectrum we might develop a full functional specification and prove that the entire specification is met. In practice, we often want something in between, because the more expressive a program property is, typically the harder it is to prove. All of this is also compounded by the nature of software: while the real numbers change only occasionally (with the advent of fields like nonstandard analysis or constructive analysis \texttt{;-)}), real software can change hundreds of times per day. Many interesting programs can only be proved with the intervention of humans, and it is a total nonstarter to ask a human to perform the verification of a complex program hundreds of times per day.
+
+These issues only grow more pernicious in CPS, where physics enters the mix as well.
+It is equally true in CPS that code evolves and should not need to be constantly reverified by hand.
+It is even more true that it becomes difficult to nail down a proper specification: not only are there a variety of possible properties to prove, but because CPS's are fundamentally constrained by the laws of physics, the most general properties are often not provable because they are \emph{simply false}: A car cannot avoid collision if it is an inch behind an intruder vehicle that slams on its breaks, nor can a car avoid collisions if its sensors exhibit an arbitrarily large error.
+Even once a specification has been identified, proving it is now more difficult because the verification of CPS spans several subspecialties of verification which require diverse reasoning principles.
+At the controls level (which is the focus of this thesis), CPS verification must reason seamlessly about both discrete control code and continuous dynamical systems (differential equations) that describe the kinematics of the system. Furthermore, these arguments are by far easiest to make at a high level of abstraction where controls are nondeterministc, variables are real-valued, and time evolves continuously (which also provides the strongest results), yet we expect results to hold of a low-level implementation where control is deterministic, variables have finite arithmetic precision, and a controller can only sense every so often.
+This is without even considering stochastic, distributed, and adversial dynamics, let alone vulnerabilities in the network stack.
+
+All of this goes to say, that in seeking end-to-end verification of CPS, in seeking the strongest possible results about CPS as they exist in actual implementation and not merely in mathematical models, \emph{identifying the right question is half the battle}.
+As soon as we seek to nail down a definition of end-to-end verification, we will realize this is in fact a moving target.
+It is unfeasible to summarily verify every desirable property of every sensor, actuator, and controller, simply because a cornucopia of such components exist, all of which are in constant flux: 
+If today we prove that today's controller is correct, Murphy's Law dictates that a superior controller is released for purchase tomorrow.
+With all the considerations in mind, it is less essential to ensure that every conceivable component of the CPS has been verified in full, but rather to devise and carry out an approach where:
+\begin{enumerate}
+\item \label{item:evolution} Control software is free to evolve without reverification
+\item \label{item:end-to-end} Safety of the system as it is implemented can be tied formally to a rigorous theoretical foundation
+\item \label{item:high-level} When a human is required to perform verification, they are allowed to do so at a high level (hybrid systems) with their results automatically transported to implementation level
+\item \label{item:open-ended} The architecture is open-ended enough that one could plausibly verify those components whose correctness is presently assumed.
+\end{enumerate}
+While it is specifically because of requirement \ref{item:end-to-end} that we call our work \emph{end-to-end}, the author believes that all of the above are essential for verification to be applicable in realistic systems while still claiming full generality and full rigor.
+Our approach, which we will refer to as the \VeriPhy approach (as it is implemented in our tool \VeriPhy), achieves all of the above, as we will now describe.
+
+Requirement \ref{item:evolution} effectively requires a significant \emph{runtime verification} component, where the safety of control decisions is checked online, and potentially-unsafe decisions are replaced by provably safe ones.
+Requirements \ref{item:end-to-end} and \ref{item:high-level} entail an equally significant hybrid systems verification component.
+Requirement \ref{item:open-ended}, arguably the easiest to satisfy, can be satisfied by providing a clean interface between those components which are proven correct and those which are trusted.
+
+With all these requirements in mind, the \VeriPhy approach starts with modeling and verifying a hybrid system in \dL using \KeYmaeraX.
+The \VeriPhy tool then synthesizes an \emph{executable correct-by-construction monitor}  as follows:
+\begin{itemize}
+\item The \ModelPlex tool is invoked to synthesize a \emph{control monitor formula} and \emph{plant monitor formula}, which determine whether control decisions and physical evolutions respectively satisfy the assumptions made of them by the model
+\item The monitors are combined with a proven-safe \emph{fallback controller} (which is provided in the input model) to form a \emph{sandbox controller}.
+   The sandbox controller applies control decisions provided from an external source (henceforth called the \emph{external controller}) whenever those decisions satisfy the controller monitor,
+   and otherwise invokes the fallback controller
+\item The sandbox controller is automatically proven safe in \KeYmaeraX, in part by reusing the contents of the hybrid system safety proof
+\item The sandbox safety proof is optionally rechecked in the verified proof checker (\rref{sec:isabelle-fml}) to eliminate the \KeYmaeraX core from the trusted base
+\item The exact real arithmetic of hybrid systems is replaced with conservative fixed-point interval arithmetic, which is formally proven in Isabelle to be sound
+\item The resulting program is proven equivalent to a CakeML program (in HOL4)
+\item The equivalent CakeML program is compiled to machine code in a verified compiler
+\item The machine code is linked against the users' implementation of sensors and actuators
+\end{itemize}
+Each step is provably a refinement of the step before it, culminating that any execution of the machine-code running on the actual CPS is corresponds to some execution of the source hybrid system.
+Because all executions of the source hybrid system were proven safe already, then the execution of the actual CPS is also known to be safe.
+Notably, the sensors and actuator drivers, which are provided by the users of \VeriPhy, are trusted.
+Yet requirement \label{item:open-ended} is satisfied: the sensors and actuators (correspond directly to the sensor and actuator variables in the hybrid system model) are isolated in a small foreign-function interface which has a simple specification in HOL4.
+It is not unrealistic to suggest that one day, we could verify sensors and actuators against these specifications in HOL4, at least given some weaker assumptions.
+
 \subsection{Related Work}
 \paragraph{CPS Verification.}
 Differential dynamic logic~\cite{DBLP:journals/jar/Platzer08,DBLP:conf/lics/Platzer12a}, as implemented in \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}, has been successfully applied in a number of case studies~\cite{DBLP:conf/cade/Platzer16}.
@@ -632,6 +745,205 @@ Static analysis of arithmetic for hybrid systems has been studied~\cite{DBLP:con
 
 \section{Case Study: End-to-End Ground Robotics Verification}
 \label{sec:ground-robotics}
+While the previous section describes \VeriPhy in general (both as a methodology and as a tool), we certainly cannot claim that the \VeriPhy tool enables end-to-end verification of realistic CPS implementations until we have actually applied \VeriPhy to such a system.
+This section validates that claim by providing a full \VeriPhy case study including \dL models, proofs, a simulation which employs the sandbox controller generated by \VeriPhy, and test environments for the simulation.
+For our case study, we chose 2D ground robots which follow Dubins-like arcs and lines and which enforce user-supplied speed limits as they do so.
+This choice is motivated by the fact that a huge variety of ground robots move by following such paths, yet the paths themselves are reasonably simple, and at the same time speed limits are incredibly useful for example in autonomous cars which intend to obey the law or in robots with high centers of mass which wish not to flip over when navigating curves.
+
+\subsection{Model}
+This section introduces our 2D robot model in \dL.
+The Dubins dynamics are bloated by a tolerance, which accounts for imperfect actuation and for discrepancies between the Dubins dynamics and real dynamics of the implementation.
+That is, because realistic robots never follow a path perfectly, we will bloat each arc to an annulus section which is more easily followed.
+Each waypoint is specified by coordinates $(\xgvar,\ygvar)$, a curvature $\kvar$, and a speed limit $[\vlvar,\vhvar]$ for the robot's velocity $\vvar$ which is to be met by the time the waypoint is reached.
+The curvature parameter yields circular arcs (when $\kvar \not= 0$) and lines (when $\kvar=0$) as primitives.
+
+Our hybrid program $\alpha$ is a time-triggered \emph{control-plant} loop: $\alpha\equiv(\ctrl;\plant)^*$.
+We use \emph{relative} coordinates: the robot's position is always the origin, from which perspective the waypoint ``moves toward'' the vehicle.
+This simplifies proofs (fewer variables) and implementation (real sensors and actuators are vehicle-centric).
+The $\plant$ is an ODE describing the robot kinematics:
+\begin{align*}
+\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
+ &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\} %  ~\land~ yg > 0
+\end{align*}
+Here, $\avar$ is an input from the controller describing the acceleration with which the robot is to follow the arc of curvature $\kvar$ to waypoint $(\xgvar,\ygvar)$.
+In the equations for $\D{\xgvar},\D{\ygvar}$: \begin{inparaenum}[\it i)]\item The $\vvar$ factor models $(\xgvar,\ygvar)$ moving at linear velocity $\vvar$, \item The $\kvar,\xgvar,\ygvar$\ factors model circular motion with curvature $\kvar$, with $\kvar > 0$ corresponding to counter-clockwise rotation of the waypoint, $\kvar < 0$ to clockwise rotation, and $\kvar = 0$ to straight-line motion, \item The additional $-1$ term in the $\D{\ygvar}$ equation shifts the center of rotation to $\left(\frac{1}{\kvar},0\right)$.
+\end{inparaenum}
+The equations $\D{\vvar}=\avar$ and $\D{\tvar}=1$ make acceleration the derivative of velocity and $\tvar$ stand for current time.
+The domain constraint $\tvar \leq \Tvar \land \vvar \geq 0$ says that the duration of one control cycle shall never exceed a timestep parameter $\Tvar > 0$ representing the maximum delay between control cycles and that the robot never drives in reverse.
+
+The controller's task is to compute an acceleration $\avar$ which slows down (or speeds up) soon enough that the speed limit $\vvar \in [\vlvar,\vhvar]$ is ensured \emph{by the time} the robot reaches the goal.
+The controller is written:
+\newcommand{\admiss}{\textsf{Go}} % (\xgvar,\ygvar,\vlvar,\vhvar,\kvar,\avar)
+\newcommand{\planreq}{\textsf{Feas}} % (\xgvar,\ygvar,\vlvar,\vhvar,\kvar,\avar)
+\newcommand{\veps}{\varepsilon}
+\newcommand{\annul}{\textsf{Ann}\xspace}
+\newcommand{\adjustSpeedDist}{\delta_\mathsf{Lim}\xspace}
+\newcommand{\controllableGoalDist}{\mathsf{Lim}}
+%\annul &\equiv
+%\left|\frac{ v~\xgivar~\left(\xgvar^2 +\ygvar^2\right)}{\xgivar^2+\ygivar^2} - v~\xgvar\right| \leq  \veps^2 \tag{a}\\
+%\land&~\ygvar>0 \tag{b} \\
+%\land&~\frac{2~\xgivar~(\xgvar~\ygivar-\xgivar~\ygvar)}{\xgivar^2+\ygivar^2}+\ygvar \leq \ygivar \tag{c}
+%\land&~\ygvar>0 \tag{c}
+{\small\begin{align*}
+\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
+%ygvar>0 included for consistency with the proof (it is also monitored to satisfy our liveness assumption)
+\label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar\\
+\ctrl &~\equiv~ \prandom{(\xgvar,\ygvar)};\,\prandom{[\vlvar,\vhvar]};\,\prandom{\kvar};\,\ptest{\planreq};\,\underbrace{\prandom{\avar};\,\ptest{\admiss}}_{\ctrlliv}\\
+      ~&\hspace*{-5pt}\admiss \equiv-\Bvar\leq \avar \leq\Avar \land \vvar + \avar\Tvar \geq 0 \\
+\land & \Bigl(\vvar \leq \vhvar \land \vvar+\avar\Tvar\leq \vhvar ~\lor \\
+      & (1+\abs{\kvar}\veps)^2 \Bigl(\vvar\Tvar+\frac{\avar}{2}\Tvar^2 + \frac{(\vvar{+}\avar\Tvar)^2-\vhvar^2}{2\Bvar}\Bigr) + \veps{\leq}\lnorm{(\xgvar,\ygvar)} \Bigr)\\
+\land & \Bigl(\vlvar \leq \vvar \land \vlvar \leq \vvar+\avar\Tvar ~\lor\\
+      & (1+\abs{\kvar}\veps)^2 \Bigl(\vvar\Tvar+\frac{\avar}{2}\Tvar^2 + \frac{\vlvar^2 - (\vvar{+}\avar\Tvar)^2}{2\Avar}\Bigr) + \veps{\leq}\lnorm{(\xgvar,\ygvar)}\Bigr)\end{align*}}
+\noindent where the plan assignment $\prandom{(\xgvar,\ygvar)}$ chooses the next 2D waypoint, the assignment $\prandom{[\vlvar,\vhvar]}$ chooses the speed limit interval, and $\prandom{\kvar}$ chooses any curvature.
+The \emph{feasibility} test $\ptest{\planreq}$ determines whether or not the chosen waypoint, speed limit, and curvature are \emph{physically} attainable in the current state under the $\plant$ dynamics (e.g., it checks that there is enough remaining distance to get within the speed limit interval).
+We also simplify plans so all waypoints satisfy $\ygvar > 0,$ but subdividing any violating paths automatically.
+This simplifies the feedback controller and proofs.
+The abbreviation $\ctrlliv$ names just the control code responsible for deciding \emph{how} the waypoint is followed rather than \emph{which} waypoint is followed.
+
+
+In $\planreq,$ formula $\annul$ says we are within the \emph{annulus section} (\rref{fig:circlestaging}) ending at the waypoint $(\xgvar, \ygvar)$ with the specified curvature $\kvar$ and width $\epsilon$.
+A larger choice of $\veps$ yields more error tolerance in the sensed position and followed curvature at the cost of an enlarged goal region.
+Formula $\annul$ also contains a simplifying assumption that the radius of the annulus is at least $\epsilon$.
+$\planreq$ also says the speed limits are assumed distinct and large enough to not be crossed in one control cycle.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.3\textwidth]{graphics/fig-ode3.pdf}
+\caption{Annular section through the (blue) waypoint $(2.5,2.5)$. Trajectories from the displaced green and red waypoints with slightly different curvatures remain within the annulus.}\label{fig:circlestaging}
+\label{fig:circlestaging}
+\end{figure}
+
+The \emph{admissibility} test $\ptest{\admiss}$ checks that the chosen $\avar$ will take the robot to its goal with a safe speed limit, by \emph{predicting future motion} of the robot.
+We illustrate this with the upper bound conditions.
+The bound will be satisfiable after one cycle if either the chosen acceleration $\avar$ already maintains speed limit bounds ($\vvar \leq \vhvar \land \vvar{+}\avar\Tvar \leq \vhvar$) or when there is enough distance left to restore the limits before reaching the goal.
+For straight line motion ($\kvar=0$), the required distance can simply be found by integrating acceleration and speed:
+\begin{equation*}
+\underbrace{\vvar\Tvar+\frac{\avar}{2}\Tvar^2}_{\mathclap{\text{distance in time}~\Tvar}} + \frac{(\overbrace{\vvar{+}\avar\Tvar}^{\mathclap{\text{speed in time}~\Tvar}})^2-\vhvar^2}{2\Bvar} + \veps \leq \lnorm{(\xgvar,\ygvar)}
+\end{equation*}
+where $\avar \in [-\Bvar,\Avar]$.
+The extra factor of $(1 + \abs{k}\veps)^2$ for curved motion accounts for the fact that an arc along the inner side of the annulus is shorter than one along the outside (\rref{fig:circlestaging}).
+
+\subsection{Proofs}
+In contrast to prior works~\cite{DBLP:journals/ijrr/MitschGVP17}, this work contains both safety and liveness proofs for the full 2D dynamics.\footnote{In the interest of full disclosure, the modeling and proof sections were largely performed by collaborators in this work. The present author provided simulations, writing, integration with \VeriPhy and advice on the modeling and proof tasks. In contrast, the modeling and proofs in the proposed work are to be performed by the present author}.
+In many ways, this lays a foundation for the proposed work because a proof of winnability for a hybrid game will contain both liveness-like (strategy for our player) and safety-like components (strategy for the opponent).
+Taken at surface value, the safety theorem says that speed limits are obeyed whenever the robot reaches a waypoint
+\begin{theorem}[Safety]
+\label{thm:safe}
+The following \dL formula is valid:
+\begin{align*}
+&\Avar{>}0 \land \Bvar{>}0 \land \Tvar{>}0 \land \veps{>}0 \land \linv \limply \\
+&\dbox{\prepeat{(\ctrl;\plant)}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \limply \vvar \in [\vlvar,\vhvar]\big)}
+\end{align*}
+\end{theorem}
+Taken more broadly, safety also includes the fact that the robot always remains within an $\epsilon$ annulus around the arc leading to the waypoint, which arises as part of the loop invariant used to prove \rref{thm:safe}.
+The first four assumptions ($\Avar{>}0 \land \dots \land \veps{>}0$) are basic sign conditions on the symbolic constants used in the model. 
+The final assumption, $\linv$, is the loop invariant.
+The full definition of $\linv$ is deferred to \rref{sec:robostage}.
+We write $\enorm{(\xgvar,\ygvar)}$ for the Euclidean norm $\sqrt{\xgvar^2 + \ygvar^2}$ and consider the robot ``close enough'' to the waypoint when $\enorm{(\xgvar,\ygvar)} \leq \veps$ for our chosen goal size $\veps$.
+%The theorem states that no matter which (admissible) control decisions are made, whenever the vehicle is in the goal region of size $\veps$, it obeys the speed limit $\vvar \in [\vlvar,\vhvar]$.
+While this captures the desired notion of safety, it does not prove that the robot can actually reach the goal, which is a \emph{liveness} property:
+\begin{theorem}[Liveness]
+\label{thm:liveness}
+The following \dL formula is valid:
+\begin{align*}
+&\Avar{>}0 \land \Bvar{>}0 \land \Tvar{>}0 \land \veps{>}0 \land \linv \limply \\
+&\dbox{\prepeat{(\ctrl;\plant)}}{\Big( \vvar{>}0 \land \yvar{>}0 \limply }\\
+&\ \ \ \ \ddiamond{\prepeat{(\ctrlliv;\plant)}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps~\land~\vvar \in [\vlvar,\vhvar]\big)} \Big)
+\end{align*}
+%where $\ctrlliv$, as before, controls $\avar$.
+\end{theorem}
+
+This theorem has the same assumptions as \rref{thm:safe}. 
+It says that no matter how long the robot has been running ($\dbox{\prepeat{(\ctrl;\plant)}}{}$), 
+then if some simplifying assumptions still hold ($\vvar{>}0\land\yvar{>}0$) 
+the controller can be continually run ($\ddiamond{\prepeat{(\ctrlliv;\plant)}}{}$) with admissible acceleration choices $(\ctrlliv)$ to reach the present goal \((\enorm{(\xgvar,\ygvar)} \leq \veps)\) within the desired speed limits \((\vvar \in [\vlvar,\vhvar])\).
+The simplifying assumptions $\vvar{>}0\land\yvar{>}0$ say the robot is still moving forward and the waypoint is still in the upper half-plane, i.e., we have not run \emph{past} the waypoint.
+
+The liveness theorem is invaluable because it validates the \dL model: if it were not even possible at the level of the \dL model to achieve liveness, then it would be absolutely impossible at the level of implementation to achieve liveness.
+Because it is undesirable to change the model drastically once implementation has started (i.e., delays in modeling and verification will trickle down to greater delays in implementation and testing), it is valuable to have this confidence in the model before implementation even begins.
+Moreover, the combination of safety and liveness gives us confidence that a game generalization of this proof will succeed, as the main components of a game proof are liveness and safety reasoning.
+
+\subsection{Simulations} 
+In order to claim that \VeriPhy has been evaluated on a realistic system implementation, it is essential that we choose a simulation platform that is reasonably faithful to the physics of actual autonomous cars.
+For this purpose we chose the AirSim~\cite{shah2018airsim} simulator, which is notable for combining top-notch visuals, reasonable physics, and an open-source code base that is particularly friendly to modification.
+While some aspects of the underlying physics engine are closed-source, many aspects are open to customization, including for example the details of wheels and suspensions, and the center of gravity.
+For this reason and because AirSim has been successfully applied in dozens of projects, we have good reason to believe its physics model is more faithful than any purpose-built one-off simulation would be.
+
+The author implemented several bang-bang and PD (proportional-derivative) controllers in AirSim as well as several environments which provided a variety of driving conditions with turns of different radii.
+The environments and the evaluation results are summarized below:
+\begin{figure*}[tb]
+\centering
+\begin{minipage}[b]{2in}\centering
+\begin{tikzpicture}[->,draw,thick,yscale=0.9,inner sep=1pt]
+\tikzstyle{arc}=[circle,draw]
+\tikzstyle{line}=[rectangle,draw]
+\tikzstyle{way}=[diamond,draw]
+\node[way] (a) at (1,3) {A};
+\node[way] (b) at (4,3) {B};
+\node[way] (c) at (4.75,1.5) {C};
+\node[way] (d) at (3.25,1.5) {D};
+\node[way] (e) at (4,0) {E};
+\node[way] (f) at (1,0) {F};
+\node[way] (g) at (1.75,0.90) {G};
+\node[way] (h) at (0.25,0.90) {H};
+\node[way] (i) at (1.75,2.15) {I};
+\node[way] (j) at (0.25,2.15) {J};
+\draw (a) -> (b);
+\draw (b) edge [bend left] node {} (c);
+\draw (b) edge [bend right] node {} (d);
+\draw (c) edge [bend left]node {} (e);
+\draw (d) edge [bend right] node {} (e);
+\draw (e) -> (f);
+\draw (f) edge [bend left]  node {} (h);
+\draw (f) edge [bend right] node {} (g);
+\draw (h) -> (j);
+\draw (g) -> (i);
+\draw (j) edge [bend left]  node {} (a);
+\draw (i) edge [bend right] node {} (a);
+\end{tikzpicture}
+\subcaption{Example mission}\label{fig:patrol-mission-plan}\end{minipage}
+\begin{minipage}[b]{1.51in}\centering
+\includegraphics[width=1.51in,clip,trim=0 0 0 50]{graphics/airsim.png}
+\subcaption{Simulator}\label{fig:simulator}\end{minipage}
+%\begin{minipage}[b]{.3\linewidth}\centering
+%\includegraphics[width=1.95in]{graphics/robot.jpg}
+%\subcaption{RC car}\label{fig:rccar}
+%\end{minipage}
+\begin{minipage}[b]{0.15\textwidth}\centering
+\includegraphics[width=1in]{graphics/screen1.png}
+\subcaption{Rectangle}\label{fig:rect}\end{minipage}
+\begin{minipage}[b]{0.15\textwidth}\centering
+\includegraphics[width=1in]{graphics/screen2.png}
+\subcaption{Tight turns}\label{fig:turns}\end{minipage}
+\begin{minipage}[b]{0.15\textwidth}\centering
+\includegraphics[width=0.8in]{graphics/screen3.png}
+\subcaption{Large clover}\label{fig:clover}\end{minipage}
+\caption{Implementation and environments built in AirSim}
+\label{fig:patrol-plan}
+\end{figure*}
+
+\begin{table*}
+\caption{Average speed, Monitor failure rates, plant violation rates, for AirSim and human driver in Rectangle, Turns, and Clover for Patrol missions}
+\label{tab:results}
+\centering
+\begin{tabular}{l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l}
+\bottomrule        & \multicolumn{5}{|c|}{Avg.\ Speed (m/s)} & \multicolumn{5}{c|}{Ctrl Fail.} & \multicolumn{5}{c|}{Plant Fail.} \\
+World   & BB   & \textbf{PD1}   & PD2   & PD3     & Human     & BB     & \textbf{PD1}      & PD2    & PD3    & Human  & BB    & \textbf{PD1} & PD2   & PD3 & Human \\\toprule
+Rect    & 9.2  & \textbf{6.24}   & 8.47 &  13.5   & 12.6      & 1.4\%  & \textbf{0\%}      & 0\%    & 0.17\% & 3.0\%  & 9.8\% & \textbf{1.8\%} & 1.2\%  & 4.0\%   & 10.5\%  \\
+Turns   & 8.3  & \textbf{4.54}   & 5.93 &  10.4   & 10.8      & 3.0\%  & \textbf{0\%}      & 3.3\%  & 0.75\% & 3.5\%  & 11\%  & \textbf{0.2\%} & 0.4\%  & 3.1\%   & 5.63\%  \\
+Clover  & 13.8 & \textbf{13.9}   & 18.2 &  29.8   & 29.3      & 6.6\%  & \textbf{0.3\%}    & 0\%    & 0.32\% & 0.66\% & 28\%  & \textbf{1.7\%} & 44\%   & 38.1\%  & 24.4\%
+\end{tabular}
+\end{table*}
+\rref{tab:results} gives the results of several controllers (PD1 is the slowest PD controller, PD3 the fastest) as well as a human pilot (the author) on all environments.
+Overall, the slow PD controller had the best monitor failure rates of any controller.
+Qualitatively, the results tell us that while perfect failure 0\% rates are not always attainable, low failure rates are achievable in practice, where low control failure rates mean that the fallback controller will rarely need to engage and low plant failure rates mean that because physical assumptions are rarely violated, the formal guarantees provided by \VeriPhy are applicable almost all the time.
+
+Aside from the concrete numbers provided by the simulations, perhaps the most important conclusion is that such a simulation could be developed and monitored in the first place.
+Throughout the development of this section, many iterations of the models, proofs, and simulations were developed: in order to make the proofs feasible, the models would be simplified, then when monitor failures were detected, the models would be relaxed to improve the failure rate.
+Low failure rates not only speak to the success of the implementation, but they say even more about the success of the model: any time the model were too restrictive to account for the values given by the AirSim sensors and controllers, the monitor would have failed.
+The fact that they fail rarely attests that the model can account for the control decisions and physical dynamics that arise in practice.
+Because it was not until this chapter that a completely formal link between \dL and CPS execution had been developed, this itself was long a point of curiosity.
+
 \subsection{Related Work}
 Related work in formal methods and robotics has applied synthesis and verification to safe control of robotic systems.
 The present work is unique among these in its use of a verified-safe sandbox controller to enforce compliance between the implementation and formal model for a realistic robot simulation with an expressive correctness guarantee.
