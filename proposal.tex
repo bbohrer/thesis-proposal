@@ -307,7 +307,7 @@ The game in \rref{ex:driving-game} is a generalization of a standard hybrid syst
 \alpha_\times\equiv&\\
 \label{eq:driving-init}\humod{v}{0};~&\humod{x}{0};\pdual{(\prandom{\obsvar};\prandom{T};\prandom{A};\prandom{B}; \ptest{\obsvar > 0 \land T > 0 \land A > 0 \land B > 0})};\\
 \label{eq:driving-angel}\big\{ &\prandom{a};~\ptest{-B \leq a \land a \leq A};\\ 
-\label{eq:driving-demon}       &\pdual{\{\pevolvein{\D{x}=v, \D{v}=a, \D{t}=1}{t \leq T \land v \geq 0}\}}\big\}^\times
+\label{eq:driving-demon}       &\pdual{\humod{t}{0};~\{\pevolvein{\D{x}=v, \D{v}=a, \D{t}=1}{t \leq T \land v \geq 0}\}}\big\}^\times
 \end{align}
 \end{example}
 The first line (\rref{eq:driving-init}) is an initialization phase: we (Angel) call the current position $x = 0$ and are initially stopped ($v = 0$).
@@ -1037,29 +1037,215 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 
 In short, while verification of robotics is well-studied, few works have addressed end-to-end guarantees with the highest level of rigor, and in this paper we develop the first realistic, end-to-end system with an expressive correctness guarantee of safety and liveness for 2D waypoint following.
 
-
 \chapter{Proposed Work: \CdGL: Constructive Differential Game Logic}
 \label{ch:cdgl}
+In previous sections, the author has argued for end-to-end verification of CPS, as it has been persued thus far in \VeriPhy.
+Here, it is argued that \VeriPhy as conceived for classical hybrid systems does not and fundamentally cannot tell the entire story of end-to-end verification for realistic CPS, and that a more compelling story is told by \emph{constructive} hybrid \emph{games}.
+We begin this argument by discussing the limitations inherent to \VeriPhy for classical systems:
+\begin{enumerate}
+\item \label{item:adversarial} Real CPS are adversarial in the sense that even when the environment is not actively plotting our destruction, it is not under our control.
+ Because we wish for our CPS to function correctly under all circumstances, we must assume the worst of the environment, which is assume adversarial behavior.
+\item \label{item:complexified} A subtler point arises from the adversarial assumption, which we will show by example:
+While CPS which are ``inherently adversial'' \emph{can actually} be modeled and verified as hybrid systems, the point is that such models are doubly unsatisfactory: On the one hand, they are more complicated, sometimes significantly so, than the game model would be, because the controller model must explictly write our the player's strategy for overcoming the adversarial environment, which in the case of games is left to the proof.
+On the other hand, this added complexity does not provide a gain in generality but rather \emph{costs} generality, because the systems model gives only one particular strategy where the game might have had several available strategies for winning, each with its own tradeoffs.
+These weaknesses fly directly in the face of the thesis that for end-to-end verification, picking the right question is half the battle, because the use of hybrid systems makes our questions simultaneously more complicated and less fruitful than necessary. They can hardly be called the right questions.
+\item \label{item:realistic} While the distinction between systems and games is justified by our need to account for real adversarial dynamics and to do so elegantly, 
+the choice of computational games over classical games is made for foundational reasons: CPS's contain actual computers which must actually compute, and thus their formal models must capture an appropriate notion of computation.
+\item \label{item:computational} Because the computational content of a classical systems proof is limited, the potential of classical systems as a foundation for synthesis is limited.
+\item \label{item:control-synthesis} In particular, because \VeriPhy only provides synthesis for control \emph{monitors} and not also synthesis for \emph{controllers}, it is not a comprehensive synthesis solution for CPS.
+\end{enumerate}
+We elaborate on points \ref{item:adversarial}, \ref{item:complexified}, and \ref{item:realistic} here, while we elaborate on points \ref{item:computational} and \ref{item:control-synthesis} in \rref{ch:proofplex}.
+We compare the 1D car hybrid game model \rref{ex:driving-game} with the system model \rref{ex:driving-system}.
+
+\newcommand{\gameex}{\alpha_{\times}\xspace}
+\newcommand{\sysex}{\alpha_{\text{Sys}}\xspace}
+What does adversarial behavior in games look like and how does it compare to cooperative behavior in systems?
+For systems, we often prove safety theorems:
+\[P \limply \dbox{\sysex}{Q}\]
+which say that if $P$ holds initially, then \emph{for all} executions of $\sysex$, formula $Q$ holds at the end.
+What makes this c\"ooperative is that the universal quantification applies to both the control and the plant, which is to say both are controlled by an agent whose decisions are unknown to the person performing the proof, and because they are unknown must be treated universally.
+What is striking is that both the control and plant are pessimistic; in some real sense the proof of controller safety is trying its hardest to fail, and a controller is only safe if the \emph{model} is so restrictive  that it gives the safety \emph{proof} no choice but to conclude safety.
+This can be contrasted with the dual property of co-safety:
+\[P \limply \ddiamond{\sysex}{Q}\]
+which says that if $P$ holds initially then there is always \emph{some} execution of $\sysex$ that ensures $Q$ as a postcondition.
+Here the control and plant are again c\"ooperating, but now both are under control of the prover.
+Whereas a safety proof, in its pessimism, results in overly complicated models, a cosafety theorem is typically simply wrong.
+To control the plant is simply to control its duration.
+It's entirely reasonable to suggest that the environment pessimistically controls the environment, i.e.,  that the plant might for whatever duration is ``most dangerous'' and then hand control back to the controller.
+On the other hand, it is utterly unreasonable to suggest that the CPS can optimistically control the environment: we cannot perfectly control how long physics will evolve before we regain control, and we certainly cannot control phenomena such as sensing and actuation noise.
+This is often addressed in practice by proving not co-safety, but liveness as in \rref{thm:liveness}:
+\[P \limply \dbox{\sysex}{\ddiamond{\sysex}{Q}}\]
+which is to say that no longer how the long the system has been running, if control is handed over to us at that point, we can control it to achieve the postcondition $Q$.
+while this notion comes closer to an intuitive notion of liveness, there are two glaring artifacts: in the box $\dbox{\sysex}{}$ the pessimist has control of the controller, while in the diamond $\ddiamond{\sysex}{},$ the optimist has control of the plant.
+The overarching message of this tangent is simple: regardless whether we wish to show safety or liveness, to characterize this properties precisely we should always give control of the controller to the optimist and control of the plant to the pessimist, which is exactly what games achieve!
+
+Out of this discussion falls the following point, that models as they are written in \dL are simultaneously more complicated and less general than the simpler characterization in \dGL, and as a consequence the theorems we can state about them are less satisfactory.
+We return again to \rref{ex:driving-game} and \rref{ex:driving-system}.
+One can reasonably expect (say as an exercise in a senior-level theorem-proving course) to state and prove theoremss like safety of \rref{ex:driving-system}, and indeed it is not terribly difficult to convince ourselves that this system is actually safe.
+Howeveer, it is significantly more difficult to convince ourselves of the following properties:
+\begin{itemize}
+\item Is it total, i.e., does the controller always have a branch it can take?
+\item Is it exhaustive, allowing every safe control decision in every state?
+\item Is it as simple as possible, or are some cases redundant?
+\item Is the controller computable?
+\end{itemize}
+these questions are not trivial.
+For example, questions of totality and exhaustiveness often lead novices to write entirely inappropriate models for which a so-called safety theorem is provable but which do not correspond to any reasonable notion of safety for an actual CPS and for which the synthesized \VeriPhy monitor would surprise them with a huge number of failures!
+The simplicity question is noteworthy because verification is time-consuming: any time we promote simpler models and simpler proofs, we promote time-saving for the user.
+Computability is essential to the synthesis question, and thus is a pressing motivation for \CdGL over \dGL.
+Even the simple first-order arithmetic conditions given in this model are intriguing for the simple reason that we must ponder what it means to compute real arithmetic.
+In this light, the advantages of games are startling: totality questions vanish because the controller is under Angelic control, and safety is simply not provable of a non-total controller.
+Exhaustivity and simplicity vanish because the strategy is no longer part of the model but part of the proof: A non-simple proof is allowed, but its complexity cannot infect the model, which is infinitely more important because it must be taken as a given whereas a proof can be checked for compliance with the proof calculus.
+Exhaustivity is now a question only for the proof as well, and is arguably not even \emph{desired}: now that a strategy characterizes the exact decision that would be taken under every circumstance, there is no longer a strict need to prove the safety of operations that will not actually be taken.
+Computability is addressed not by \dGL but by \CdGL.
+
+These questions of computability are technically and foundationally fascinating.
+The solution taken by \VeriPhy, while workable, is simplistic: all arithmetic is interpreted as fixed-point interval arithmetic.
+This is limiting because it is conservative: any time that a computation exceeds the provided word size or even demands a higher precision, control monitors will fail spuriously because the computed intervals violated monitor conditions even though the result of an exact computation would not.
+There are two obvious approaches for eliminating the conservativity limitation:
+\begin{enumerate}
+\item Perform all arithmetic with an exact representation, among which plausible choices include rational numbers, real-algebraic numbers, and constructive reals.
+\item Retain the use of fixed-precision arithmetic, but provide a mechanism to prove that a particular precision is sufficient, for example by accounting for physical limits on the numerical range of inputs.
+\end{enumerate}
+Each approach has advantages and disadvantages: The arbitrary-precision approach likely lends itself to simpler formal semantics and simpler proofs, because the semantics can assume once and for all that numbers have arbitrary precision and proofs need not concern themeselves with precision.
+The implications for synthesis for hard real-time systems are problematic, however, because implementations of arbitrary-precision arithmetic are neither constant-time nor constant-space, and thus violate a number of industry standards for usage in hard real-time systems.
+Fixed-precision arithmetic, on the other hand, may complicate semantics in that the semantics may need to be parameterized by precision, and may complicate proof in that proofs might have to be aware of the precision.
+However, once those problems are addressed, the implications are far better for synthesis for usage in real-time systems, as the resulting code is constant-time and constant-space, in compliance with industrial standards.
+
+Several other interesting computational, foundational questions arise.
+Because our programming language contains differential equations, what does it mean to compute a system of differential equations?
+How does this differ for a differential equation controlled by us vs. an adversary?
+Both cases are important: monitoring the behavior of an adversarial differential equation is essential for synthesizing plant monitors, while computing the behavior of an angelic differential equation enables \emph{model-predictive} controllers, which make control decisions directly by projecting forward how the plant will respond to the control decision, a fundamental trope in control systems.
+
+Lastly, the interaction between constructive logic and first-order arithmetic is itself fascinating: In constructive logic, we deny the law of the excluded middle, but for first-order arithmetic, the law of the excluded middle in incontrovertibly true, because first-order arithmetic is \emph{decidable}!
+How then do we manage the intermingling of arithmetic questions which are entitled by their decidability to classicality with dynamic-logical questions which are rightly constrained by the needs of synthesis to constructivity?
+There are again several approaches: one can introduce a modality for classical truth, embedding classical questions inside a constructive logic.
+One can also sneak around the question by relegating first-order arithmetic to the \emph{term language}: it is well-known that the set of states where any first-order arithmetic formula holds true can be written as a \emph{semi-algebraic set}.
+One can simply extend the term language with semi-algebraic sets of reals, and with a membership-testing formula, which is clearly decidable by the decidability of semi-algebraic sets.
+This approach seems particularly appealing because it both provides a clear exposition of the relationship between a computational hybrid game and the code synthesized from it, and at the same (and to be clear, this is entirely icing on the cake) provides a beautiful connection with the complete work on definite descriptions (\rref{sec:definite-description}): definite descriptions and indefinite descriptions are in fact both computable so long as their descriptions are semi-algebraic, and can be reduced to singleton and arbitrary semi-algebraic sets, respectively.
+Thus there is great reason to believe that by taking this approach, we could also provide the same generality in the term language that was found in \rref{sec:definite-description}.
+As a general note, we present these alternative design decisions in the proposal not only to argue in favor of the preferred approaches, but to show that alternative approaches are available should the preferred approach run into an insurmountable stumbling block during work on the thesis.
+
+%\textrm_{\alpha{Sys}}
+
 \subsection{Related Work}
-\chapter{Proposed Work: \ProofPlex: Proof-Directed Game Synthesis}
+\newcommand{\semiset}[2]{\{#1~|~#2\}}
+\subsection{Syntax}
+In order to account for decidable first-order arithmetic, I propose adding semi-algebraic sets explicitly to the syntax of the term language.
+A particularly radical choice is define terms as \emph{only} the semi-algebraic sets, i.e.:
+\[\theta \bebecomes \semiset{x}{F}\]
+where $F$ is a first-order arithmetic formula which may itself also refer to further semialgebraic sets, and where $x$ is a real-valued variable optionally appearing in $F$.
+The argument in favor of this choice is that real-valued terms can be derived from semialgebraic sets because they are simply singleton sets.
+Prior experience shows that incorporating multiple datatypes is a potential headache, and this would eliminate the need for multiple types.
+The arguments against it include the desire to syntactically distinguish reals vs sets, the fact that the derived constructs may be cryptic to readers, and that it's unclear whether differential terms are implementable with semialgebraic sets alone.
+For that reason it is perhaps more advisable to give a full term language:
+\[\theta \bebecomes \semiset{x}{F} \alternative c \alternative x \alternative \theta + \eta \alternative \theta \cdot \theta \alternative \der{\theta}\]
+We could also choose to interpret a semialgebraic set as a nondeterministic term, in which case an indefinite description chosen from $F$ is identified with $F$ itself.
+Definite description is derivable from indefinite description as usual.
+Basic set operations are derivable.
+
+The core formulas are probably going to be:
+\[\phi \bebecomes \theta \sim \eta \alternative \theta \subseteq \theta \alternative \phi \land \psi \alternative \phi \lor \psi \alternative \phi \limply \psi \alternative \bot \alternative \ddiamond{\alpha}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \forall{x}{\phi} \alternative \exists{x}{\phi}\]
+Where $\sim \in \{<, \leq\}$.
+While other comparison operators on terms should be derivable, it is not clear whether $<$ and $\leq$ are interderivable because the derivation would be by negation.
+This is not the case for set inclusions because set inclusions can use classical reasoning including complements.
+In contrast with classical \dL, more operators are built in because less operators are interderivable in constructive logics.
+As usual in constructive logics, $\neg \phi$ is defined as $\phi \limply \bot$ and equivalences are definable as usual even in classical logic: $\phi \lequiv \psi \equiv \phi \limply \psi \land \psi \limply \phi$.
+
+The hybrid game constructs of \CdGL are those of \dGL, though of course the formulas and terms contained therein are those of \CdGL again.
+
+\subsection{Example System}
+
+\subsection{Semantics}
+A major question is what numeric types should be used in the semantics of \CdGL.
+For \CdGL to truly be a ``computational'' logic, one could fairly argue that the semantics ought to capture computations with realistic types.
+For reasons of managing complexity, however, I propose starting with actual real numbers initially, then developing alternative semantics which can be related to the real semantics, much as was done in \cite{DBLP:conf/pldi/BohrerTMMP18}.
+Some of the alternative approaches have glaring holes: computable reals often don't terminate which seems horribly inelegant, while assigning a rational or even real-algebraic number as the denotation of each number is problematic because the rationals and real-algebraics are not closed under evolution of differential equations.
+The solution to computability may be found first (and even surprisingly) in the solution to giving an intuitionic meaning to the propositional connectives: intuitionistic Kripke models work with sets of states (where the real state might be anywhere in that region, but we know only that we are somewhere in the region).
+
+So I propose first developing a semantics over real-valued regions (sets of states), which can capture the intuitionistic meaning of the connectives while leaving arithmetic issues open.
+Two viable approaches for then handling computational issues would be either to replace arbitrary regions with semi-algebraic regions, or to replace regions over the reals with regions over the rationals.
+Semi-algebraic regions may be beautiful in that they give us a dynamic representation for our uncertainty, which we can compute with directly.
+Rationals are beautiful in their own way, which is that in the implementation we can compute with rationals and justify it by the rational-valued semantics, but then somehow tie that back to the real-valued semantics presumably with the fact that reals can be constructed as Dedekind cuts, which are just sets of rationals anyway.
+That is, any semantics that computes with arbitrary sets of rationals ought to be powerful enough to do anything a real number could do anyway.
+Certainly the typical issue of nonstrict comparisons with reals should be expected to appear at some point in the development.
+One potential way out instead of using nonterminating computations we have a semantics ``up to $\epsilon$'' where rationals are guaranteed to be within an error bound of the actual real semantics.
+In the ``problematic'' case, then simply we say that the relevant formulas are neither true nor false (which is already totally natural in a constructive logic) and we can characterize the gross inexact inequalities as the case where the rational semantics does not converge to the real semantics.
+But we still have a theorem that saying when it converges to anything at all, it converges to the real semantics.
+\subsection{Proof Calculus}
+\subsection{Soundness Theorem}
+\subsection{Relaxing (Constructive) Games to (Constructive) Systems}
+\subsection{Winning Strategy Satisfies The Relaxation}
+\subsection{Reducing (Constructive) Games to (Classical) Games}
+%Corollary: by composition, constructive games reduce under whatever silly assumptions to classical gamesx
+
+
+\chapter{Proposed Work: \ProofPlex, Proof-Directed Game Synthesis}
 \label{ch:proofplex}
+In this chapter we propose a tool for the synthesis of controllers and monitors from (proven-safe and proven-live) computational hybrid games, which we name \ProofPlex.
+We motivate \ProofPlex by first considering the different artifacts one might wish to synthesize:
+\begin{enumerate}
+\item A \emph{controller monitor}, which detects whether an untrusted external controller is compliant with the assumptions of a controller model
+\item A \emph{plant monitor}, which detects whether the environment is compliant with the physical assumptions of the plant model.
+\item A \emph{controller}, which actually picks a guaranteed-safe-and-live control decision to carry out
+\item A \emph{plant simulator}, which picks an adversarial behavior for the plant and evaluates the effect of the plant.
+\end{enumerate}
+
+All of these are desirable under different circumstances:
+Synthesizing a controller is appealing because unlike an untrusted controller, it is guaranteed to make a safe decision so the feedback need not be invoked (i.e, it is proven to satisfy the controller monitor).
+Yet the downside of a synthesized controller is that it sacrifices flexibility: if our synthesized monitor guarantees correctness but was not optimized for operational efficiency, fuel efficiency etc., we might one day decide we pefer a controller which meets those criteria instead.
+In this case the flexibility given by the monitioring approach is preferred.
+On the plant side, plant monitors are perfect for deployment in production systems or during field tests: they allow us to assess whether assumptions on the environment are met in practice.
+But in early stages of development, especially if there is not a purpose built simulator for our system already, we would much prefer to synthesize code which can actually (and faithfully) simulate the plant for us, which is helpful in designing the corresponding controller.
+The first two are monitors which merely detect noncompliance with a model, whereas the latter two actively control the system.
+Notably, the first two are supported by the existing \ModelPlex tool while the latter two are not.
+Moreover, we obviously wish that we could synthesize these artifacts for arbitrarily complicated systems, whereas existing implementations of \ModelPlex have limitations, for example that the controller must contain no differential equations and loops.
+Until recent advances, it was even more restrictive, with plants restricted to only nilpotent differential equations.
+
+It is by looking at the advances that led to recent gains that we can then, however, discover the changes that achieve our lofty goal of synthesizing all four artifacts and doing so for arbitrary systems (and games).
+A key insight behind a recent advance in the \ModelPlex tool (which generalized plants to polynomial ODEs so long as the plant is proven safe using only chains of inductive invariants) is that even in synthesizing a monitor, \emph{the contents of a proof are essential to synthesis}.
+Specifically, that work extracted differential invariants from a safety proof in order to synthesize monitors
+In retrospect, this key insight is no longer surpising: synthesis should be at least as difficult as verification, and because verification of hybrid systems/games is undecidable, a general-case synthesis procedure should not exist.
+Yet even though verification is undecidable, proof \emph{checking} is utterly decidable, as the proof contains all the difficult decisions made in determining the truth of a liveness statement.
+Therefore, the ultimate question behind this chapter is, ``can the proof content be reused for synthesis''?, to which the thesis statement answers ``yes''.
+A proof in \CdGL is nothing but a winning strategy for a hybrid game, which contains both all the control decisions made by the Angelic player and the assumptions monitored of the Demonic player.
+In short, the following could be called the punchline of the thesis:
+\[\text{A box proof witnesses monitorability and a diamond witnesses controllability, thus a \CdGL proof witnesses synthesizability}\]
+Whenever the players alternate turns in a game, the proof alternates modalities.
+Whenever we prove a $\ddiamond{\alpha}{P}$ property, we do so by witnessing the decisions (computations) Angel performs to achieve $P$.
+In proving a $\dbox{\alpha}{P}$ property, we enumerate rules which Angel must uphold until control passes to Demon, and in doing so we enumerate the contents of a monitor.
+
+The subthesis of this chapter is that this content can and should be used to automate the synthesis of all four artifacts, and that it can do so not just in special cases but in general cases, including:
+\begin{itemize}
+\item Model-predictive controllers using differential equations
+\item Differential equations with not only differential invariants but also differential ghosts, which together suffice to prove any polynomial invariant of a polynomial ODE
+\item Controllers containing loops
+%TODO: Model a nuclear power plant so I can have a nonatomic plant of an atomic plant :D
+\item Nonatomic plants which for example employ different ODEs in different cases, or may employ sequences of ODEs to model different stages of a system
+\end{itemize}
+
+The implementation of \ProofPlex contains an implementation of the relaxation theorems of the previous section, which first characterize which classical proofs also work as constructive proofs, then compute a hybrid system relaxation of the game.
+Once a relaxation for the controller model (and controller proof) in a hybrid game has been computed, verification can be made end-to-end by hooking it in to the existing \VeriPhy pipeline.
+What remains is to supply the untrusted controller.
+Because \ProofPlex, unlike \ModelPlex, also synthesizes monitors by exploiting angelic proofs, we automatically provide an ``untrusted'' controller which in fact is trustworthy, because it simply an implementation of the (operational) angelic dynamics of the control proof in \CdGL. By the work in the previous chapter, these operational semantics refine the standard denotational semantics of both the hybrid game and of its systems relaxation, meaning they satisfy the monitor.
+
 \subsection{Related Work}
 \chapter{Conclusion} 
 \section{Timeline}
 The timeline given below is from the time this document is completed (say, April 2019).
 Due to geographic issues, I expect to propose in early Fall (Sep 2019).
 If all goes according to plan, I intend to defend in late Spring 2020.
-I also intend to go on the academic job market Fall 2019.
-Realistically some of the time below will be spent on job searching.
-I have tried to make my timeline permissive enough to allow time for that.
+%I also intend to go on the academic job market Fall 2019.
+%Realistically some of the time below will be spent on job searching.
+%I have tried to make my timeline permissive enough to allow time for that.
 
 Total time: 13 months
 \begin{itemize}
 \item 1 month: Extend \dL formalization in Isabelle to support \dLi
 \item 1 month: Refine \KeYmaeraX to \Isabelle interface, ensure sufficient support for case study
-\item 4 months: Develop \CdGL theory
+\item 4 months: Develop \CdGL theory (Submit to POPL in July 2019)
 \item 2 months: Implement \CdGL proof checking
-\item 2 months: Develop \ProofPlex implementation
+\item 2 months: Develop \ProofPlex implementation (Submit in January 2020) 
 \item 1 month: Generalize ground robotics case study to \CdGL
 \item 2 months: Write thesis document
 \end{itemize}
