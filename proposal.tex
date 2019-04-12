@@ -1128,9 +1128,9 @@ As a general note, we present these alternative design decisions in the proposal
 
 %\textrm_{\alpha{Sys}}
 
-\subsection{Related Work}
+\section{Related Work}
 \newcommand{\semiset}[2]{\{#1~|~#2\}}
-\subsection{Syntax}
+\section{Syntax}
 In order to account for decidable first-order arithmetic, I propose adding semi-algebraic sets explicitly to the syntax of the term language.
 A particularly radical choice is define terms as \emph{only} the semi-algebraic sets, i.e.:
 \[\theta \bebecomes \semiset{x}{F}\]
@@ -1154,9 +1154,9 @@ As usual in constructive logics, $\neg \phi$ is defined as $\phi \limply \bot$ a
 
 The hybrid game constructs of \CdGL are those of \dGL, though of course the formulas and terms contained therein are those of \CdGL again.
 
-\subsection{Example System}
+\section{Example System}
 
-\subsection{Semantics}
+\section{Semantics}
 A major question is what numeric types should be used in the semantics of \CdGL.
 For \CdGL to truly be a ``computational'' logic, one could fairly argue that the semantics ought to capture computations with realistic types.
 For reasons of managing complexity, however, I propose starting with actual real numbers initially, then developing alternative semantics which can be related to the real semantics, much as was done in \cite{DBLP:conf/pldi/BohrerTMMP18}.
@@ -1172,11 +1172,121 @@ Certainly the typical issue of nonstrict comparisons with reals should be expect
 One potential way out instead of using nonterminating computations we have a semantics ``up to $\epsilon$'' where rationals are guaranteed to be within an error bound of the actual real semantics.
 In the ``problematic'' case, then simply we say that the relevant formulas are neither true nor false (which is already totally natural in a constructive logic) and we can characterize the gross inexact inequalities as the case where the rational semantics does not converge to the real semantics.
 But we still have a theorem that saying when it converges to anything at all, it converges to the real semantics.
-\subsection{Proof Calculus}
-\subsection{Soundness Theorem}
-\subsection{Relaxing (Constructive) Games to (Constructive) Systems}
-\subsection{Winning Strategy Satisfies The Relaxation}
-\subsection{Reducing (Constructive) Games to (Classical) Games}
+
+\subsection{Real Intuitionistic Systems Semantics}
+We begin with an intuitionistic semantics for just systems (not games) based are real numbers.
+This obviously does not deal with issues relating to how arithmetic gets implemented.
+It is unclear whether the use of real numbers will introduce incompleteness issues in the proof calculus.
+
+The semantics are based on intuitionstic Kripke frames.
+In typical abstract treatments, each intuitionistic world is in some sense epistemic: it represents which facts are currently known to be true.
+A preorder $\leq$ is used to represent which worlds are ``at least as knowledgeful'' as some other state.
+We take the same general approach that intuitionistic states represent the available knowledge, except the presentation is concrete.
+\newcommand{\allregion}{\mathcal{R}}
+\newcommand{\allcon}{\allregion}
+\newcommand{\somesemi}[2]{\epsilon #1~|~#2}
+Where $\allvars$ is the countable set of identifiers, the set of program states $\allstate$ is $\mathbb{R}^\allvars$, then an intuitionistic state $X : \allcon \equiv 2^\allstate$ is simply a (usually uncountably infinite) set of states, and to ``know'' an intuitionistic state $X$ is to know that we must be in some $\omega \in X,$ but not \emph{which} $\omega$.
+Special case $X = \allcon$ means we know nothing, $X = \{\omega\}$ means that we know we are in exactly the state $\omega,$ and $X = \emptyset$ means we know with certainty that we have derived a contradiction, as we know we are in a state that belongs to the empty set, of which there are none.
+The preorder $\leq$ on intuitionisic worlds is also given concretely: $X \leq Y \equiv X \superseteq Y$: that is, if $Y$ is a subset of $X$ then it contains more information than $Y$ because it rules out all of the states that $Y$ does, plus some more.
+
+There are several design options for the term semantics: do we include semi-algebraic set computations in the term language, and if so do we make a type distinction or identify sets with nondetermistic terms?
+One can argue that semialgebraic sets or an equally powerful construct are \emph{necessary} in the term language (not just a nice-to-have because they make it more powerful) because without them we do not have the existence property (EP), which we will prove after introducing the semantics.
+We also choose not to make a typing distinction in terms since it the technical complexity of introducing a type system is not well motivated by a system of exactly two types.
+An alternative to explore would be to make the typing distinction, then have a family of operators for drawing elements from sets.
+
+Therefore we will choose $\tint{\theta}{\om} : 2^{\mathbb{R}}$: the value of a term in some state is the set of all values it might currently take on.
+The semantics are defined by:
+\begin{align*}
+  \tint{q}{\om} &= \{q\}\\
+  \tint{x}{\om} &= \{\om(x)\}\\
+  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} \oplus \tint{\eta}{\om} = \{r + s~|~r \in \tint{\theta}{\om}\text{ and }s \in \tint{\eta}{\om}\}\\
+  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \otimes \tint{\eta}{\om} = \{r s~|~r \in \tint{\theta}{\om}\text{ and }s \in \tint{\eta}{\om}\}\\
+  \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})\text{ for deterministic }\theta \\ % in an open ball around omega
+  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
+\end{align*}
+It is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
+The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
+Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
+That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
+
+We give the semantics for formulas.
+Because this is intuitionistic truth, the semantics are a partial function and words like ``and'' and ``or'' are interpreted partially, for example conjunction is neither true nor false if either conjunct is neither true nor false.
+Here $F$ ranges over semialgebraic sets.
+\begin{align*}
+  \fint{\phi \land \psi}{X} &\lequiv \fint{\phi}{X}\text{ and }\fint{\psi}{X}\\
+  \fint{\phi \lor \psi}{X}  &\lequiv \fint{\phi}{X}\text{ or }\fint{\psi}{X}\\
+  \fint{\phi \limply \psi}{X} &\lequiv \text{ for all }Y \subseteq X, \fint{\phi}{Y}\text{ implies }\fint{\psi}{Y}\\
+  \fint{\bot}{X} &\lequiv \emptyset\\
+  (\fint{\theta \geq \eta}{X}\text{ true})&  \lequiv \text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r \geq s\\
+  (\fint{\theta \geq \eta}{X}\text{ false})& \lequiv \text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r < s\\
+  \fint{\exists{x}{\phi}}{X} &\lequiv \text{exists }F, \fint{\phi}{\{\subst[\om]{x}{r}~|~\om in X, \subst[\om]{x}{r} \in F\}}\\
+  \fint{\forall{x}{\phi}}{X} &\lequiv \fint{\phi}{\{\subst[\om]{x}{r}~|~\om in X, r \in \mathbb{R}\}}\\
+  \fint{\dbox{\alpha}{\phi}}{X} &\lequiv \text{for all }Y \subseteq X, Z \text{ s.t. }(Y,Z)\in\pint{alpha}, \fint{\phi}{Z}\\
+  \fint{\ddiamond{\alpha}{\phi}}{X} &\lequiv \text{exists }Y, (X,Y)\in\pint{alpha}\text{ and }\fint{\phi}{Y}
+\end{align*}
+
+We give the semantics for programs:
+\begin{align*}
+  (X,X) \in \pint{\ptest{\phi}}\text{ iff }&\fint{\phi}{X} \\ 
+  (X,Y) \in \pint{\humod{x}{\theta}} \text{ iff }& Y = \{\subst[\om]{x}{r}~|~\om \in X, r \in \tint{\theta}{X}\}\\
+  \pint{\alpha \cup \beta} =& \pint{\alpha} \cup \pint{\beta}\\
+  (X,Y) \in \pint{\alpha;~\beta} \text{ iff }& \text{exists }Z, (X,Z) \in \pint{\alpha}, (Z,Y) \in \pint{\beta}\\
+  (X,Y) \in \pint{\pevolvein{\D{x}=\theta}{\ivr}}\text{ iff }& \text{ exists }F, Y = \{\nu~|~\om \in X, t \in \mathbb{R}_{\geq0}, \varphi_\om:[0,t]\to\allstate.~\varphi_\om(0)=\om\text{ on }\{x,\D{x}\}^C,
+   \frac{\partial \varphi_\om(t)(x)}{\partial t}= \varphi_\om(t)(\D{x})\text{ and } \{\varphi_\om(t)(x)\}=\tint{\theta}{\varphi(\varphi(s))}\text{ and }\fint{\ivr}{\{\varphi_\mu(t)~|~\mu\in X}}\}
+  \pint{\prepeat{\alpha}} =& \bigcup_{n\in\mathbb{N}} \pint{\alpha}^n
+\end{align*}
+
+How do we evaluate whether these semantics ought to be considered intuitionistic?
+One excellent test is whether the \emph{existence property} (EP) holds.
+The EP formalizes that anytime an existence property is proven, an actual witness to the existential property can be computed as well.
+In a dynamic logic, we can express two such EP's:
+\begin{lemma}[Term EP]
+If $\Gamma \limply \exists{x}{\phi(x)}$ is true, then there is a term $\theta$ such that $\Gamma \limply \phi(\theta)$ is true.
+Moreover, $\theta$ can be computed from given a proof of $\Gamma \limply \exists{x}{\phi(x)}$.
+\end{lemma}
+\begin{proof}[Sketch.]
+  We will need to introduce a proof calculus before we can speak to the proof aspect, but such a $\theta$ trivially exists by the semantics because $\fint{\exists{x}{\phi}}{X}$ specifically assumes
+ the existance of a semialgebraic witness $F$ which is then also a term.
+\end{proof}
+
+\begin{lemma}[Program EP]
+If $\Gamma \limply \ddiamond{\alpha}{\phi}$ is true, then there exists an execution path $\rho$ (let's say that an execution path is straight-line deterministic program that refines the original) of $\alpha$ such that  
+  $\Gamma \limply \ddiamond{\rho}{\phi}$ or equivalently $\Gamma \limply \dbox{\rho}{\phi}$ is true.
+  Moreover it is possible to compute such a path from a proof of $\Gamma \limply \ddiamond{\alpha}{\phi}$.
+\end{lemma}
+\begin{proof}
+  Because paths are not already part of the language, one would need to define what paths are (and convince us that they're computational enough).
+  But first lets consider some of the requirements for such a property to hold.
+  By back-of-the-envelope cardinal arithmetic, any program with uncountably many paths is not terribly promising, because we must get lucky that some path satisfying $\phi$ could be represented by one of the countably many path programs.
+ What if, for example, $\alpha$ is the program $\humod{x}{1};~\humod{y}{0};~\humod{t}{0};~\pevolvein{\D{x}=-y,\D{y}=x,\D{t}=1}{y \geq 0};\ptest{x=-1}$?
+ The only end state for this program is $\{x=-1,y=0,t=\pi\}$.
+ How would we hope to construct a straight line program $\rho$ which constructs this state? 
+ We certainly can't do so without differential equations, and even with a differential equation we must somehow specify its duration of $\pi$.
+ Admittedly, we can't prove that this would be impossible until we specify what exactly we want paths to be, but something is incredibly suspicious here: $\pi$ is transcendental and our straight-line programs can only construct real-algebraic numbers because they are equipped only with semialgebraic sets.
+ We can't even write down the duration of the ODE (allowing paths to run an ODE so long as they write down the duration is a plausible approach to intuitionistic ODEs).
+ If we restrict the durations say to be only the real-algebraic numbers, we can now write down paths using semialgebraic sets, but also the program above becomes empty because we cannot express the duration as a real algebraic number.
+ In contrast if we worked with computable reals we'd be fine here.
+ This all really just goes to say that the field we operate over will be super important. Hmm...
+ Anyway, where I was originally trying to go with this (and got sidetracked by other issues with ODEs) is that if you only have countably-many paths through the program, then in some sense EP should be semi-decidable even without a proof of $\ddiamond{\alpha}{\phi}$ because you can just iterate through the paths of $\alpha$.
+ And then it's guaranteed to terminate if you've proven the diamond because this is all just countable choice anyway which is fine constructively if you ask nicely enough.
+ But it's quite likely all of this is terrifically irrelevant and will become clear once I work out a proof calculus.
+\end{proof}
+
+{\Huge TODOs} (in order to figure out best semantics to make EP true):
+\begin{itemize}
+\item Read Fischer Servi cited in Degen + Werner (intuitionistic-base.pdf)
+\item Contemplate disjunctive property
+\item Review EP from  Degen + Werner (done, is about k's for *'s and requires proofs).
+\item Literature review: denotatonal semantics of intuitionistic logics
+\item Learn constructive analysis
+\item Meditate on bloating and whether one should care whether numbers are closed under ODE evaluation
+\end{itemize}
+\section{Proof Calculus}
+
+\section{Soundness Theorem}
+\section{Relaxing (Constructive) Games to (Constructive) Systems}
+\section{Winning Strategy Satisfies The Relaxation}
+\section{Reducing (Constructive) Games to (Classical) Games}
 %Corollary: by composition, constructive games reduce under whatever silly assumptions to classical gamesx
 
 
