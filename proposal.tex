@@ -86,7 +86,8 @@ pdfpagemode=UseOutlines]{hyperref}
 
 \newcommand{\allint}{\mathcal{I}}
 \newcommand{\allworld}{\mathcal{W}}
-\newcommand{\allstate}{\mathcal{G}}
+\newcommand{\allstate}{\mathcal{S}}
+\newcommand{\allregion}{\mathcal{X}}
 \newcommand{\allnoms}{\mathcal{N}}
 \newcommand{\logname}{\text{\upshape\textsf{dH{\kern-0.05em}L}}\xspace}
 \newcommand{\dRL}{dR\mathcal{L}}
@@ -120,7 +121,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\dLi}{\ensuremath{\dL_\iota}}
 \newcommand{\tint}[2]{\lenvelope{#1}\renvelope{#2}}
 \newcommand{\fint}[1]{\lenvelope{#1}\renvelope}
-\newcommand{\pint}[3]{(#2,#3) \in \lenvelope{#1}\renvelope}
+\newcommand{\pint}[1]{\lenvelope{#1}\renvelope} % (#2,#3) \in 
 
 \draftstamp{\today}{DRAFT}
 \begin{document}
@@ -1182,57 +1183,59 @@ The semantics are based on intuitionstic Kripke frames.
 In typical abstract treatments, each intuitionistic world is in some sense epistemic: it represents which facts are currently known to be true.
 A preorder $\leq$ is used to represent which worlds are ``at least as knowledgeful'' as some other state.
 We take the same general approach that intuitionistic states represent the available knowledge, except the presentation is concrete.
-\newcommand{\allregion}{\mathcal{R}}
+%\newcommand{\allregion}{\mathcal{R}}
 \newcommand{\allcon}{\allregion}
 \newcommand{\somesemi}[2]{\epsilon #1~|~#2}
 Where $\allvars$ is the countable set of identifiers, the set of program states $\allstate$ is $\mathbb{R}^\allvars$, then an intuitionistic state $X : \allcon \equiv 2^\allstate$ is simply a (usually uncountably infinite) set of states, and to ``know'' an intuitionistic state $X$ is to know that we must be in some $\omega \in X,$ but not \emph{which} $\omega$.
 Special case $X = \allcon$ means we know nothing, $X = \{\omega\}$ means that we know we are in exactly the state $\omega,$ and $X = \emptyset$ means we know with certainty that we have derived a contradiction, as we know we are in a state that belongs to the empty set, of which there are none.
-The preorder $\leq$ on intuitionisic worlds is also given concretely: $X \leq Y \equiv X \superseteq Y$: that is, if $Y$ is a subset of $X$ then it contains more information than $Y$ because it rules out all of the states that $Y$ does, plus some more.
+The preorder $\leq$ on intuitionisic worlds is also given concretely: $X \leq Y \equiv X \supseteq Y$: that is, if $Y$ is a subset of $X$ then it contains more information than $Y$ because it rules out all of the states that $Y$ does, plus some more.
 
-There are several design options for the term semantics: do we include semi-algebraic set computations in the term language, and if so do we make a type distinction or identify sets with nondetermistic terms?
-One can argue that semialgebraic sets or an equally powerful construct are \emph{necessary} in the term language (not just a nice-to-have because they make it more powerful) because without them we do not have the existence property (EP), which we will prove after introducing the semantics.
-We also choose not to make a typing distinction in terms since it the technical complexity of introducing a type system is not well motivated by a system of exactly two types.
-An alternative to explore would be to make the typing distinction, then have a family of operators for drawing elements from sets.
+%There are several design options for the term semantics: do we include semi-algebraic set computations in the term language, and if so do we make a type distinction or identify sets with nondetermistic terms?
+%One can argue that semialgebraic sets or an equally powerful construct are \emph{necessary} in the term language (not just a nice-to-have because they make it more powerful) because without them we do not have the existence property (EP), which we will prove after introducing the semantics.
+%We also choose not to make a typing distinction in terms since it the technical complexity of introducing a type system is not well motivated by a system of exactly two types.
+%An alternative to explore would be to make the typing distinction, then have a family of operators for drawing elements from sets.
 
-Therefore we will choose $\tint{\theta}{\om} : 2^{\mathbb{R}}$: the value of a term in some state is the set of all values it might currently take on.
+Therefore we will choose $\tint{\theta}{\om} : \mathbb{R}$: the value of a term in some state is its unique value.
 The semantics are defined by:
 \begin{align*}
-  \tint{q}{\om} &= \{q\}\\
-  \tint{x}{\om} &= \{\om(x)\}\\
-  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} \oplus \tint{\eta}{\om} = \{r + s~|~r \in \tint{\theta}{\om}\text{ and }s \in \tint{\eta}{\om}\}\\
-  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \otimes \tint{\eta}{\om} = \{r s~|~r \in \tint{\theta}{\om}\text{ and }s \in \tint{\eta}{\om}\}\\
-  \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})\text{ for deterministic }\theta \\ % in an open ball around omega
-  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
+  \tint{q}{\om} &= q\\
+  \tint{x}{\om} &= \om(x)\\
+  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} + \tint{\eta}{\om}\\
+  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}\\
+  \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})
+%  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
 \end{align*}
-It is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
-The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
-Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
-That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
+I%t is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
+%The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
+%Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
+%That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
 
 We give the semantics for formulas.
 Because this is intuitionistic truth, the semantics are a partial function and words like ``and'' and ``or'' are interpreted partially, for example conjunction is neither true nor false if either conjunct is neither true nor false.
 Here $F$ ranges over semialgebraic sets.
 \begin{align*}
-  \fint{\phi \land \psi}{X} &\lequiv \fint{\phi}{X}\text{ and }\fint{\psi}{X}\\
-  \fint{\phi \lor \psi}{X}  &\lequiv \fint{\phi}{X}\text{ or }\fint{\psi}{X}\\
-  \fint{\phi \limply \psi}{X} &\lequiv \text{ for all }Y \subseteq X, \fint{\phi}{Y}\text{ implies }\fint{\psi}{Y}\\
-  \fint{\bot}{X} &\lequiv \emptyset\\
-  (\fint{\theta \geq \eta}{X}\text{ true})&  \lequiv \text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r \geq s\\
-  (\fint{\theta \geq \eta}{X}\text{ false})& \lequiv \text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r < s\\
-  \fint{\exists{x}{\phi}}{X} &\lequiv \text{exists }F, \fint{\phi}{\{\subst[\om]{x}{r}~|~\om in X, \subst[\om]{x}{r} \in F\}}\\
-  \fint{\forall{x}{\phi}}{X} &\lequiv \fint{\phi}{\{\subst[\om]{x}{r}~|~\om in X, r \in \mathbb{R}\}}\\
-  \fint{\dbox{\alpha}{\phi}}{X} &\lequiv \text{for all }Y \subseteq X, Z \text{ s.t. }(Y,Z)\in\pint{alpha}, \fint{\phi}{Z}\\
-  \fint{\ddiamond{\alpha}{\phi}}{X} &\lequiv \text{exists }Y, (X,Y)\in\pint{alpha}\text{ and }\fint{\phi}{Y}
+  \fint{\phi \land \psi}{X}     &\lequiv \fint{\phi}{X}\text{ and }\fint{\psi}{X}\\
+  \fint{\phi \lor \psi}{X}      &\lequiv \fint{\phi}{X}\text{ or }\fint{\psi}{X}\\
+% TODO: Prove a monotonicity lemma to simplify this
+  \fint{\phi \limply \psi}{X}   &\lequiv \text{ for all }Y \subseteq X, \fint{\phi}{Y}\text{ implies }\fint{\psi}{Y}\\
+  \fint{\bot}{X}                &\lequiv X = \emptyset\\
+  \fint{\theta > \eta}{X}       &\lequiv \text{for all }\nu \in X, \exists \epsilon > 0, \text{for all } \mu \in (B_\epsilon(\nu) \cap X), \tint{\theta}{\mu} > \tint{\eta}{\mu}\\
+  \fint{\exists{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{f(\om)}~|~\om \in X\}} \text{ for some $f:\allstate \to \mathbb{R}$}\\
+  \fint{\forall{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{r}~|~\om \in X,  r \in \mathbb{R}\}}\\
+  \fint{\dbox{\alpha}{\phi}}{X} &\lequiv \text{for all }Y \subseteq X, Z \text{ s.t. }(Y,Z) \in \pint{\alpha}, \fint{\phi}{Z}\\
+  \fint{\ddiamond{\alpha}{\phi}}{X} &\lequiv \text{exists }Y, (X,Y)\in\pint{\alpha}\text{ and }\fint{\phi}{Y}\\
+  \fint{\theta \geq \eta}{X}    &\lequiv \fint{\eta > \theta \limply \bot}{X}%\text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r \geq s\\
 \end{align*}
 
 We give the semantics for programs:
 \begin{align*}
-  (X,X) \in \pint{\ptest{\phi}}\text{ iff }&\fint{\phi}{X} \\ 
+  (X,X) \in \pint{\ptest{\phi}}\text{ iff }&\fint{\phi}{X} \\
   (X,Y) \in \pint{\humod{x}{\theta}} \text{ iff }& Y = \{\subst[\om]{x}{r}~|~\om \in X, r \in \tint{\theta}{X}\}\\
   \pint{\alpha \cup \beta} =& \pint{\alpha} \cup \pint{\beta}\\
   (X,Y) \in \pint{\alpha;~\beta} \text{ iff }& \text{exists }Z, (X,Z) \in \pint{\alpha}, (Z,Y) \in \pint{\beta}\\
-  (X,Y) \in \pint{\pevolvein{\D{x}=\theta}{\ivr}}\text{ iff }& \text{ exists }F, Y = \{\nu~|~\om \in X, t \in \mathbb{R}_{\geq0}, \varphi_\om:[0,t]\to\allstate.~\varphi_\om(0)=\om\text{ on }\{x,\D{x}\}^C,
-   \frac{\partial \varphi_\om(t)(x)}{\partial t}= \varphi_\om(t)(\D{x})\text{ and } \{\varphi_\om(t)(x)\}=\tint{\theta}{\varphi(\varphi(s))}\text{ and }\fint{\ivr}{\{\varphi_\mu(t)~|~\mu\in X}}\}
+  (X,Y) \in \pint{\pevolvein{\D{x}=\theta}{\ivr}}\text{ iff }& Y = \{\nu~|~\exists \om \in X, t \in \mathbb{R}_{\geq0}, \varphi_\om:[0,t]\to\allstate,~\varphi_\om(0)=\om\text{ on }\{x,\D{x}\}^C\\
+   &\frac{\partial \varphi_\om(t)(x)}{\partial t}= \varphi_\om(t)(\D{x})\text{ and } \{\varphi_\om(t)(x)\}=\tint{\theta}{\varphi(\varphi(s))}\\
+   &\text{ and }\fint{\ivr}{\{\varphi_\mu(t)~|~\mu\in X}\}\\
   \pint{\prepeat{\alpha}} =& \bigcup_{n\in\mathbb{N}} \pint{\alpha}^n
 \end{align*}
 
@@ -1274,12 +1277,17 @@ If $\Gamma \limply \ddiamond{\alpha}{\phi}$ is true, then there exists an execut
 
 {\Huge TODOs} (in order to figure out best semantics to make EP true):
 \begin{itemize}
-\item Read Fischer Servi cited in Degen + Werner (intuitionistic-base.pdf)
+\item Read References from Fischer-Servi (intuitionistic-base.pdf)
 \item Contemplate disjunctive property
-\item Review EP from  Degen + Werner (done, is about k's for *'s and requires proofs).
 \item Literature review: denotatonal semantics of intuitionistic logics
 \item Learn constructive analysis
-\item Meditate on bloating and whether one should care whether numbers are closed under ODE evaluation
+%\item Meditate on bloating and whether one should care whether numbers are closed under ODE evaluation
+\item Review Scott continuity. Reflect on relationship between Scott continuity, interval arithmetic and constructive reals.
+  It would seem that the epistemic nature of intuitionism should allow us to find a uniform foundation for an interval semantics or for a constructive reals semantics: i.e. if your intervals are too big in interval arithmetic, you just don't know stuff. In constructive reals you keep asking for smaller intervals until you do know. If you can't know without asking for infinitely many intervals, then you just don't know.
+Reflect on the interactions with interval bloating around ODEs that might happen say in rationals case, as well. Perhaps this is all fine.
+%\item Heyting algebra
+%\item Review EP from  Degen + Werner (done, is about k's for *'s and requires proofs).
+%\item Review Bas Spitters Picard Lindeloef in Coq + RosCoq while we're at it to convince myself computable reals are the main computable thing closed under ODE evaluation (done)
 \end{itemize}
 \section{Proof Calculus}
 
