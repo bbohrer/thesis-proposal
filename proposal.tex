@@ -15,6 +15,7 @@ bookmarksnumbered,
 pdfborder=0 0 0,
 pdfpagemode=UseOutlines]{hyperref}
 
+\usepackage{apacite}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -63,6 +64,40 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\alternative}{~|~}
 \newcommand{\ivr}{\psi}
 \newcommand{\meps}[2]{\iota{#1}~{#2}}
+\newcommand{\xgivar}{\textsf{xi}}
+\newcommand{\ygivar}{\textsf{yi}}
+\newcommand{\xgvar}{\textsf{x}}
+\newcommand{\ygvar}{\textsf{y}}
+\newcommand{\xcvar}{\textsf{xc}}
+\newcommand{\ycvar}{\textsf{yc}}
+\newcommand{\ytvar}{\textsf{yt}}
+%\newcommand{\xivar}{\textsf{xi}}
+%\newcommand{\yivar}{\textsf{yi}}
+%\newcommand{\xvar}{\textsf{x}}
+\newcommand{\yvar}{\textsf{y}}
+\newcommand{\wvar}{\textsf{w}}
+\newcommand{\dxvar}{\textsf{dx}}
+\newcommand{\dyvar}{\textsf{dy}}
+\newcommand{\dxivar}{\textsf{dxi}}
+\newcommand{\dyivar}{\textsf{dyi}}
+\newcommand{\dxgvar}{\textsf{dxg}}
+\newcommand{\dygvar}{\textsf{dyg}}
+\newcommand{\kvar}{\textsf{k}}
+\newcommand{\tvar}{\textsf{t}}
+\newcommand{\vivar}{\textsf{vi}}
+\newcommand{\vlvar}{\textsf{vl}}
+\newcommand{\vhvar}{\textsf{vh}}
+\newcommand{\ctrl}{\textsf{ctrl}\xspace}
+\newcommand{\ctrlliv}{\ctrl_{\text{a}}}
+\newcommand{\plant}{\textsf{plant}\xspace}
+\newcommand{\psimp}{\ensuremath{\alpha_{SV}}\xspace}
+\newcommand{\exctrl}{\textsf{ctrl}_{SV}\xspace}
+\newcommand{\pdrive}{\textsf{go}\xspace}
+\newcommand{\pstop}{\textsf{stop}\xspace}
+\newcommand{\explant}{\textsf{plant}_{SV}\xspace}
+\newcommand{\lnorm}[1]{{{\norm{#1}}_{\infty}}}
+\newcommand{\enorm}[1]{\norm{#1}}
+\newcommand{\linv}{J}
 
 \usepackage{prettyref}
 \newcommand{\rref}[2][]{\prettyref{#2}}
@@ -122,6 +157,8 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\tint}[2]{\lenvelope{#1}\renvelope{#2}}
 \newcommand{\fint}[1]{\lenvelope{#1}\renvelope}
 \newcommand{\pint}[1]{\lenvelope{#1}\renvelope} % (#2,#3) \in 
+\newcommand{\gameex}{\alpha_{\times}\xspace}
+\newcommand{\sysex}{\alpha_{\text{Sys}}\xspace}
 
 \draftstamp{\today}{DRAFT}
 \begin{document}
@@ -153,11 +190,10 @@ Tobias Nipkow?
 \keywords{hybrid systems, theorem proving, end-to-end verification, hybrid games, hybrid logic}
 
 \maketitle
-
+\let\cite\shortcite
 %\begin{dedication}
 %Hi
 %\end{dedication}
-
 \begin{abstract}
 Cyber-physical systems (CPSs) combining discrete control and continuous physical dynamics are pervasive in modern society: examples include driver assistance in cars, industrial robotics, airborne collision avoidance systems, the electrical grid, and medical devices.
 Many of these systems are safety-critical or even life-critical because they operate in close proximity to humans and in some cases perform life-sustaining functions.
@@ -239,7 +275,7 @@ This then also allows us more freedom in how the low-level details of and compil
 \chapter{Background: Differential Game Logic \dGL}
 \emph{Differential dynamic logic} (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
 \emph{Differential game logic} (\dGL)~\cite{DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} extends the programs $\alpha$ of \dL with a turn-taking operator $\pdual{\alpha}$ to enable representing and verifying hybrid \emph{games} combining discrete, continuous, and adversarial dynamics.
-While some of the works in thesis (\rref{ch:logical-foundations}, \rref{sec:veriphy}) are specific to \dL, we will present \dGL in its full generality here since 
+While the already-completed thesis chapters (\rref{ch:logical-foundations}, \rref{sec:veriphy}) employ \dL, we present full \dGL since 
 \begin{inparaenum}[i)]
   \item the proposed works (\rref{ch:cdgl},\rref{ch:proofplex}) will require an understanding of full \dGL, and
   \item an introductory understanding of \dGL will also provide an introductory understanding of \dL.
@@ -340,13 +376,12 @@ We give examples of safety and liveness theorems:
 The safety theorem \emph{safe} says that Angel (the robot) has a strategy to ensure $\xvar \leq \obsvar$ (i.e. a strategy not to hit the obstacle) regardless how long Demon runs the loop and the ODE.
 The liveness theorem \emph{live} says that Angel (the robot) has a strategy to reach the obstacle, \emph{so long as} Demon always runs the ODE long enough ($t \geq \frac{T}{2}$).
 The requirement on running the ODE long enough is to rule out \emph{Zeno} behaviors by Demon: without this restriction, Demon can run the ODE for shorter and shorter durations, with infinitely many iterations in finite time, which is not physically realizable but would falsify the liveness theorem.
- 
 
-It is worth noting that in the present state of the art, case studies have thus~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:conf/rss/MitschGP13,DBLP:conf/hybrid/PlatzerQ08} far used \dL for hybrid systems in \KeYmaeraX (\rref{sec:veriphy},\rref{sec:ground-robotics}).
-One of the conclusions of this thesis is that such case studies can and should be written as hybrid games: using games as our modeling language both avoids common anomalies in models and also enables synthesis of not only monitors but also controllers.
-The reason for this is that the diamond modality $\ddiamond{\alpha}{\phi}$ can be understood as the \emph{control} modality while box modality $\dbox{\alpha}{\phi}$ can be understood as the \emph{monitoring} modality: that is, while we are the Angel player, it is our responsibilty to make control decisions that will achieve our goal condition, but while we are the Demon player we do not get to make the decisions, it is simply our responsibility to act as a referee for the Angel player, calling them out if they ever break the rules and hand us a victory.
+It is worth noting that prior case studies ~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:conf/rss/MitschGP13,DBLP:conf/hybrid/PlatzerQ08} used vanilla \dL for hybrid \emph{systems} in \KeYmaeraX (\rref{sec:veriphy},\rref{sec:ground-robotics}).
+In \rref{ch:cdgl} of this thesis, we will advocate for making (constructive) games proofs the standard.
+We foreshadow the motivations of \rref{ch:cdgl} here.
 
-It is illustrative to compare \rref{ex:driving-game} to a previous hybrid system model of the same scenario:
+Consider a hybrid \emph{system} version of \rref{ex:driving-game}:
 \begin{example}[Acceleration-Controlled 1D Driving System]
 \label{ex:driving-system}
 \begin{align}
@@ -359,23 +394,23 @@ It is illustrative to compare \rref{ex:driving-game} to a previous hybrid system
 \label{eq:driving-sys-demon}       &\{\pevolvein{\D{x}=v, \D{v}=a, \D{t}=1}{t \leq T \land v \geq 0}\}\big\}^*
 \end{align}
 \end{example}
-The most salient difference is that the hybrid system $\alpha_{\text{Sys}}$ of \rref{ex:driving-system} is more complex (and more explicit) than the game model \rref{ex:driving-game}.
-The controller now consists of three cases: \rref{eq:driving-sys-forward} says that we can choose velocity within the capabilities of the robot so long as after accelerating for time $\Tvar$ there will be enough time left to brake to stop without hitting the obstacle, \rref{eq:driving-sys-stay} says if the robot is currently stopped it can stay stopped, and \rref{eq:driving-sys-brake}.
-As before, \rref{eq:driving-sys-demon} gives Newtonian mechanics for the robot, but of course doesn't have a dual operator because $\alpha_{\textrm{Sys}}$ is not a hybrid game.
+Note $\alpha_{\text{Sys}}$ of \rref{ex:driving-system} is much more complex and explicit than \rref{ex:driving-game}.
+This is because the \emph{strategy} by which acceleration is chosen must be explicitly given in the model as three cases:
+\rref{eq:driving-sys-forward} allows any physically-possible choice that is safe for time $\Tvar,$ \rref{eq:driving-sys-stay} lets a robot stay stopped, and \rref{eq:driving-sys-brake} allows braking.
 
-Why is $\alpha_{\textrm{Sys}}$ so much longer than \rref{ex:driving-game}?
-The key is that in \rref{ex:driving-game}, the controller is existentially quantified in both the safety and liveness theorem: there need only exist some control decision within the constraints of the car that achieves the goal state.
-In the language of hybrid systems, we cannot make the controller existentially quantified in the safety theorem without doing the same for the physics (which would simply be wrong).
-Because the controller model is universally quantified, it must explicitly write out the sufficient conditions for a safe control decision.
-This alone is troublesome: in any verification task, the one thing that cannot be formally proven is that the correct theorem statement was indeed chosen.
-For this reason, it is of fundamental importance to achieve the simplest model and simplest theorem statement possible, but using hybrid systems as our modeling language instead of hybrid games imposes a needlessly low ceiling on the simplicity of models.
-This is not merely an abstract problem: concretely, experience has shown it is easy to write models in this style with \emph{incomplete controllers}, i.e., where the tests in the controller do not cover all possible program states, leading to safety ``proofs'' that do not cover all possible statess and to systems that would not be safe in practice.
-This class of mistakes is simply impossible in the existentially-quantified style of \rref{ex:driving-game}, thus I advocate making this style standard.
+Why are \rref{ex:driving-game} and game models in general simpler? % $\alpha_{\textrm{Sys}}$ so much longer than 
+A typical game model has shape $\prepeat{(\pdual{\ctrl};~\plant)},$ where the turn-taking (or dual) operator $\pdual{\alpha}$ has the affect of alternating between the modalities $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$.
+Most often, we wish to show that there \emph{exists} a control choice where \emph{all} behaviors of the environment are safe and live, and so on for all iterations of the system.
+%TODO: Cite
+The ability to express this pattern is exactly what distinguishes \dGL from \dL.
+In vanilla \dL, safety is usually expressed in the form $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\psi}$ and liveness is approximated as
+$\phi \limply \ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}$ or $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}}$.
+\dGL models are simpler because in typical \dL usage, \emph{all} cases of a controller must be safe, whereas a safe choice need only \emph{exist} in a game.
+As a result, operational information (what control decision is made in which circumstances) is present in \dL models, whereas it need only appear in \emph{proofs} in \dGL.
 
-The relationship between \rref{ex:driving-system} and \rref{ex:driving-game} is no coincidence:
-It is that known that once a winning strategy has been found for a hybrid game, a hybrid system can mechanically been derived.
-A similar relation can be expected to hold for \CdGL, and is a key step in end-to-end verification (\rref{ch:proofplex}).
-
+As discussed further in \rref{ch:cdgl}, relegating control choices to the proof has advantages for synthesis in \CdGL as well as simplicity advantages.
+That being said, the maturity of \KeYmaeraX and the many available case studies show the utility of the thesis chapters which target vanilla \dL as well.
+The connections between vanilla \dL and \CdGL will be further discussed in \rref{ch:cdgl}.
 
 \section{Semantics}
 \label{sec:dgl-semantics}
@@ -746,40 +781,6 @@ Static analysis of arithmetic for hybrid systems has been studied~\cite{DBLP:con
 
 \section{Case Study: End-to-End Ground Robotics Verification}
 \label{sec:ground-robotics}
-\newcommand{\xgivar}{\textsf{xi}}
-\newcommand{\ygivar}{\textsf{yi}}
-\newcommand{\xgvar}{\textsf{x}}
-\newcommand{\ygvar}{\textsf{y}}
-\newcommand{\xcvar}{\textsf{xc}}
-\newcommand{\ycvar}{\textsf{yc}}
-\newcommand{\ytvar}{\textsf{yt}}
-%\newcommand{\xivar}{\textsf{xi}}
-%\newcommand{\yivar}{\textsf{yi}}
-%\newcommand{\xvar}{\textsf{x}}
-\newcommand{\yvar}{\textsf{y}}
-\newcommand{\wvar}{\textsf{w}}
-\newcommand{\dxvar}{\textsf{dx}}
-\newcommand{\dyvar}{\textsf{dy}}
-\newcommand{\dxivar}{\textsf{dxi}}
-\newcommand{\dyivar}{\textsf{dyi}}
-\newcommand{\dxgvar}{\textsf{dxg}}
-\newcommand{\dygvar}{\textsf{dyg}}
-\newcommand{\kvar}{\textsf{k}}
-\newcommand{\tvar}{\textsf{t}}
-\newcommand{\vivar}{\textsf{vi}}
-\newcommand{\vlvar}{\textsf{vl}}
-\newcommand{\vhvar}{\textsf{vh}}
-\newcommand{\ctrl}{\textsf{ctrl}\xspace}
-\newcommand{\ctrlliv}{\ctrl_{\text{a}}}
-\newcommand{\plant}{\textsf{plant}\xspace}
-\newcommand{\psimp}{\ensuremath{\alpha_{SV}}\xspace}
-\newcommand{\exctrl}{\textsf{ctrl}_{SV}\xspace}
-\newcommand{\pdrive}{\textsf{go}\xspace}
-\newcommand{\pstop}{\textsf{stop}\xspace}
-\newcommand{\explant}{\textsf{plant}_{SV}\xspace}
-\newcommand{\lnorm}[1]{{{\norm{#1}}_{\infty}}}
-\newcommand{\enorm}[1]{\norm{#1}}
-\newcommand{\linv}{J}
 
 While the previous section describes \VeriPhy in general (both as a methodology and as a tool), we certainly cannot claim that the \VeriPhy tool enables end-to-end verification of realistic CPS implementations until we have actually applied \VeriPhy to such a system.
 This section validates that claim by providing a full \VeriPhy case study including \dL models, proofs, a simulation which employs the sandbox controller generated by \VeriPhy, and test environments for the simulation.
@@ -787,6 +788,7 @@ For our case study, we chose 2D ground robots which follow Dubins-like arcs and 
 This choice is motivated by the fact that a huge variety of ground robots move by following such paths, yet the paths themselves are reasonably simple, and at the same time speed limits are incredibly useful for example in autonomous cars which intend to obey the law or in robots with high centers of mass which wish not to flip over when navigating curves.
 
 \subsection{Model}
+\label{sec:planar-driving-system}
 This section introduces our 2D robot model in \dL.
 The Dubins dynamics are bloated by a tolerance, which accounts for imperfect actuation and for discrepancies between the Dubins dynamics and real dynamics of the implementation.
 That is, because realistic robots never follow a path perfectly, we will bloat each arc to an annulus section which is more easily followed.
@@ -1040,92 +1042,98 @@ In short, while verification of robotics is well-studied, few works have address
 
 \chapter{Proposed Work: \CdGL: Constructive Differential Game Logic}
 \label{ch:cdgl}
-In previous sections, the author has argued for end-to-end verification of CPS, as it has been persued thus far in \VeriPhy.
-Here, it is argued that \VeriPhy as conceived for classical hybrid systems does not and fundamentally cannot tell the entire story of end-to-end verification for realistic CPS, and that a more compelling story is told by \emph{constructive} hybrid \emph{games}.
-We begin this argument by discussing the limitations inherent to \VeriPhy for classical systems:
-\begin{enumerate}
-\item \label{item:adversarial} Real CPS are adversarial in the sense that even when the environment is not actively plotting our destruction, it is not under our control.
- Because we wish for our CPS to function correctly under all circumstances, we must assume the worst of the environment, which is assume adversarial behavior.
-\item \label{item:complexified} A subtler point arises from the adversarial assumption, which we will show by example:
-While CPS which are ``inherently adversial'' \emph{can actually} be modeled and verified as hybrid systems, the point is that such models are doubly unsatisfactory: On the one hand, they are more complicated, sometimes significantly so, than the game model would be, because the controller model must explictly write our the player's strategy for overcoming the adversarial environment, which in the case of games is left to the proof.
-On the other hand, this added complexity does not provide a gain in generality but rather \emph{costs} generality, because the systems model gives only one particular strategy where the game might have had several available strategies for winning, each with its own tradeoffs.
-These weaknesses fly directly in the face of the thesis that for end-to-end verification, picking the right question is half the battle, because the use of hybrid systems makes our questions simultaneously more complicated and less fruitful than necessary. They can hardly be called the right questions.
-\item \label{item:realistic} While the distinction between systems and games is justified by our need to account for real adversarial dynamics and to do so elegantly, 
-the choice of computational games over classical games is made for foundational reasons: CPS's contain actual computers which must actually compute, and thus their formal models must capture an appropriate notion of computation.
-\item \label{item:computational} Because the computational content of a classical systems proof is limited, the potential of classical systems as a foundation for synthesis is limited.
-\item \label{item:control-synthesis} In particular, because \VeriPhy only provides synthesis for control \emph{monitors} and not also synthesis for \emph{controllers}, it is not a comprehensive synthesis solution for CPS.
-\end{enumerate}
-We elaborate on points \ref{item:adversarial}, \ref{item:complexified}, and \ref{item:realistic} here, while we elaborate on points \ref{item:computational} and \ref{item:control-synthesis} in \rref{ch:proofplex}.
-We compare the 1D car hybrid game model \rref{ex:driving-game} with the system model \rref{ex:driving-system}.
+Throughout this thesis, end-to-end verification is conceived as the problem of placing the correctness of realistic CPS on the most rigorous, formal logical foundation possible.
+The logic we use to verify a CPS model (thus far, \dL) is then the centerpiece and our understanding of its foundations are of central importance.
+In \rref{ch:logical-foundations}, we started at the centerpiece and dug inward: we established a more rigorous foundation for \dL as it is used in practice in the theorem prover by building a formally verified prover core and by providing a unified foundation for the grabbag of features that arise in practice.
+In \rref{ch:end-to-end-v}, we started at the centerpiece and dug outward: model-driven monitor synthesis connects CPS implementations to their formal models;
+we showed that this connection can be made with full rigor for serious models and their implementations, placing our understanding of implementation-level safety on firm footing.
 
-\newcommand{\gameex}{\alpha_{\times}\xspace}
-\newcommand{\sysex}{\alpha_{\text{Sys}}\xspace}
-What does adversarial behavior in games look like and how does it compare to cooperative behavior in systems?
-For systems, we often prove safety theorems:
-\[P \limply \dbox{\sysex}{Q}\]
-which say that if $P$ holds initially, then \emph{for all} executions of $\sysex$, formula $Q$ holds at the end.
-What makes this c\"ooperative is that the universal quantification applies to both the control and the plant, which is to say both are controlled by an agent whose decisions are unknown to the person performing the proof, and because they are unknown must be treated universally.
-What is striking is that both the control and plant are pessimistic; in some real sense the proof of controller safety is trying its hardest to fail, and a controller is only safe if the \emph{model} is so restrictive  that it gives the safety \emph{proof} no choice but to conclude safety.
-This can be contrasted with the dual property of co-safety:
-\[P \limply \ddiamond{\sysex}{Q}\]
-which says that if $P$ holds initially then there is always \emph{some} execution of $\sysex$ that ensures $Q$ as a postcondition.
-Here the control and plant are again c\"ooperating, but now both are under control of the prover.
-Whereas a safety proof, in its pessimism, results in overly complicated models, a cosafety theorem is typically simply wrong.
-To control the plant is simply to control its duration.
-It's entirely reasonable to suggest that the environment pessimistically controls the environment, i.e.,  that the plant might for whatever duration is ``most dangerous'' and then hand control back to the controller.
-On the other hand, it is utterly unreasonable to suggest that the CPS can optimistically control the environment: we cannot perfectly control how long physics will evolve before we regain control, and we certainly cannot control phenomena such as sensing and actuation noise.
-This is often addressed in practice by proving not co-safety, but liveness as in \rref{thm:liveness}:
-\[P \limply \dbox{\sysex}{\ddiamond{\sysex}{Q}}\]
-which is to say that no longer how the long the system has been running, if control is handed over to us at that point, we can control it to achieve the postcondition $Q$.
-while this notion comes closer to an intuitive notion of liveness, there are two glaring artifacts: in the box $\dbox{\sysex}{}$ the pessimist has control of the controller, while in the diamond $\ddiamond{\sysex}{},$ the optimist has control of the plant.
-The overarching message of this tangent is simple: regardless whether we wish to show safety or liveness, to characterize this properties precisely we should always give control of the controller to the optimist and control of the plant to the pessimist, which is exactly what games achieve!
+In the proposed work, the time has come to question the centerpiece itself.
+Vanilla \dL has been used thus far in part because it comes with rich theoretical backing, a mature implementation, and prior cases studies for inspiration and comparison.
+However, as a logic, it hardly exists in isolation: A family of logics including \QdL, \SdL, and \dGL have explored the addition of distributed, stochastic, and adversarial dynamics to hybrid systems, respectively.
+Further unexplored logical questions await: notably, all of the above logics are classical.
+When constructive logic is a key tool in software verification, we must earnestly ask what could be gained for end-to-end CPS verification by adopting constructive foundations.
+We must also ask which member of the \dL family (which might not even be discovered yet) is best suited for end-to-end CPS verification.
 
-Out of this discussion falls the following point, that models as they are written in \dL are simultaneously more complicated and less general than the simpler characterization in \dGL, and as a consequence the theorems we can state about them are less satisfactory.
-We return again to \rref{ex:driving-game} and \rref{ex:driving-system}.
-One can reasonably expect (say as an exercise in a senior-level theorem-proving course) to state and prove theoremss like safety of \rref{ex:driving-system}, and indeed it is not terribly difficult to convince ourselves that this system is actually safe.
-Howeveer, it is significantly more difficult to convince ourselves of the following properties:
+This thesis views end-to-end verification as resolving the concerns of three entities:
+the logician concerned with rigorous foundations, the practitioner concerned with software artifacts resulting from verification, and the logic-user, concerned primarily with simplicity and readability of their models and the ease of their proofs.
+We have already satisfied the logician: we have made \dL proofs in \KeYmaeraX indisputable.
+However, we argue that constructivity and games both have crucial advantages for the practitioner and logic-user.
+Thus, a constructive games logic (\CdGL) is the optimal foundation to resolve the concerns of all three.
+
+The completed sections of the thesis have revealed several weaknesses from the practitioner's perspective:
 \begin{itemize}
-\item Is it total, i.e., does the controller always have a branch it can take?
-\item Is it exhaustive, allowing every safe control decision in every state?
-\item Is it as simple as possible, or are some cases redundant?
-\item Is the controller computable?
+\item
+The state-of-the-art supports only synthesis of control and plant monitors, not controllers nor plant simulations.
+The programmer might be content to write the controller themselves, but they are less content to prove for themselves that it always satisfies the monitor.
+For the programmer, the CPS has not been proven correct unless they know the monitor will be satisifed!
+Plant simulations are also valuable because they provide a complementary way to evaluate and understand a model, which is more familiar to most programmers.
+\item
+The state-of-the-art in synthesis lacks robustness, often restricting the user to special cases and failing to synthesize otherwise.
+Important control paradigms such as model-predictive control do not fall within the supported special cases, nor do any controllers containing loops.
+The \ModelPlex synthesis approach started from the assumption that the model alone is sufficient, which was then falsified by the need to handle complex models, especially those whose plants are not nilpotent.
+The resulting approach scrapes invariant information from proofs in an ad-hoc fashion to aid synthesis.
+While the invariant information is essential, the ad-hoc nature stands in the way of robustness.
+\item
+The synthesized monitors are not tight.
+The arithmetic approximations used in \rref{sec:veriphy} are conservative, and in practice can be prohibitively so, to the extent that significant cleverness is exerted in tweaking units of measure to avoid overflow errors.
+The implementation of arithmetic in synthesis is a fundamental question, but the present answer of integer interval arithmetic demands too much of the programmer.
 \end{itemize}
-these questions are not trivial.
-For example, questions of totality and exhaustiveness often lead novices to write entirely inappropriate models for which a so-called safety theorem is provable but which do not correspond to any reasonable notion of safety for an actual CPS and for which the synthesized \VeriPhy monitor would surprise them with a huge number of failures!
-The simplicity question is noteworthy because verification is time-consuming: any time we promote simpler models and simpler proofs, we promote time-saving for the user.
-Computability is essential to the synthesis question, and thus is a pressing motivation for \CdGL over \dGL.
-Even the simple first-order arithmetic conditions given in this model are intriguing for the simple reason that we must ponder what it means to compute real arithmetic.
-In this light, the advantages of games are startling: totality questions vanish because the controller is under Angelic control, and safety is simply not provable of a non-total controller.
-Exhaustivity and simplicity vanish because the strategy is no longer part of the model but part of the proof: A non-simple proof is allowed, but its complexity cannot infect the model, which is infinitely more important because it must be taken as a given whereas a proof can be checked for compliance with the proof calculus.
-Exhaustivity is now a question only for the proof as well, and is arguably not even \emph{desired}: now that a strategy characterizes the exact decision that would be taken under every circumstance, there is no longer a strict need to prove the safety of operations that will not actually be taken.
-Computability is addressed not by \dGL but by \CdGL.
+All these concerns are addressed by the combination of games and constructivity:
+\begin{itemize}
+\item
+The main challenge in synthesizing a controller is deciding which control path to take (for example, acceleration vs. braking) when multiple options are plausible.
+All such decisions are captured by a proof of the shape $\ddiamond{\ctrl}{\phi}$: in proving a diamond property, we have specified which path to take in order to achieve $\phi$.
+Such synthesis is only possible in general when the proof is constructive: the state-of-the-art proof technique for such properties in fact applies the law of excluded middle to undecidable propositions, so constructivity is anything but a theoretical concern.
+In this chapter, we will incorporate an alternative proof method only case-analyzes decidable properties so that synthesis is possible.
+Games also play a part in controller synthesis: A typical game proof supports a diamond proof for control and a box proof for plant, making it simple to synthesize both a controller and monitor together.
+\item
+Robustness issues in the state-of-the-art are simply a side effect of the fact that there is no proof representation available that closely corresponds to intuitive notions of control and monitoring.
+While proof representations are available, including one developed by the author, these representations use a low-level classical Hilbert calculus with no obvious computational interpretation and no obvious correspondence to intuitive ``human-level'' proofs.
+Developing a proof-theoretic semantics with a computational interpretation of proof terms is par for the course in constructive logic.
+By developing such semantics for \CdGL, we will lay the foundation for robust implementation of proof-driven synthesis.
+\item
+Conservativity is a consequence of the chosen arithmetic implementation: fixed-precision interval arithmetic.
+Better libraries might alleviate the practical concern, but constructive mathematics provides a more general answer: computable reals.
+Constructive proofs in \CdGL have the convenient property that whenever a proof of $\ddiamond{\ctrl}{\phi}$ exists, a controller exists which uses only \emph{total} computations on computable reals (e.g.\ the controller will never attempt to compare two reals for exact equality).
+Certainly interval arithmetic has its own advantages in performance, but with computable reals we resolve conservativity issues conclusively.
+\end{itemize}
 
-These questions of computability are technically and foundationally fascinating.
-The solution taken by \VeriPhy, while workable, is simplistic: all arithmetic is interpreted as fixed-point interval arithmetic.
-This is limiting because it is conservative: any time that a computation exceeds the provided word size or even demands a higher precision, control monitors will fail spuriously because the computed intervals violated monitor conditions even though the result of an exact computation would not.
-There are two obvious approaches for eliminating the conservativity limitation:
-\begin{enumerate}
-\item Perform all arithmetic with an exact representation, among which plausible choices include rational numbers, real-algebraic numbers, and constructive reals.
-\item Retain the use of fixed-precision arithmetic, but provide a mechanism to prove that a particular precision is sufficient, for example by accounting for physical limits on the numerical range of inputs.
-\end{enumerate}
-Each approach has advantages and disadvantages: The arbitrary-precision approach likely lends itself to simpler formal semantics and simpler proofs, because the semantics can assume once and for all that numbers have arbitrary precision and proofs need not concern themeselves with precision.
-The implications for synthesis for hard real-time systems are problematic, however, because implementations of arbitrary-precision arithmetic are neither constant-time nor constant-space, and thus violate a number of industry standards for usage in hard real-time systems.
-Fixed-precision arithmetic, on the other hand, may complicate semantics in that the semantics may need to be parameterized by precision, and may complicate proof in that proofs might have to be aware of the precision.
-However, once those problems are addressed, the implications are far better for synthesis for usage in real-time systems, as the resulting code is constant-time and constant-space, in compliance with industrial standards.
+For the logic-user:
+\begin{itemize}
+\item
+Short, simple models are desirable.
+Longer models are more likely to contain mistakes, and modeling mistakes are the hardest kind to catch as we cannot simply ``prove'' their presence or absence.
+As \rref{sec:planar-driving-system} and \rref{ex:driving-system} show, hybrid systems models are typically much more complicated than their hybrid game counterpart, because strategic choices must be modeled in the hybrid system which in games are deferred to the proof.
+Thus, games generally (\dGL or \CdGL) eliminate a prominent source of needless model complexity.
+\item
+Beyond reducing complexity, games models preclude common mistakes which have led even experienced researchers to write vacuous models in practice.
+Specifically, in a standard \dL safety proof, safety is proven only for states from which at least one guard of the controller is satisfied.
+An intuitive notion of safety requires that at least one guard is satisifed in each state (the controller is \emph{total}), which is often false when models are not written carefully.
+In games, we can (and by default do) require that controllers satisfy \emph{co-safety}, which implies any faulty, non-total controller will be caught when at proof time since a co-safety proof will necessarily fail.
+Catching such mistakes is important because otherwise the logic-user, having proved a vacuous theorem, would assume their system is safe when in fact \emph{nothing} of note has been proven.
+\item
+For many programmers, formal proofs are more intimidating than code and thus possess a steeper learning curve.
+While not a focus of the present thesis, a computational interpretation opens up the possibility of writing \CdGL proofs by writing the code that implements a winning strategy.
+We suggest that such an approach would ease adoption of proofs for CPS.
+\end{itemize}
 
-Several other interesting computational, foundational questions arise.
-Because our programming language contains differential equations, what does it mean to compute a system of differential equations?
-How does this differ for a differential equation controlled by us vs. an adversary?
-Both cases are important: monitoring the behavior of an adversarial differential equation is essential for synthesizing plant monitors, while computing the behavior of an angelic differential equation enables \emph{model-predictive} controllers, which make control decisions directly by projecting forward how the plant will respond to the control decision, a fundamental trope in control systems.
+Lastly, even though the logician's foundational concerns have been adequately addressed in the previous chapters, there are independent motivations for \CdGL from a foundational, theoretical perspective:
+\begin{itemize}
+\item As discussed in related work, constructive program logics are a nearly-unexplored topic, and even constructive modal logic generally is a lightly explored field.
+\CdGL is not only a generalization of  \dGL and \dL, but also of (Harel's) First-order Dynamic Logic and (Parikh's) Game Logic, which itself generalizes (von Pratt's) PDL and (Peleg's) Concurrent Dynamic Logic.
+In developing \CdGL, we indirectly develop the first serious constructive treatment for all the above logics as well, specifically the first to feature a full proof-theoretic treatment based on proof terms and their normalization.
+It is also the first treatment of any of the above to support standard constructive properties such as the Existential Property
+\item
+The Curry-Howard correspondence, wherein propositions are interpreted types and proofs are interpreted as programs,
+has for many years been the backbone of cross-pollination between programming languages and logic research.
+\CdGL gives the first understanding of Curry-Howard for game logics or any dynamic logic:
+Proofs of $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ are understood computationally as winning strategies, for the P-player and N-player, respectively.
+In the special case, they are understood as \emph{controlling} program $\alpha$ to achieve $\phi$ or \emph{monitoring} an execution for compliance with $\alpha,$ which ensures $\phi$ as postcondition.
+This substantiates the claim that such proofs suffice for synthesis, and we posit that this correspondence is applicable to \emph{any} nondeterministic program logic.
+\footnote{One could also apply this interpretation to deterministic logics, but they lack our motivations of synthesis and monitoring, which is perhaps the reason this interpretation never developed sooner}
+\end{itemize}
 
-Lastly, the interaction between constructive logic and first-order arithmetic is itself fascinating: In constructive logic, we deny the law of the excluded middle, but for first-order arithmetic, the law of the excluded middle in incontrovertibly true, because first-order arithmetic is \emph{decidable}!
-How then do we manage the intermingling of arithmetic questions which are entitled by their decidability to classicality with dynamic-logical questions which are rightly constrained by the needs of synthesis to constructivity?
-There are again several approaches: one can introduce a modality for classical truth, embedding classical questions inside a constructive logic.
-One can also sneak around the question by relegating first-order arithmetic to the \emph{term language}: it is well-known that the set of states where any first-order arithmetic formula holds true can be written as a \emph{semi-algebraic set}.
-One can simply extend the term language with semi-algebraic sets of reals, and with a membership-testing formula, which is clearly decidable by the decidability of semi-algebraic sets.
-This approach seems particularly appealing because it both provides a clear exposition of the relationship between a computational hybrid game and the code synthesized from it, and at the same (and to be clear, this is entirely icing on the cake) provides a beautiful connection with the complete work on definite descriptions (\rref{sec:definite-description}): definite descriptions and indefinite descriptions are in fact both computable so long as their descriptions are semi-algebraic, and can be reduced to singleton and arbitrary semi-algebraic sets, respectively.
-Thus there is great reason to believe that by taking this approach, we could also provide the same generality in the term language that was found in \rref{sec:definite-description}.
-As a general note, we present these alternative design decisions in the proposal not only to argue in favor of the preferred approaches, but to show that alternative approaches are available should the preferred approach run into an insurmountable stumbling block during work on the thesis.
 
 %\textrm_{\alpha{Sys}}
 
@@ -1205,7 +1213,7 @@ The semantics are defined by:
   \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})
 %  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
 \end{align*}
-I%t is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
+%It is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
 %The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
 %Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
 %That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
@@ -1279,16 +1287,172 @@ If $\Gamma \limply \ddiamond{\alpha}{\phi}$ is true, then there exists an execut
 \begin{itemize}
 \item Read References from Fischer-Servi (intuitionistic-base.pdf)
 \item Contemplate disjunctive property
-\item Literature review: denotatonal semantics of intuitionistic logics
-\item Learn constructive analysis
-%\item Meditate on bloating and whether one should care whether numbers are closed under ODE evaluation
-\item Review Scott continuity. Reflect on relationship between Scott continuity, interval arithmetic and constructive reals.
-  It would seem that the epistemic nature of intuitionism should allow us to find a uniform foundation for an interval semantics or for a constructive reals semantics: i.e. if your intervals are too big in interval arithmetic, you just don't know stuff. In constructive reals you keep asking for smaller intervals until you do know. If you can't know without asking for infinitely many intervals, then you just don't know.
-Reflect on the interactions with interval bloating around ODEs that might happen say in rationals case, as well. Perhaps this is all fine.
-%\item Heyting algebra
-%\item Review EP from  Degen + Werner (done, is about k's for *'s and requires proofs).
-%\item Review Bas Spitters Picard Lindeloef in Coq + RosCoq while we're at it to convince myself computable reals are the main computable thing closed under ODE evaluation (done)
 \end{itemize}
+\subsection{Real Constructive Games, Implicit}
+The deceptively simple way to define semantics for constructive games is simply to reinterpret the definitions given in~\cite{DBLP:journals/tocl/Platzer17} over a constructive set theory.
+For example, $\fint{\phi \lor \psi}{} = \fint{\phi}{} \cup \fint{\psi}{},$ but $\cup$ is reinterpreted as constructive union to mirror the constructive $\lor,$ thus for example it is not provable that $\{x \mapsto 0\} \in \fint{x < 0 \lor x \geq 0},$ which is the desired behavior.
+Also, the definitions for the dual operator probably ought to change so that $\dstrategyfor[\pdual{\alpha}]{X} = \strategyfor[\alpha]{X}$ and $\strategyfor[\pdual{\alpha}]{X} = \dstrategyfor[\alpha]{X}$ because the dual axiom for games is only valid classically.
+
+There are advantages and disadvantages to this approach.
+The advantage is that the definitions are very readable, but with the downsides that a novice reader may misunderstand them as the classical definitions and that because we must work in a constructive metalogic we must be careful that we don't accidentally use any reasoning which is only valid classically.
+
+\subsection{Real Constructive Games, Explicit Kleene}
+We can give semantics in a traditional Kleene reachability style, but keep the metalogic (and thus the set theory) classical and so make it explicit in the semantics whenever we require witnesses.
+This is perhaps the best choice for our model theoretic semantics because it makes the complexity apparent and is hard to misread or to use the wrong proof principle.
+Term semantics are as before.
+
+The formula semantics $\fint{\phi}{}$ denote the unique largest region for which Angel has a strategy to prove $\phi$ (under the assumption that the initial state is somewhere in the region).
+\newcommand{\mto}{\rightharpoonup}
+\begin{align*}
+  \fint{\theta \sim \eta}{} &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\}\\
+  \fint{\phi \land \psi}{}  &= \fint{\phi}{} \cap \fint{\psi}{}\\
+  \fint{\phi \lor \psi}{}   &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0, f(\nu)=1, \om\in A, \nu \in B, A \subseteq \fint{\phi}{}, B \subseteq\fint{\psi}{}\}\\
+  \fint{\phi \limply \psi}{} &= \bigcup\{Z \subseteq \allstate ~|~ Z\subseteq\fint{\phi}{}\text{ implies }Z\subseteq\fint{\psi}{}\}\\
+  \fint{\forall{x}{\phi}}{} &= \{\om~|~\subst[\om]{x}{r}\in\fint{\phi}{}, \text{ all }r\in\reals\}\\
+  \fint{\exists{x}{\phi}}{} &= \{\om~|~\subst[\om]{x}{f(\om)}\in\fint{\phi},\text{ some }f:\allstate\mto \reals\}\\
+  \fint{\bot}{}             &= \emptyset  \\
+  \fint{\ddiamond{\alpha}{\phi}} &= \strategyfor[\alpha]{\fint{\phi}{}}\\
+  \fint{\dbox{\alpha}{\phi}} &= \dstrategyfor[\alpha]{\fint{\phi}{}}
+\end{align*}
+Where $A \mto B$ is the set of computable multi-valued functions from A to B, while $A \to B$ is the set of all computable functions from A to B.
+In both cases we treat the output as a scalar (i.e. we just assume the interpretation of the multi-valued function is not unique).
+Because even constructive set theories support a collection axiom that converts a multi-valued function to proper function, they can be used more-or-less interchangeably.
+However, it is important to support multi-valued functions somewhere, because
+\begin{inparaenum}
+\item The approximate splitting principle used for case analysis on reals will need multivalued functions for most practical proofs.
+\item The generality of multivalued functions justifies us implementing a nondeterministic randomized operational semantics.
+\end{inparaenum}
+
+
+The game semantics are given by:
+\begin{align*}
+  \strategyfor[\ptest{\phi}]{X}      &= \fint{\phi}{} \cup X\\
+  \strategyfor[\humod{x}{\theta}]{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
+  \strategyfor[\prandom{x}]{X}       &= \{\om~|~\subst[\om]{x}{f(\om)} \in X, \text{ some }f:\allstate\mto\reals\}\\
+  \strategyfor[\alpha;~\beta]{X}     &= \strategyfor[\alpha]{\strategyfor[\beta]{X}}\\
+  \strategyfor[\alpha\cup\beta]{X}   &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0,f(\nu)=1,\om\in A, \nu \in B, A \subseteq\strategyfor[\alpha]{X}, B \subseteq\strategyfor[\beta]{X}\}\\
+  \strategyfor[\pdual{\alpha}]{X}    &= \dstrategyfor[\alpha]{X}\\
+  \strategyfor[\prepeat{\alpha}]{X}  &= \bigcap\{Z\subseteq\allstate~|~X\cup\strategyfor[\alpha]{Z} \subseteq Z\}\\
+  \dstrategyfor[\ptest{\phi}]{X}      &= \fint{\phi}{}^C \cup X\\
+  \dstrategyfor[\humod{x}{\theta}]{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
+  \dstrategyfor[\prandom{x}]{X}       &= \{\om~|~\subst[\om]{x}{r} \in X, \text{ all }r:\reals\}\\
+  \dstrategyfor[\alpha;~\beta]{X}     &= \dstrategyfor[\alpha]{\dstrategyfor[\beta]{X}}\\
+  \dstrategyfor[\alpha\cup\beta]{X}   &= \dstrategyfor[\alpha]{X} \cap \dstrategyfor[\beta]{X}\\
+  \dstrategyfor[\pdual{\alpha}]{X}    &= \strategyfor[\alpha]{X}\\
+  \dstrategyfor[\prepeat{\alpha}]{X}  &= \bigcup\{Z\subseteq\allstate~|~Z\subseteq X\cap \dstrategyfor[\alpha]{Z}\}
+\end{align*}
+
+
+\subsection{Real Constructive Games, Realizability}
+\newcommand{\rzF}[2]{#1 \vdash #2}
+\newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
+\newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
+\newcommand{\rzFst}[1]{#1_0}
+\newcommand{\rzSnd}[1]{#1_1}
+\newcommand{\rzThd}[1]{#1_2}
+\newcommand{\rzFrt}[1]{#1_3}
+\newcommand{\rzApp}[2]{#1#2}
+\newcommand{\sa}{\omega}
+\renewcommand{\sb}{\nu}
+\newcommand{\Sc}{\mu}
+\renewcommand{\aa}{a}
+\newcommand{\ab}{A}
+\newcommand{\ac}{\aleph}
+\newcommand{\da}{d}
+\newcommand{\db}{D}
+\newcommand{\dc}{\delta}
+\newcommand{\allRz}{\mathcal{R}\mathbf{z}}
+We can also give a realizability semantics in terms of realizer functions which implement strategies for Angel and Demon, respectively.
+These semantics can be silly to read at first, but should make it easy to show that provable formulas correspond to winning strategies, and provide an easy way to give an operational semantics for strategies.
+The realizability semantics consists of three main judgments:
+Realizability of a formula $\rzF{\sa,\aa,\da}{\phi}$ holds when the formula $\phi$ is realized by the Angel strategy $\aa$ and Demon strategy $\da$ when starting from state $\sa$.
+The Angel realizability judgement $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ says that after running $\alpha$ from initial state $\sa$ under control of Angel strategy $\aa$ and Demon strategy $\da,$ we will reach state $\sb$ with realizers $\ab$ and $\db$.
+The counterpart for Demon is written $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$.
+Note that both judgements are written in functional syntax and can be thought of as (partial) functions, because $\sb,\ab,\db$ are always unique.
+While hybrid games are themselves highly nondeterministic, the realizers resolve all nondeterminism.
+
+We write $\allRz$ for the set of all realizers.
+Per standard practice, realizers are coinductively defined and are untyped, and we do not specify a concrete internal representation.
+When a realizer $\aa$ is a coinductive pair, we write $\rzFst{\aa}$ for its first component and $\rzSnd{\aa}$ for its second component.
+When a realizer $\aa$ is a function (specifically $A \to \allRz$ for some base type $A$), we write $\rzApp{\aa}{x}$ for the component assigned to some $x:A$.
+We implicitly assume throughout that realizers have the right ``type'' (pair or function) for the given program.
+To be totally rigorous we should show that realizers are type-correct when extracting realizers from proofs.
+
+The set of realizers $\allRz$ is defined coinductively as the greatest set such that for all $\aa \in \allRz$, at least one of the following holds:
+\begin{itemize}
+\item $\rzFst{\aa} \in \mathbb{B}$ and $\rzSnd{\aa} \in \allRz$
+\item $\rzFst{\aa} \in \mathbb{R}$ and $\rzSnd{\aa} \in \allRz$
+\item $\rzFst{\aa} \in \allstate$ and $\rzSnd{\aa} \in \allRz$
+\item $\rzApp{\aa}{r} \in \allRz$ for all $r \in \mathbb{B}$
+\item $\rzApp{\aa}{r} \in \allRz$ for all $r \in \mathbb{R}$
+\item $\rzApp{\aa}{\ab} \in \allRz$ for all $\ab \in \allRz$ (i.e., the set of realizers is super-exponential)
+\item $\rzFst{\aa} \in \mathbb{R}$, $\rzApp{\rzSnd{\aa}}{s} \in \allstate$ and $\rzApp{\rzThd{\aa}}{s} \in \allRz$ for all $s \in [0,\rzFst{\aa}]$ and $\rzFrt{\aa}\in\allRz$
+\item $\aa = \epsilon$ (the unit realizer, realizes nothing)
+\end{itemize}
+Because this set is coinductively defined, it includes infinite strategies for infinite plays.
+There are several possible treatments of inifinite plays and strategies.
+The two simplest treatements, both of which result in the ``finite plays only'' treatment from classical \dGL, are:
+\begin{itemize}
+\item 
+ Interpret the judgements $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ inductively.
+ Then they will only ever hold when applied to finite strategies anyway.
+\item Quantify over finite traces only in the definition of validity
+\end{itemize}
+It is a bad idea to allow infinite strategies (with a coinductive interpretation of $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$) for either player, 
+because they would have a strategy to win every repetition game (for every postcondition, even false) by repeating forever, which is not very helpful.
+On some level, it seems more natural to allow infinite plays in boxes than in diamonds, which might simplify metalogical arguments that \CdGL is really talking about CPSs that run forever, but even this would require a careful rethinking of the semantics.
+
+We define the realization judgments recursively:
+\begin{align*}
+\rzF{\sa,\aa,\da}{\phi \land \psi}        &\text{ iff }\rzF{\sa,\aa 0,\da 0}{\phi}\text{ and }\rzF{\sa,\aa 1,\da 1}{\psi}\\
+\rzF{\sa,\aa,\da}{\phi \lor \psi}         &\text{ iff }\rzFst{\aa}=0\text{ and }\rzF{\sa,\rzSnd{\aa},\da 0}{\phi}\\
+                                          &\text{ or }\rzFst{\aa}=1\text{ and }\rzF{\sa,\rzSnd{\aa},\da 1}{\psi}\\
+\rzF{\sa,\aa,\da}{\phi \limply \psi}      &\text{ iff }\rzF{\sa,\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\phi}\text{ implies }\rzF{\sa,\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\psi}\\
+\rzF{\sa,\aa,\da}{\bot}                   &\text{ never}\\
+\rzF{\sa,\aa,\da}{\exists{x}{\phi}}       &\text{ iff }\rzF{\subst[\sa]{x}{\rzFst{\aa}},\rzSnd{\aa},\rzApp{\da}{\rzFst{\aa}}}{\phi}\\
+\rzF{\sa,\aa,\da}{\forall{x}{\phi}}       &\text{ iff }\rzF{\subst[\sa]{x}{\rzFst{\da}},\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\phi}\\
+\rzF{\sa,\aa,\da}{\theta > \eta}          &\text{ iff }\tint{\theta - \eta}{\sa} = \rzFst{\aa} \in \{0\}^C\\
+\rzF{\sa,\aa,\da}{\theta \geq \eta}       &\text{ iff }\rzF{\sa,\aa,\da}{\eta > \theta \limply \bot}\\
+\rzF{\sa,\aa,\da}{\ddiamond{\alpha}{\phi}}&\text{ iff } \rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzF{\sb,\ab,\db}{\phi}\\
+\rzF{\sa,\aa,\da}{\dbox{\alpha}{\phi}}    &\text{ iff } \rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ implies }\rzF{\sb,\ab,\db}{\phi}
+\end{align*}
+Note the use of ``implies'' in the diamond case: an Angel or Demon execution can fail (the function is partial) if the Angel or Demon player respectively does not have a strategy to pass a test or evolution domain constraint.
+These semantics say that Angel wins a box game if Demon does not have a strategy to reach the end.
+
+\begin{align*}
+\rzA{\sa,\aa,\da}{\humod{x}{\theta}}{\subst[\sb]{x}{\tint{\theta}{\sa}},\aa,\da}&\\
+\rzA{\sa,\aa,\da}{\prandom{x}}{\subst[\sb]{x}{\rzFst{\aa}},\rzSnd{\aa},\rzApp{\da}{\rzFst{\aa}}}&\\
+\rzA{\sa,\aa,\da}{\ptest{\phi}}{\sa,\rzSnd{\ab},\rzSnd{\da}}&\text{ iff }\rzF{\sa,\rzFst{\aa},\rzFst{\da}}{\phi}\\
+\rzA{\sa,\aa,\da}{\alpha;~\beta}{\Sc,\ac,\dc}&\text{ iff }\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzA{\sb,\ab,\db}{\beta}{\Sc,\ac,\dc}\\
+\rzA{\sa,\aa,\da}{\alpha \cup \beta}{\sb,\ab,\db}&\text{ iff }\rzFst{\aa}=0\text{ and }\rzA{\sa,\rzSnd{\aa},\da 0}{\alpha}{\sb,\ab,\db}\\
+                                                 &\text{ or }\rzFst{\aa}=1\text{ and }\rzA{\sa,\rzSnd{\aa},\da 1}{\beta}{\sb,\ab,\db}\\
+\rzA{\sa,\aa,\da}{\prepeat{\alpha}}{\Sc,\ac,\dc}&\text{ iff }\rzFst{\aa}=0\text{ and }(\sa,\aa,\da)=(\Sc,\ac,\dc)\\
+                                                &\text{ or }\rzFst{\aa}=1\text{ and }\rzA{\sa,\rzSnd{\aa},\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzA{\sb,\ab,\db}{\prepeat{\alpha}}{\Sc,\ac,\dc}\\
+\rzA{\sa,\aa,\da}{\pevolvein{\D{x}=\theta}{\ivr}}{\sb,\ab,\db}&\text{ iff for all }s\in[0,\rzFst{a}], \frac{\partial \rzSnd{a}(s)(x))}{\partial t}=\tint{\theta}{\rzSnd{a}}=\rzSnd{a}(\D{x})\\
+                                                 &\text{ and }\rzF{\rzApp{\rzSnd{\aa}}{\rzFst{\aa}},\rzApp{\rzThd{a}}{s},\rzApp{\rzFst{\da}}{s}}{\ivr}\text{ and } (\rzApp{\rzSnd{a}}{\rzFst{a}},\rzFrt{a},\rzApp{\rzSnd{d}}{\rzFst{a}})=(\sb,\ab,\db)\\
+\rzA{\sa,\aa,\da}{\pdual{\alpha}}{\sb,\ab,\db} &\text{ iff }\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}
+\end{align*}
+For simplicity we can define $\left(\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\right) \equiv \left(\rzA{\sa,\da,\aa}{\alpha}{\sb,\db,\ab}\right),$ but we give an explicit recursive definition here for clarity of exposition:
+\begin{align*}
+\rzD{\sa,\aa,\da}{\humod{x}{\theta}}{\subst[\sb]{x}{\tint{\theta}{\sa}},\aa,\da}&\\
+\rzD{\sa,\aa,\da}{\prandom{x}}{\subst[\sb]{x}{\rzFst{\da}},\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}&\\
+\rzD{\sa,\aa,\da}{\ptest{\phi}}{\sa,\rzSnd{\ab},\rzSnd{\da}}&\text{ iff }\rzF{\sa,\rzFst{\da},\rzFst{\aa}}{\phi}\\
+\rzD{\sa,\aa,\da}{\alpha;~\beta}{\Sc,\ac,\dc}&\text{ iff }\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzD{\sb,\ab,\db}{\beta}{\Sc,\ac,\dc}\\
+\rzD{\sa,\aa,\da}{\alpha \cup \beta}{\sb,\ab,\db}&\text{ iff }\rzFst{\da}=0\text{ and }\rzD{\sa,\aa 0,\rzSnd{\da}}{\alpha}{\sb,\ab,\db}\\
+                                                 &\text{ or } \rzFst{\da}=1\text{ and }\rzD{\sa,\aa 1,\rzSnd{\da}}{\beta} {\sb,\ab,\db}\\
+\rzD{\sa,\aa,\da}{\prepeat{\alpha}}{\Sc,\ac,\dc}&\text{ iff }\rzFst{\da}=0\text{ and }(\sa,\aa 0,\rzSnd{\da})=(\Sc,\ac,\dc)\\
+                                                &\text{ or }\rzFst{\da}=1\text{ and }\rzD{\sa,\aa 1,\rzSnd{\da}}{\alpha}{\sb,\ab,\db}\text{ and }\rzD{\sb,\ab,\db}{\prepeat{\alpha}}{\Sc,\ac,\dc}\\
+\rzD{\sa,\aa,\da}{\pevolvein{\D{x}=\theta}{\ivr}}{\sb,\ab,\db}&\text{ iff for all }s\in[0,\rzFst{\da}], \frac{\partial \rzSnd{\da}(s)(x))}{\partial t}=\tint{\theta}{\rzSnd{\da}}=\rzSnd{\da}(\D{x})\\
+                                                 &\text{ and }\rzF{\rzSnd{\da},\rzApp{\rzThd{\da}}{s},\rzApp{\rzFst{\aa}}{s}}{\ivr}\text{ and } (\rzApp{\rzSnd{\da}}{\rzFst{\da}},\rzFrt{\da},\rzApp{\rzSnd{\aa}}{\rzFst{\da}})=(\sb,\ab,\db)\\
+\rzD{\sa,\aa,\da}{\pdual{\alpha}}{\sb,\ab,\db} &\text{ iff }\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}
+\end{align*}
+Then a formula $\phi$ is called \emph{valid} if for every state $\om,$ there exists a finite strategy $\aa$ such that for every finite strategy $\da,$ judgment $\rzF{\om,\aa,\da}{\phi}$ holds.
+
+We should then formulate and prove the relation between these two semantics.
+We in general hope that any two semantics that purport to be ``for the same logic'' will be equi-valid.
+One possible point of difference, which would be interesting to explore regardless the result, is the gap between computable reals and full reals: is there any formula that can only be satisfied or falsified when some variable is assigned a real that is not computable? 
+If so, this would be quite an interesting case.
+
 \section{Proof Calculus}
 
 \section{Soundness Theorem}
@@ -1375,7 +1539,7 @@ Total time: 13 months
 %\renewcommand{\bibsection}{\chapter{\bibname}}
 %\newcommand{\bibpreamble}{This text goes between the ``Bibliography''
 %  header and the actual list of references}
-\bibliographystyle{plainnat}
+\bibliographystyle{apacite}
 \bibliography{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL} %your bib file
 
 

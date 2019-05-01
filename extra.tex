@@ -1,0 +1,147 @@
+
+In previous sections, the author has argued for end-to-end verification of CPS, as it has been persued thus far in \VeriPhy.
+Here, it is argued that \VeriPhy as conceived for classical hybrid systems does not and fundamentally cannot tell the entire story of end-to-end verification for realistic CPS, and that a more compelling story is told by \emph{constructive} hybrid \emph{games}.
+We begin this argument by discussing the limitations inherent to \VeriPhy for classical systems:
+\begin{enumerate}
+\item \label{item:adversarial} Real CPS are adversarial in the sense that even when the environment is not actively plotting our destruction, it is not under our control.
+ Because we wish for our CPS to function correctly under all circumstances, we must assume the worst of the environment, which is assume adversarial behavior.
+\item \label{item:complexified} A subtler point arises from the adversarial assumption, which we will show by example:
+While CPS which are ``inherently adversial'' \emph{can actually} be modeled and verified as hybrid systems, the point is that such models are doubly unsatisfactory: On the one hand, they are more complicated, sometimes significantly so, than the game model would be, because the controller model must explictly write our the player's strategy for overcoming the adversarial environment, which in the case of games is left to the proof.
+On the other hand, this added complexity does not provide a gain in generality but rather \emph{costs} generality, because the systems model gives only one particular strategy where the game might have had several available strategies for winning, each with its own tradeoffs.
+These weaknesses fly directly in the face of the thesis that for end-to-end verification, picking the right question is half the battle, because the use of hybrid systems makes our questions simultaneously more complicated and less fruitful than necessary. They can hardly be called the right questions.
+\item \label{item:realistic} While the distinction between systems and games is justified by our need to account for real adversarial dynamics and to do so elegantly, 
+the choice of computational games over classical games is made for foundational reasons: CPS's contain actual computers which must actually compute, and thus their formal models must capture an appropriate notion of computation.
+\item \label{item:computational} Because the computational content of a classical systems proof is limited, the potential of classical systems as a foundation for synthesis is limited.
+\item \label{item:control-synthesis} In particular, because \VeriPhy only provides synthesis for control \emph{monitors} and not also synthesis for \emph{controllers}, it is not a comprehensive synthesis solution for CPS.
+\end{enumerate}
+We elaborate on points \ref{item:adversarial}, \ref{item:complexified}, and \ref{item:realistic} here, while we elaborate on points \ref{item:computational} and \ref{item:control-synthesis} in \rref{ch:proofplex}.
+We compare the 1D car hybrid game model \rref{ex:driving-game} with the system model \rref{ex:driving-system}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What does adversarial behavior in games look like and how does it compare to cooperative behavior in systems?
+For systems, we often prove safety theorems:
+\[P \limply \dbox{\sysex}{Q}\]
+which say that if $P$ holds initially, then \emph{for all} executions of $\sysex$, formula $Q$ holds at the end.
+What makes this c\"ooperative is that the universal quantification applies to both the control and the plant, which is to say both are controlled by an agent whose decisions are unknown to the person performing the proof, and because they are unknown must be treated universally.
+What is striking is that both the control and plant are pessimistic; in some real sense the proof of controller safety is trying its hardest to fail, and a controller is only safe if the \emph{model} is so restrictive  that it gives the safety \emph{proof} no choice but to conclude safety.
+This can be contrasted with the dual property of co-safety:
+\[P \limply \ddiamond{\sysex}{Q}\]
+which says that if $P$ holds initially then there is always \emph{some} execution of $\sysex$ that ensures $Q$ as a postcondition.
+Here the control and plant are again c\"ooperating, but now both are under control of the prover.
+Whereas a safety proof, in its pessimism, results in overly complicated models, a cosafety theorem is typically simply wrong.
+To control the plant is simply to control its duration.
+It's entirely reasonable to suggest that the environment pessimistically controls the environment, i.e.,  that the plant might for whatever duration is ``most dangerous'' and then hand control back to the controller.
+On the other hand, it is utterly unreasonable to suggest that the CPS can optimistically control the environment: we cannot perfectly control how long physics will evolve before we regain control, and we certainly cannot control phenomena such as sensing and actuation noise.
+This is often addressed in practice by proving not co-safety, but liveness as in \rref{thm:liveness}:
+\[P \limply \dbox{\sysex}{\ddiamond{\sysex}{Q}}\]
+which is to say that no longer how the long the system has been running, if control is handed over to us at that point, we can control it to achieve the postcondition $Q$.
+while this notion comes closer to an intuitive notion of liveness, there are two glaring artifacts: in the box $\dbox{\sysex}{}$ the pessimist has control of the controller, while in the diamond $\ddiamond{\sysex}{},$ the optimist has control of the plant.
+The overarching message of this tangent is simple: regardless whether we wish to show safety or liveness, to characterize this properties precisely we should always give control of the controller to the optimist and control of the plant to the pessimist, which is exactly what games achieve!
+
+Out of this discussion falls the following point, that models as they are written in \dL are simultaneously more complicated and less general than the simpler characterization in \dGL, and as a consequence the theorems we can state about them are less satisfactory.
+We return again to \rref{ex:driving-game} and \rref{ex:driving-system}.
+One can reasonably expect (say as an exercise in a senior-level theorem-proving course) to state and prove theoremss like safety of \rref{ex:driving-system}, and indeed it is not terribly difficult to convince ourselves that this system is actually safe.
+Howeveer, it is significantly more difficult to convince ourselves of the following properties:
+\begin{itemize}
+\item Is it total, i.e., does the controller always have a branch it can take?
+\item Is it exhaustive, allowing every safe control decision in every state?
+\item Is it as simple as possible, or are some cases redundant?
+\item Is the controller computable?
+\end{itemize}
+these questions are not trivial.
+
+
+For example, questions of totality and exhaustiveness often lead novices to write entirely inappropriate models for which a so-called safety theorem is provable but which do not correspond to any reasonable notion of safety for an actual CPS and for which the synthesized \VeriPhy monitor would surprise them with a huge number of failures!
+
+
+The simplicity question is noteworthy because verification is time-consuming: any time we promote simpler models and simpler proofs, we promote time-saving for the user.
+Computability is essential to the synthesis question, and thus is a pressing motivation for \CdGL over \dGL.
+Even the simple first-order arithmetic conditions given in this model are intriguing for the simple reason that we must ponder what it means to compute real arithmetic.
+In this light, the advantages of games are startling: totality questions vanish because the controller is under Angelic control, and safety is simply not provable of a non-total controller.
+Exhaustivity and simplicity vanish because the strategy is no longer part of the model but part of the proof: A non-simple proof is allowed, but its complexity cannot infect the model, which is infinitely more important because it must be taken as a given whereas a proof can be checked for compliance with the proof calculus.
+Exhaustivity is now a question only for the proof as well, and is arguably not even \emph{desired}: now that a strategy characterizes the exact decision that would be taken under every circumstance, there is no longer a strict need to prove the safety of operations that will not actually be taken.
+Computability is addressed not by \dGL but by \CdGL.
+
+These questions of computability are technically and foundationally fascinating.
+The solution taken by \VeriPhy, while workable, is simplistic: all arithmetic is interpreted as fixed-point interval arithmetic.
+This is limiting because it is conservative: any time that a computation exceeds the provided word size or even demands a higher precision, control monitors will fail spuriously because the computed intervals violated monitor conditions even though the result of an exact computation would not.
+
+There are two obvious approaches for eliminating the conservativity limitation:
+\begin{enumerate}
+\item Perform all arithmetic with an exact representation, among which plausible choices include rational numbers, real-algebraic numbers, and constructive reals.
+\item Retain the use of fixed-precision arithmetic, but provide a mechanism to prove that a particular precision is sufficient, for example by accounting for physical limits on the numerical range of inputs.
+\end{enumerate}
+Each approach has advantages and disadvantages: The arbitrary-precision approach likely lends itself to simpler formal semantics and simpler proofs, because the semantics can assume once and for all that numbers have arbitrary precision and proofs need not concern themeselves with precision.
+The implications for synthesis for hard real-time systems are problematic, however, because implementations of arbitrary-precision arithmetic are neither constant-time nor constant-space, and thus violate a number of industry standards for usage in hard real-time systems.
+Fixed-precision arithmetic, on the other hand, may complicate semantics in that the semantics may need to be parameterized by precision, and may complicate proof in that proofs might have to be aware of the precision.
+However, once those problems are addressed, the implications are far better for synthesis for usage in real-time systems, as the resulting code is constant-time and constant-space, in compliance with industrial standards.
+
+Several other interesting computational, foundational questions arise.
+Because our programming language contains differential equations, what does it mean to compute a system of differential equations?
+How does this differ for a differential equation controlled by us vs. an adversary?
+Both cases are important: monitoring the behavior of an adversarial differential equation is essential for synthesizing plant monitors, while computing the behavior of an angelic differential equation enables \emph{model-predictive} controllers, which make control decisions directly by projecting forward how the plant will respond to the control decision, a fundamental trope in control systems.
+
+Lastly, the interaction between constructive logic and first-order arithmetic is itself fascinating: In constructive logic, we deny the law of the excluded middle, but for first-order arithmetic, the law of the excluded middle in incontrovertibly true, because first-order arithmetic is \emph{decidable}!
+How then do we manage the intermingling of arithmetic questions which are entitled by their decidability to classicality with dynamic-logical questions which are rightly constrained by the needs of synthesis to constructivity?
+There are again several approaches: one can introduce a modality for classical truth, embedding classical questions inside a constructive logic.
+One can also sneak around the question by relegating first-order arithmetic to the \emph{term language}: it is well-known that the set of states where any first-order arithmetic formula holds true can be written as a \emph{semi-algebraic set}.
+One can simply extend the term language with semi-algebraic sets of reals, and with a membership-testing formula, which is clearly decidable by the decidability of semi-algebraic sets.
+This approach seems particularly appealing because it both provides a clear exposition of the relationship between a computational hybrid game and the code synthesized from it, and at the same (and to be clear, this is entirely icing on the cake) provides a beautiful connection with the complete work on definite descriptions (\rref{sec:definite-description}): definite descriptions and indefinite descriptions are in fact both computable so long as their descriptions are semi-algebraic, and can be reduced to singleton and arbitrary semi-algebraic sets, respectively.
+Thus there is great reason to believe that by taking this approach, we could also provide the same generality in the term language that was found in \rref{sec:definite-description}.
+As a general note, we present these alternative design decisions in the proposal not only to argue in favor of the preferred approaches, but to show that alternative approaches are available should the preferred approach run into an insurmountable stumbling block during work on the thesis.
+
+
+
+The key is that in \rref{ex:driving-game}, the controller is existentially quantified in both the safety and liveness theorem: there need only exist some control decision within the constraints of the car that achieves the goal state.
+In the language of hybrid systems, we cannot make the controller existentially quantified in the safety theorem without doing the same for the physics (which would simply be wrong).
+Because the controller model is universally quantified, it must explicitly write out the sufficient conditions for a safe control decision.
+This alone is troublesome: in any verification task, the one thing that cannot be formally proven is that the correct theorem statement was indeed chosen.
+For this reason, it is of fundamental importance to achieve the simplest model and simplest theorem statement possible, but using hybrid systems as our modeling language instead of hybrid games imposes a needlessly low ceiling on the simplicity of models.
+This is not merely an abstract problem: concretely, experience has shown it is easy to write models in this style with \emph{incomplete controllers}, i.e., where the tests in the controller do not cover all possible program states, leading to safety ``proofs'' that do not cover all possible statess and to systems that would not be safe in practice.
+This class of mistakes is simply impossible in the existentially-quantified style of \rref{ex:driving-game}, thus I advocate making this style standard.
+
+
+It is that known that once a winning strategy has been found for a hybrid game, a hybrid system can mechanically been derived.
