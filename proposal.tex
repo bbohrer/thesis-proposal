@@ -60,6 +60,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 \newtheorem{example}{Example}
+\newcommand{\stepsto}{\mapsto}
 \newcommand{\bebecomes}{\mathrel{::=}}
 \newcommand{\alternative}{~|~}
 \newcommand{\ivr}{\psi}
@@ -1475,49 +1476,202 @@ We give the semantics for programs:
 
 
 \section{Proof Calculus}
-How do we evaluate whether these semantics ought to be considered intuitionistic?
-One excellent test is whether the \emph{existence property} (EP) holds.
-The EP formalizes that anytime an existence property is proven, an actual witness to the existential property can be computed as well.
-In a dynamic logic, we can express two such EP's:
-\begin{lemma}[Term EP]
-If $\Gamma \limply \exists{x}{\phi(x)}$ is true, then there is a term $\theta$ such that $\Gamma \limply \phi(\theta)$ is true.
-Moreover, $\theta$ can be computed from given a proof of $\Gamma \limply \exists{x}{\phi(x)}$.
+\newcommand{\proves}[3]{#1 \vdash #2\mathop{:}#3}
+As usual when developing a new logic, we will develop a proof calculus for \CdGL and prove that the calculus is sound.
+Because a proof calculus already exists for classical \dGL, we focus here on the considerations that are unique to constructive logics.
+
+First and foremost, to substantiate the notion that proofs in \CdGL correspond to winning strategies for games (or for any formula), we propose to augment each proof rule with explicit \emph{proof terms} $M$.
+This allows us to explore the proof-theoretic semantics is detail simply by developing a structural operational semantics for the proof terms.
+For example, when proof terms satisfy progress and preservation, then every provable formula has a canonical (and cut-free) proof.
+Furthermore, by showing that the structural operation semantics are a concrete implementation of the realizability semantics, we give a synthesis algorithm for computable strategies from proofs.
+
+Any proof system can be augmented with proof terms, but some systems yield simpler interpretations of proof terms as programs than others.
+Several proof calculi for \dL have been developed, including sequent calculi and Hilbert systems.
+Two systems of proof terms have been developed for classical \dL, but one uses Hilbert calculus alone and the other mixes Hilbert calculus with propositional sequent calculus.
+Hilbert systems can be modeled computationally by combinatory logic and sequent calculus can be modeled with continuation-passing style proof terms, but both are typically more complex than the lambda-calculi which serve as computational models of natural deduction calculi.
+For this reason, we propose developing a natural deduction calculus for \CdGL, in order to simplify the proof term language.
+For practical use, a sequent calculus can be implemented on top of the natural deduction calculus.
+
+In this natural deduction system with proof terms, the main proof judgement is $\proves{\Gamma}{M}{\phi},$ which says term $M$ is a proof of $\phi$ in the context $\Gamma$.
+The assumptions in the context are named, so that they may be mentioned in proof terms.
+
+Once the calculus has been written and proved sound, we will prove standard theoretical results.
+We list the results here and remark how they inform the design of the proof term language.
+
+\begin{lemma}[Progress]
+If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
+\end{lemma}
+
+\begin{lemma}[Preservation]
+If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
+\end{lemma}
+
+\begin{lemma}[Normal Form Existence]
+\label{lem:normal-exists}
+If $\proves{\Gamma}{M}{\phi},$ there exists normal $N$ such that $\proves{\Gamma}{N}{\phi}$.
+\end{lemma}
+
+\begin{lemma}[Normal Form Characterization]
+\label{lem:normal-forms}
+If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is an introduction rule for the outermost connective of $\phi$.
+In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
+\end{lemma}
+
+\begin{lemma}[Term Existence Property]
+\label{lem:term-ep}
+If $\proves{\Gamma}{M}{\exists{x}{\phi(x)}}$, then there exists proof $N$ and term $\theta$ such that $\proves{\Gamma}{N}{\phi(\theta)}$.
 \end{lemma}
 \begin{proof}[Sketch.]
-  We will need to introduce a proof calculus before we can speak to the proof aspect, but such a $\theta$ trivially exists by the semantics because $\fint{\exists{x}{\phi}}{X}$ specifically assumes
- the existence of a semialgebraic witness $F$ which is then also a term.
+AWLOG $M$ is normal by \rref{lem:normal-exists}.
+Then the outermost step is existential introduction, which contains the witness $\theta$.
 \end{proof}
 
-\begin{lemma}[Program EP]
-If $\Gamma \limply \ddiamond{\alpha}{\phi}$ is true, then there exists an execution path $\rho$ (let's say that an execution path is straight-line deterministic program that refines the original) of $\alpha$ such that  
-  $\Gamma \limply \ddiamond{\rho}{\phi}$ or equivalently $\Gamma \limply \dbox{\rho}{\phi}$ is true.
-  Moreover it is possible to compute such a path from a proof of $\Gamma \limply \ddiamond{\alpha}{\phi}$.
+While the proof of \rref{lem:term-ep} is simple, the fact that \rref{lem:term-ep} is even true reveals the importance of choosing an expressive term language.
+In \CdGL, as in traditional \dGL, all terms are polynomials.
+However, there are many existential formulas which are only true of individuals that are non-polynomial, for example:
+\[\exists{t}{\ddiamond{\humod{x}{1};~\pevolve{\D{t}=-1,\D{x}=x}}{(t=0 \land x = y)}}\]
+is true for $t = \ln y$, which is not polynomial.
+If the existential introduction rule only allows polynomials, it will surely be incomplete in this case.
+A natural solution is to extend the term language with constructs for integration and algebraic numbers, which regain completeness for differential equations and real arithmetic, respectively.
+This solution is also natural because proof reductions for differental equations and quantifier elimination, respectively, naturally correspond to integrals and real-algebraic numbers.
+Because these constructs are of relatively little use in source-level hybrid game models, we intentionally do not present them when presenting the term language.
+However, to make \rref{lem:term-ep} totally rigorous, we will give them a semantics as all other terms have.
+
+Another standard property is the Disjunction Property (DP), which does not hold in its naive form in \CdGL
+\begin{lemma}[Naive DP]
+It is not the case that when $\proves{\Gamma}{M}{\phi \lor \psi}$ there always exists an $N$ such that $\proves{\Gamma}{M}{\phi}$ or $\proves{\Gamma}{M}{\psi}$.
 \end{lemma}
 \begin{proof}
-  Because paths are not already part of the language, one would need to define what paths are (and convince us that they're computational enough).
-  But first lets consider some of the requirements for such a property to hold.
-  By back-of-the-envelope cardinal arithmetic, any program with uncountably many paths is not terribly promising, because we must get lucky that some path satisfying $\phi$ could be represented by one of the countably many path programs.
- What if, for example, $\alpha$ is the program $\humod{x}{1};~\humod{y}{0};~\humod{t}{0};~\pevolvein{\D{x}=-y,\D{y}=x,\D{t}=1}{y \geq 0};\ptest{x=-1}$?
- The only end state for this program is $\{x=-1,y=0,t=\pi\}$.
- How would we hope to construct a straight line program $\rho$ which constructs this state? 
- We certainly can't do so without differential equations, and even with a differential equation we must somehow specify its duration of $\pi$.
- Admittedly, we can't prove that this would be impossible until we specify what exactly we want paths to be, but something is incredibly suspicious here: $\pi$ is transcendental and our straight-line programs can only construct real-algebraic numbers because they are equipped only with semialgebraic sets.
- We can't even write down the duration of the ODE (allowing paths to run an ODE so long as they write down the duration is a plausible approach to intuitionistic ODEs).
- If we restrict the durations say to be only the real-algebraic numbers, we can now write down paths using semialgebraic sets, but also the program above becomes empty because we cannot express the duration as a real algebraic number.
- In contrast if we worked with computable reals we'd be fine here.
- This all really just goes to say that the field we operate over will be super important. Hmm...
- Anyway, where I was originally trying to go with this (and got sidetracked by other issues with ODEs) is that if you only have countably-many paths through the program, then in some sense EP should be semi-decidable even without a proof of $\ddiamond{\alpha}{\phi}$ because you can just iterate through the paths of $\alpha$.
- And then it's guaranteed to terminate if you've proven the diamond because this is all just countable choice anyway which is fine constructively if you ask nicely enough.
- But it's quite likely all of this is terrifically irrelevant and will become clear once I work out a proof calculus.
+  Consider $\phi \equiv x < 1$ and $\psi \equiv x > 0$.
+  Then $\proves{\Gamma}{M}{\phi \lor \psi}$ where $M$ is the approximate splitting rule.
+  But clearly $x < 1$ and $x > 0$ are not true in the empty context, let alone provable.
 \end{proof}
 
+It is for very good reason that Naive DP fails: unlike in many constructive logics, the players in \CdGL are both entitled to inspect the state of the world, so long as they do so only with the inexact comparisons of the approximate splitting rule.
+Naive DP is also stronger that what we really need to know, which is that when $\proves{\Gamma}{M}{\phi \lor \psi},$ then we can decide which of $\phi$ or $\psi$ is true.
+We prove this Weak DP:
+\begin{lemma}[Weak DP]
+When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists $f : \allstate \mto \mathbb{B}$ such that for every state $\omega$ where $\omega \in \fint{\phi \lor \psi}{}$, if $f(\omega)=0$ then $\omega \in \fint{\phi}{}$, else $f(\omega)=1$ and $\omega \in \fint{\psi}{}
+$\end{lemma}
+\begin{proof}
+  AWLOG $M$ is normal, then it ends in disjunction introduction.
+  The introduction rule contains $f$ as a witness.
+\end{proof}
+
+Because \CdGL is a game logic, it is natural to desire a counterpart to EP and DP for the games connectives.
+That is, in order to establish Curry-Howard for the diamond and box modalities, we should construct the winning strategies for each player given only the proofs.
+There is no standard approach because no similar result exists in the literature.
+I propose one approach here.
+%TODO: Consider the reduction-from-games-to-systems approach
+\begin{lemma}[Game EP for Angel]
+If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively an Angel strategy $a$ such that for all Demon strategies $d$,
+we have some $\sb,\ab,\db$ where $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzF{\sb,\ab,\db}{\phi}$.
+\end{lemma}
+\begin{lemma}[Game EP for Demon]
+If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively a Demon strategy $d$ such that for all Angel strategies $a$,
+we have for every $\sb,\ab,\db$ where $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ that $\rzF{\sb,\ab,\db}{\phi}$.
+\end{lemma}
+This definition of EP for games is somewhat unsatisfying in that it relates the proof-theoretic semantics only to the realizability semantics, and not back to itself.
+However, the representation of strategies in the language of hybrid games is a non-trivial question itself, so it is not clear that expressing the existence of strategies proof-theoretically is any better.
+
+\subsection{Arithmetic Proofs}
+\CdGL accepts constructive analysis as its foundation instead of the classical analysis used in \dGL.
+One challenge is ensuring that such proves are no more complex than strictly necessary, yet still sound by constructive principles.
+
+In lieu of the law of excluded middle, the case analysis principle in constructive analysis is the Approximate Splitting Principle:
+\[\infer{\Gamma \vdash \theta > \eta \lor \theta < \eta + \epsilon}{\Gamma \vdash \epsilon > 0}\]
+That is, we can freely compare two terms, so long as we allow an overlap of some $\epsilon > 0$.
+We allow arbitrary proofs of $\epsilon > 0$ for generality, but in practice $\epsilon$ will usually a rational literal, for which the premiss is trivially decidable.
+
+Most arithmetic proofs in classical \dGL make heavy use of automated decision procedures (quantifier elimination, or QE) over real-closed fields.
+It is true that constructive analysis and classical analysis describe the exact same field, the reals, which is real-closed regardless of how it is defined.
+However, the greater problem is that we might wish to use decision procedures to decide formulas involving disjunction $\phi \lor \psi,$ and the constructive $\lor$ connective does not follow from its classical counterpart.
+For example, it is perfectly acceptable to conclude $x > 0 \lor x \leq 0$ classically by QE, but unacceptable to so constructively, as there is no decision procedure which decides between the two branches for any concrete $x$.
+This goes to show we must carefully re-evaluate which forms of QE reasoning are sound in \CdGL; we can no longer accept the classical rule:
+\[\infer[QE]{\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
+
+Instead, we introduce several QE rules.
+Firstly, it is still sound to apply general QE to a double-negated formula:
+\[\infer[QE-DN]{\neg\neg\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
+This is sound because $\neg\neg\phi$ holds constructively any time $\phi$ holds classically.
+Generally speaking, double negations can be used in a proof (and model) to indicate formulas which need not hold constructively.
+We postulate that in practical proving, most expensive arithmetic computations (such as postcondition reasoning and differential invariant reasoning) can be placed in a classical modality so that they are amenable to general QE.
+
+Secondly, there are several fragments of constructive arithmetic for which QE can be made constructive.
+We call a formula $\phi$ \emph{QE-positive} if all variables are universally quantified, and under the quantifiers there are only conjunctions of comparisons.
+Then the following rule is sound:
+\[\infer[QE-Pos]{\phi}{*}\] with the side condition that $\phi$ is  QE-positive and classically valid.
+QE-positive formulas have trivial computational content, because they represent tautologies that cannot be inspected.
+When $\phi$ is QE-positive and valid, we know $\phi(x)$ and each of its conjuncts describe the entire state space, and so hold merely by virtue of $x$ being a real number.
+A contentless proof term then suffices as a witness.
+
+We note another decidable fragment, which we call \emph{QE-negative}.
+We say a formula $\phi$ is \emph{QE-negative} if all variables are existentially quantifier, and under the quantifiers there are  only disjunctions of comparisons.
+\[\infer[QE-Neg]{\phi}{*}\] with the side condition that $\phi$ is  QE-negative and classically valid.
+Unlike the QE-positive fragment, the QE-negative fragment has interesting computational content which can be consumed: a proof of $\phi$ consists of a satisfying assignment and a proof that it indeed satisifies some given disjunct.
+Fortunately, this content can be constructed automatically.
+In the case of a unary disjunction, this is the instance-finding problem for first-order arithmetic.
+Implementations of this problem, while not simple, are widely available: the most obvious implementation is that which first solves the validity problem by constructing a cylindrical algebraic decomposition (CAD), then searches the CAD for the satisfying instance.
+With multiple disjunctions, simply search for instances of each disjunct in turn.
+
+The decidability of the QE-positive and QE-negative fragments may turn out to be a mere academic amusement, but the ability to embed classical arithmetic ought to significantly aid practical proofs.
 
 \section{Soundness Theorem}
-\section{Relaxing (Constructive) Games to (Constructive) Systems}
-\section{Winning Strategy Satisfies The Relaxation}
-\section{Reducing (Constructive) Games to (Classical) Games}
-%Corollary: by composition, constructive games reduce under whatever silly assumptions to classical gamesx
+Soundness of the proof calculus w.r.t.\ the Kripke semantics can be proven by first proving soundness of the proof calculus w.r.t.\ to the realizability semantics,
+then proving realizability sound w.r.t.\ the Kripke semantics.
+\begin{theorem}[Soundness of Proof Calculus]
+  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
+\end{theorem}
+\begin{theorem}[Soundness of Realizability]
+  If $\phi$ is realizability-valid, then $\phi$ is Kripke-valid.
+\end{theorem}
+Both proofs follow by structural induction, on the derivation and formula respectively.
+In the former proof, proofs can be assumed to be normal.
 
+\section{Relaxing (Constructive) Games to (Constructive) Systems}
+There is a folk theorem that given a game and a strategy for it, the strategy can be inlined into the game to produce a hybrid system which implements the strategy.
+Because \CdGL represents strategies explicitly, it gives us a framework in which to make this a true theorem.
+Beyond our academic interest in making the folk theorem rigorous, this also provides an alternative formulation of EP for games: whenever a strategy is proved to exist, the strategy can be witnessed by inlining it into the hybrid game to produce a hybrid system.
+
+\newcommand{\allpt}{\mathbf{Pt}}
+\newcommand{\alltrace}[1]{\mathbf{Tr}(#1)}
+%TODO: samekh and simketh for the lols
+\newcommand{\dinline}[2]{\sigma_{\dbox{#1}{}}{(#2)}}
+\newcommand{\ainline}[2]{\sigma_{\ddiamond{#1}{}}{(#2)}}
+We introduce some new concepts in order to state the theorem rigorously.
+We write $\allpt$ for the set of all proof terms and $\alltrace{\alpha}$ for the set of all program traces for a program $\alpha$.
+A trace is simply the sequence of all choices taken, e.g., which branch of a nondeterministic choice is executed or which term is substituted for a nondeterministic assignment.
+We then introduce the inlining function $\dinline{\alpha}{M}$ and $\ainline{\alpha}{M}$ which inline Demon or Angel strategies $M$ (respectively) into a game $\alpha$.
+We write $\alpha \leq \beta$ to say $\alpha$ refines $\beta$.
+In the case of systems, $\alpha$ refines $\beta$ when its state transitions are a strict subset of those for $\beta$.
+To generalize refinement to games, we observe that the dual operator reverses direction of refinement, i.e., $(\pdual{\alpha} \leq \beta) \equiv (\alpha \geq \beta)$.
+We say a formula $\phi$ is $\alpha$-controllable in $\Gamma$ if there exists a computable function $f:\allstate\mto\allpt$ such that in every $\omega \in \fint{\Gamma}{},$ we have $\proves{\Gamma}{f(\omega)}{\ddiamond{\alpha}{\phi}}$ and additionally $\alpha$ is dedicable (i.e., deterministic, with all branches computable) within $\Gamma$.
+We say a formula $\phi$ is $\alpha$-monitorable in $\Gamma$ (for a system $\alpha$) if there exists a computable function $f:\alltrace{\alpha} \times \allstate \mto \allpt$ where for $\omega \in \fint{\Gamma}{}$ and $\nu$ such that $(\omega,\nu)\in\pint{\alpha}{}$ witnessed by a trace $t \in \alltrace{\alpha}$, then $\proves{\Gamma}{f(t,\omega)}{\dbox{\alpha}{\phi}}$.
+These notions of controllability and monitorability are non-trivial, but they capture the notions that (in addition to the initial state) an Angel proof can be used to compute a system under-approximation of the game where the same postcondition is achievable in a computable way, while a Demon proof can be used to compute a system over-approximation where the postcondition can be guaranteed given knowledge of which path was taken.
+Given these non-trivial definitions, the relaxation theorems are stated simply:
+\begin{theorem}[Angelic relaxation]
+  If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then let $\beta = \ainline{\alpha}{M}$.
+  Then $\beta \leq \alpha$ and $\phi$ is $\beta$-controllable in $\Gamma$.
+\end{theorem}
+\begin{theorem}[Demonic relaxation]
+  If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then let $\beta = \dinline{\alpha}{M}$.
+  Then $\beta \geq \alpha$ and $\phi$ is $\beta$-monitorable in $\Gamma$.
+\end{theorem}
+
+
+\section{Relating Classical and Constructive Games}
+%Corollary: by composition, constructive games reduce under whatever silly assumptions to classical gamesx
+Every constructive theorem holds classically:
+\begin{theorem}[Conservativity]
+If $\proves{\Gamma}{M}{\phi}$ in \CdGL then $\phi$ is valid in \dGL.
+\end{theorem}
+
+\dGL can then be encoded in \CdGL via a typical G\"{o}del-Gentzen style translation (let that translation be called $T$).
+\begin{theorem}[\dGL Embedding]
+  If $\phi$ is valid in \dGL, then $T(\phi)$ is Kripke-valid in \CdGL.
+\end{theorem}
+This result is useful because it allows us to embed classical statements in a constructive proof, much as if classicality were a ``modality''.
+For many subgoals of a proof, constructivity is overkill: in particular, many arithmetic goals benefit from access to classical quantifier elimination, and their proofs never need be inspected.
 
 \chapter{Proposed Work: \ProofPlex, Proof-Directed Game Synthesis}
 \label{ch:proofplex}
