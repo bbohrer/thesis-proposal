@@ -817,11 +817,11 @@ The controller is written:
 \newcommand{\annul}{\textsf{Ann}\xspace}
 \newcommand{\adjustSpeedDist}{\delta_\mathsf{Lim}\xspace}
 \newcommand{\controllableGoalDist}{\mathsf{Lim}}
-%\annul &\equiv
-%\left|\frac{ v~\xgivar~\left(\xgvar^2 +\ygvar^2\right)}{\xgivar^2+\ygivar^2} - v~\xgvar\right| \leq  \veps^2 \tag{a}\\
-%\land&~\ygvar>0 \tag{b} \\
-%\land&~\frac{2~\xgivar~(\xgvar~\ygivar-\xgivar~\ygvar)}{\xgivar^2+\ygivar^2}+\ygvar \leq \ygivar \tag{c}
-%\land&~\ygvar>0 \tag{c}
+% %\annul &\equiv
+% %\left|\frac{ v~\xgivar~\left(\xgvar^2 +\ygvar^2\right)}{\xgivar^2+\ygivar^2} - v~\xgvar\right| \leq  \veps^2 \tag{a}\\
+% %\land&~\ygvar>0 \tag{b} \\
+% %\land&~\frac{2~\xgivar~(\xgvar~\ygivar-\xgivar~\ygvar)}{\xgivar^2+\ygivar^2}+\ygvar \leq \ygivar \tag{c}
+% %\land&~\ygvar>0 \tag{c}
 {\small\begin{align*}
 \annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
 %ygvar>0 included for consistency with the proof (it is also monitored to satisfy our liveness assumption)
@@ -1140,188 +1140,136 @@ This substantiates the claim that such proofs suffice for synthesis, and we posi
 \section{Related Work}
 \newcommand{\semiset}[2]{\{#1~|~#2\}}
 \section{Syntax}
-In order to account for decidable first-order arithmetic, I propose adding semi-algebraic sets explicitly to the syntax of the term language.
-A particularly radical choice is define terms as \emph{only} the semi-algebraic sets, i.e.:
-\[\theta \bebecomes \semiset{x}{F}\]
-where $F$ is a first-order arithmetic formula which may itself also refer to further semialgebraic sets, and where $x$ is a real-valued variable optionally appearing in $F$.
-The argument in favor of this choice is that real-valued terms can be derived from semialgebraic sets because they are simply singleton sets.
-Prior experience shows that incorporating multiple datatypes is a potential headache, and this would eliminate the need for multiple types.
-The arguments against it include the desire to syntactically distinguish reals vs sets, the fact that the derived constructs may be cryptic to readers, and that it's unclear whether differential terms are implementable with semialgebraic sets alone.
-For that reason it is perhaps more advisable to give a full term language:
-\[\theta \bebecomes \semiset{x}{F} \alternative c \alternative x \alternative \theta + \eta \alternative \theta \cdot \theta \alternative \der{\theta}\]
-We could also choose to interpret a semialgebraic set as a nondeterministic term, in which case an indefinite description chosen from $F$ is identified with $F$ itself.
-Definite description is derivable from indefinite description as usual.
-Basic set operations are derivable.
+The term language of \CdGL is that of \dL:
+\[\theta \bebecomes  q \alternative x \alternative \theta + \eta \alternative \theta \cdot \theta \alternative \der{\theta}\]
+where $q \in \mathbb{Q}$ is a literal, $x$ a variable, $\theta + \eta$ a sum, $\theta \cdot \eta$ a product and $\der{\theta}$ a derivative.
 
-The core formulas are probably going to be:
-\[\phi \bebecomes \theta \sim \eta \alternative \theta \subseteq \theta \alternative \phi \land \psi \alternative \phi \lor \psi \alternative \phi \limply \psi \alternative \bot \alternative \ddiamond{\alpha}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \forall{x}{\phi} \alternative \exists{x}{\phi}\]
-Where $\sim \in \{<, \leq\}$.
-While other comparison operators on terms should be derivable, it is not clear whether $<$ and $\leq$ are interderivable because the derivation would be by negation.
-This is not the case for set inclusions because set inclusions can use classical reasoning including complements.
-In contrast with classical \dL, more operators are built in because less operators are interderivable in constructive logics.
-As usual in constructive logics, $\neg \phi$ is defined as $\phi \limply \bot$ and equivalences are definable as usual even in classical logic: $\phi \lequiv \psi \equiv \phi \limply \psi \land \psi \limply \phi$.
+The formulas of \CdGL are:
+\[\phi \bebecomes \theta > \eta \alternative  \phi \land \psi \alternative \phi \lor \psi \alternative \phi \limply \psi \alternative \bot \alternative \ddiamond{\alpha}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \forall{x}{\phi} \alternative \exists{x}{\phi}\]
+where $\theta > \eta$ is true when $\theta$ is greater than $\eta,$ $\phi \land \psi$ is true when $\phi$ and $\psi$ are both true, $\phi \lor \psi$ is true when either $\phi$ or $\psi$ is true (and we know which one), $\phi \limply \psi$ is true when $\psi$ is true under the assumption that $\phi$ is true, and $\bot$ is not true.
+$\ddiamond{\alpha}{\phi}$ is true when Angel has a strategy for $\alpha$ to reach the region where $\phi$ is true (and we know which strategy, and we know why $\phi$ is true in the end).
+Likewise, $\dbox{\alpha}{\phi}$ is true when Demon has a strategy for $\alpha$ to reach the region where $\phi$ is true.
+$\lforall{x}{\phi}$ is true when $\phi$ is true under the assumption that $x$ is a fresh (real-valued) variable.
+Likewise, $\lexists{x}{\phi}$ is true when $\phi$ is true under some assignment of $x$ (and we know which one).
 
-The hybrid game constructs of \CdGL are those of \dGL, though of course the formulas and terms contained therein are those of \CdGL again.
+Since \CdGL is a constructive logic, classical duality axioms such as $\phi \lor \psi \equiv \neg(\neg \phi \land \neg psi)$ do not hold, and thus none of the above constructs are derived.
+Even in a constructive logic, however, the constructs $\neg \phi \equiv (\phi \limply \bot), \phi \lequiv \psi \equiv (\phi \limply \psi \land \psi \limply \phi),$ and $\theta \geq \eta \equiv \neg(\eta > \theta)$ are derived.
+The equivalence $\theta \geq \eta \equiv \neg(\eta > \theta)$ is standard in constructive analysis, but nonstrict inequalities will merit special attention since equality on reals is undecidable, and thus nonstrict inequalities are as well.
+For example, the trichotomy axiom of classical analysis:
+\[\theta < \eta \lor \theta = \eta \lor \theta > \eta\]
+is false constructively, as it is undecidable which of three cases holds.
+
+In \CdGL, hybrid games follow the same syntax as in \dGL, except that all formulas appearing in games are \CdGL formulas.
 
 \section{Example System}
+As a case study for \CdGL, we propose reproducing the 2D planar robot of \rref{sec:ground-robotics} as a hybrid game, and providing a constructive proof that the robot can reach its waypoints while maintaining its speed limits.
+In order to assess the feasibility of this task early, without access to an implementation of \CdGL, we propose performing the proof in classical \dGL in \KeYmaeraX and inspecting by hand that the proof uses only constructive reasoning.
+We give the hybrid game model here.
+The plant is identical to that of \rref{sec:ground-robotics}: the robot is fixed at the origin facing toward the +y axis, while the waypoint moves relative to it:
+\begin{align*}
+\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
+ &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\} %  ~\land~ yg > 0
+\end{align*}
+The conditions $\annul$ and $\planreq,$ which say the waypoint and robot are on the specified annulus, and that the waypoint is achievable, respectively, are also as before:
+{\small\begin{align*}
+\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
+%ygvar>0 included for consistency with the proof (it is also monitored to satisfy our liveness assumption)
+\label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar
+\end{align*}}
+
+The main change is in the controller.
+In the systems setting, the controller needed to express a condition $\admiss$ which specified the allowable accelerations in each case.
+In the games setting, the acceleration is existentially quantified in the model, and choices of acceleration are merely part of the proof:
+{\small
+\[\ctrl~\equiv~ \pdual{(\prandom{(\xgvar,\ygvar)};\,\prandom{[\vlvar,\vhvar]};\,\prandom{\kvar};\,\ptest{\planreq})};\,\prandom{\avar}\]
+}
+
+We propose to prove a winnability theorem saying the robot can always control its way to the goal region within its speed limits.
+\begin{theorem}[Angel Winnability]
+\label{thm:angel-wins}
+The following \dL formula is valid:
+\begin{align*}
+&\Avar{>}0 \land \Bvar{>}0 \land \Tvar{>}0 \land \veps{>}0 \land \linv \limply \\
+&\ddiamond{\prepeat{(\ctrl;\pdual{\plant})}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \land \vvar \in [\vlvar,\vhvar]\big)}
+\end{align*}
+where $J$ is the loop invariant as defined in \rref{sec:ground-robotics}.
+\end{theorem}
+In this form, \rref{thm:angel-wins} corresponds to the liveness, \rref{thm:liveness}.
+However, we propose also to generalize \rref{thm:angel-wins} slightly, thus proving \rref{thm:liveness} and \rref{thm:safe} (safety) in one go.
+\begin{theorem}[Generalized Angel Winnability]
+\label{thm:angel-wins-gen}
+The following \dL formula is valid:
+\begin{align*}
+&\Avar{>}0 \land \Bvar{>}0 \land \Tvar{>}0 \land \veps{>}0 \land \linv \limply \\
+&\ddiamond{\prepeat{(\ctrl;\pdual{\plant};\ptest{J})}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \land \vvar \in [\vlvar,\vhvar]\big)}
+\end{align*}
+where $J$ is the loop invariant as defined in \rref{sec:ground-robotics}.
+\end{theorem}
+That is, after Demon chooses the duration of the plant, Angel must prove that the loop invariant $J$ still holds.
+Recall that the invariant $J$ includes as conjuncts the facts that the robot is on the annulus and has sufficient distance remaining to achieve its speed limit.
+To win the generalized game, Angel must be able to prove that it is on track to the waypoint (both in position and velocity) at \emph{whatever} point Demon chooses, thus at every one of the uncountably many points in time.
+This is exactly what safety ought to constitute.
+Because we simply added a test to the previous model, whenever Angel wins the modified game they have still achieved liveness.
+It is simply harder now, as they must never violate safety in the process of achieving liveness.
+
+The example demonstrates several advantages of hybrid games proving generally over hybrid systems.
+Not only is the model shorter, waypoint-following exhibits turn-taking behavior which is challenging to characterize in a hybrid system.
+The Angel player must follow an arbitrary waypoint, i.e., one chosen by Demon.
+In order to make victory for Angel even possible, the responsibility is Demon's to choose a waypoint that is feasible.
+Expressing this turn-taking in \rref{thm:live} is cumbersome, while in \rref{thm:angel-wins-gen}, it falls naturally out of the fact that acceleration is controlled by Angel while all else is up to Demon.
+Lastly, we have the advantage that safety and liveness need not be proved separately, but can be combined as a single winnability theorem.
+This obviously saves time and energy, but there is a conceptual advantage as well: in the systems setting, we must prove \emph{all} options are safe and that \emph{one} is live.
+In the games setting, we can simply prove that \emph{one} strategy is safe-and-live, so for states our strategy will never enter, we need not even consider safety.
+
+The winnability approach ought to apply to any \emph{reach-avoid} problem for a control-plant loop, i.e., any theorem of form:
+\[\text{pre} \limply \ddiamond{\prepeat{(\ctrl;~\pdual{(\plant)};~\ptest{\text{safe}})}}{\text{live}}\]
+Within the hybrid systems literature, and certainly within the \dL literature, most systems can be expressed as control-plant loops, and the most important properties are reach-avoid properties or special cases thereof.
+Thus we are justified to claim that a wide array of verification tasks would benefit from the simplicity provided by modeling and proving with games.
 
 \section{Semantics}
-A major question is what numeric types should be used in the semantics of \CdGL.
-For \CdGL to truly be a ``computational'' logic, one could fairly argue that the semantics ought to capture computations with realistic types.
-For reasons of managing complexity, however, I propose starting with actual real numbers initially, then developing alternative semantics which can be related to the real semantics, much as was done in \cite{DBLP:conf/pldi/BohrerTMMP18}.
-Some of the alternative approaches have glaring holes: computable reals often don't terminate which seems horribly inelegant, while assigning a rational or even real-algebraic number as the denotation of each number is problematic because the rationals and real-algebraics are not closed under evolution of differential equations.
-The solution to computability may be found first (and even surprisingly) in the solution to giving an intuitionic meaning to the propositional connectives: intuitionistic Kripke models work with sets of states (where the real state might be anywhere in that region, but we know only that we are somewhere in the region).
-
-So I propose first developing a semantics over real-valued regions (sets of states), which can capture the intuitionistic meaning of the connectives while leaving arithmetic issues open.
-Two viable approaches for then handling computational issues would be either to replace arbitrary regions with semi-algebraic regions, or to replace regions over the reals with regions over the rationals.
-Semi-algebraic regions may be beautiful in that they give us a dynamic representation for our uncertainty, which we can compute with directly.
-Rationals are beautiful in their own way, which is that in the implementation we can compute with rationals and justify it by the rational-valued semantics, but then somehow tie that back to the real-valued semantics presumably with the fact that reals can be constructed as Dedekind cuts, which are just sets of rationals anyway.
-That is, any semantics that computes with arbitrary sets of rationals ought to be powerful enough to do anything a real number could do anyway.
-Certainly the typical issue of nonstrict comparisons with reals should be expected to appear at some point in the development.
-One potential way out instead of using nonterminating computations we have a semantics ``up to $\epsilon$'' where rationals are guaranteed to be within an error bound of the actual real semantics.
-In the ``problematic'' case, then simply we say that the relevant formulas are neither true nor false (which is already totally natural in a constructive logic) and we can characterize the gross inexact inequalities as the case where the rational semantics does not converge to the real semantics.
-But we still have a theorem that saying when it converges to anything at all, it converges to the real semantics.
-
-\subsection{Real Intuitionistic Systems Semantics}
-We begin with an intuitionistic semantics for just systems (not games) based are real numbers.
-This obviously does not deal with issues relating to how arithmetic gets implemented.
-It is unclear whether the use of real numbers will introduce incompleteness issues in the proof calculus.
-
-The semantics are based on intuitionstic Kripke frames.
-In typical abstract treatments, each intuitionistic world is in some sense epistemic: it represents which facts are currently known to be true.
-A preorder $\leq$ is used to represent which worlds are ``at least as knowledgeful'' as some other state.
-We take the same general approach that intuitionistic states represent the available knowledge, except the presentation is concrete.
-%\newcommand{\allregion}{\mathcal{R}}
+Several styles of semantics are widely used for constructive logics, and each has its own advantages.
+We present several semantics here, since the remaining tasks (proof term semantics, theoretical results) will inform the choice between them.
 \newcommand{\allcon}{\allregion}
 \newcommand{\somesemi}[2]{\epsilon #1~|~#2}
-Where $\allvars$ is the countable set of identifiers, the set of program states $\allstate$ is $\mathbb{R}^\allvars$, then an intuitionistic state $X : \allcon \equiv 2^\allstate$ is simply a (usually uncountably infinite) set of states, and to ``know'' an intuitionistic state $X$ is to know that we must be in some $\omega \in X,$ but not \emph{which} $\omega$.
-Special case $X = \allcon$ means we know nothing, $X = \{\omega\}$ means that we know we are in exactly the state $\omega,$ and $X = \emptyset$ means we know with certainty that we have derived a contradiction, as we know we are in a state that belongs to the empty set, of which there are none.
-The preorder $\leq$ on intuitionisic worlds is also given concretely: $X \leq Y \equiv X \supseteq Y$: that is, if $Y$ is a subset of $X$ then it contains more information than $Y$ because it rules out all of the states that $Y$ does, plus some more.
 
-%There are several design options for the term semantics: do we include semi-algebraic set computations in the term language, and if so do we make a type distinction or identify sets with nondetermistic terms?
-%One can argue that semialgebraic sets or an equally powerful construct are \emph{necessary} in the term language (not just a nice-to-have because they make it more powerful) because without them we do not have the existence property (EP), which we will prove after introducing the semantics.
-%We also choose not to make a typing distinction in terms since it the technical complexity of introducing a type system is not well motivated by a system of exactly two types.
-%An alternative to explore would be to make the typing distinction, then have a family of operators for drawing elements from sets.
+\subsection{Intuitionistic Kripke Semantics with Computability}
+Kripke semantics can be generalized to the intuitionistic setting.
+In intuitionistic Kripke semantics, the world is typically understood epistemically, i.e., the semantics are not parameterized over the world as it is, simply what is known about the world.
+We can then understand an epistemic state as a region $Y \subseteq \allstate$ over \emph{actual} states: to know $Y$ is to know that we are in one of the states $\omega \in Y$.
+Thus to know $\allstate$ is to know nothing and to know $\emptyset$ is to know a contradiction (has been reached). 
 
-Therefore we will choose $\tint{\theta}{\om} : \mathbb{R}$: the value of a term in some state is its unique value.
-The semantics are defined by:
-\begin{align*}
-  \tint{q}{\om} &= q\\
-  \tint{x}{\om} &= \om(x)\\
-  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} + \tint{\eta}{\om}\\
-  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}\\
-  \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})
-%  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
-\end{align*}
-%It is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
-%The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
-%Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
-%That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
-
-We give the semantics for formulas.
-Because this is intuitionistic truth, the semantics are a partial function and words like ``and'' and ``or'' are interpreted partially, for example conjunction is neither true nor false if either conjunct is neither true nor false.
-Here $F$ ranges over semialgebraic sets.
-\begin{align*}
-  \fint{\phi \land \psi}{X}     &\lequiv \fint{\phi}{X}\text{ and }\fint{\psi}{X}\\
-  \fint{\phi \lor \psi}{X}      &\lequiv \fint{\phi}{X}\text{ or }\fint{\psi}{X}\\
-% TODO: Prove a monotonicity lemma to simplify this
-  \fint{\phi \limply \psi}{X}   &\lequiv \text{ for all }Y \subseteq X, \fint{\phi}{Y}\text{ implies }\fint{\psi}{Y}\\
-  \fint{\bot}{X}                &\lequiv X = \emptyset\\
-  \fint{\theta > \eta}{X}       &\lequiv \text{for all }\nu \in X, \exists \epsilon > 0, \text{for all } \mu \in (B_\epsilon(\nu) \cap X), \tint{\theta}{\mu} > \tint{\eta}{\mu}\\
-  \fint{\exists{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{f(\om)}~|~\om \in X\}} \text{ for some $f:\allstate \to \mathbb{R}$}\\
-  \fint{\forall{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{r}~|~\om \in X,  r \in \mathbb{R}\}}\\
-  \fint{\dbox{\alpha}{\phi}}{X} &\lequiv \text{for all }Y \subseteq X, Z \text{ s.t. }(Y,Z) \in \pint{\alpha}, \fint{\phi}{Z}\\
-  \fint{\ddiamond{\alpha}{\phi}}{X} &\lequiv \text{exists }Y, (X,Y)\in\pint{\alpha}\text{ and }\fint{\phi}{Y}\\
-  \fint{\theta \geq \eta}{X}    &\lequiv \fint{\eta > \theta \limply \bot}{X}%\text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r \geq s\\
-\end{align*}
-
-We give the semantics for programs:
-\begin{align*}
-  (X,X) \in \pint{\ptest{\phi}}\text{ iff }&\fint{\phi}{X} \\
-  (X,Y) \in \pint{\humod{x}{\theta}} \text{ iff }& Y = \{\subst[\om]{x}{r}~|~\om \in X, r \in \tint{\theta}{X}\}\\
-  \pint{\alpha \cup \beta} =& \pint{\alpha} \cup \pint{\beta}\\
-  (X,Y) \in \pint{\alpha;~\beta} \text{ iff }& \text{exists }Z, (X,Z) \in \pint{\alpha}, (Z,Y) \in \pint{\beta}\\
-  (X,Y) \in \pint{\pevolvein{\D{x}=\theta}{\ivr}}\text{ iff }& Y = \{\nu~|~\exists \om \in X, t \in \mathbb{R}_{\geq0}, \varphi_\om:[0,t]\to\allstate,~\varphi_\om(0)=\om\text{ on }\{x,\D{x}\}^C\\
-   &\frac{\partial \varphi_\om(t)(x)}{\partial t}= \varphi_\om(t)(\D{x})\text{ and } \{\varphi_\om(t)(x)\}=\tint{\theta}{\varphi(\varphi(s))}\\
-   &\text{ and }\fint{\ivr}{\{\varphi_\mu(t)~|~\mu\in X}\}\\
-  \pint{\prepeat{\alpha}} =& \bigcup_{n\in\mathbb{N}} \pint{\alpha}^n
-\end{align*}
-
-How do we evaluate whether these semantics ought to be considered intuitionistic?
-One excellent test is whether the \emph{existence property} (EP) holds.
-The EP formalizes that anytime an existence property is proven, an actual witness to the existential property can be computed as well.
-In a dynamic logic, we can express two such EP's:
-\begin{lemma}[Term EP]
-If $\Gamma \limply \exists{x}{\phi(x)}$ is true, then there is a term $\theta$ such that $\Gamma \limply \phi(\theta)$ is true.
-Moreover, $\theta$ can be computed from given a proof of $\Gamma \limply \exists{x}{\phi(x)}$.
-\end{lemma}
-\begin{proof}[Sketch.]
-  We will need to introduce a proof calculus before we can speak to the proof aspect, but such a $\theta$ trivially exists by the semantics because $\fint{\exists{x}{\phi}}{X}$ specifically assumes
- the existance of a semialgebraic witness $F$ which is then also a term.
-\end{proof}
-
-\begin{lemma}[Program EP]
-If $\Gamma \limply \ddiamond{\alpha}{\phi}$ is true, then there exists an execution path $\rho$ (let's say that an execution path is straight-line deterministic program that refines the original) of $\alpha$ such that  
-  $\Gamma \limply \ddiamond{\rho}{\phi}$ or equivalently $\Gamma \limply \dbox{\rho}{\phi}$ is true.
-  Moreover it is possible to compute such a path from a proof of $\Gamma \limply \ddiamond{\alpha}{\phi}$.
-\end{lemma}
-\begin{proof}
-  Because paths are not already part of the language, one would need to define what paths are (and convince us that they're computational enough).
-  But first lets consider some of the requirements for such a property to hold.
-  By back-of-the-envelope cardinal arithmetic, any program with uncountably many paths is not terribly promising, because we must get lucky that some path satisfying $\phi$ could be represented by one of the countably many path programs.
- What if, for example, $\alpha$ is the program $\humod{x}{1};~\humod{y}{0};~\humod{t}{0};~\pevolvein{\D{x}=-y,\D{y}=x,\D{t}=1}{y \geq 0};\ptest{x=-1}$?
- The only end state for this program is $\{x=-1,y=0,t=\pi\}$.
- How would we hope to construct a straight line program $\rho$ which constructs this state? 
- We certainly can't do so without differential equations, and even with a differential equation we must somehow specify its duration of $\pi$.
- Admittedly, we can't prove that this would be impossible until we specify what exactly we want paths to be, but something is incredibly suspicious here: $\pi$ is transcendental and our straight-line programs can only construct real-algebraic numbers because they are equipped only with semialgebraic sets.
- We can't even write down the duration of the ODE (allowing paths to run an ODE so long as they write down the duration is a plausible approach to intuitionistic ODEs).
- If we restrict the durations say to be only the real-algebraic numbers, we can now write down paths using semialgebraic sets, but also the program above becomes empty because we cannot express the duration as a real algebraic number.
- In contrast if we worked with computable reals we'd be fine here.
- This all really just goes to say that the field we operate over will be super important. Hmm...
- Anyway, where I was originally trying to go with this (and got sidetracked by other issues with ODEs) is that if you only have countably-many paths through the program, then in some sense EP should be semi-decidable even without a proof of $\ddiamond{\alpha}{\phi}$ because you can just iterate through the paths of $\alpha$.
- And then it's guaranteed to terminate if you've proven the diamond because this is all just countable choice anyway which is fine constructively if you ask nicely enough.
- But it's quite likely all of this is terrifically irrelevant and will become clear once I work out a proof calculus.
-\end{proof}
-
-{\Huge TODOs} (in order to figure out best semantics to make EP true):
-\begin{itemize}
-\item Read References from Fischer-Servi (intuitionistic-base.pdf)
-\item Contemplate disjunctive property
-\end{itemize}
-\subsection{Real Constructive Games, Implicit}
-The deceptively simple way to define semantics for constructive games is simply to reinterpret the definitions given in~\cite{DBLP:journals/tocl/Platzer17} over a constructive set theory.
-For example, $\fint{\phi \lor \psi}{} = \fint{\phi}{} \cup \fint{\psi}{},$ but $\cup$ is reinterpreted as constructive union to mirror the constructive $\lor,$ thus for example it is not provable that $\{x \mapsto 0\} \in \fint{x < 0 \lor x \geq 0},$ which is the desired behavior.
-Also, the definitions for the dual operator probably ought to change so that $\dstrategyfor[\pdual{\alpha}]{X} = \strategyfor[\alpha]{X}$ and $\strategyfor[\pdual{\alpha}]{X} = \dstrategyfor[\alpha]{X}$ because the dual axiom for games is only valid classically.
-
-There are advantages and disadvantages to this approach.
-The advantage is that the definitions are very readable, but with the downsides that a novice reader may misunderstand them as the classical definitions and that because we must work in a constructive metalogic we must be careful that we don't accidentally use any reasoning which is only valid classically.
-
-\subsection{Real Constructive Games, Explicit Kleene}
-We can give semantics in a traditional Kleene reachability style, but keep the metalogic (and thus the set theory) classical and so make it explicit in the semantics whenever we require witnesses.
-This is perhaps the best choice for our model theoretic semantics because it makes the complexity apparent and is hard to misread or to use the wrong proof principle.
-Term semantics are as before.
-
-The formula semantics $\fint{\phi}{}$ denote the unique largest region for which Angel has a strategy to prove $\phi$ (under the assumption that the initial state is somewhere in the region).
+Given this understanding, we reach a semantics with much a similar flavor to the classical Kripke semantics.
+The formula semantics $\fint{\phi}{}$ is no longer read as the region on which $\phi$ is true, but the the (unique) largest region from which Angel has a strategy to prove $\phi$.
 \newcommand{\mto}{\rightharpoonup}
 \begin{align*}
-  \fint{\theta \sim \eta}{} &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\}\\
-  \fint{\phi \land \psi}{}  &= \fint{\phi}{} \cap \fint{\psi}{}\\
-  \fint{\phi \lor \psi}{}   &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0, f(\nu)=1, \om\in A, \nu \in B, A \subseteq \fint{\phi}{}, B \subseteq\fint{\psi}{}\}\\
-  \fint{\phi \limply \psi}{} &= \bigcup\{Z \subseteq \allstate ~|~ Z\subseteq\fint{\phi}{}\text{ implies }Z\subseteq\fint{\psi}{}\}\\
-  \fint{\forall{x}{\phi}}{} &= \{\om~|~\subst[\om]{x}{r}\in\fint{\phi}{}, \text{ all }r\in\reals\}\\
-  \fint{\exists{x}{\phi}}{} &= \{\om~|~\subst[\om]{x}{f(\om)}\in\fint{\phi},\text{ some }f:\allstate\mto \reals\}\\
-  \fint{\bot}{}             &= \emptyset  \\
+  \fint{\theta > \eta}{}         &= \{\om~|~\tint{\theta}{\om} > \tint{\eta}{\om}\}\\
+  \fint{\phi \land \psi}{}       &= \fint{\phi}{} \cap \fint{\psi}{}\\
+  \fint{\phi \lor \psi}{}        &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0, f(\nu)=1, \om\in A, \nu \in B, A \subseteq \fint{\phi}{}, B \subseteq\fint{\psi}{}\}\\
+  \fint{\phi \limply \psi}{}     &= \bigcup\{Z \subseteq \allstate ~|~ Z\subseteq\fint{\phi}{}\text{ implies }Z\subseteq\fint{\psi}{}\}\\
+  \fint{\forall{x}{\phi}}{}      &= \{\om~|~\subst[\om]{x}{r}\in\fint{\phi}{}, \text{ all }r\in\reals\}\\
+  \fint{\exists{x}{\phi}}{}      &= \{\om~|~\subst[\om]{x}{f(\om)}\in\fint{\phi},\text{ some }f:\allstate\mto \reals\}\\
+  \fint{\bot}{}                  &= \emptyset  \\
   \fint{\ddiamond{\alpha}{\phi}} &= \strategyfor[\alpha]{\fint{\phi}{}}\\
-  \fint{\dbox{\alpha}{\phi}} &= \dstrategyfor[\alpha]{\fint{\phi}{}}
+  \fint{\dbox{\alpha}{\phi}}     &= \dstrategyfor[\alpha]{\fint{\phi}{}}
 \end{align*}
-Where $A \mto B$ is the set of computable multi-valued functions from A to B, while $A \to B$ is the set of all computable functions from A to B.
-In both cases we treat the output as a scalar (i.e. we just assume the interpretation of the multi-valued function is not unique).
-Because even constructive set theories support a collection axiom that converts a multi-valued function to proper function, they can be used more-or-less interchangeably.
-However, it is important to support multi-valued functions somewhere, because
+Where $A \mto B$ is the set of computable multi-valued functions from A to B.
+We use multi-valued functions rather than typical single-valued functions since they better capture the reasoning which is possible with computable reals:
 \begin{inparaenum}
-\item The approximate splitting principle used for case analysis on reals will need multivalued functions for most practical proofs.
-\item The generality of multivalued functions justifies us implementing a nondeterministic randomized operational semantics.
+\item The approximate splitting principle used for case analysis on reals will need multivalued functions for most proofs.
+\item Multivalued functions support nondeterminism in strategies that single-valued functions do not.
+This is useful for example if we ever wish to synthesize a randomized implementation.
 \end{inparaenum}
+
+For each construct that requires a choice, the semantics expect the existence of a computable function that resolves the choice.
+Most often, intuitionistsic Kripke logics do not explicitly require the existence of such a computable function (but, as a metatheorem, they often exist).
+This is a legitimate choice in our case as well, but it would have the symptom that any proof calculus and any proof-theoretic semantics would be incomplete with respect to the intuitionistic semantics.
+We can also phrase the choice in philosophical terms: should a strategy which uses classical reasoning be consider a strategy at all?
+Should a game even be considered winnable when it is only won with a classical strategy?
+
+
+%, while $A \to B$ is the set of all computable functions from A to B, and where term semantics are as before.
+%In both cases we treat the output as a scalar (i.e. we just assume the interpretation of the multi-valued function is not unique).
+%Because even constructive set theories support a collection axiom that converts a multi-valued function to proper function, they can be used more-or-less interchangeably.
 
 
 The game semantics are given by:
@@ -1341,7 +1289,8 @@ The game semantics are given by:
   \dstrategyfor[\pdual{\alpha}]{X}    &= \strategyfor[\alpha]{X}\\
   \dstrategyfor[\prepeat{\alpha}]{X}  &= \bigcup\{Z\subseteq\allstate~|~Z\subseteq X\cap \dstrategyfor[\alpha]{Z}\}
 \end{align*}
-
+It is unclear what semantics would serve us best in the cases $\strategyfor[\prepeat{\alpha}]{X}$ and $\dstrategyfor[\prepeat{\alpha}]{X}$: while fixpoint constructions are widely used in constructive mathematics, fixpoint semantics do not make the termination conditions for a loop explicit.
+They might even admit the existence of loops which require undecidable termination conditions.
 
 \subsection{Real Constructive Games, Realizability}
 \newcommand{\rzF}[2]{#1 \vdash #2}
@@ -1362,8 +1311,9 @@ The game semantics are given by:
 \newcommand{\db}{D}
 \newcommand{\dc}{\delta}
 \newcommand{\allRz}{\mathcal{R}\mathbf{z}}
-We can also give a realizability semantics in terms of realizer functions which implement strategies for Angel and Demon, respectively.
-These semantics can be silly to read at first, but should make it easy to show that provable formulas correspond to winning strategies, and provide an easy way to give an operational semantics for strategies.
+Of the possible semantics, Kripke semantics are abstract: truth of a formula implies the existence of a winning strategy, but the strategy does not appear explicitly in the semantics.
+Realizability semantics targets a lower level of abstraction: the semantics is parameterized by computable \emph{realizer} functions which implement strategies for Angel and Demon, respectively.
+Because realizer semantics are low level, they are less desirable as our fundamental definition of truth, but could be a useful middle step between a completely concrete proof-theoretic semantics and an abstract Kripke semantics.
 The realizability semantics consists of three main judgments:
 Realizability of a formula $\rzF{\sa,\aa,\da}{\phi}$ holds when the formula $\phi$ is realized by the Angel strategy $\aa$ and Demon strategy $\da$ when starting from state $\sa$.
 The Angel realizability judgement $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ says that after running $\alpha$ from initial state $\sa$ under control of Angel strategy $\aa$ and Demon strategy $\da,$ we will reach state $\sb$ with realizers $\ab$ and $\db$.
@@ -1448,12 +1398,119 @@ For simplicity we can define $\left(\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\right
 \end{align*}
 Then a formula $\phi$ is called \emph{valid} if for every state $\om,$ there exists a finite strategy $\aa$ such that for every finite strategy $\da,$ judgment $\rzF{\om,\aa,\da}{\phi}$ holds.
 
-We should then formulate and prove the relation between these two semantics.
-We in general hope that any two semantics that purport to be ``for the same logic'' will be equi-valid.
-One possible point of difference, which would be interesting to explore regardless the result, is the gap between computable reals and full reals: is there any formula that can only be satisfied or falsified when some variable is assigned a real that is not computable? 
-If so, this would be quite an interesting case.
+Both the realizability and Kripke semantics might be of use in the final presentation.
+If both are used, we should prove them equivalent, which we expect to be the case because even our Kripke semantics holds only when strategies are computable.
+If we adopt a relaxed Kripke semantics with uncomputable strategies, we would then show that the realizability semantics prove a strict subset of the Kripke-valid formulas.
+
+\subsection{Real Constructive Games, Implicit}
+The above realizability and Kripke semantics will most likely be adopted, but we present several alternatives as food for thought.
+The above semantics assume a classical metatheory, but a simple way to make \dGL constructive is to reinterpret the standard \dGL semantics~\cite{DBLP:journals/tocl/Platzer17} in a constructive metatheory.
+For example, $\fint{\phi \lor \psi}{} = \fint{\phi}{} \cup \fint{\psi}{},$ but $\cup$ is can be interpreted as constructive union to mirror the constructive $\lor,$ thus for example it is not provable that $\{x \mapsto 0\} \in \fint{x < 0 \lor x \geq 0},$ which is the desired behavior.
+The only definition that needs to change is the dual operator, where we expect that $\dstrategyfor[\pdual{\alpha}]{X} = \strategyfor[\alpha]{X}$ and $\strategyfor[\pdual{\alpha}]{X} = \dstrategyfor[\alpha]{X}$.
+
+While this approach yields elegant definitions, I do not recommend it because it obscures the meaningful differences between classical and constructive \dGL, and is prone to error if we accidentally use classical reasoning in the metalogic.
+
+\subsection{Systems-Only Kripke Semantics}
+This is an early semantics for constructive \dL (without games), which is closer to standard intuitionistic Kripke semantics than the main Kripke semantics presented above.
+We present this mainly to provide a feel for the use of regions to represent the intuitionistic states that are typical of intuitionistic Kripke semantics.
+We do not expect to use this in the finished work.
+
+The semantics are based on intuitionstic Kripke frames.
+In typical abstract treatments, each intuitionistic world is in some sense epistemic: it represents which facts are currently known to be true.
+A preorder $\leq$ is used to represent which worlds are ``at least as knowledgeful'' as some other state.
+We take the same general approach that intuitionistic states represent the available knowledge, except the presentation is concrete.
+%\newcommand{\allregion}{\mathcal{R}}
+Where $\allvars$ is the countable set of identifiers, the set of program states $\allstate$ is $\mathbb{R}^\allvars$, then an intuitionistic state $X : \allcon \equiv 2^\allstate$ is simply a (usually uncountably infinite) set of states, and to ``know'' an intuitionistic state $X$ is to know that we must be in some $\omega \in X,$ but not \emph{which} $\omega$.
+Special case $X = \allcon$ means we know nothing, $X = \{\omega\}$ means that we know we are in exactly the state $\omega,$ and $X = \emptyset$ means we know with certainty that we have derived a contradiction, as we know we are in a state that belongs to the empty set, of which there are none.
+The preorder $\leq$ on intuitionisic worlds is also given concretely: $X \leq Y \equiv X \supseteq Y$: that is, if $Y$ is a subset of $X$ then it contains more information than $Y$ because it rules out all of the states that $Y$ does, plus some more.
+
+%There are several design options for the term semantics: do we include semi-algebraic set computations in the term language, and if so do we make a type distinction or identify sets with nondetermistic terms?
+%One can argue that semialgebraic sets or an equally powerful construct are \emph{necessary} in the term language (not just a nice-to-have because they make it more powerful) because without them we do not have the existence property (EP), which we will prove after introducing the semantics.
+%We also choose not to make a typing distinction in terms since it the technical complexity of introducing a type system is not well motivated by a system of exactly two types.
+%An alternative to explore would be to make the typing distinction, then have a family of operators for drawing elements from sets.
+
+Therefore we will choose $\tint{\theta}{\om} : \mathbb{R}$: the value of a term in some state is its unique value.
+The semantics are defined by:
+\begin{align*}
+  \tint{q}{\om} &= q\\
+  \tint{x}{\om} &= \om(x)\\
+  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} + \tint{\eta}{\om}\\
+  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}\\
+  \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})
+%  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
+\end{align*}
+%It is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
+%The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
+%Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
+%That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
+
+We give the semantics for formulas.
+In the case $\theta > \eta$, $B_\epsilon(\nu)$ is an open ball of diameter $\epsilon$ around state $\nu \in \mathbb{R}^{|\allvars|}$.
+This is used to capture the notion that a comparison $\theta > \eta$ should terminate if interpreted as a computation, within the current epistemic state.
+\begin{align*}
+  \fint{\phi \land \psi}{X}     &\lequiv \fint{\phi}{X}\text{ and }\fint{\psi}{X}\\
+  \fint{\phi \lor \psi}{X}      &\lequiv \fint{\phi}{X}\text{ or }\fint{\psi}{X}\\
+% TODO: Prove a monotonicity lemma to simplify this
+  \fint{\phi \limply \psi}{X}   &\lequiv \text{ for all }Y \subseteq X, \fint{\phi}{Y}\text{ implies }\fint{\psi}{Y}\\
+  \fint{\bot}{X}                &\lequiv X = \emptyset\\
+  \fint{\theta > \eta}{X}       &\lequiv \text{for all }\nu \in X, \exists \epsilon > 0, \text{for all } \mu \in (B_\epsilon(\nu) \cap X), \tint{\theta}{\mu} > \tint{\eta}{\mu}\\
+  \fint{\exists{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{f(\om)}~|~\om \in X\}} \text{ for some $f:\allstate \to \mathbb{R}$}\\
+  \fint{\forall{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{r}~|~\om \in X,  r \in \mathbb{R}\}}\\
+  \fint{\dbox{\alpha}{\phi}}{X} &\lequiv \text{for all }Y \subseteq X, Z \text{ s.t. }(Y,Z) \in \pint{\alpha}, \fint{\phi}{Z}\\
+  \fint{\ddiamond{\alpha}{\phi}}{X} &\lequiv \text{exists }Y, (X,Y)\in\pint{\alpha}\text{ and }\fint{\phi}{Y}\\
+  \fint{\theta \geq \eta}{X}    &\lequiv \fint{\eta > \theta \limply \bot}{X}%\text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r \geq s\\
+\end{align*}
+
+We give the semantics for programs:
+\begin{align*}
+  (X,X) \in \pint{\ptest{\phi}}\text{ iff }&\fint{\phi}{X} \\
+  (X,Y) \in \pint{\humod{x}{\theta}} \text{ iff }& Y = \{\subst[\om]{x}{r}~|~\om \in X, r \in \tint{\theta}{X}\}\\
+  \pint{\alpha \cup \beta} =& \pint{\alpha} \cup \pint{\beta}\\
+  (X,Y) \in \pint{\alpha;~\beta} \text{ iff }& \text{exists }Z, (X,Z) \in \pint{\alpha}, (Z,Y) \in \pint{\beta}\\
+  (X,Y) \in \pint{\pevolvein{\D{x}=\theta}{\ivr}}\text{ iff }& Y = \{\nu~|~\exists \om \in X, t \in \mathbb{R}_{\geq0}, \varphi_\om:[0,t]\to\allstate,~\varphi_\om(0)=\om\text{ on }\{x,\D{x}\}^C\\
+   &\frac{\partial \varphi_\om(t)(x)}{\partial t}= \varphi_\om(t)(\D{x})\text{ and } \{\varphi_\om(t)(x)\}=\tint{\theta}{\varphi(\varphi(s))}\\
+   &\text{ and }\fint{\ivr}{\{\varphi_\mu(t)~|~\mu\in X}\}\\
+  \pint{\prepeat{\alpha}} =& \bigcup_{n\in\mathbb{N}} \pint{\alpha}^n
+\end{align*}
+
 
 \section{Proof Calculus}
+How do we evaluate whether these semantics ought to be considered intuitionistic?
+One excellent test is whether the \emph{existence property} (EP) holds.
+The EP formalizes that anytime an existence property is proven, an actual witness to the existential property can be computed as well.
+In a dynamic logic, we can express two such EP's:
+\begin{lemma}[Term EP]
+If $\Gamma \limply \exists{x}{\phi(x)}$ is true, then there is a term $\theta$ such that $\Gamma \limply \phi(\theta)$ is true.
+Moreover, $\theta$ can be computed from given a proof of $\Gamma \limply \exists{x}{\phi(x)}$.
+\end{lemma}
+\begin{proof}[Sketch.]
+  We will need to introduce a proof calculus before we can speak to the proof aspect, but such a $\theta$ trivially exists by the semantics because $\fint{\exists{x}{\phi}}{X}$ specifically assumes
+ the existence of a semialgebraic witness $F$ which is then also a term.
+\end{proof}
+
+\begin{lemma}[Program EP]
+If $\Gamma \limply \ddiamond{\alpha}{\phi}$ is true, then there exists an execution path $\rho$ (let's say that an execution path is straight-line deterministic program that refines the original) of $\alpha$ such that  
+  $\Gamma \limply \ddiamond{\rho}{\phi}$ or equivalently $\Gamma \limply \dbox{\rho}{\phi}$ is true.
+  Moreover it is possible to compute such a path from a proof of $\Gamma \limply \ddiamond{\alpha}{\phi}$.
+\end{lemma}
+\begin{proof}
+  Because paths are not already part of the language, one would need to define what paths are (and convince us that they're computational enough).
+  But first lets consider some of the requirements for such a property to hold.
+  By back-of-the-envelope cardinal arithmetic, any program with uncountably many paths is not terribly promising, because we must get lucky that some path satisfying $\phi$ could be represented by one of the countably many path programs.
+ What if, for example, $\alpha$ is the program $\humod{x}{1};~\humod{y}{0};~\humod{t}{0};~\pevolvein{\D{x}=-y,\D{y}=x,\D{t}=1}{y \geq 0};\ptest{x=-1}$?
+ The only end state for this program is $\{x=-1,y=0,t=\pi\}$.
+ How would we hope to construct a straight line program $\rho$ which constructs this state? 
+ We certainly can't do so without differential equations, and even with a differential equation we must somehow specify its duration of $\pi$.
+ Admittedly, we can't prove that this would be impossible until we specify what exactly we want paths to be, but something is incredibly suspicious here: $\pi$ is transcendental and our straight-line programs can only construct real-algebraic numbers because they are equipped only with semialgebraic sets.
+ We can't even write down the duration of the ODE (allowing paths to run an ODE so long as they write down the duration is a plausible approach to intuitionistic ODEs).
+ If we restrict the durations say to be only the real-algebraic numbers, we can now write down paths using semialgebraic sets, but also the program above becomes empty because we cannot express the duration as a real algebraic number.
+ In contrast if we worked with computable reals we'd be fine here.
+ This all really just goes to say that the field we operate over will be super important. Hmm...
+ Anyway, where I was originally trying to go with this (and got sidetracked by other issues with ODEs) is that if you only have countably-many paths through the program, then in some sense EP should be semi-decidable even without a proof of $\ddiamond{\alpha}{\phi}$ because you can just iterate through the paths of $\alpha$.
+ And then it's guaranteed to terminate if you've proven the diamond because this is all just countable choice anyway which is fine constructively if you ask nicely enough.
+ But it's quite likely all of this is terrifically irrelevant and will become clear once I work out a proof calculus.
+\end{proof}
+
 
 \section{Soundness Theorem}
 \section{Relaxing (Constructive) Games to (Constructive) Systems}
@@ -1533,6 +1590,13 @@ Total time: 13 months
 \end{itemize}
 
 \appendix
+
+\section{More todos}
+{\Huge TODOs} (in order to figure out best semantics to make EP true):
+\begin{itemize}
+\item Read References from Fischer-Servi (intuitionistic-base.pdf)
+\item Contemplate disjunctive property
+\end{itemize}
 
 \backmatter
 
