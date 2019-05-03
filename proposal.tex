@@ -2,6 +2,7 @@
 %\usepackage{fullpage,cmu-titlepage2}
 \usepackage{times}
 \usepackage[letterpaper,twoside,vscale=.8,hscale=.75,nomarginpar,hmarginratio=1:1]{geometry}
+\usepackage{xcolor,colortbl}
 
 \usepackage[
 %backref controls whether the bibliography has a list of backreferences
@@ -29,7 +30,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \usepackage{tabularx}
 \usepackage{subcaption}
 \usepackage{verbatim}
-
+\usepackage{framed}
 \usepackage{tikz}
 \usetikzlibrary{shapes,snakes}
 \usepackage{pgfplots}
@@ -152,6 +153,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\CdGL}{\textsf{CdGL}\xspace}
 \newcommand{\ProofPlex}{ProofPlex\xspace}
 \newcommand{\Isabelle}{Isabelle/HOL\xspace}
+\newcommand{\Coq}{Coq\xspace}
 \newcommand{\VeriPhy}{VeriPhy\xspace}
 \newcommand{\ModelPlex}{ModelPlex\xspace}
 \newcommand{\dLi}{\ensuremath{\dL_\iota}}
@@ -160,6 +162,8 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\pint}[1]{\lenvelope{#1}\renvelope} % (#2,#3) \in 
 \newcommand{\gameex}{\alpha_{\times}\xspace}
 \newcommand{\sysex}{\alpha_{\text{Sys}}\xspace}
+\newcommand{\weakconnect}{\ensuremath{\dashrightarrow}}
+\newcommand{\strongconnect}{\ensuremath{\rightarrow}}
 
 \draftstamp{\today}{DRAFT}
 \begin{document}
@@ -167,7 +171,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \pagestyle{empty}
 
 \title{  {\it \huge Thesis Proposal}\\
-{\bf Foundational End-to-End Hybrid Systems Verification and Synthesis}}
+{\bf Practical End-to-End Verification of Cyber-Physical Systems}}
 \author{Brandon Bohrer}
 \date{\today}
 \Year{2019}
@@ -236,42 +240,108 @@ Formal safety verification of these systems is a key tool for attaining the stro
 As CPSs cement their role in society, the field of formal verification for CPSs has matured too, particularly verification of hybrid systems models, which provide a common formalism for the discrete and continuous aspects of a CPS.
 Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is notable for its strong logical foundations and successful application in a number of case studies~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:conf/rss/MitschGP13,DBLP:conf/hybrid/PlatzerQ08} using the theorem provers \KeYmaera~\cite{DBLP:conf/cade/PlatzerQ08} and \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
 
-The use of abstract formalisms, such as hybrid systems~\cite{DBLP:conf/lics/Henzinger96}, has undoubtedly been a boon to formal verification: hybrid systems provide enough abstraction to make verification tractable while providing enough detail to adequately capture realistic control logic and physics.
-Yet the verification of abstract models leaves major gaps to confidence in the safety of the real implementations of CPSs.
-These gaps can be seen from two sides: On the theoretical side, a theorem is only trustworthy insofar as it faithfully implements its underlying logic and insofar as that logic is \emph{sound}: that is, we must ensure a tool only says a model is safe when the model is truly safe.
-On the practical side, safety results about a model are only useful insofar as safety of the model ensures safety of the implementation, i.e., the implementation must be faithful to the formal model.
+However, the interested parties in formal verification of CPS have competing interests, leading to a wide array of verification approaches, such as deductive verification in domain-specific logics and general-purpose logics, model-checking of automata-theoretic~\cite{DBLP:conf/lics/Henzinger96} models, control synthesis, and runtime monitoring.
+We see that none of these approaches are totally satisficatory by comparing the perspectives of three characters: a logician who is concerned with the mathematical foundations of verification, an engineer who is concerned with building CPS's that behave correctly in practice, and the person we'll call the logic-user: the person whose job it is to perform modeling and verification of the CPS.
+\rref{tab:approach-comparison} summarizes the complaints that each person has with each existing approach.
+The Logician might prefer modeling and proof in a general-purpose interactive theorem prover (GPITP) such as \Isabelle or \Coq because their logical foundations have been explored in great detail and even cross-verified in over theorem provers, but the Logic-User will be dissatisfied with the laborious proofs required when specialized support for CPS is absent, and the engineer will be dissatisfied that practical artifacts like controllers and runtime monitors must still be implemented manually.
+The Engineer can get synthesize their artifacts automatically if hybrid automata are used as the foundation, but the Logician will be disappointed with the paper-only foundations and the Logic-User disappointed by error-prone modeling constructs.
+The Logic-User is not truly satisifed with any approach, but domain-specific logics like \dL come closest: a program-like syntax makes it possible to avoid more modeling mistakes than with automata, and proof is not as laborious as with GPITP.
+This will in turn upset the Engineer because state-of-the-art synthesis tools for \dL~\cite{DBLP:journals/fmsd/MitschP16} only synthesize monitors, and are fragile when applied outside of ad-hoc special cases.
+The Logician is equally upset because prior to this thesis, the theory of \dL has been developed only in informal paper proofs.
+Nor is the Logician truly satisified with any approach: while GPITP's have rigorous foundations and support extraction of controllers or monitors, the extraction facilities are not provably correct, nor can the Logician convince themself that the modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs.
 
-In prior work with my collaborators, I have addressed both aspects of this problem in the context of \emph{classical logics} for hybrid \emph{systems} (i.e., without adversarial dynamics).
-On the one hand, our experiences with these prior works have exposed the limitations of those works:
-In a classical logic, the connection between proof and computation is loose at best, and does not hold in every case.
-As a result, state-of-the-art synthesis technology~\cite{DBLP:journals/fmsd/MitschP16} exploits proof knowledge for synthesis only in limited cases, and even then is fragile.
-Developing a computational basis for a hybrid systems logic will give us an exhaustive and robust foundation for synthesis.
-Furthermore, the prior emphasis on hybrid \emph{systems} has limited synthesis approaches to monitoring only.
-While monitoring is in some sense the most essential synthesis problem, it is greatly limiting especially when we desire robust end-to-end guarantees: an approach that relies only on monitor synthesis can guarantee only safety of the implementation while an approach using games can ensure both safety and \emph{liveness}.
-For example, a car which stays in its garage is safe because it never collides with another car but is not live because it never reaches its objective, which might be to drive to a certain destination.
-A successful, practical system must not be simply safe because safety guarantees in isolation can be ensured trivially.
-The real challenge is to successfully meet the competing challenges of safety and liveness at the same time.
+\begin{table}[tbh]
+  \centering
+\begin{tabular}{l|c|c|c|r}
+Approach    & Logician & (Connection) & Engineer & Logic-User\\\hline
+GPITP    &\cellcolor{green!25}formal& \weakconnect &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline
+Automata &\cellcolor{yellow!25}paper& \weakconnect &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline
+\dL before &\cellcolor{yellow!25}paper& \weakconnect &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone, less labor-intensive\\\hline
+\dL after  &\cellcolor{yellow!25}formal& \strongconnect &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone, less labor-intensive\\\hline
+\CdGL    &\cellcolor{green!25}formal& \strongconnect &\cellcolor{green!25}monitors, controls &\cellcolor{green!25}least error-prone, less labor-intensive\\\hline
+\end{tabular}
+  \caption{Comparison of Verification Approaches}
+  \label{tab:approach-comparison}
+\end{table}
+The goal of this thesis is to satisfy the needs of all three characters at once, a goal we call ``Practical, End-to-End Verification of CPS''.
+The terms ``practical'' and ``end-to-end'' are notoriously vague;
+to avoid ambiguity, this thesis defines verification to be end-to-end if it connects the formal end to the implementation end, meaning the real implementation of the CPS obeys some precise formal guarantee in terms of the system model, which itself rests on a bulletproof mathematical foundation.
+We say that verification is practical if it also meets the needs of the Logic-User, by simplifying models, minimizing the risk of serious modeling errors, and simplifying proofs.
+
+%\draw (5, 2)  node[circle, fill=green!20,draw] (engine) {Artifacts};
+
+\begin{figure}[tbh]
+  \centering
+\begin{tikzpicture}
+  \draw (0,1.9)  node {Logics for Hybrid Systems};
+\draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{1.1in}}};
+\draw (0,-1) node (cdgl) {\phantom{\CdGL}};
+\node[coordinate,pin={[pin distance=0.6in]340:{\rref{ch:cdgl}}}] (cdgl-ref) at (cdgl) {};
+\draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.1in}}};
+\draw (0,-1) node (cdgl) {\CdGL};
+\draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
+\node[coordinate,pin={[pin distance=0.6in]210:{\rref{ch:logical-foundations},\rref{ch:end-to-end-v}}}] (dl-ref) at (dl) {};
+\draw (dl) node[circle, fill=blue!20,draw]  {\dL};
+\draw (-5, 2) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.7in,text width=1.2in,text centered] (logic) {Foundations};
+\draw (-5, 2.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (formalization) {\dL Formalized};
+\draw (-5, 1.4) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (generalization) {\dL Generalized};
+\draw node[left=0.3in of formalization] (formal-ref) {\rref{sec:isabelle-fml}};
+\draw node[left=0.3in of generalization] (gen-ref) {\rref{sec:definite-description}};
+\draw[dashed] (formalization) -- (formal-ref);
+\draw[dashed] (generalization) -- (gen-ref);
+\draw (5, 2) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.7in,text width=0.7in,text centered] (engine) {Artifacts};
+\draw (5, 2.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors) {Monitors};
+\draw (5, 1.4) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (controllers) {Controls};
+\draw node[right=0.3in of monitors] (monitor-ref) {\rref{sec:veriphy}};
+\draw node[right=0.3in of controllers] (controllers-ref) {\rref{ch:proofplex}};
+\draw[dashed] (monitors) -- (monitor-ref);
+\draw[dashed] (controllers) -- (controllers-ref);
+\node[shape=coordinate] (use-anchor) at (0,-3){};
+\draw (1.45,-2) -- (0,-2.7);
+\draw (0, -3.5) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.85in,text width=0.8in,text centered] (luser) {Usability};
+\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
+\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
+\draw[->,very thick] (logic) -- (CdGLcirc);
+\draw[->,very thick] (CdGLcirc) -- (engine);
+\draw[dashed] (CdGLcirc) -- (luser);
+\end{tikzpicture}
+  \caption{Goals of the thesis}
+  \label{fig:goals-diagram}
+\end{figure}
+
+\rref{fig:goals-diagram} lays out the relationships between the chapters of the thesis.
+The already-completed works in this thesis connect implementation artifacts to foundations by way of \dL:
+the monitor synthesis tool \VeriPhy (\rref{sec:veriphy}) connects an implementation (for example, of a robot: \rref{sec:ground-robotics}) to a formal model in \dL.
+\rref{ch:logical-foundations} then satisfies the logician by putting \dL (as implemented in \KeYmaeraX) on firm footing in \Isabelle (\rref{sec:isabelle-fml}), and also generalizing the foundations of \dL to survive future development (\rref{sec:definite-description}).
+In the proposed work, we show that we can better meet the needs of the Engineer and Logic-User by developing a generalization of \dL called Constructive Differential Game Logic (\CdGL), which supports hybrid systems with adversarial dynamics (hybrid games) and constructive reasoning.
+We first develop \CdGL, develop its foundations, and show that it leads to simpler models with less modeling errors (\rref{ch:cdgl}), then show (\rref{ch:proofplex}) that \CdGL supports synthesis of both controllers and monitors in the general case, in contrast to the state-of-the-art.
+
+At last, we arrive at a concise thesis statement for the thesis as a whole:
+\begin{framed}
+  \begin{quote}
+Constructive Differential Game Logic enables practical, end-to-end verification of cyber-physical systems.
+  \end{quote}
+\end{framed}
+This is not to say that the thesis is the first practical approach to CPS verification, nor the last step in making verification end-to-end.
+The needs of a real Logician, Logic-User, and Engineer are complex and ever-changing: tomorrow's Logic-User might seek full proof automation, tomorrow's Engineer might demand guaranteed resilience to sensing and actuation errors, and tomorrow's Logician might want a logical treatment of phenomena like concurrency and stochasticity which are challenging to incorporate with CPS today.
+The real-world drama of CPS also has characters which are not discussed in this thesis, like government regulatory agencies, end-users of the production CPS, and even other CPS's which might want to interact with ours.
+That being said, \rref{tab:approach-comparison} shows that the works of the thesis together a practical, foundational, end-to-end approach that meets the needs of the major players in a way prior approaches have not.
+
+
+
+\section{Related Work}
+Here, we discuss works that are broadly related to the thesis as a whole.
+Works which are relevant only to a given chapter are discussed in that chapter.
+
+That checker supported a significant fragment of the \KeYmaeraX core, including enough to recheck proofs of safety for monitor-based synthesized controllers.
+However, this was achieved largely through a lot of sweat and even then failed to cover some popular extensions used in practice.
+A recent submission~\cite{hilbert-epsilons} has shown how a redesign of the \dL calculus can enable a simplified and more exhaustive foundation.
+First off, all previous logical explorations of hybrid games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} have explored only the classical case.
+
 
 On the foundations side, prior work has explored the classical hybrid systems case in detail:
 A formalization~\cite{DBLP:conf/cpp/BohrerRVVP17} of the soundness theorem for \dL has been performed in \Isabelle~\cite{DBLP:books/sp/NipkowPW02}.
 Follow-up work~\cite{DBLP:conf/pldi/BohrerTMMP18} enabled the export of proof terms from \KeYmaeraX and rechecking in a verified proof term checker based on the \Isabelle formalization.
-That checker supported a significant fragment of the \KeYmaeraX core, including enough to recheck proofs of safety for monitor-based synthesized controllers.
-However, this was achieved largely through a lot of sweat and even then failed to cover some popular extensions used in practice.
-A recent submission~\cite{hilbert-epsilons} has shown how a redesign of the \dL calculus can enable a simplified and more exhaustive foundation.
-
-Generalizing these results to the case of constructive differential games is an interesting challenge for a number of reasons.
-First off, all previous logical explorations of hybrid games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} have explored only the classical case.
-Constructive differential games are the more target because a solution of a constructive game corresponds exactly to a control function and monitor function, while the solution of a classical game corresponds only loosely.
-It is arguably a historical accident that hybrid games were discovered in the classical context first due to the large body of work on classical analysis, from which a classical logic for hybrid games followed.
-Consequently, one of the major contributions of this thesis is to develop a constructive semantics of hybrid games, of which the main challenge is expected to be a constructive semantics of differential equations using arbitrary-precision verifiable integration bounds.
-The subsequent development of a proof calculus for constructive hybrid games is also a contribution of the thesis.
-
-One potential stumbling block in the proposed work is supporting constructive hybrid games in the verified pipeline for code generation, including the verified \dL proof term checker.
-In particular it should be noted that the semantics of hybrid games generally and certainly of constructive hybrid games differ profoundly from classical hybrid systems, so supporting games directly would require near-total reimplementation of tools for minimal gain.
-To keep the generality and clarity provided by games without excessive implementation effort, I propose a looser integration between the components of the thesis: In much the same way as the prior work \ModelPlex functions, we can use proofs in \CdGL to extract a correct-by-construction monitor formula and control law from a proven-correct model.
-When we wish to employ the synthesized code in practice, we can (perhaps automatically) \emph{relax} the constructive game to a classical system, and use existing technology~\cite{DBLP:conf/pldi/BohrerTMMP18} to foundationally check the proof and to generate verified monitors.
-Since the controller synthesized from the game will be correct-by-construction, it will satisfy the monitors of the game relaxation except in cases where some compilation bug or conservativity introduced an error.
-This then also allows us more freedom in how the low-level details of and compilation of the synthesized controller are handled.
 
 \chapter{Background: Differential Game Logic \dGL}
 \emph{Differential dynamic logic} (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
@@ -647,6 +717,7 @@ The permitted syntactic occurrence patterns for uniform substitutions are easily
 That needs the syntactic exposition of a deep embedding, though.
 
 \section{Definite Descriptions in dL}
+% sec:isabelle-fml
 \label{sec:definite-description}
 While \rref{sec:isabelle-fml} addresses the gap between theory presentations of \dL and its usage in the theorem \KeYmaeraX, it does so in a somewhat brute force way: manually formalizing every extension that has been added to the \KeYmaeraX core over time.
 This is unmaintainable as the number of extensions grows, and moreover we would prefer a definition mechanism where new constructs can be defined without increasing the size of the core.
@@ -681,6 +752,7 @@ In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b
 Quantifier elimination rule \irref{QEeps} says first-order arithmetic, a fragment, is decidable~\cite{tarski1998decision}.
 
 \chapter{Completed Work:  End-to-End Robot Verification}
+%ch:logical-foundations
 \label{ch:end-to-end-v}
 This chapter describes  works by the author and collaborators which introduce a general approach that enables end-to-end verification while maintaining solid logical foundations and then apply the approach in a case study on the verification of free driving for 2D Dubins-like ground robots.
 These works already constitute a major cohmponent of the goals of the thesis: what remains in the proposed work is to extend this beyond only verification and monitor synthesis to include controller synthesis while maintaining rigorous foundations.
@@ -781,6 +853,7 @@ We chose \Isabelle and HOL4 over Coq because their combination of cutting-edge a
 Static analysis of arithmetic for hybrid systems has been studied~\cite{DBLP:conf/emsoft/MartinezMST10,DBLP:conf/emsoft/MajumdarSZ12,DBLP:conf/cav/BouissouGPTV09}, but without foundational safety proofs for general dynamics.
 
 \section{Case Study: End-to-End Ground Robotics Verification}
+% sec:veriphy
 \label{sec:ground-robotics}
 
 While the previous section describes \VeriPhy in general (both as a methodology and as a tool), we certainly cannot claim that the \VeriPhy tool enables end-to-end verification of realistic CPS implementations until we have actually applied \VeriPhy to such a system.
@@ -1674,6 +1747,7 @@ This result is useful because it allows us to embed classical statements in a co
 For many subgoals of a proof, constructivity is overkill: in particular, many arithmetic goals benefit from access to classical quantifier elimination, and their proofs never need be inspected.
 
 \chapter{Proposed Work: \ProofPlex, Proof-Directed Game Synthesis}
+% \label{ch:cdgl}
 \label{ch:proofplex}
 In this chapter we propose a tool for the synthesis of controllers and monitors from (proven-safe and proven-live) computational hybrid games, which we name \ProofPlex.
 We motivate \ProofPlex by first considering the different artifacts one might wish to synthesize:
