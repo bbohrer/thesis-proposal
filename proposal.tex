@@ -1100,13 +1100,10 @@ Because it was not until this chapter that a completely formal link between \dL 
 Related work in formal methods and robotics has applied synthesis and verification to safe control of robotic systems.
 The present work is unique among these in its use of a verified-safe sandbox controller to enforce compliance between the implementation and formal model for a realistic robot simulation with an expressive correctness guarantee.
 
-
 \subsubsection{Simulation}
 Simulation is an essential part of evaluating models and designs for any robotic system.
 Multiple simulation platforms are available, of which AirSim~\cite{shah2018airsim} is a recent platform for UAVs and autonomous cars.
 Other simulators would likely have worked as well, but we chose AirSim because it is configured with high-fidelity physical and visual models out of the box, reducing the chances of introducing modeling errors.
-
-In short, while verification of robotics is well-studied, few works have addressed end-to-end guarantees with the highest level of rigor, and in this paper we develop the first realistic, end-to-end system with an expressive correctness guarantee of safety and liveness for 2D waypoint following.
 
 \chapter{Proposed Work: \CdGL: Constructive Differential Game Logic}
 \label{ch:cdgl}
@@ -1207,7 +1204,73 @@ This substantiates the claim that such proofs suffice for synthesis, and we posi
 
 \section{Related Work}
 \newcommand{\semiset}[2]{\{#1~|~#2\}} 
+Several approaches have been taken to developing intuitionistic and constructive modal logics, including dynamic logics.
+What unequivocally sets us apart from these works is that we are the first to develop a proofs-as-programs interpretation, e.g. we develop a language of proof terms and study its operational semantics in full.
+Only a few prior works suggest an explicit representation of strategies, and they do not develop an operation semantics for strategies, let alone prove its properties.
+
+%TODO: Reread nerode and his semantics
+\subsection{Semantics for Constructive Modal Logics}
+We discuss several general approaches for semantics of constructive modal logics.
+The main approaches of interest to us are intuitionistic Kripke semantics and realizability semantics.
+
+Intuitionistic Kripke semantics are perhaps the most widely-used approach, an overview is given in~\cite{DBLP:journals/apal/Wijesekera90}.
+Like classical Kripke semantics, their intuititionistic counterparts are parameterized over worlds, except the worlds represent what is currently \emph{known} about the world.
+Intuitionistic Kripke semantics are also equipped with a preorder $w_1 \geq w_2$ which holds when $w_1$ contains all the knowledge of $w_2$ and possibly more.
+This technique can be (and has been) applied to dynamic logics, with the twist that both the world per se and our knowledge about the world can change throughout executions.
+
+Realizability semantics ~\cite{DBLP:journals/mscs/Oosten02,lipton1992constructive} are particularly appealing to the computer scientist, because they give the semantics in terms of a \emph{realizer}, a program which performs the proof.
+Such semantics are usually given abstractly, i.e., they do not specify a particular programming language, but the standard notion of computability is understood.
+Our realizability semantics are then more concrete than most, because they fall out of the operational semantics on strategy proof terms.
+A traditional abstract reachability semantics can then serve as a middle step connecting the operational semantics to the model-theoretic semantics.
+
+Type theory has been used as a semantics of constructive ZF set theory~\cite{DBLP:journals/jsyml/AczelG06}.
+Topological models have been used, especially for modal logics of space~\cite{DBLP:reference/spatial/BenthemB07}.
+While \CdGL is not intended as a spatial logic, it does operate over a concrete topological space.
+A close relative of topological models are neighborhood models~\cite{DBLP:conf/lori/BenthemBE17}.
+Intuitionistic Kripke semantics for modal logic have been compared to a categorical semantics~\cite{DBLP:conf/csl/AlechinaMPR01}.
+Sheaf-theoretic models of first-order modal logic have been given~\cite{Hilken_afirst}, which provide a general treatment of the idea that an individual might change across states, as well as presheaf~\cite{DBLP:journals/aml/Ghilardi89} models.
+For (classical) PDL, stochastic Kripke semantics have been compared to coalgebra semantics~\cite{DBLP:journals/corr/abs-1109-3685}.
+
+\subsection{Specific Constructive Modal Logics}
+We discuss  a variety of constructive modal logics which have been developed, including treatments of PDL and Concurrent DL.
+Among intuitionistic dynamic logics, dynamic-epistemic logic (DEL)~\cite{DBLP:journals/logcom/FrittellaGKPS16} posesses a well-understood proof-theoretic semantics, but this semantics does not tell the whole story, since it neither exposes the underlying computational interpretation nor has its relation to a model-theoretic semantics been explored.
+While an argument can made in the case of DEL to take the proof-theoretic semantics as primary, model-theoretic semantics are an essential part of the story for \CdGL, because the physical world and the real numbers which represent it are conceptually prior to proof.
+Proof-theoretic semantics for constructive, paraconsistent LTL have also been given~\cite{DBLP:journals/japll/KamideW10}.
+
+Constructive tableaux have been developed for Concurrent Dynamic Logic~\cite{DBLP:journals/apal/WijesekeraN05}, which is a special case of \CdGL.
+However, only an intuitionistic Kripke semantics are given, and a proofs-as-programs interpretation is not developed.
+
+Arguably, the closest paper in spirit is~\cite{degen2006towards}, because they pursue an intuitionistic PDL which satisfies an existence property (EP) for programs, which is an important step in our development of a proofs-as-programs interpretation.
+However, they stop short of full EP and show a special case, and question the usability of their own logic since their implication introduction rule has an nonsyntactic side condition.
+Moreover, they suggest that the first-order case (which we support) is beyond the methods of their day.
+
+Intuititionistic Kripke semantics have also been given for a fragment of PDL~\cite{DBLP:journals/fuin/Celani01}, specifically multimodal System K with an iteration modality.
+
+\subsection{Game Logic}
 First off, all previous logical explorations of hybrid games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} have explored only the classical case.
+Explicit strategies for GL were proposed~\cite{ghosh2008strategies}.
+The logic developed therein is suspect because ``a game is winnable'' and ``a game is winnable by a given strategy'' are defined as entirely different formulas, when they ought to be intimately connected.
+
+Another explicit treatment of strategies is given in \cite{DBLP:conf/kr/RamanujamS08}, but their presentation is also questionable because arbitrary strategies are only allowed for the propositional games, which appears to exclude most interesting strategies for repeated games.
+
+The prior works only treat Parkih's propositional GL, and moreover the connection between strategies as proof terms and constructivity was not made, so no proof theory was developed, in contrast to our work.
+
+van Benthem has also written on strategies in logic~\cite{DBLP:series/lncs/Benthem15}, but his exploration is in the context of dynamic-epistemic~\cite{DBLP:journals/games/BenthemPR11,van2001games} and evidence logics~\cite{DBLP:journals/sLogica/BenthemP11}, not GL per se.
+
+\subsection{Constructive Analysis}
+Constructive real analysis has been studied in depth, and is essential to the success of \CdGL: computationally interpreting first-order real arithmetic and differential equation reasoning will require a solid foundation in constructive analysis.
+
+The foundational work on constructive analysis is Bishop~\cite{bishop1967foundations}, and a more recent in-depth treatment is given by Bridges~\cite{bridges2007techniques}.
+A realizability interpretation of Bishop's analysis has been explored~\cite{DBLP:journals/mst/Schwichtenberg08}.
+We are particularly interested in the constructive version of the Picard-Lindel\"{o}f theorem, which has been proven previously in Coq~\cite{DBLP:conf/itp/MakarovS13}.
+
+Constructive analysis typically deals with the true reals, defined constructively: i.e., there are uncountably many reals in constructive analysis.
+Closely related are the \emph{computable reals}: the countable subset of the reals which have an actual implementation as a computer program.
+The computable reals are traditionally modeled by the Baire space~\cite{CM_1968__20__194_0}.
+In the semantics of \emph{hybrid games}, we simply employ the continuum as a given.
+What is essential, however, is to ensure that computable reals are an adequate model for \emph{strategies}, i.e., no strategy should be allowed to exploit an operation that is not decidable on the computable reals.
+As we move toward implementation, it will be important to have access to an efficient implementation of computable reals.
+One such implementation is CORN~\cite{Krebbers+Spitters:lmcs:corn:2011}, which includes a constructive version of Rolle's Theorem/Mean Value Theorem, another key component for \CdGL.
 
 \section{Syntax}
 The term language of \CdGL is that of \dL:
@@ -1792,7 +1855,6 @@ Once a relaxation for the controller model (and controller proof) in a hybrid ga
 What remains is to supply the untrusted controller.
 Because \ProofPlex, unlike \ModelPlex, also synthesizes monitors by exploiting angelic proofs, we automatically provide an ``untrusted'' controller which in fact is trustworthy, because it simply an implementation of the (operational) angelic dynamics of the control proof in \CdGL. By the work in the previous chapter, these operational semantics refine the standard denotational semantics of both the hybrid game and of its systems relaxation, meaning they satisfy the monitor.
 
-\subsection{Related Work}
 \chapter{Conclusion} 
 \section{Timeline}
 The timeline given below is from the time this document is completed (say, April 2019).
