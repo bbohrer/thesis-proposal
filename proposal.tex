@@ -333,15 +333,132 @@ That being said, \rref{tab:approach-comparison} shows that the works of the thes
 Here, we discuss works that are broadly related to the thesis as a whole.
 Works which are relevant only to a given chapter are discussed in that chapter.
 
-That checker supported a significant fragment of the \KeYmaeraX core, including enough to recheck proofs of safety for monitor-based synthesized controllers.
-However, this was achieved largely through a lot of sweat and even then failed to cover some popular extensions used in practice.
-A recent submission~\cite{hilbert-epsilons} has shown how a redesign of the \dL calculus can enable a simplified and more exhaustive foundation.
-First off, all previous logical explorations of hybrid games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} have explored only the classical case.
+
+\subsection{Verification of Theorem Provers}
+The contributions of the thesis include a formalization of \dL in \Isabelle (\rref{sec:isabelle-fml}) which has been used to generate a verified proof-term checker for \dL (\rref{sec:veriphy}).
+We compare these contributions to other works on theorem prover verification.
+
+Barras and Werner~\cite{Barras:1997} verified a typechecker for a fragment of Coq in Coq.
+Harrison~\cite{Harrison:2006} verified (1) a weaker version of HOL Light's kernel in HOL Light and (2) HOL Light in a stronger variant of HOL Light.
+Myreen et al.\ have extended this work, verifying HOL Light in HOL4~\cite{Myreen+Owens+Kumar:2013,Kumar+Arthan+Myreen+Owens:jar:2016} and using their verified compiler CakeML~\cite{Kumar+Myreen+Norrish+Owens:2014} to ensure these guarantees apply at the machine-code level.
+Myreen and Davis proved the soundness of the ACL2-like theorem prover Mitawa in HOL4~\cite{Myreen+Davis:itp:2014}.
+Anand, Bickford, and Rahli~\cite{Anand+Rahli:2014,Rahli+Bickford:cpp:2016}
+proved the relative consistency of Nuprl's type theory~\cite{Constable+al:1986,Allen+al:2006} in Coq with the goal of generating a verified prover core.
+%
+We share a common goal: formally verifying that theorem provers are correct.
+%
+However, the foundations of \dL differ greatly from those of the other provers (\dL intimately deals with programs with differential equations), leading to substantially different proofs (in our case, intricate proofs about real analysis and substitution).
+
+Our verified checker supports a significant fragment of the \KeYmaeraX core, including enough to recheck proofs of safety for monitor-based synthesized controllers (${\approx}$100K steps).
+While the \Isabelle formalization is based directly on the calculus supported in \KeYmaeraX, another contribution of the thesis (\rref{sec:definite-description}) is to develop a foundation for \dL which is more amenable to the practical extensions used in \KeYmaeraX in practice.
+
+%
+%StarL~\cite{Lin+Mitra:lctrts:2015} is a framework for programming and simulating Android applications that control robots.
+%It uses a formalization of timed automata and has a discrete model of space in order to verify distributed applications.
+%V\"{o}lker~\cite{Volker:2000} defines the semantics of hybrid automata in Isabelle, but no verification techniques. 
+\subsection{Verification of CPS}
+%
+Hybrid systems verification is a broad and actively studied field.
+We discuss some of the major lines of research here.
+
+%\subsubsection{Early Approaches}
+%
+%\'{A}brah\'{a}m-Mumm et al.\ formalized in PVS~\cite{Mumm+Steffen+Hannemann:iceccs:2001} an
+%automaton-based approach similar to timed automata. 
+%They implement Floyd's inductive assertion reasoning method.
+%However, they only check invariants when transitioning between discrete states, as opposed to our differential invariants which hold continuously.
+%Furthermore, they only support continuous dynamics given as explicit solutions.
+%Thus they cannot reason by differential invariant, nor can they express systems whose solutions only exist for finite time.
+%
+
+\subsubsection{Reachability Analysis}
+Model-checking for hybrid systems by reachability analysis is thoroughly studied.
+Well-known model-checkers include SpaceEx~\cite{DBLP:conf/cav/FrehseGDCRLRGDM11}, Flow*~\cite{DBLP:conf/cav/ChenAS13}, and C2E2~\cite{DBLP:conf/tacas/DuggiralaMVP15}.
+Compared to deductive verification in \dL, the strength of model-checkers is that support a higher degree of automation.
+Their downsides typically include a significantly larger trusted base (${\approx}$100,000 SLOC for SpaceEx) and reduced expressivity.
+Typical restrictions include restriction to linear differential equations, bounded-time safety, or bounded state spaces.
+In a notable exception regarding large trusted cores, Immler~\cite{DBLP:conf/tacas/Immler15} verifies a set-based reachability analysis for ODEs in Isabelle using his differential equations library~\cite{DBLP:conf/itp/ImmlerT16}.
+While it is trustworthy, it only computes numerical solutions to differential equations, and so cannot handle full hybrid systems nor the symbolic reasoning necessary to show correctness in the general case.
+Reachability analysis has been applied to ground robotics~\cite{chen2015benchmark},
+
+\subsubsection{Differential Dynamic Logics}
+This thesis is part of a long line of work using differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer08,DBLP:conf/lics/Platzer12a,DBLP:journals/jar/Platzer17} and logics descended from it.
+Compared to reachability analysis approaches, deductive verification in \dL is symbolic and expressive: all polynomial differential equations are supported, and discrete tests and assignments are also polynomial.
+Guarantees are typically unbounded-time, and the plant is modeled faithfully as a continuous differential equation, not a discrete difference equation.
+The tradeoff is that verification is undecidable, and serious case studies usually require significant manual interaction from the user.
+The \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} theorem prover implements \dL and provides significant automation to minimize the number of interactions required.
+\dL and \KeYmaeraX have been applied in a number of case studies~\cite{DBLP:conf/cade/Platzer16}.
+
+Our case study(\rref{sec:ground-robotics}) generalizes a \dL proofs of  1D straight-line motion (with direct velocity control)~\cite{DBLP:conf/pldi/BohrerTMMP18}, of 2D obstacle avoidance, and 1D liveness~\cite{DBLP:conf/rss/MitschGP13,DBLP:journals/ijrr/MitschGVP17}.
+A paper proof of liveness using \dL rules assumed perfect sensing and constant speed \cite{DBLP:journals/corr/abs-1709-02561}.
+Their controllers, like ours, are closely related to the classic Dynamic-Window~\cite{DBLP:journals/ram/FoxBT97} control algorithm.
+In contrast to the prior \dL effort, we offer stronger results, including 2D liveness, waypoint-following, and end-to-end correctness.
+
+\subsubsection{Synthesis for Planning and Control}
+The completed works on robotics verification (\rref{sec:ground-robotics}) and end-to-end verification (\rref{sec:veriphy}) do not explicitly verify the planner and controller, though they could in principle be combined with a verified planner~\cite{DBLP:conf/atva/RizaldiISA18}.
+An alternative approach is to synthesize the controller and/or planner, and we will explore controller synthesis in the proposed work (\rref{ch:proofplex})
+Others have explored synthesis of plans and controls, but none of them address correctness of low-level feedback control, and all trust the correctness of their kinematic models:
+\begin{itemize}
+\item The tools LTLMoP~\cite{DBLP:conf/iros/FinucaneJK10} and TuLiP~\cite{DBLP:conf/IEEEcca/FilippidisDLOM16} can synthesize robot controls that satisfy a high-level temporal logic specification.
+However, they depend on accuracy of their kinematic models, which assume  discrete-space and discrete-time, and the guarantees are not end-to-end.
+\item Bisimulation~\cite{871304} is used to synthesize plans based on hybrid dynamics~\cite{DBLP:conf/cdc/BhatiaKV10,DBLP:journals/automatica/FainekosGKP09}, but assumes model compliance and cannot ensure low-level controller correctness.
+\item Controllers have been synthesized:
+\begin{inparaenum}[\it i)]
+\item from temporal logic specifications for linear systems~\cite{DBLP:journals/tac/KloetzerB08},
+\item for adaptive cruise control~\cite{DBLP:journals/tcst/NilssonHBCAGOPT16}, tested in simulation and on hardware, and
+\item from safety proofs~\cite{DBLP:conf/emsoft/TalyT10} for switched systems using templates,
+\end{inparaenum}
+but those works assume model compliance and cannot ensure low-level controller correctness.
+\end{itemize}
+
+\subsubsection{Online Verification}
+The approaches above are \emph{offline}: i.e., they are used before-the-fact to ascertain the correctness of a hybrid model of a CPS.
+In contrast, \emph{online verification} (or runtime verification) uses checks at runtime to enforce correctness.
+Online verification excels at treating systems that are not fully understood before runtime (such as sensors and actuators) and systems which we simply wish to not try to fully understand (such as complex untrusted control systems).
+However, the guarantees of online verification are weaker and often lack a clear foundation.
+\begin{itemize}
+\item The basis of online verification is the SIMPLEX~\cite{Krogh1998TheSA} method, which uses a trusted monitor to decide between an untrusted controller and trusted fallback.
+\item Runtime reachability analysis has been used for car control~\cite{DBLP:journals/trob/AlthoffD14}, but relies on correctness of the model and of the analysis implementation.
+Since reachability tools rely on large, complicated codebases and models are challenging to get right, these assumptions present a correctness gap which stands in the way of an end-to-end argument.
+\item \ModelPlex is a tool for synthesizing monitors (for both the controller and plant) from proven-safe \dL models in \KeYmaeraX.
+  However, it simply synthesizes a \dL formula describing the monitored conditions, not an executable program.
+  Its present implementation only supports special cases of \dL and often fails mysteriously when applied outside this fragment.
+\item High-Assurance SPIRAL~\cite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17} is a compilation toolchain for \ModelPlex-synthesized monitors for \dL, but does not provide formal end-to-end guarantees, and has not been used to develop an end-to-end system capable of free-range 2D driving.
+\item A contribution of this thesis is the \VeriPhy~\cite{DBLP:conf/pldi/BohrerTMMP18} toolchain for \dL.
+  \VeriPhy extends SIMPLEX by ensuring the monitor is correct-by-construction (via \ModelPlex), formally proving the safety of the resulting system, and automatically maintaining safety down to machine code implementation.
+\end{itemize}
 
 
-On the foundations side, prior work has explored the classical hybrid systems case in detail:
-A formalization~\cite{DBLP:conf/cpp/BohrerRVVP17} of the soundness theorem for \dL has been performed in \Isabelle~\cite{DBLP:books/sp/NipkowPW02}.
-Follow-up work~\cite{DBLP:conf/pldi/BohrerTMMP18} enabled the export of proof terms from \KeYmaeraX and rechecking in a verified proof term checker based on the \Isabelle formalization.
+%Ivory \cite{DBLP:conf/haskell/ElliottPWHBSSL15} and Tower \cite{DBLP:conf/plpv/PikeHBEDL14} are used to ensure high-assurance embedded software is memory safe, but do not verify the functional correctness of cyber nor physical behavior.
+\subsubsection{End-to-End Approaches.}
+End-to-end verification refers to any verification approach which attempts to verify CPS as they exist in reality while maintaining a rigorous foundation.
+Notably, none of these approaches show correctness unconditionally: all have a trusted base and make simplifying assumptions about reality.
+\begin{itemize}
+\item
+  High-Assurance SPIRAL \cite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17} generates executable x64 machine code based on \dL model.
+  However, its claim to ``end-to-end'' status is weaker than that for our tool \VeriPhy, because High-Assurance SPIRAL relies heavily on esoteric compiler optimizations which are difficult to verify correct.
+  Moreover, \VeriPhy adopts a deeper understanding of hybrid systems: several stages of \VeriPhy exploit language-level semantic proofs that link the initial hybrid system model to a low-level executable semantics.
+  High-Assurance SPIRAL uses only syntactic transformations and does not have a semantic understanding of hybrid system, which precludes the clear connection between the system model and compiled code as provided by \VeriPhy.
+\item 
+Anand and Knepper~\cite{Anand+Knepper:itp:2015} developed the framework ROSCoq based on the Logic of Events for reasoning about distributed CPS in Coq with constructive reals and generating verified controllers.
+Their use of constructive reals is prescient, and inspires the design choices in \rref{ch:proofplex}.
+However, they provide limited support for reasoning about derivatives, requiring extensive manual proofs by the user.
+They do not synthesize and automatically verify monitors, nor is their machine code verified.
+\item 
+VeriDrone by Ricketts et al.~\cite{Ricketts:memcode:2015} is a framework for verifying hybrid systems in Coq that relies on a discrete-time temporal logic called RTLA, inspired by TLA~\cite{Lamport:hybrid:1992}.
+They prove an analog of DI, but not the other ODE axioms, thus other ODE proofs, as well as arithmetic proofs, are likely laborious.
+They do not automatically verify monitors, nor is their machine code verified.
+Their use of discrete-time temporal logic also raises foundational concerns, since real time is best understood as continuous.
+\end{itemize}
+
+
+
+%  We provide a simpler model which enabled LEEV of our implementations with \VeriPhy, whereas the model of~\cite{DBLP:journals/ijrr/MitschGVP17} is too restrictive (i.e., the synthesized monitor would always fail in practice).
+%\item Reachability is most-often used in design, but can also be used for model-predictive control~\cite{Bemporad2000PerformanceDR}.
+%Hybrid systems theorem-proving in \dL~\cite{DBLP:books/sp/Platzer18} with \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} is typically less automated, with unique advantages in system complexity (polynomial ODEs), property complexity (unbounded-time safety and liveness), and rigor (small\cite{DBLP:conf/cade/FultonMQVP15}, verified~\cite{DBLP:conf/cpp/BohrerRVVP17} trusted base).  Control strategies for ground vehicles are well-studied.
+%Reachability for liveness has been investigated~\cite{BEMPORAD2001382}.
+
+
 
 \chapter{Background: Differential Game Logic \dGL}
 \emph{Differential dynamic logic} (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
@@ -659,63 +776,6 @@ Secondly, the work requires intimate knowledge of the foundations of \dL, includ
 Additional features include operations like division, absolute value, and min and max, which are not covered in previous presentations.
 This has prepared the author for the foundational work that remains in the proposed thesis chapters.
 
-\subsection{Related Work}
-\paragraph{Verification of Theorem Provers}
-%
-Barras and Werner~\cite{Barras:1997} verified a typechecker for a fragment of Coq in Coq.
-Harrison~\cite{Harrison:2006} verified (1) a weaker version of HOL Light's kernel in HOL Light and (2) HOL Light in a stronger variant of HOL Light.
-Myreen et al.\ have extended this work, verifying HOL Light in HOL4~\cite{Myreen+Owens+Kumar:2013,Kumar+Arthan+Myreen+Owens:jar:2016} and using their verified compiler CakeML~\cite{Kumar+Myreen+Norrish+Owens:2014} to ensure these guarantees apply at the machine-code level.
-Myreen and Davis proved the soundness of the ACL2-like theorem prover Mitawa in HOL4~\cite{Myreen+Davis:itp:2014}.
-Anand, Bickford, and Rahli~\cite{Anand+Rahli:2014,Rahli+Bickford:cpp:2016}
-proved the relative consistency of Nuprl's type theory~\cite{Constable+al:1986,Allen+al:2006} in Coq with the goal of generating a verified prover core.
-%
-We share a common goal:
-formally verify that theorem provers are correct.
-%
-However, the underlying theory of our prover greatly differs (\dL intimately deals with programs with differential equations), leading to substantially different proofs (in our case, intricate proofs about real analysis).
-
-\paragraph{Verification of Hybrid Systems}
-%
-Hybrid systems verification is an actively studied field.
-For example, SpaceEx~\cite{Frehse+al:cav:2011} is a model checker that
-provides an automated reachability analysis for linear hybrid
-automata with a soundness-critical core of about 100\,000 LOC.
-
-We focus on approaches that strive for a justification of the verification technique itself.
-Immler~\cite{DBLP:conf/tacas/Immler15} verifies a set-based reachability analysis for ODEs in Isabelle using his differential equations library~\cite{DBLP:conf/itp/ImmlerT16}.
-His use of Isabelle makes his analysis more trustworthy than SpaceEx, but it is currently less automated and, more fundamentally, lacks the expressiveness and scalability of \dL.
-%
-V\"{o}lker~\cite{Volker:2000} defines the semantics of hybrid automata in Isabelle, but no verification techniques.
-\'{A}brah\'{a}m-Mumm et al.\
-formalized in PVS~\cite{Mumm+Steffen+Hannemann:iceccs:2001} an
-automaton-based approach similar to timed automata. 
-They implement Floyd's inductive assertion reasoning method.
-However, they only check invariants when transitioning between discrete states, as opposed to our differential invariants which hold continuously.
-Furthermore, they only support continuous dynamics given as explicit solutions.
-Thus they cannot reason by differential invariant, nor can they express systems whose solutions only exist for finite time.
-%
-StarL~\cite{Lin+Mitra:lctrts:2015} is a framework for programming and simulating Android applications that control robots.
-It uses a formalization of timed automata and has a discrete model of space in order to verify distributed applications.
-%
-Anand and Knepper~\cite{Anand+Knepper:itp:2015} develop the framework ROSCoq based on the Logic of Events for reasoning about distributed CPS in Coq with constructive reals and generating verified controllers.
-However, they provide limited support for reasoning about derivatives, requiring extensive manual proofs by the user.
-%
-VeriDrone by Ricketts et al.~\cite{Ricketts:memcode:2015} is a
-framework for verifying hybrid systems in Coq that relies on a
-discrete-time temporal logic called RTLA, inspired by
-TLA~\cite{Lamport:hybrid:1992}.
-%
-They prove an analog of DI, but not the other ODE axioms.
-They use a combination of a deep and shallow embedding, allowing
-arbitrary Coq propositions to be embedded directly into RTLA.
-Their embedding reuses Coq's notion of substitution instead of defining its own.
-An advantage of uniform substitution is its generality: we can introduce new variable dependencies if they do not clash,
-which is necessary for most proof steps.
-For example, the V axiom $(p() \limply \dbox{a}{p()})$ can immediately be instantiated to $x=0 \limply \dbox{\D{y}=1}{x=0}$ 
-because $\boundvars{\D{y}=1} \cap \freevars{x=0} = \emptyset$, introducing dependencies on $x$ and $y$ and $\D{y}$.
-The permitted syntactic occurrence patterns for uniform substitutions are easily decidable, thereby enabling automatic clash detection and sound generalizations of axiom shapes.
-That needs the syntactic exposition of a deep embedding, though.
-
 \section{Definite Descriptions in dL}
 % sec:isabelle-fml
 \label{sec:definite-description}
@@ -812,26 +872,6 @@ Yet requirement \label{item:open-ended} is satisfied: the sensors and actuators 
 It is not unrealistic to suggest that one day, we could verify sensors and actuators against these specifications in HOL4, at least given some weaker assumptions.
 
 \subsection{Related Work}
-\paragraph{CPS Verification.}
-Differential dynamic logic~\cite{DBLP:journals/jar/Platzer08,DBLP:conf/lics/Platzer12a}, as implemented in \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}, has been successfully applied in a number of case studies~\cite{DBLP:conf/cade/Platzer16}.
-Soundness of its core calculus~\cite{DBLP:journals/jar/Platzer17} has been cross-verified in \Isabelle and Coq~\cite{DBLP:conf/cpp/BohrerRVVP17}, which this work extended to a verified proof-term checker in \Isabelle.
-
-General-purpose logics have also been used for CPS proofs.
-ROSCoq~\cite{DBLP:conf/itp/AnandK15} and VeriDrone~\cite{DBLP:conf/cpsweek/MalechaRAL16} allow CPS specification, implementation, verification, and code generation in Coq.
-However, they do not synthesize and automatically verify monitors nor is their machine code verified.
-
-We provide greater automation: the user need only verify the source model and can exploit \KeYmaeraX automation.
-On the other hand, Coq provides ROSCoq and VeriDrone with greater freedom in models and verified controllers, which \VeriPhy has only in the untrusted controller.
-
-Hybrid model checking~\cite{DBLP:conf/cav/FrehseGDCRLRGDM11,DBLP:conf/cav/ChenAS13,DBLP:conf/tacas/DuggiralaMVP15} typically has a large trusted base and sacrifices expressiveness to increase automation, being restricted, e.g., to linear differential equations, bounded-time safety, or bounded state-space verification.
-
-\paragraph{Toolchains.}
-High-Assurance SPIRAL \cite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17} translates ModelPlex monitors to x64 machine code.
-Its verification is not end-to-end: because it only treats hybrid systems syntactically, it cannot verify across semantic gaps, e.g., in interval arithmetic and compilation.
-Its optimizer employs features such as SIMD instructions that would make verified compilation especially challenging.
-%
-Ivory \cite{DBLP:conf/haskell/ElliottPWHBSSL15} and Tower \cite{DBLP:conf/plpv/PikeHBEDL14} are used to ensure high-assurance embedded software is memory safe, but do not verify the functional correctness of cyber nor physical behavior.
-
 \paragraph{Verified Compilation.}
 We use the CakeML~\cite{DBLP:conf/icfp/TanMKFON16} verified ML compiler and its associated verification tools~\cite{DBLP:conf/icfp/MyreenO12,DBLP:conf/esop/GueneauMKN17}.
 CakeML is higher-level than other languages such as Clight with verified compilers such as floating-point CompCert~\cite{DBLP:conf/arith/BoldoJLM13}.
@@ -1060,52 +1100,6 @@ Because it was not until this chapter that a completely formal link between \dL 
 Related work in formal methods and robotics has applied synthesis and verification to safe control of robotic systems.
 The present work is unique among these in its use of a verified-safe sandbox controller to enforce compliance between the implementation and formal model for a realistic robot simulation with an expressive correctness guarantee.
 
-\subsubsection{Synthesis for Planning and Control}
-A significant focus of related work is the synthesis of motion plans from high-level specifications.
-These works can be fruitfully combined with ours, providing a high-level plan to be followed, but none of them address correctness of low-level controllers that implement the plan, and all trust the correctness of their kinematic models:
-\begin{itemize}
-\item The tools LTLMoP~\cite{DBLP:conf/iros/FinucaneJK10} and TuLiP~\cite{DBLP:conf/IEEEcca/FilippidisDLOM16} can synthesize robot controls that satisfy a high-level temporal logic specification.
-However, they depend on accuracy of their kinematic models, which assume  discrete-space and discrete-time, and the guarantees are not end-to-end.
-\item Bisimulation~\cite{871304} is used to synthesize plans based on hybrid dynamics~\cite{DBLP:conf/cdc/BhatiaKV10,DBLP:journals/automatica/FainekosGKP09}, but assumes model compliance and cannot ensure low-level controller correctness.
-\item Controllers have been synthesized:
-\begin{inparaenum}[\it i)]
-\item from temporal logic specifications for linear systems~\cite{DBLP:journals/tac/KloetzerB08},
-\item for adaptive cruise control~\cite{DBLP:journals/tcst/NilssonHBCAGOPT16}, tested in simulation and on hardware, and
-\item from safety proofs~\cite{DBLP:conf/emsoft/TalyT10} for switched systems using templates,
-\end{inparaenum}
-but those works assume model compliance and cannot ensure low-level controller correctness.
-\end{itemize}
-
-\subsubsection{Offline Verification for Planning and Control}
-In contrast to online synthesis of a correct plan and/or controller, offline verification shows correctness before the fact, which is often more tractable and eases incorporation of custom controllers.
-Much of the verification in robotics focuses on hybrid systems models;
-common approaches are reachability analysis~\cite{DBLP:conf/cav/FrehseGDCRLRGDM11} and theorem proving~\cite{DBLP:conf/cade/FultonMQVP15}.
-\begin{itemize}
-\item 1D straight-line motion was addressed both in \dL (for direct velocity control)~\cite{DBLP:conf/pldi/BohrerTMMP18} and with reachability analysis~\cite{chen2015benchmark},
- but the 2D motion demanded by real robots introduces novel modeling, verification, and implementation challenges: our invariants and controllers must account for curved motion, acceleration, and uncertain sensing and actuation.
-\item
- Unbounded-time 2D obstacle avoidance and 1D liveness have also been proved in \dL~\cite{DBLP:conf/rss/MitschGP13,DBLP:journals/ijrr/MitschGVP17}.
-A paper proof of liveness using \dL rules assumed perfect sensing and constant speed \cite{DBLP:journals/corr/abs-1709-02561}.
- Their controllers, like ours, are closely related to the classic Dynamic-Window~\cite{DBLP:journals/ram/FoxBT97} control algorithm.
- In contrast to the prior \dL effort, we offer stronger results, including 2D liveness, waypoint-following, and end-to-end correctness.
-\item
-  A planner for ground vehicles was verified~\cite{DBLP:conf/atva/RizaldiISA18} in Isabelle/HOL.
-  Unlike our work, it does not address low-level control and implementation correctness.%, but could be used to provide an input plan.
-\end{itemize}
-%  We provide a simpler model which enabled LEEV of our implementations with \VeriPhy, whereas the model of~\cite{DBLP:journals/ijrr/MitschGVP17} is too restrictive (i.e., the synthesized monitor would always fail in practice).
-%\item Reachability is most-often used in design, but can also be used for model-predictive control~\cite{Bemporad2000PerformanceDR}.
-%Hybrid systems theorem-proving in \dL~\cite{DBLP:books/sp/Platzer18} with \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} is typically less automated, with unique advantages in system complexity (polynomial ODEs), property complexity (unbounded-time safety and liveness), and rigor (small\cite{DBLP:conf/cade/FultonMQVP15}, verified~\cite{DBLP:conf/cpp/BohrerRVVP17} trusted base).  Control strategies for ground vehicles are well-studied.
-%Reachability for liveness has been investigated~\cite{BEMPORAD2001382}.
-
-\subsubsection{Online Verification}
-In contrast to offline verification, online (or runtime) verification uses runtime checks to enforce safe operation.
-\begin{itemize}
-\item The basis of online verification is the SIMPLEX~\cite{Krogh1998TheSA} method, which uses a trusted monitor to decide between an untrusted controller and trusted fallback.
-\item The \VeriPhy~\cite{DBLP:conf/pldi/BohrerTMMP18} toolchain for \dL, which we use, extends SIMPLEX by ensuring the monitor is correct-by-construction, formally proving the safety of the resulting system, and automatically maintaining safety down to machine code implementation.
-High-Assurance SPIRAL~\cite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17} is another implementation toolchain for \dL, but does not provide formal end-to-end guarantees, and neither has been used to develop an end-to-end system capable of free-range 2D driving until now.
-\item Runtime reachability analysis has been used for car control~\cite{DBLP:journals/trob/AlthoffD14}, but relies on correctness of the model and of the analysis implementation.
-Since reachability tools rely on large, complicated codebases and models are challenging to get right, these assumptions present a correctness gap which stands in the way of an end-to-end argument.
-\end{itemize}
 
 \subsubsection{Simulation}
 Simulation is an essential part of evaluating models and designs for any robotic system.
@@ -1212,7 +1206,9 @@ This substantiates the claim that such proofs suffice for synthesis, and we posi
 %\textrm_{\alpha{Sys}}
 
 \section{Related Work}
-\newcommand{\semiset}[2]{\{#1~|~#2\}}
+\newcommand{\semiset}[2]{\{#1~|~#2\}} 
+First off, all previous logical explorations of hybrid games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} have explored only the classical case.
+
 \section{Syntax}
 The term language of \CdGL is that of \dL:
 \[\theta \bebecomes  q \alternative x \alternative \theta + \eta \alternative \theta \cdot \theta \alternative \der{\theta}\]
