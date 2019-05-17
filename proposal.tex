@@ -1107,11 +1107,17 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \label{ch:cdgl}
 {\Huge TODOs}:
 \begin{itemize}
-\item Decide whether to overload conjunctionlike, disjunctionlike proof terms or make distinct so typing will be unique
-\item Decide whether to reuse conjunction, disjunction as normal forms of loops vs.\ introduce roll and unroll operator, which would enable true NF theorem instead of WHNF
+\item Decide whether to overload conjunctionlike, disjunctionlike proof terms or make distinct so typing will be unique (leaning: Go for unicity, terms already mention state anyway)
+\item Decide whether to reuse conjunction, disjunction as normal forms of loops vs.\ introduce roll and unroll operator, which would enable true NF theorem instead of 
+WHNF
+%TODO': Could have <M,N>, [M,N], and (M,N) for the three conses, then {M,N} for arbitrary
 \item In general, investigate which structural properties, etc., hold. 
 Understand the consequences/dangers of proof rules which delete or substitute the context.
-\item Prove theorems and lemmas: Substitution, EP, DP, Progress+Preservation, WHNF, Soundness, Unicity (if true)
+This includes deciding treatment of fresh (program) variables.
+My current understanding is that we can rename the previous variable in the context, and that will just work (all structural rules admissible).
+Do all the proofs to be sure.
+The box repetition introduction rule and its proof term need to be updated though because they currently break substitution, as they assume a specific variable in the antecedent of the conclusion.
+\item Prove theorems and lemmas: Substitution, Renaming, EP, DP, Progress+Preservation, WHNF, Soundness, Unicity (if true)
 \end{itemize}
 
 
@@ -1833,12 +1839,8 @@ If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M
        In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
 \end{itemize}
 \end{lemma}
-However, there are reasons to be suspicious of the alternative rule.
-This use of renaming can make the theory a nightmare to get right, since a so-called ``state'' now incorporates an entire execution trace.
-Renaming the context should especially raise alarm bells, since $\vdash$ is no longer natural in $\Gamma$ and structural properties may start to fail.
-It is also unclear, for example, whether subject reduction will hold for arbitrary contexts, perhaps those containing functions.
-So I propose sticking with the former calculus and theorem, and this operational semantics is written assuming as such.
-
+This rule raises suspicions, because it requires renaming the whole context and possibly remembering the entire execution history.
+However, forall already requires this and forall seems to work, so I'd be okay with using this rule.
 %\newcommand{\eprojL}[1]{\pi_1{#1}}
 %\newcommand{\eprojR}[1]{\pi_2{#1}}
 %\newcommand{\econs}[2]{(#1,#2)}
@@ -1901,6 +1903,7 @@ If $\proves{\Gamma}{M}{\phi},$ then either $M$ is (weak-head) normal or $M \step
 \begin{lemma}[Preservation]
 If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
 \end{lemma}
+%TODO': Need to fix loop induction because substitution lemma fails
 
 \begin{lemma}[Normal Form Existence]
 \label{lem:normal-exists}
