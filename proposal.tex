@@ -1423,7 +1423,7 @@ The game semantics are given by:
 It is unclear what semantics would serve us best in the cases $\strategyfor[\prepeat{\alpha}]{X}$ and $\dstrategyfor[\prepeat{\alpha}]{X}$: while fixpoint constructions are widely used in constructive mathematics, fixpoint semantics do not make the termination conditions for a loop explicit.
 They might even admit the existence of loops which require undecidable termination conditions.
 
-\subsection{Real Constructive Games, Realizability}
+\subsection{Real Constructive Games, Two Realizers}
 \newcommand{\rzF}[2]{#1 \vdash #2}
 \newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
 \newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
@@ -1532,6 +1532,57 @@ Then a formula $\phi$ is called \emph{valid} if for every state $\om,$ there exi
 Both the realizability and Kripke semantics might be of use in the final presentation.
 If both are used, we should prove them equivalent, which we expect to be the case because even our Kripke semantics holds only when strategies are computable.
 If we adopt a relaxed Kripke semantics with uncomputable strategies, we would then show that the realizability semantics prove a strict subset of the Kripke-valid formulas.
+
+\subsection{Real Constructive Games, One Realizer}
+\newcommand*{\strategyforR}[3][]{\varsigma_{#1}^{#2}(#3)}
+\newcommand*{\dstrategyforR}[3][]{\delta_{#1}^{#2}(#3)}
+The semantics given here can be thought of as the ``halfway-point'' between fully Kripke-style or fully realizability-style semantics.
+Instead of giving explicit realizers for both players' strategies, we give a realizer just for the Angel player, and quantify over Demon's decisions locally.
+The benefits of this presentation are that it's clear Demon's strategy is being treated extensionally, i.e., Angel's strategy never gets to inspect Demon's strategy, and Angel's strategy works even if Demon employs uncomputable trickery.
+The local treatment may also simplify soundness proofs and certainly simplifies notation a bit.
+
+Now $\strategyforR[\alpha]{\aa}{X}$ is the winning region from which Angel will reach goal region $X$ by following strategy $\aa$, while 
+$\dstrategyforR[\alpha]{\aa}{X}$ is the winning region from which Demon will reach goal region $X$ assuming \emph{Angel} follows $\aa$.
+\begin{align*}
+\strategyforR[\ptest{\phi}]{\aa}{X}           &= \fint{\phi}{} \cap X &&\text{}\\ 
+\strategyforR[\humod{x}{\theta}]{\aa}{X} &=  \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}&&\text{}\\ 
+\strategyforR[\prandom{x}]{\aa}{X}         &=  \{\om~|~\subst[\om]{x}{\aa(\om)} \in X\}&&\text{}\\ 
+\strategyforR[\alpha;\beta]{\aa}{X}          &= \strategyforR[\alpha]{\rzFst{\aa}}{\strategyforR[\beta]{\rzSnd{\aa}}{X}} &&\text{}\\ 
+\strategyforR[\alpha\cup\beta]{\aa}{X}     &= \strategyforR[\alpha]{\rzSnd{\aa}}{X} \cup_{\rzFst{\aa}} \strategyforR[\beta]{\rzSnd{\aa}}{X}&&\text{}\\ 
+\strategyforR[\prepeat{\alpha}]{\aa}{X}   &=  \bigcap\{Z\subseteq S~|~X \cup_{\rzFst{\aa}} \strategyforR[\alpha]{\rzSnd{\aa}Z} \subseteq Z\}&&\text{}\\ 
+\strategyforR[\pdual{\alpha}]{\aa}{X}      &=  \dstrategyforR[\alpha]{\aa}{X}&&\text{}\\ 
+\dstrategyforR[\ptest{\phi}]{\aa}{X}           &= \fint{\phi}{}^\complement \cup X &&\text{}\\ 
+\dstrategyforR[\humod{x}{\theta}]{\aa}{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\} &&\text{}\\ 
+\dstrategyforR[\prandom{x}]{\aa}{X}         &= \{\om~|~\subst[\om]{x}{r} \in X\}&&\text{ for all }r \in \reals\\ 
+\dstrategyforR[\alpha;\beta]{\aa}{X}          &= \dstrategyforR[\alpha]{\rzFst{\aa}}{\dstrategyforR[\beta]{\rzSnd{\aa}}{X}} &&\text{}\\ 
+\dstrategyforR[\alpha\cup\beta]{\aa}{X}     &= \dstrategyforR[\alpha]{\rzFst{\aa}}{X} \cap \dstrategyforR[\beta]{\rzSnd{\aa}}{X}&&\text{}\\ 
+\dstrategyforR[\pdual{\alpha}]{\aa}{X}      &= \strategyforR[\alpha]{\aa}{X}&&\text{}\\ 
+\dstrategyforR[\prepeat{\alpha}]{\aa}{X}   &= \bigcup\{Z\subseteq S~|~Z \subseteq X \cap \dstrategyforR[\alpha]{\aa}{Z}\}&&\text{}
+\end{align*}
+where $A \cup_\aa B \equiv \{\om~|~ (\aa(\om)=0\text{ and } \om \in A) \text{ or }(\aa(\om)=1\text{ and } \om \in B)\}$ should be understood as a constructive union of $A \cup B$ where the realizer function $\aa$ is used to decide whether element $\om$ should seek membership in A vs B.
+In $\strategyforR[\alpha;\beta]{\aa}{X}$ (and $\dstrategyforR[\alpha;\beta]{\aa}{X}$), distinct strategies $\rzFst{\aa}$ and $\rzSnd{\aa}$ may be used for $\alpha$ and $\beta$.
+In $\strategyforR[\alpha\cup\beta]{\aa}{X},$ the realizer $\rzFst{\aa}$ is used to decide whether to play $\alpha$ or $\beta$, then the remaining strategy $\rzSnd{\aa}$ is used to play the remaining game.
+It need not be different strategies for $\alpha$ vs.\ $\beta$ since $\rzSnd{\aa}$ could just invoke $\rzFst{\aa}$ to decide which branch had been taken.
+In $\strategyforR[\prepeat{\alpha}]{\aa}{X},$ the realizer $\rzFst{\aa}$ is used to decide whether to terminate the loop, then $\rzSnd{\aa}$ is used to play the loop body.
+Not every syntactically valid strategy is sensible.
+We only consider a strategy to be well-formed if every $A \cup_\aa B$ satisifies the side conditions that $\aa(\om)=0$ implies $\om \in A$ and $\aa(\om)=1$ for all $\om$. 
+Because $\aa$ must be computable, this will also require that $A$ and $B$ are either separated by some distance $\epsilon > 0$ or when they overlap, always overlap by some distance $\epsilon > 0,$ i.e., they never meet exactly at a point.
+In the case $\dstrategyforR[\prepeat{\alpha}]{\aa}{X},$ a strategy is additionally only well-formed if it is ``well-founded,'' meaning it will lead the loop to terminate.
+Specifically, $\aa$ is well-founded (with respect to $X$ and $\alpha$) if there is a computable termination metric $\mathcal{M}$ such that $a(\om) = \mathcal{M}=0$ on $\om \in X$ and $\sup_{\om \in Y}\mathcal{M}(\om) < \sup{\om \in \dstrategyforR[\alpha]{\aa}{Y}}$ for all $Y$, where $<$ is the ordering on the metric.
+Given the nature of computable union, it is worth noting that this loop semantics does not always stop as early as possible: if we have just barely entered the edge of the goal region, the strategy might detect this as being outside the union, in which case we repeat the loop and then enter further into the goal region, which ought to terminate the loop, just one step too late.
+
+Then the semantics for $\dbox{\alpha}{\phi}$ and $\ddiamond{\alpha}{\phi}$ are defined as:
+\[\fint{\dbox{\alpha}{\phi}}{} = \bigcap_\aa \dstrategyforR[\alpha]{\aa}{\fint{\phi}{}}\]
+\[\fint{\ddiamond{\alpha}{\phi}}{} = \bigcup_\aa \strategyforR[\alpha]{\aa}{\fint{\phi}{}}\]
+The classical union over all $\aa$ is justified by the fact that there are countably many strategies and it's decidable whether a given strategy wins a given game, so if a winning strategy does exist, Angel would eventually find it by an exhaustive search. We never test for the absence of such a strategy, so it is of no concern that a search would loop in that case.
+
+%TODO: Constraint to just Y <=  [[Gamma]]
+
+
+In $\dstrategyforR[\ptest{\phi}]{\aa}{X},$ Angel can present us a proof of $\phi,$ and if so we win if we already in the goal region.
+The set complement in that case is classical: anywhere outside of $\fint{\phi}{},$ Angel would fail to present a proof.
+Unlike Angel, Demon is entitled to use uncomputable magic in its strategy, so $\dstrategyforR[\alpha\cup\beta]{\aa}{X}$ and $\dstrategyforR[\prepeat{\alpha}]{\aa}{X}$ use classical unions, not constructive unions.
+
 
 \subsection{Real Constructive Games, Implicit}
 The above realizability and Kripke semantics will most likely be adopted, but we present several alternatives as food for thought.
@@ -1643,6 +1694,7 @@ The assumptions in the context are named, so that they may be mentioned in proof
 \newcommand{\eQEneg}{QE_{neg}}
 \newcommand{\esplit}[1]{\textrm{split }#1}
 \newcommand{\easgn}[1]{{:=}\ #1}
+\newcommand{\easgneq}[3]{#1{:=}#2{:=}\ #1}
 \newcommand{\easgninv}[1]{({:=}^{-1}\ #1)}
 \newcommand{\eunpack}[2]{\textrm{unpack}(#1,x y.~#2)}
 \newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
@@ -1744,6 +1796,38 @@ It's useful for loops that follow one strategy first, then another strategy, and
 \[\infer{\proves{\G,x:\phi}{x}{\phi}}{}\]
 
 \section{Operational Semantics}
+The design of the operational semantics is intimately related to what normal forms we want.
+In the proposed calculus, normal forms are as follows:
+\begin{lemma}[Normal Form Characterization]
+\label{lem:normal-forms}
+If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is either:
+\begin{itemize}
+\item A case-redex that inspects the state, e.g. case on $\esplit{\epsilon}$
+\item Monotonicity, or
+\item An introduction rule for the outermost connective of $\phi$.
+       In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
+\end{itemize}
+\end{lemma}
+Perhaps it is surprising that monotonicity has to be a normal form.
+This is the case because the assignment rule cannot always be applied left-to-right, and monotoncity allows applying it right-to-left when needed.
+The alternative is to introduce a second equality rule which uses renaming:
+\[\infer{\proves{\G}{\easgneq{y}{x}{M}}{\dbox{\alpha}{\phi}}}
+          {\proves{\subst[\G]{x}{y},x=\subst[\theta]{x}{y}}{M}{\phi}}\]
+If this rule is introduced, we need not evaluate right-to-left, and so the theorem becomes:
+\begin{lemma}[Alternative Normal Form Characterization]
+\label{lem:normal-forms-alt}
+If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is either:
+\begin{itemize}
+\item A case-redex that inspects the state, e.g. case on $\esplit{\epsilon},$ or
+\item An introduction rule for the outermost connective of $\phi$.
+       In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
+\end{itemize}
+\end{lemma}
+However, there are reasons to be suspicious of the alternative rule.
+This use of renaming can make the theory a nightmare to get right, since a so-called ``state'' now incorporates an entire execution trace.
+Renaming the context should especially raise alarm bells, since $\vdash$ is no longer natural in $\Gamma$ and structural properties may start to fail.
+It is also unclear, for example, whether subject reduction will hold for arbitrary contexts, perhaps those containing functions.
+So I propose sticking with the former calculus and theorem, and this operational semantics is written assuming as such.
 
 \section{Theory Results}
 Once the calculus has been written and proved sound, we will prove standard theoretical results.
@@ -1762,11 +1846,11 @@ If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\ph
 If $\proves{\Gamma}{M}{\phi},$ there exists normal $N$ such that $\proves{\Gamma}{N}{\phi}$.
 \end{lemma}
 
-\begin{lemma}[Normal Form Characterization]
-\label{lem:normal-forms}
-If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is an introduction rule for the outermost connective of $\phi$.
-In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
-\end{lemma}
+%\begin{lemma}[Normal Form Characterization]
+%\label{lem:normal-forms}
+%If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is an introduction rule for the outermost connective of $\phi$.
+%In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
+%\end{lemma}
 
 \begin{lemma}[Term Existence Property]
 \label{lem:term-ep}
