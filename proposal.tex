@@ -1105,6 +1105,16 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 
 \chapter{Proposed Work: \CdGL: Constructive Differential Game Logic}
 \label{ch:cdgl}
+{\Huge TODOs}:
+\begin{itemize}
+\item Decide whether to overload conjunctionlike, disjunctionlike proof terms or make distinct so typing will be unique
+\item Decide whether to reuse conjunction, disjunction as normal forms of loops vs.\ introduce roll and unroll operator, which would enable true NF theorem instead of WHNF
+\item In general, investigate which structural properties, etc., hold. 
+Understand the consequences/dangers of proof rules which delete or substitute the context.
+\item Prove theorems and lemmas: Substitution, EP, DP, Progress+Preservation, WHNF, Soundness, Unicity (if true)
+\end{itemize}
+
+
 Throughout this thesis, end-to-end verification is conceived as the problem of placing the correctness of realistic CPS on the most rigorous, formal logical foundation possible.
 The logic we use to verify a CPS model (thus far, \dL) is then the centerpiece and our understanding of its foundations are of central importance.
 In \rref{ch:logical-foundations}, we started at the centerpiece and dug inward: we established a more rigorous foundation for \dL as it is used in practice in the theorem prover by building a formally verified prover core and by providing a unified foundation for the grabbag of features that arise in practice.
@@ -1655,7 +1665,6 @@ We give the semantics for programs:
   \pint{\prepeat{\alpha}} =& \bigcup_{n\in\mathbb{N}} \pint{\alpha}^n
 \end{align*}
 
-
 \section{Proof Calculus}
 \newcommand{\proves}[3]{#1 \vdash #2\mathop{:}#3}
 As usual when developing a new logic, we will develop a proof calculus for \CdGL and prove that the calculus is sound.
@@ -1689,17 +1698,17 @@ The assumptions in the context are named, so that they may be mentioned in proof
 \newcommand{\eseq}[1]{\iota~#1}
 \newcommand{\eseqinv}[1]{\iota~{#1}^{-1}}
 \newcommand{\eswap}[1]{\textrm{swap }#1}
-\newcommand{\emon}[2]{#1 \circ #2}
-\newcommand{\eQEpos}{QE_{pos}}
-\newcommand{\eQEneg}{QE_{neg}}
+\newcommand{\emon}[3]{#1 \circ_{#3} #2}
+\newcommand{\eQEpos}{\textrm{QE}_{pos}}
+\newcommand{\eQEneg}{\textrm{QE}_{neg}}
 \newcommand{\esplit}[1]{\textrm{split }#1}
 \newcommand{\easgn}[1]{{:=}\ #1}
 \newcommand{\easgneq}[3]{#1{:=}#2{:=}\ #1}
 \newcommand{\easgninv}[1]{({:=}^{-1}\ #1)}
 \newcommand{\eunpack}[2]{\textrm{unpack}(#1,x y.~#2)}
 \newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
-\newcommand{\eloopelim}[3]{(#1,{#2}^{#3})}
-\newcommand{\efp}[3]{FP(#1,#2,#3)}
+\newcommand{\eloopelim}[3]{(#1,x.~{#2}^{#3})}
+\newcommand{\efp}[3]{\textit{FP}(#1,x.~#2,y.~#3)}
 \newcommand{\G}{\Gamma}
 
 \[\infer{\proves{\G}{\ewhile{\mathcal{M}}{N}}{\ddiamond{\prepeat{\alpha}}{\phi}}}
@@ -1715,9 +1724,10 @@ The sum metric is the natural metric on disjoint sums.
 It's useful for loops that follow one strategy first, then another strategy, and can replaced by $\ddiamond{\prepeat{\alpha}}{\phi} \lequiv \ddiamond{\prepeat{\alpha}}{\ddiamond{\prepeat{\alpha}}{\phi}}$.
 \[\infer{\proves{\G}{\eloopelim{M}{N}{k}}{p(k)}}
         {\proves{\G}{M}{\dbox{\prepeat{\alpha}}{p(0)}}
-        &\proves{p(k)}{N}{\dbox{\alpha}{p(k+1)}}}\]
+        &\proves{x:p(k)}{N}{\dbox{\alpha}{p(k+1)}}}\]
 \[\infer{\proves{\G}{\efp{A}{B}{C}}{\psi}}
-        {\proves{\G}{A}{\ddiamond{\prepeat{\alpha}}{\phi}} & \proves{\phi}{B}{\psi} & \proves{\ddiamond{\alpha}{\psi}}{C}{\psi}}\]
+        {\proves{\G}{A}{\ddiamond{\prepeat{\alpha}}{\phi}} 
+        &\proves{x:\phi}{B}{\psi} & \proves{y:\ddiamond{\alpha}{\psi}}{C}{\psi}}\]
 \[\infer{\proves{\G}{\elam{\reals}{M}}{\dbox{\prandom{x}}{\phi}}}
         {\proves{\G_x^*}{M}{\phi}}\]
 \[\infer{\proves{\G}{\eapp{M}{\theta}}{\subst[\phi]{x}{\theta}}}
@@ -1740,9 +1750,9 @@ It's useful for loops that follow one strategy first, then another strategy, and
         {\proves{\G}{M}{\dbox{\prepeat{\alpha}}{\phi}}}\]
 \[\infer{\proves{\G}{\eprojR{M}}{\dbox{\alpha}{\dbox{\prepeat{\alpha}}{\phi}}}}
         {\proves{\G}{M}{\dbox{\prepeat{\alpha}}{\phi}}}\]
-\[\infer{\proves{\G}{\easgn{M}}{\dbox{\humod{x}{\theta}}{\phi}}}
+\[\infer{\proves{\G}{(\easgn{M})}{\dbox{\humod{x}{\theta}}{\phi}}}
         {\proves{\G}{M}{\subst[\phi]{x}{\theta}}}\]
-\[\infer{\proves{\G}{\easgn{M}}{\ddiamond{\humod{x}{\theta}}}}
+\[\infer{\proves{\G}{(\easgn{M})}{\ddiamond{\humod{x}{\theta}}}}
         {\proves{\G}{M}{\subst[\phi]{x}{\theta}}}\]
 \[\infer{\proves{\G}{\easgninv{M}}{\subst[\phi]{x}{\theta}}}
         {\proves{\G}{M}{\dbox{\humod{x}{\theta}}{\phi}}}\]
@@ -1773,8 +1783,8 @@ It's useful for loops that follow one strategy first, then another strategy, and
         &\proves{\G}{N}{\phi}}\]
 \[\infer{\proves{\G}{\elam{\phi}{M}}{\dbox{\ptest{\phi}}{\psi}}}
         {\proves{\G,x:\phi}{M}{\psi}}\]
-\[\infer{\proves{J}{\erep{M}}{\dbox{\prepeat{\alpha}}{J}}}
-        {\proves{J}{M}{\dbox{\alpha}{J}}}\]
+\[\infer{\proves{x:J}{\erep{M}}{\dbox{\prepeat{\alpha}}{J}}}
+        {\proves{x:J}{M}{\dbox{\alpha}{J}}}\]
 \[\infer{\proves{\G}{\eseq{M}}{\dbox{\alpha;~\beta}{\phi}}}
         {\proves{\G}{M}{\dbox{\alpha}{\dbox{\beta}{\phi}}}}\]
 \[\infer{\proves{\G}{\eseq{M}}{\ddiamond{\alpha;~\beta}{\phi}}}
@@ -1787,8 +1797,8 @@ It's useful for loops that follow one strategy first, then another strategy, and
         {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}\]
 \[\infer{\proves{\G}{\eswap{M}}{\ddiamond{\pdual{\alpha}}{\phi}}}
         {\proves{\G}{M}{\dbox{\alpha}{\phi}}}\]
-\[\infer{\proves{\G}{\emon{M}{N}}{\ddiamond{\alpha}{\psi}}}
-        {\proves{\G}{M}{\ddiamond{\alpha}{\phi}} & \proves{\phi}{N}{\psi}}\]
+\[\infer{\proves{\G}{\emon{M}{N}{x}}{\ddiamond{\alpha}{\psi}}}
+        {\proves{\G}{M}{\ddiamond{\alpha}{\phi}} & \proves{x:\phi}{N}{\psi}}\]
 \[\infer{\proves{\G}{\eQEpos}{\phi}}{\text{($\phi$ is positive)}}\]
 \[\infer{\proves{\G}{\eQEneg}{\phi}}{\text{($\phi$ is negative)}}\]
 \[\infer{\proves{\G}{\esplit{M}}{\theta > \eta \lor \theta < \eta + \epsilon}}
@@ -1829,12 +1839,63 @@ Renaming the context should especially raise alarm bells, since $\vdash$ is no l
 It is also unclear, for example, whether subject reduction will hold for arbitrary contexts, perhaps those containing functions.
 So I propose sticking with the former calculus and theorem, and this operational semantics is written assuming as such.
 
+%\newcommand{\eprojL}[1]{\pi_1{#1}}
+%\newcommand{\eprojR}[1]{\pi_2{#1}}
+%\newcommand{\econs}[2]{(#1,#2)}
+%\newcommand{\etcons}[2]{(#1~|~#2)}
+%\newcommand{\erep}[1]{\textrm{rep }#1}
+%\newcommand{\eapp}[2]{#1\ #2}
+%\newcommand{\elam}[2]{\lambda x:#1.~ #2}
+%\newcommand{\eseq}[1]{\iota~#1}
+%\newcommand{\eseqinv}[1]{\iota~{#1}^{-1}}
+%\newcommand{\eswap}[1]{\textrm{swap }#1}
+%\newcommand{\emon}[2]{#1 \circ #2}
+%\newcommand{\esplit}[1]{\textrm{split }#1}
+%\newcommand{\easgn}[1]{{:=}\ #1}
+%\newcommand{\easgneq}[3]{#1{:=}#2{:=}\ #1}
+%\newcommand{\easgninv}[1]{({:=}^{-1}\ #1)}
+%\newcommand{\eunpack}[2]{\textrm{unpack}(#1,x y.~#2)}
+%\newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
+%\newcommand{\eloopelim}[3]{(#1,{#2}^{#3})}
+%\newcommand{\efp}[3]{\textit{FP}(#1,#2,#3)}
+%\newcommand{\einjL}[1]{\ell \cdot #1}
+%\newcommand{\einjR}[1]{r \cdot #1}
+%\newcommand{\ecase}[3]{\textrm{case }#1\textrm{ of }\ell.~#2~|~r.~#3}
+%\newcommand{\eQEpos}{QE_{pos}}
+%\newcommand{\eQEneg}{QE_{neg}}
+
+\newcommand{\esub}[3]{[#3/#2]#1}
+We give the reduction rules for proof terms:
+\begin{align*}
+\eapp{\elam{P}{M}}{N} &\stepsto \esub{N}{x}{M}\\
+\eapp{\elam{\reals}{M}}{\theta} &\stepsto \esub{\theta}{x}{M}\\
+\eprojL{(M,N)} &\stepsto M\\
+\eprojR{(M,N)} &\stepsto N\\
+\eunpack{\etcons{\theta}{M}}{N} &\stepsto \esub{N}{x,y}{\theta,M}\\
+\ecase{\einjL{A}}{B}{C} &\stepsto \esub{B}{\ell}{A}\\
+\ecase{\einjR{A}}{B}{C} &\stepsto \esub{C}{r}{A}\\
+\easgn{\easgninv{M}} &\stepsto M\\
+\easgninv{\easgn{M}} &\stepsto M\\
+\eseq{(\eseqinv{M})} &\stepsto M\\
+\eseqinv{(\eseq{M})} &\stepsto M\\
+\eQEpos{\lforall{x}{\phi}} &\stepsto \elam{x:\reals}{\eQEneg{\phi}}\\
+\eQEpos{\phi \land \psi} &\stepsto \econs{\eQEpos{\phi}}{\eQEpos{\psi}}\\
+\eQEneg{\phi \lor \psi} &\stepsto \einjL{\eQEneg{\phi}} \text{ if $\phi$ valid}\\
+\eQEneg{\phi \lor \psi} &\stepsto \einjR{\eQEneg{\psi}} \text{ if only $\psi$ valid}\\
+\eQEneg{\lexists{x}{\phi}} &\stepsto \etcons{\theta}{\esub{\phi}{x}{\theta}} \text{ for satisfying instance }\theta\\
+\erep{M} &\stepsto \econs{M}{\erep{M}}\\
+\efp{\einjL{M}}{B}{C} &\stepsto \esub{B}{x}{M}\\
+\efp{\einjR{M}}{B}{C} &\stepsto \esub{C}{y}{\emon{M}{\efp{x}{B}{C}}{x}}\\
+\eloopelim{\econs{A}{B}}{N}{0} &\stepsto A\\
+\eloopelim{M}{N}{k+1} &\stepsto \esub{N}{x}{\eloopelim{M}{N}{k}}
+\end{align*}
+
 \section{Theory Results}
 Once the calculus has been written and proved sound, we will prove standard theoretical results.
 We list the results here and remark how they inform the design of the proof term language.
 
 \begin{lemma}[Progress]
-If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
+If $\proves{\Gamma}{M}{\phi},$ then either $M$ is (weak-head) normal or $M \stepsto N$ for some $N$.
 \end{lemma}
 
 \begin{lemma}[Preservation]
@@ -1941,7 +2002,7 @@ When $\phi$ is QE-positive and valid, we know $\phi(x)$ and each of its conjunct
 A contentless proof term then suffices as a witness.
 
 We note another decidable fragment, which we call \emph{QE-negative}.
-We say a formula $\phi$ is \emph{QE-negative} if all variables are existentially quantifier, and under the quantifiers there are  only disjunctions of comparisons.
+We say a formula $\phi$ is \emph{QE-negative} if all variables are existentially quantified, and under the quantifiers there are  only disjunctions of comparisons.
 \[\infer[QE-Neg]{\phi}{*}\] with the side condition that $\phi$ is  QE-negative and classically valid.
 Unlike the QE-positive fragment, the QE-negative fragment has interesting computational content which can be consumed: a proof of $\phi$ consists of a satisfying assignment and a proof that it indeed satisifies some given disjunct.
 Fortunately, this content can be constructed automatically.
@@ -2080,12 +2141,6 @@ Total time: 13 months
 
 \appendix
 
-\section{More todos}
-{\Huge TODOs} (in order to figure out best semantics to make EP true):
-\begin{itemize}
-\item Read References from Fischer-Servi (intuitionistic-base.pdf)
-\item Contemplate disjunctive property
-\end{itemize}
 
 \backmatter
 
