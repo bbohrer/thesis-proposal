@@ -1379,67 +1379,6 @@ We present several semantics here, since the remaining tasks (proof term semanti
 \newcommand{\allcon}{\allregion}
 \newcommand{\somesemi}[2]{\epsilon #1~|~#2}
 
-\subsection{Intuitionistic Kripke Semantics with Computability}
-Kripke semantics can be generalized to the intuitionistic setting.
-In intuitionistic Kripke semantics, the world is typically understood epistemically, i.e., the semantics are not parameterized over the world as it is, simply what is known about the world.
-We can then understand an epistemic state as a region $Y \subseteq \allstate$ over \emph{actual} states: to know $Y$ is to know that we are in one of the states $\omega \in Y$.
-Thus to know $\allstate$ is to know nothing and to know $\emptyset$ is to know a contradiction (has been reached). 
-
-Given this understanding, we reach a semantics with much a similar flavor to the classical Kripke semantics.
-The formula semantics $\fint{\phi}{}$ is no longer read as the region on which $\phi$ is true, but the the (unique) largest region from which Angel has a strategy to prove $\phi$.
-\newcommand{\mto}{\rightharpoonup}
-\begin{align*}
-  \fint{\theta > \eta}{}         &= \{\om~|~\tint{\theta}{\om} > \tint{\eta}{\om}\}\\
-  \fint{\phi \land \psi}{}       &= \fint{\phi}{} \cap \fint{\psi}{}\\
-  \fint{\phi \lor \psi}{}        &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0, f(\nu)=1, \om\in A, \nu \in B, A \subseteq \fint{\phi}{}, B \subseteq\fint{\psi}{}\}\\
-  \fint{\phi \limply \psi}{}     &= \bigcup\{Z \subseteq \allstate ~|~ Z\subseteq\fint{\phi}{}\text{ implies }Z\subseteq\fint{\psi}{}\}\\
-  \fint{\forall{x}{\phi}}{}      &= \{\om~|~\subst[\om]{x}{r}\in\fint{\phi}{}, \text{ all }r\in\reals\}\\
-  \fint{\exists{x}{\phi}}{}      &= \{\om~|~\subst[\om]{x}{f(\om)}\in\fint{\phi},\text{ some }f:\allstate\mto \reals\}\\
-  \fint{\bot}{}                  &= \emptyset  \\
-  \fint{\ddiamond{\alpha}{\phi}} &= \strategyfor[\alpha]{\fint{\phi}{}}\\
-  \fint{\dbox{\alpha}{\phi}}     &= \dstrategyfor[\alpha]{\fint{\phi}{}}
-\end{align*}
-Where $A \mto B$ is the set of computable multi-valued functions from A to B.
-We use multi-valued functions rather than typical single-valued functions since they better capture the reasoning which is possible with computable reals:
-\begin{inparaenum}
-\item The approximate splitting principle used for case analysis on reals will need multivalued functions for most proofs.
-\item Multivalued functions support nondeterminism in strategies that single-valued functions do not.
-This is useful for example if we ever wish to synthesize a randomized implementation.
-\end{inparaenum}
-
-For each construct that requires a choice, the semantics expect the existence of a computable function that resolves the choice.
-Most often, intuitionistsic Kripke logics do not explicitly require the existence of such a computable function (but, as a metatheorem, they often exist).
-This is a legitimate choice in our case as well, but it would have the symptom that any proof calculus and any proof-theoretic semantics would be incomplete with respect to the intuitionistic semantics.
-We can also phrase the choice in philosophical terms: should a strategy which uses classical reasoning be consider a strategy at all?
-Should a game even be considered winnable when it is only won with a classical strategy?
-
-
-%, while $A \to B$ is the set of all computable functions from A to B, and where term semantics are as before.
-%In both cases we treat the output as a scalar (i.e. we just assume the interpretation of the multi-valued function is not unique).
-%Because even constructive set theories support a collection axiom that converts a multi-valued function to proper function, they can be used more-or-less interchangeably.
-
-
-The game semantics are given by:
-\begin{align*}
-  \strategyfor[\ptest{\phi}]{X}      &= \fint{\phi}{} \cup X\\
-  \strategyfor[\humod{x}{\theta}]{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
-  \strategyfor[\prandom{x}]{X}       &= \{\om~|~\subst[\om]{x}{f(\om)} \in X, \text{ some }f:\allstate\mto\reals\}\\
-  \strategyfor[\alpha;~\beta]{X}     &= \strategyfor[\alpha]{\strategyfor[\beta]{X}}\\
-  \strategyfor[\alpha\cup\beta]{X}   &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0,f(\nu)=1,\om\in A, \nu \in B, A \subseteq\strategyfor[\alpha]{X}, B \subseteq\strategyfor[\beta]{X}\}\\
-  \strategyfor[\pdual{\alpha}]{X}    &= \dstrategyfor[\alpha]{X}\\
-  \strategyfor[\prepeat{\alpha}]{X}  &= \bigcap\{Z\subseteq\allstate~|~X\cup\strategyfor[\alpha]{Z} \subseteq Z\}\\
-  \dstrategyfor[\ptest{\phi}]{X}      &= \fint{\phi}{}^C \cup X\\
-  \dstrategyfor[\humod{x}{\theta}]{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
-  \dstrategyfor[\prandom{x}]{X}       &= \{\om~|~\subst[\om]{x}{r} \in X, \text{ all }r:\reals\}\\
-  \dstrategyfor[\alpha;~\beta]{X}     &= \dstrategyfor[\alpha]{\dstrategyfor[\beta]{X}}\\
-  \dstrategyfor[\alpha\cup\beta]{X}   &= \dstrategyfor[\alpha]{X} \cap \dstrategyfor[\beta]{X}\\
-  \dstrategyfor[\pdual{\alpha}]{X}    &= \strategyfor[\alpha]{X}\\
-  \dstrategyfor[\prepeat{\alpha}]{X}  &= \bigcup\{Z\subseteq\allstate~|~Z\subseteq X\cap \dstrategyfor[\alpha]{Z}\}
-\end{align*}
-It is unclear what semantics would serve us best in the cases $\strategyfor[\prepeat{\alpha}]{X}$ and $\dstrategyfor[\prepeat{\alpha}]{X}$: while fixpoint constructions are widely used in constructive mathematics, fixpoint semantics do not make the termination conditions for a loop explicit.
-They might even admit the existence of loops which require undecidable termination conditions.
-
-\subsection{Real Constructive Games, Two Realizers}
 \newcommand{\rzF}[2]{#1 \vdash #2}
 \newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
 \newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
@@ -1458,96 +1397,6 @@ They might even admit the existence of loops which require undecidable terminati
 \newcommand{\db}{D}
 \newcommand{\dc}{\delta}
 \newcommand{\allRz}{\mathcal{R}\mathbf{z}}
-Of the possible semantics, Kripke semantics are abstract: truth of a formula implies the existence of a winning strategy, but the strategy does not appear explicitly in the semantics.
-Realizability semantics targets a lower level of abstraction: the semantics is parameterized by computable \emph{realizer} functions which implement strategies for Angel and Demon, respectively.
-Because realizer semantics are low level, they are less desirable as our fundamental definition of truth, but could be a useful middle step between a completely concrete proof-theoretic semantics and an abstract Kripke semantics.
-The realizability semantics consists of three main judgments:
-Realizability of a formula $\rzF{\sa,\aa,\da}{\phi}$ holds when the formula $\phi$ is realized by the Angel strategy $\aa$ and Demon strategy $\da$ when starting from state $\sa$.
-The Angel realizability judgement $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ says that after running $\alpha$ from initial state $\sa$ under control of Angel strategy $\aa$ and Demon strategy $\da,$ we will reach state $\sb$ with realizers $\ab$ and $\db$.
-The counterpart for Demon is written $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$.
-Note that both judgements are written in functional syntax and can be thought of as (partial) functions, because $\sb,\ab,\db$ are always unique.
-While hybrid games are themselves highly nondeterministic, the realizers resolve all nondeterminism.
-
-We write $\allRz$ for the set of all realizers.
-Per standard practice, realizers are coinductively defined and are untyped, and we do not specify a concrete internal representation.
-When a realizer $\aa$ is a coinductive pair, we write $\rzFst{\aa}$ for its first component and $\rzSnd{\aa}$ for its second component.
-When a realizer $\aa$ is a function (specifically $A \to \allRz$ for some base type $A$), we write $\rzApp{\aa}{x}$ for the component assigned to some $x:A$.
-We implicitly assume throughout that realizers have the right ``type'' (pair or function) for the given program.
-To be totally rigorous we should show that realizers are type-correct when extracting realizers from proofs.
-
-The set of realizers $\allRz$ is defined coinductively as the greatest set such that for all $\aa \in \allRz$, at least one of the following holds:
-\begin{itemize}
-\item $\rzFst{\aa} \in \mathbb{B}$ and $\rzSnd{\aa} \in \allRz$
-\item $\rzFst{\aa} \in \mathbb{R}$ and $\rzSnd{\aa} \in \allRz$
-\item $\rzFst{\aa} \in \allstate$ and $\rzSnd{\aa} \in \allRz$
-\item $\rzApp{\aa}{r} \in \allRz$ for all $r \in \mathbb{B}$
-\item $\rzApp{\aa}{r} \in \allRz$ for all $r \in \mathbb{R}$
-\item $\rzApp{\aa}{\ab} \in \allRz$ for all $\ab \in \allRz$ (i.e., the set of realizers is super-exponential)
-\item $\rzFst{\aa} \in \mathbb{R}$, $\rzApp{\rzSnd{\aa}}{s} \in \allstate$ and $\rzApp{\rzThd{\aa}}{s} \in \allRz$ for all $s \in [0,\rzFst{\aa}]$ and $\rzFrt{\aa}\in\allRz$
-\item $\aa = \epsilon$ (the unit realizer, realizes nothing)
-\end{itemize}
-Because this set is coinductively defined, it includes infinite strategies for infinite plays.
-There are several possible treatments of inifinite plays and strategies.
-The two simplest treatements, both of which result in the ``finite plays only'' treatment from classical \dGL, are:
-\begin{itemize}
-\item 
- Interpret the judgements $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ inductively.
- Then they will only ever hold when applied to finite strategies anyway.
-\item Quantify over finite traces only in the definition of validity
-\end{itemize}
-It is a bad idea to allow infinite strategies (with a coinductive interpretation of $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$) for either player, 
-because they would have a strategy to win every repetition game (for every postcondition, even false) by repeating forever, which is not very helpful.
-On some level, it seems more natural to allow infinite plays in boxes than in diamonds, which might simplify metalogical arguments that \CdGL is really talking about CPSs that run forever, but even this would require a careful rethinking of the semantics.
-
-We define the realization judgments recursively:
-\begin{align*}
-\rzF{\sa,\aa,\da}{\phi \land \psi}        &\text{ iff }\rzF{\sa,\aa 0,\da 0}{\phi}\text{ and }\rzF{\sa,\aa 1,\da 1}{\psi}\\
-\rzF{\sa,\aa,\da}{\phi \lor \psi}         &\text{ iff }\rzFst{\aa}=0\text{ and }\rzF{\sa,\rzSnd{\aa},\da 0}{\phi}\\
-                                          &\text{ or }\rzFst{\aa}=1\text{ and }\rzF{\sa,\rzSnd{\aa},\da 1}{\psi}\\
-\rzF{\sa,\aa,\da}{\phi \limply \psi}      &\text{ iff }\rzF{\sa,\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\phi}\text{ implies }\rzF{\sa,\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\psi}\\
-\rzF{\sa,\aa,\da}{\bot}                   &\text{ never}\\
-\rzF{\sa,\aa,\da}{\exists{x}{\phi}}       &\text{ iff }\rzF{\subst[\sa]{x}{\rzFst{\aa}},\rzSnd{\aa},\rzApp{\da}{\rzFst{\aa}}}{\phi}\\
-\rzF{\sa,\aa,\da}{\forall{x}{\phi}}       &\text{ iff }\rzF{\subst[\sa]{x}{\rzFst{\da}},\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\phi}\\
-\rzF{\sa,\aa,\da}{\theta > \eta}          &\text{ iff }\tint{\theta - \eta}{\sa} = \rzFst{\aa} \in \{0\}^C\\
-\rzF{\sa,\aa,\da}{\theta \geq \eta}       &\text{ iff }\rzF{\sa,\aa,\da}{\eta > \theta \limply \bot}\\
-\rzF{\sa,\aa,\da}{\ddiamond{\alpha}{\phi}}&\text{ iff } \rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzF{\sb,\ab,\db}{\phi}\\
-\rzF{\sa,\aa,\da}{\dbox{\alpha}{\phi}}    &\text{ iff } \rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ implies }\rzF{\sb,\ab,\db}{\phi}
-\end{align*}
-Note the use of ``implies'' in the diamond case: an Angel or Demon execution can fail (the function is partial) if the Angel or Demon player respectively does not have a strategy to pass a test or evolution domain constraint.
-These semantics say that Angel wins a box game if Demon does not have a strategy to reach the end.
-
-\begin{align*}
-\rzA{\sa,\aa,\da}{\humod{x}{\theta}}{\subst[\sb]{x}{\tint{\theta}{\sa}},\aa,\da}&\\
-\rzA{\sa,\aa,\da}{\prandom{x}}{\subst[\sb]{x}{\rzFst{\aa}},\rzSnd{\aa},\rzApp{\da}{\rzFst{\aa}}}&\\
-\rzA{\sa,\aa,\da}{\ptest{\phi}}{\sa,\rzSnd{\ab},\rzSnd{\da}}&\text{ iff }\rzF{\sa,\rzFst{\aa},\rzFst{\da}}{\phi}\\
-\rzA{\sa,\aa,\da}{\alpha;~\beta}{\Sc,\ac,\dc}&\text{ iff }\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzA{\sb,\ab,\db}{\beta}{\Sc,\ac,\dc}\\
-\rzA{\sa,\aa,\da}{\alpha \cup \beta}{\sb,\ab,\db}&\text{ iff }\rzFst{\aa}=0\text{ and }\rzA{\sa,\rzSnd{\aa},\da 0}{\alpha}{\sb,\ab,\db}\\
-                                                 &\text{ or }\rzFst{\aa}=1\text{ and }\rzA{\sa,\rzSnd{\aa},\da 1}{\beta}{\sb,\ab,\db}\\
-\rzA{\sa,\aa,\da}{\prepeat{\alpha}}{\Sc,\ac,\dc}&\text{ iff }\rzFst{\aa}=0\text{ and }(\sa,\aa,\da)=(\Sc,\ac,\dc)\\
-                                                &\text{ or }\rzFst{\aa}=1\text{ and }\rzA{\sa,\rzSnd{\aa},\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzA{\sb,\ab,\db}{\prepeat{\alpha}}{\Sc,\ac,\dc}\\
-\rzA{\sa,\aa,\da}{\pevolvein{\D{x}=\theta}{\ivr}}{\sb,\ab,\db}&\text{ iff for all }s\in[0,\rzFst{a}], \frac{\partial \rzSnd{a}(s)(x))}{\partial t}=\tint{\theta}{\rzSnd{a}}=\rzSnd{a}(\D{x})\\
-                                                 &\text{ and }\rzF{\rzApp{\rzSnd{\aa}}{\rzFst{\aa}},\rzApp{\rzThd{a}}{s},\rzApp{\rzFst{\da}}{s}}{\ivr}\text{ and } (\rzApp{\rzSnd{a}}{\rzFst{a}},\rzFrt{a},\rzApp{\rzSnd{d}}{\rzFst{a}})=(\sb,\ab,\db)\\
-\rzA{\sa,\aa,\da}{\pdual{\alpha}}{\sb,\ab,\db} &\text{ iff }\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}
-\end{align*}
-For simplicity we can define $\left(\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\right) \equiv \left(\rzA{\sa,\da,\aa}{\alpha}{\sb,\db,\ab}\right),$ but we give an explicit recursive definition here for clarity of exposition:
-\begin{align*}
-\rzD{\sa,\aa,\da}{\humod{x}{\theta}}{\subst[\sb]{x}{\tint{\theta}{\sa}},\aa,\da}&\\
-\rzD{\sa,\aa,\da}{\prandom{x}}{\subst[\sb]{x}{\rzFst{\da}},\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}&\\
-\rzD{\sa,\aa,\da}{\ptest{\phi}}{\sa,\rzSnd{\ab},\rzSnd{\da}}&\text{ iff }\rzF{\sa,\rzFst{\da},\rzFst{\aa}}{\phi}\\
-\rzD{\sa,\aa,\da}{\alpha;~\beta}{\Sc,\ac,\dc}&\text{ iff }\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzD{\sb,\ab,\db}{\beta}{\Sc,\ac,\dc}\\
-\rzD{\sa,\aa,\da}{\alpha \cup \beta}{\sb,\ab,\db}&\text{ iff }\rzFst{\da}=0\text{ and }\rzD{\sa,\aa 0,\rzSnd{\da}}{\alpha}{\sb,\ab,\db}\\
-                                                 &\text{ or } \rzFst{\da}=1\text{ and }\rzD{\sa,\aa 1,\rzSnd{\da}}{\beta} {\sb,\ab,\db}\\
-\rzD{\sa,\aa,\da}{\prepeat{\alpha}}{\Sc,\ac,\dc}&\text{ iff }\rzFst{\da}=0\text{ and }(\sa,\aa 0,\rzSnd{\da})=(\Sc,\ac,\dc)\\
-                                                &\text{ or }\rzFst{\da}=1\text{ and }\rzD{\sa,\aa 1,\rzSnd{\da}}{\alpha}{\sb,\ab,\db}\text{ and }\rzD{\sb,\ab,\db}{\prepeat{\alpha}}{\Sc,\ac,\dc}\\
-\rzD{\sa,\aa,\da}{\pevolvein{\D{x}=\theta}{\ivr}}{\sb,\ab,\db}&\text{ iff for all }s\in[0,\rzFst{\da}], \frac{\partial \rzSnd{\da}(s)(x))}{\partial t}=\tint{\theta}{\rzSnd{\da}}=\rzSnd{\da}(\D{x})\\
-                                                 &\text{ and }\rzF{\rzSnd{\da},\rzApp{\rzThd{\da}}{s},\rzApp{\rzFst{\aa}}{s}}{\ivr}\text{ and } (\rzApp{\rzSnd{\da}}{\rzFst{\da}},\rzFrt{\da},\rzApp{\rzSnd{\aa}}{\rzFst{\da}})=(\sb,\ab,\db)\\
-\rzD{\sa,\aa,\da}{\pdual{\alpha}}{\sb,\ab,\db} &\text{ iff }\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}
-\end{align*}
-Then a formula $\phi$ is called \emph{valid} if for every state $\om,$ there exists a finite strategy $\aa$ such that for every finite strategy $\da,$ judgment $\rzF{\om,\aa,\da}{\phi}$ holds.
-
-Both the realizability and Kripke semantics might be of use in the final presentation.
-If both are used, we should prove them equivalent, which we expect to be the case because even our Kripke semantics holds only when strategies are computable.
-If we adopt a relaxed Kripke semantics with uncomputable strategies, we would then show that the realizability semantics prove a strict subset of the Kripke-valid formulas.
 
 \subsection{Real Constructive Games, One Realizer}
 \newcommand*{\strategyforR}[3][]{\varsigma_{#1}^{#2}(#3)}
@@ -1588,7 +1437,7 @@ Specifically, $\aa$ is well-founded (with respect to $X$ and $\alpha$) if there 
 Given the nature of computable union, it is worth noting that this loop semantics does not always stop as early as possible: if we have just barely entered the edge of the goal region, the strategy might detect this as being outside the union, in which case we repeat the loop and then enter further into the goal region, which ought to terminate the loop, just one step too late.
 
 Then the semantics for $\dbox{\alpha}{\phi}$ and $\ddiamond{\alpha}{\phi}$ are defined as:
-\[\fint{\dbox{\alpha}{\phi}}{} = \bigcap_\aa \dstrategyforR[\alpha]{\aa}{\fint{\phi}{}}\]
+\[\fint{\dbox{\alpha}{\phi}}{} = \bigcup_\aa \dstrategyforR[\alpha]{\aa}{\fint{\phi}{}}\]
 \[\fint{\ddiamond{\alpha}{\phi}}{} = \bigcup_\aa \strategyforR[\alpha]{\aa}{\fint{\phi}{}}\]
 The classical union over all $\aa$ is justified by the fact that there are countably many strategies and it's decidable whether a given strategy wins a given game, so if a winning strategy does exist, Angel would eventually find it by an exhaustive search. We never test for the absence of such a strategy, so it is of no concern that a search would loop in that case.
 
@@ -1599,77 +1448,6 @@ In $\dstrategyforR[\ptest{\phi}]{\aa}{X},$ Angel can present us a proof of $\phi
 The set complement in that case is classical: anywhere outside of $\fint{\phi}{},$ Angel would fail to present a proof.
 Unlike Angel, Demon is entitled to use uncomputable magic in its strategy, so $\dstrategyforR[\alpha\cup\beta]{\aa}{X}$ and $\dstrategyforR[\prepeat{\alpha}]{\aa}{X}$ use classical unions, not constructive unions.
 
-
-\subsection{Real Constructive Games, Implicit}
-The above realizability and Kripke semantics will most likely be adopted, but we present several alternatives as food for thought.
-The above semantics assume a classical metatheory, but a simple way to make \dGL constructive is to reinterpret the standard \dGL semantics~\cite{DBLP:journals/tocl/Platzer17} in a constructive metatheory.
-For example, $\fint{\phi \lor \psi}{} = \fint{\phi}{} \cup \fint{\psi}{},$ but $\cup$ is can be interpreted as constructive union to mirror the constructive $\lor,$ thus for example it is not provable that $\{x \mapsto 0\} \in \fint{x < 0 \lor x \geq 0},$ which is the desired behavior.
-The only definition that needs to change is the dual operator, where we expect that $\dstrategyfor[\pdual{\alpha}]{X} = \strategyfor[\alpha]{X}$ and $\strategyfor[\pdual{\alpha}]{X} = \dstrategyfor[\alpha]{X}$.
-
-While this approach yields elegant definitions, I do not recommend it because it obscures the meaningful differences between classical and constructive \dGL, and is prone to error if we accidentally use classical reasoning in the metalogic.
-
-\subsection{Systems-Only Kripke Semantics}
-This is an early semantics for constructive \dL (without games), which is closer to standard intuitionistic Kripke semantics than the main Kripke semantics presented above.
-We present this mainly to provide a feel for the use of regions to represent the intuitionistic states that are typical of intuitionistic Kripke semantics.
-We do not expect to use this in the finished work.
-
-The semantics are based on intuitionstic Kripke frames.
-In typical abstract treatments, each intuitionistic world is in some sense epistemic: it represents which facts are currently known to be true.
-A preorder $\leq$ is used to represent which worlds are ``at least as knowledgeful'' as some other state.
-We take the same general approach that intuitionistic states represent the available knowledge, except the presentation is concrete.
-%\newcommand{\allregion}{\mathcal{R}}
-Where $\allvars$ is the countable set of identifiers, the set of program states $\allstate$ is $\mathbb{R}^\allvars$, then an intuitionistic state $X : \allcon \equiv 2^\allstate$ is simply a (usually uncountably infinite) set of states, and to ``know'' an intuitionistic state $X$ is to know that we must be in some $\omega \in X,$ but not \emph{which} $\omega$.
-Special case $X = \allcon$ means we know nothing, $X = \{\omega\}$ means that we know we are in exactly the state $\omega,$ and $X = \emptyset$ means we know with certainty that we have derived a contradiction, as we know we are in a state that belongs to the empty set, of which there are none.
-The preorder $\leq$ on intuitionisic worlds is also given concretely: $X \leq Y \equiv X \supseteq Y$: that is, if $Y$ is a subset of $X$ then it contains more information than $Y$ because it rules out all of the states that $Y$ does, plus some more.
-
-%There are several design options for the term semantics: do we include semi-algebraic set computations in the term language, and if so do we make a type distinction or identify sets with nondetermistic terms?
-%One can argue that semialgebraic sets or an equally powerful construct are \emph{necessary} in the term language (not just a nice-to-have because they make it more powerful) because without them we do not have the existence property (EP), which we will prove after introducing the semantics.
-%We also choose not to make a typing distinction in terms since it the technical complexity of introducing a type system is not well motivated by a system of exactly two types.
-%An alternative to explore would be to make the typing distinction, then have a family of operators for drawing elements from sets.
-
-Therefore we will choose $\tint{\theta}{\om} : \mathbb{R}$: the value of a term in some state is its unique value.
-The semantics are defined by:
-\begin{align*}
-  \tint{q}{\om} &= q\\
-  \tint{x}{\om} &= \om(x)\\
-  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} + \tint{\eta}{\om}\\
-  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}\\
-  \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})
-%  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
-\end{align*}
-%It is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
-%The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
-%Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
-%That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
-
-We give the semantics for formulas.
-In the case $\theta > \eta$, $B_\epsilon(\nu)$ is an open ball of diameter $\epsilon$ around state $\nu \in \mathbb{R}^{|\allvars|}$.
-This is used to capture the notion that a comparison $\theta > \eta$ should terminate if interpreted as a computation, within the current epistemic state.
-\begin{align*}
-  \fint{\phi \land \psi}{X}     &\lequiv \fint{\phi}{X}\text{ and }\fint{\psi}{X}\\
-  \fint{\phi \lor \psi}{X}      &\lequiv \fint{\phi}{X}\text{ or }\fint{\psi}{X}\\
-% TODO: Prove a monotonicity lemma to simplify this
-  \fint{\phi \limply \psi}{X}   &\lequiv \text{ for all }Y \subseteq X, \fint{\phi}{Y}\text{ implies }\fint{\psi}{Y}\\
-  \fint{\bot}{X}                &\lequiv X = \emptyset\\
-  \fint{\theta > \eta}{X}       &\lequiv \text{for all }\nu \in X, \exists \epsilon > 0, \text{for all } \mu \in (B_\epsilon(\nu) \cap X), \tint{\theta}{\mu} > \tint{\eta}{\mu}\\
-  \fint{\exists{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{f(\om)}~|~\om \in X\}} \text{ for some $f:\allstate \to \mathbb{R}$}\\
-  \fint{\forall{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{r}~|~\om \in X,  r \in \mathbb{R}\}}\\
-  \fint{\dbox{\alpha}{\phi}}{X} &\lequiv \text{for all }Y \subseteq X, Z \text{ s.t. }(Y,Z) \in \pint{\alpha}, \fint{\phi}{Z}\\
-  \fint{\ddiamond{\alpha}{\phi}}{X} &\lequiv \text{exists }Y, (X,Y)\in\pint{\alpha}\text{ and }\fint{\phi}{Y}\\
-  \fint{\theta \geq \eta}{X}    &\lequiv \fint{\eta > \theta \limply \bot}{X}%\text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r \geq s\\
-\end{align*}
-
-We give the semantics for programs:
-\begin{align*}
-  (X,X) \in \pint{\ptest{\phi}}\text{ iff }&\fint{\phi}{X} \\
-  (X,Y) \in \pint{\humod{x}{\theta}} \text{ iff }& Y = \{\subst[\om]{x}{r}~|~\om \in X, r \in \tint{\theta}{X}\}\\
-  \pint{\alpha \cup \beta} =& \pint{\alpha} \cup \pint{\beta}\\
-  (X,Y) \in \pint{\alpha;~\beta} \text{ iff }& \text{exists }Z, (X,Z) \in \pint{\alpha}, (Z,Y) \in \pint{\beta}\\
-  (X,Y) \in \pint{\pevolvein{\D{x}=\theta}{\ivr}}\text{ iff }& Y = \{\nu~|~\exists \om \in X, t \in \mathbb{R}_{\geq0}, \varphi_\om:[0,t]\to\allstate,~\varphi_\om(0)=\om\text{ on }\{x,\D{x}\}^C\\
-   &\frac{\partial \varphi_\om(t)(x)}{\partial t}= \varphi_\om(t)(\D{x})\text{ and } \{\varphi_\om(t)(x)\}=\tint{\theta}{\varphi(\varphi(s))}\\
-   &\text{ and }\fint{\ivr}{\{\varphi_\mu(t)~|~\mu\in X}\}\\
-  \pint{\prepeat{\alpha}} =& \bigcup_{n\in\mathbb{N}} \pint{\alpha}^n
-\end{align*}
 
 \section{Proof Calculus}
 \newcommand{\proves}[3]{#1 \vdash #2\mathop{:}#3}
@@ -1691,30 +1469,62 @@ For practical use, a sequent calculus can be implemented on top of the natural d
 In this natural deduction system with proof terms, the main proof judgement is $\proves{\Gamma}{M}{\phi},$ which says term $M$ is a proof of $\phi$ in the context $\Gamma$.
 The assumptions in the context are named, so that they may be mentioned in proof terms.
 
+\newcommand{\mto}{\rightharpoonup}
 \newcommand{\eprojL}[1]{\pi_1{#1}}
 \newcommand{\eprojR}[1]{\pi_2{#1}}
+\newcommand{\eProjL}[1]{\{\pi_1{#1}\}}
+\newcommand{\eProjR}[1]{\{\pi_2{#1}\}}
+\newcommand{\edprojL}[1]{\langle\pi_1{#1}\rangle}
+\newcommand{\edprojR}[1]{\langle\pi_2{#1}\rangle}
+\newcommand{\ebprojL}[1]{[\pi_1{#1}]}
+\newcommand{\ebprojR}[1]{[\pi_2{#1}]}
 \newcommand{\econs}[2]{(#1,#2)}
-\newcommand{\etcons}[2]{(#1~|~#2)}
+\newcommand{\edcons}[2]{\langle#1,#2\rangle}
+\newcommand{\ebcons}[2]{[#1,#2]}
+\newcommand{\eCons}[2]{\{#1,#2\}}
+\newcommand{\etcons}[2]{\econs{#1}{#2}}
 \newcommand{\einjL}[1]{\ell \cdot #1}
 \newcommand{\einjR}[1]{r \cdot #1}
 \newcommand{\ecase}[3]{\textrm{case }#1\textrm{ of }\ell.~#2~|~r.~#3}
-\newcommand{\erep}[1]{\textrm{rep }#1}
+\newcommand{\edinjL}[1]{\langle\ell \cdot #1\rangle}
+\newcommand{\edinjR}[1]{\langle r \cdot #1\rangle}
+\newcommand{\edcase}[3]{\langle\langle\textrm{case}\rangle\ #1\textrm{ of }\ell.~#2~|~r.~#3\rangle}
+\newcommand{\eInjL}[1]{\{\ell \cdot #1\}}
+\newcommand{\eInjR}[1]{\{r \cdot #1\}}
+\newcommand{\eCase}[3]{\{\textrm{case}\}\ #1\textrm{ of }\ell.~#2~|~r.~#3}
+\newcommand{\erep}[3]{{#1}\textrm{ rep }#3.~{#2}}
 \newcommand{\eapp}[2]{#1\ #2}
 \newcommand{\elam}[2]{\lambda x:#1.~ #2}
-\newcommand{\eseq}[1]{\iota~#1}
-\newcommand{\eseqinv}[1]{\iota~{#1}^{-1}}
-\newcommand{\eswap}[1]{\textrm{swap }#1}
-\newcommand{\emon}[3]{#1 \circ_{#3} #2}
+\newcommand{\ebseq}[1]{[\iota~#1]}
+\newcommand{\ebseqinv}[1]{[\iota~{#1}^{-1}]}
+\newcommand{\edseq}[1]{\langle\iota~#1\rangle}
+\newcommand{\edseqinv}[1]{\langle\iota~{#1}^{-1}\rangle}
+\newcommand{\eSeq}[1]{\{\iota~#1\}}
+\newcommand{\eSeqinv}[1]{\{\iota~{#1}^{-1}\}}
+\newcommand{\ebswap}[1]{[\textrm{swap }#1]}
+\newcommand{\edswap}[1]{\langle\textrm{swap }#1\rangle}
+\newcommand{\eSwap}[1]{\{\textrm{swap }#1\}}
+\newcommand{\emon}[3]{{#1} {\circ_{#3}} {#2}}
 \newcommand{\eQEpos}{\textrm{QE}_{pos}}
 \newcommand{\eQEneg}{\textrm{QE}_{neg}}
 \newcommand{\esplit}[1]{\textrm{split }#1}
-\newcommand{\easgn}[1]{{:=}\ #1}
-\newcommand{\easgneq}[3]{#1{:=}#2{:=}\ #1}
-\newcommand{\easgninv}[1]{({:=}^{-1}\ #1)}
+\newcommand{\edroll}[1]{\langle\textrm{roll}\rangle\ #1}
+\newcommand{\edunroll}[1]{\langle\textrm{unroll}\rangle\ #1}
+\newcommand{\ebroll}[1]{[\textrm{roll}]\ {#1}}
+\newcommand{\ebunroll}[1]{[\textrm{unroll}]\ #1}
+\newcommand{\eRoll}[1]{\{\textrm{roll}\}\ #1}
+\newcommand{\eUnroll}[1]{\{\textrm{unroll}\}\ #1}
+\newcommand{\edasgn}[1]{\langle{:=}\ #1\rangle}
+\newcommand{\edasgninv}[1]{\langle{:=}^{-1}\ #1\rangle}
+\newcommand{\ebasgn}[1]{[{:=}\ #1]}
+\newcommand{\ebasgninv}[1]{[{:=}^{-1}\ #1]}
+\newcommand{\eAsgn}[1]{\{{:=}\ #1\}}
+\newcommand{\eAsgninv}[1]{\{{:=}^{-1}\ #1\}}
+\newcommand{\easgneq}[3]{#1\text{ was }#2\text{ in }#3}
 \newcommand{\eunpack}[2]{\textrm{unpack}(#1,x y.~#2)}
 \newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
-\newcommand{\eloopelim}[3]{(#1,x.~{#2}^{#3})}
-\newcommand{\efp}[3]{\textit{FP}(#1,x.~#2,y.~#3)}
+\newcommand{\eloopelim}[3]{(#1, x.~{#2}^{#3})}
+\newcommand{\efp}[3]{\textit{FP}(#1, x.~#2, y.~#3)}
 \newcommand{\G}{\Gamma}
 
 \[\infer{\proves{\G}{\ewhile{\mathcal{M}}{N}}{\ddiamond{\prepeat{\alpha}}{\phi}}}
@@ -1728,80 +1538,74 @@ For games, we often want to support the following inductively defined metrics (i
 \end{itemize}
 The sum metric is the natural metric on disjoint sums.
 It's useful for loops that follow one strategy first, then another strategy, and can replaced by $\ddiamond{\prepeat{\alpha}}{\phi} \lequiv \ddiamond{\prepeat{\alpha}}{\ddiamond{\prepeat{\alpha}}{\phi}}$.
-\[\infer{\proves{\G}{\eloopelim{M}{N}{k}}{p(k)}}
+\[\infer[k \in \mathbb{N}]{\proves{\G}{\eloopelim{M}{N}{k}}{p(k)}}
         {\proves{\G}{M}{\dbox{\prepeat{\alpha}}{p(0)}}
         &\proves{x:p(k)}{N}{\dbox{\alpha}{p(k+1)}}}\]
 \[\infer{\proves{\G}{\efp{A}{B}{C}}{\psi}}
         {\proves{\G}{A}{\ddiamond{\prepeat{\alpha}}{\phi}} 
         &\proves{x:\phi}{B}{\psi} & \proves{y:\ddiamond{\alpha}{\psi}}{C}{\psi}}\]
-\[\infer{\proves{\G}{\elam{\reals}{M}}{\dbox{\prandom{x}}{\phi}}}
-        {\proves{\G_x^*}{M}{\phi}}\]
+\[\infer[y\text{ fresh}]{\proves{\G}{\elam{\reals}{M}}{\dbox{\prandom{x}}{\phi}}}
+        {\proves{\G_x^y}{M}{\phi}}\]
 \[\infer{\proves{\G}{\eapp{M}{\theta}}{\subst[\phi]{x}{\theta}}}
         {\proves{\G}{M}{\dbox{\prandom{x}}{\phi}}}\]
 \[\infer{\proves{\G}{\etcons{\theta}{M}}{\ddiamond{\prandom{x}}{\phi}}}
         {\proves{\G}{M}{\subst[\phi]{x}{\theta}}}\]
-\[\infer{\proves{\G}{\eunpack{M}{N}}{\psi}}
-        {\proves{\G}{M}{\ddiamond{\prandom{x}}{\phi}} & \proves{\G_x^*,y:\phi}{N}{\psi}}\]
-\[\infer{\proves{\G}{\ecase{C}{M}{N}}{\psi}}
-        {\proves{\G}{C}{\ddiamond{\prepeat{\alpha}}{\phi}}
-        &\proves{\G,\ell:\phi}{M}{\psi}
-        &\proves{\G,r:\ddiamond{\alpha}{\ddiamond{\prepeat{\alpha}}{\phi}}}{M}{\psi}}\]
-\[\infer{\proves{\G}{\einjL{M}}{\ddiamond{\prepeat{\alpha}}{\phi}}}
-        {\proves{\G}{M}{\phi}}\]
-\[\infer{\proves{\G}{\einjR{M}}{\ddiamond{\prepeat{\alpha}}{\phi}}}
-        {\proves{\G}{M}{\ddiamond{\alpha}{\ddiamond{\prepeat{\alpha}}{\phi}}}}\]
-\[\infer{\proves{\G}{\econs{M}{N}}{\dbox{\prepeat{\alpha}}{\phi}}}
-        {\proves{\G}{M}{\phi} & \proves{\G}{N}{\dbox{\alpha}{\dbox{\prepeat{\alpha}}{\phi}}}}\]
-\[\infer{\proves{\G}{\eprojL{M}}{\phi}}
-        {\proves{\G}{M}{\dbox{\prepeat{\alpha}}{\phi}}}\]
-\[\infer{\proves{\G}{\eprojR{M}}{\dbox{\alpha}{\dbox{\prepeat{\alpha}}{\phi}}}}
-        {\proves{\G}{M}{\dbox{\prepeat{\alpha}}{\phi}}}\]
-\[\infer{\proves{\G}{(\easgn{M})}{\dbox{\humod{x}{\theta}}{\phi}}}
+\[\infer[z\text{ fresh}]{\proves{\G}{\eunpack{M}{N}}{\psi}}
+        {\proves{\G}{M}{\ddiamond{\prandom{x}}{\phi}} & \proves{\G_x^z,y:\phi}{N}{\psi}}\]
+\[\infer{\proves{\G}{\edunroll{M}}{\psi \lor \ddiamond{\alpha}{\ddiamond{\prepeat{\alpha}}{\phi}}}}
+        {\proves{\G}{M}{\ddiamond{\prepeat{\alpha}}{\psi}}}\]
+\[\infer{\proves{\G}{\edroll{M}}{\ddiamond{\prepeat{\alpha}}{\phi}}}
+        {\proves{\G}{M}{\psi \lor \ddiamond{\alpha}{\ddiamond{\prepeat{\alpha}}{\phi}}}}\]
+\[\infer{\proves{\G}{\ebroll{M}}{\dbox{\prepeat{\alpha}}{\phi}}}
+        {\proves{\G}{M}{\phi \land \dbox{\alpha}{\dbox{\prepeat{\alpha}}{\phi}}}}\]
+\[\infer{\proves{\G}{\ebunroll{M}}{\phi \land \dbox{\alpha}{\dbox{\prepeat{\alpha}}{\phi}}}}
+        {\proves{\G}{M}{\dbox{\prepeat{\alpha}}}}\]
+\[\infer{\proves{\G}{(\ebasgn{M})}{\dbox{\humod{x}{\theta}}{\phi}}}
         {\proves{\G}{M}{\subst[\phi]{x}{\theta}}}\]
-\[\infer{\proves{\G}{(\easgn{M})}{\ddiamond{\humod{x}{\theta}}}}
+\[\infer{\proves{\G}{(\edasgn{M})}{\ddiamond{\humod{x}{\theta}}}}
         {\proves{\G}{M}{\subst[\phi]{x}{\theta}}}\]
-\[\infer{\proves{\G}{\easgninv{M}}{\subst[\phi]{x}{\theta}}}
+\[\infer{\proves{\G}{\ebasgninv{M}}{\subst[\phi]{x}{\theta}}}
         {\proves{\G}{M}{\dbox{\humod{x}{\theta}}{\phi}}}\]
-\[\infer{\proves{\G}{\easgninv{M}}{\subst[\phi]{x}{\theta}}}
+\[\infer{\proves{\G}{\edasgninv{M}}{\subst[\phi]{x}{\theta}}}
         {\proves{\G}{M}{\ddiamond{\humod{x}{\theta}}}}\]
-\[\infer{\proves{\G}{\eprojL{M}}{\phi}}
+\[\infer{\proves{\G}{\edprojL{M}}{\phi}}
         {\proves{\G}{M}{\ddiamond{\ptest{\phi}}{\psi}}}\]
-\[\infer{\proves{\G}{\eprojR{M}}{\psi}}
+\[\infer{\proves{\G}{\edprojR{M}}{\psi}}
         {\proves{\G}{M}{\ddiamond{\ptest{\phi}}{\psi}}}\]
-\[\infer{\proves{\G}{\econs{M}{N}}{\ddiamond{\ptest{\phi}}{\psi}}}
+\[\infer{\proves{\G}{\edcons{M}{N}}{\ddiamond{\ptest{\phi}}{\psi}}}
         {\proves{\G}{M}{\phi} & \proves{\G}{N}{\psi}}\]
-\[\infer{\proves{\G}{\eprojL{M}}{\dbox{\alpha}{\phi}}}
+\[\infer{\proves{\G}{\ebprojL{M}}{\dbox{\alpha}{\phi}}}
         {\proves{\G}{M}{\dbox{\alpha\cup\beta}{\phi}}}\]
-\[\infer{\proves{\G}{\eprojR{M}}{\dbox{\beta}{\phi}}}
+\[\infer{\proves{\G}{\ebprojR{M}}{\dbox{\beta}{\phi}}}
         {\proves{\G}{M}{\dbox{\alpha\cup\beta}{\phi}}}\]
-\[\infer{\proves{\G}{\econs{M}{N}}{\dbox{\alpha\cup\beta}{\phi}}}
+\[\infer{\proves{\G}{\ebcons{M}{N}}{\dbox{\alpha\cup\beta}{\phi}}}
         {\proves{\G}{M}{\dbox{\alpha}{\phi}} & \proves{\G}{N}{\dbox{\beta}{\phi}}}\]
-\[\infer{\proves{\G}{\ecase{C}{M}{N}}{\psi}}
+\[\infer{\proves{\G}{\edcase{C}{M}{N}}{\psi}}
         {\proves{\G}{C}{\ddiamond{\alpha\cup\beta}{\phi}}
         &\proves{\G,\ell:\ddiamond{\alpha}{\phi}}{M}{\psi}
-        &\proves{\G,r:\ddiamond{\beta}{\phi}}{M}{\psi}}\]
-\[\infer{\proves{\G}{\einjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+        &\proves{\G,r:\ddiamond{\beta}{\phi}}{N}{\psi}}\]
+\[\infer{\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
         {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}\]
-\[\infer{\proves{\G}{\einjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+\[\infer{\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
         {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}\]
 \[\infer{\proves{\G}{\eapp{M}{N}}{\psi}}
         {\proves{\G}{M}{\dbox{\ptest{\phi}}{\psi}} 
         &\proves{\G}{N}{\phi}}\]
 \[\infer{\proves{\G}{\elam{\phi}{M}}{\dbox{\ptest{\phi}}{\psi}}}
         {\proves{\G,x:\phi}{M}{\psi}}\]
-\[\infer{\proves{x:J}{\erep{M}}{\dbox{\prepeat{\alpha}}{J}}}
-        {\proves{x:J}{M}{\dbox{\alpha}{J}}}\]
-\[\infer{\proves{\G}{\eseq{M}}{\dbox{\alpha;~\beta}{\phi}}}
+\[\infer{\proves{\G}{\erep{M}{N}{x}}{\dbox{\prepeat{\alpha}}{J}}}
+        {\proves{\G}{M}{J} & \proves{x:J}{N}{\dbox{\alpha}{J}}}\]
+\[\infer{\proves{\G}{\ebseq{M}}{\dbox{\alpha;~\beta}{\phi}}}
         {\proves{\G}{M}{\dbox{\alpha}{\dbox{\beta}{\phi}}}}\]
-\[\infer{\proves{\G}{\eseq{M}}{\ddiamond{\alpha;~\beta}{\phi}}}
+\[\infer{\proves{\G}{\edseq{M}}{\ddiamond{\alpha;~\beta}{\phi}}}
         {\proves{\G}{M}{\ddiamond{\alpha}{\ddiamond{\beta}{\phi}}}}\]
-\[\infer{\proves{\G}{\eseqinv{M}}{\dbox{\alpha}{\dbox{\beta}{\phi}}}}
+\[\infer{\proves{\G}{\ebseqinv{M}}{\dbox{\alpha}{\dbox{\beta}{\phi}}}}
         {\proves{\G}{M}{\dbox{\alpha;~\beta}{\phi}}}\]
-\[\infer{\proves{\G}{\eseqinv{M}}{\ddiamond{\alpha}{\ddiamond{\beta}{\phi}}}}
+\[\infer{\proves{\G}{\edseqinv{M}}{\ddiamond{\alpha}{\ddiamond{\beta}{\phi}}}}
         {\proves{\G}{M}{\ddiamond{\alpha;~\beta}{\phi}}}\]
-\[\infer{\proves{\G}{\eswap{M}}{\dbox{\pdual{\alpha}}{\phi}}}
+\[\infer{\proves{\G}{\ebswap{M}}{\dbox{\pdual{\alpha}}{\phi}}}
         {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}\]
-\[\infer{\proves{\G}{\eswap{M}}{\ddiamond{\pdual{\alpha}}{\phi}}}
+\[\infer{\proves{\G}{\edswap{M}}{\ddiamond{\pdual{\alpha}}{\phi}}}
         {\proves{\G}{M}{\dbox{\alpha}{\phi}}}\]
 \[\infer{\proves{\G}{\emon{M}{N}{x}}{\ddiamond{\alpha}{\psi}}}
         {\proves{\G}{M}{\ddiamond{\alpha}{\phi}} & \proves{x:\phi}{N}{\psi}}\]
@@ -1841,30 +1645,6 @@ If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M
 \end{lemma}
 This rule raises suspicions, because it requires renaming the whole context and possibly remembering the entire execution history.
 However, forall already requires this and forall seems to work, so I'd be okay with using this rule.
-%\newcommand{\eprojL}[1]{\pi_1{#1}}
-%\newcommand{\eprojR}[1]{\pi_2{#1}}
-%\newcommand{\econs}[2]{(#1,#2)}
-%\newcommand{\etcons}[2]{(#1~|~#2)}
-%\newcommand{\erep}[1]{\textrm{rep }#1}
-%\newcommand{\eapp}[2]{#1\ #2}
-%\newcommand{\elam}[2]{\lambda x:#1.~ #2}
-%\newcommand{\eseq}[1]{\iota~#1}
-%\newcommand{\eseqinv}[1]{\iota~{#1}^{-1}}
-%\newcommand{\eswap}[1]{\textrm{swap }#1}
-%\newcommand{\emon}[2]{#1 \circ #2}
-%\newcommand{\esplit}[1]{\textrm{split }#1}
-%\newcommand{\easgn}[1]{{:=}\ #1}
-%\newcommand{\easgneq}[3]{#1{:=}#2{:=}\ #1}
-%\newcommand{\easgninv}[1]{({:=}^{-1}\ #1)}
-%\newcommand{\eunpack}[2]{\textrm{unpack}(#1,x y.~#2)}
-%\newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
-%\newcommand{\eloopelim}[3]{(#1,{#2}^{#3})}
-%\newcommand{\efp}[3]{\textit{FP}(#1,#2,#3)}
-%\newcommand{\einjL}[1]{\ell \cdot #1}
-%\newcommand{\einjR}[1]{r \cdot #1}
-%\newcommand{\ecase}[3]{\textrm{case }#1\textrm{ of }\ell.~#2~|~r.~#3}
-%\newcommand{\eQEpos}{QE_{pos}}
-%\newcommand{\eQEneg}{QE_{neg}}
 
 \newcommand{\esub}[3]{[#3/#2]#1}
 We give the reduction rules for proof terms:
@@ -1876,20 +1656,63 @@ We give the reduction rules for proof terms:
 \eunpack{\etcons{\theta}{M}}{N} &\stepsto \esub{N}{x,y}{\theta,M}\\
 \ecase{\einjL{A}}{B}{C} &\stepsto \esub{B}{\ell}{A}\\
 \ecase{\einjR{A}}{B}{C} &\stepsto \esub{C}{r}{A}\\
-\easgn{\easgninv{M}} &\stepsto M\\
-\easgninv{\easgn{M}} &\stepsto M\\
-\eseq{(\eseqinv{M})} &\stepsto M\\
-\eseqinv{(\eseq{M})} &\stepsto M\\
+\eAsgn{\eAsgninv{M}} &\stepsto M\\
+\eAsgninv{\eAsgn{M}} &\stepsto M\\
+\eSeq{\eSeqinv{M}} &\stepsto M\\
+\eSeqinv{\eSeq{M}} &\stepsto M\\
 \eQEpos{\lforall{x}{\phi}} &\stepsto \elam{x:\reals}{\eQEneg{\phi}}\\
 \eQEpos{\phi \land \psi} &\stepsto \econs{\eQEpos{\phi}}{\eQEpos{\psi}}\\
 \eQEneg{\phi \lor \psi} &\stepsto \einjL{\eQEneg{\phi}} \text{ if $\phi$ valid}\\
 \eQEneg{\phi \lor \psi} &\stepsto \einjR{\eQEneg{\psi}} \text{ if only $\psi$ valid}\\
 \eQEneg{\lexists{x}{\phi}} &\stepsto \etcons{\theta}{\esub{\phi}{x}{\theta}} \text{ for satisfying instance }\theta\\
-\erep{M} &\stepsto \econs{M}{\erep{M}}\\
 \efp{\einjL{M}}{B}{C} &\stepsto \esub{B}{x}{M}\\
 \efp{\einjR{M}}{B}{C} &\stepsto \esub{C}{y}{\emon{M}{\efp{x}{B}{C}}{x}}\\
 \eloopelim{\econs{A}{B}}{N}{0} &\stepsto A\\
-\eloopelim{M}{N}{k+1} &\stepsto \esub{N}{x}{\eloopelim{M}{N}{k}}
+\eloopelim{M}{N}{k+1} &\stepsto \esub{N}{x}{\eloopelim{M}{N}{k}}\\
+\erep{M}{N}{x} &\stepsto \ebroll{\emon{M}{\emon{N}{\erep{id_y}{N}{x}}{y}}{x}}\\
+\eUnroll{\eRoll{M}} &\stepsto M
+\end{align*}
+
+The reduction rules for $\emon{M}{N}{x}$ and the argument for their normalization are subtle.
+The termination argument is by lexicographic induction on the postcondition formula  $\phi$ and on the derivation $M$.
+\begin{align*}
+\emon{\eCons{A}{B}}{N}{x} &\stepsto \emon{A}{\emon{B}{\esub{N}{x}{\econs{y}{z}}}{z}}{y}\\
+\emon{\etcons{\theta}{M}}{N}{x} &\stepsto \etcons{\theta}{\emon{M}{\esub{N}{\theta}{y}}{x}}\\
+\emon{\eCase{A}{B}{C}}{D}{x} &\stepsto \ecase{A}{\emon{B}{D}{x}}{\emon{C}{D}{x}}\\
+\emon{\eSwap{M}}{N}{x} &\stepsto \eSwap{\emon{M}{N}{x}}\\
+\emon{\eInjL{M}}{N}{x}   &\stepsto \eInjL{\emon{M}{N}{x}}\\
+\emon{\ebroll{M}}{N}{x}  &\stepsto \ebroll{\econs{\emon{\eprojL{M}}{N}{x}}{\emon{\eprojR{M}}{\emon{z}{\esub{N}{x}{w}}{w}}{z}}}\\
+\emon{\edroll{M}}{N}{x} &\stepsto \edroll{\edcase{M}{\esub{N}{x}{\ell}}{\emon{r}{\emon{z}{\esub{N}{w}{x}}{w}}{z}}}\\
+\emon{\elam{\reals}{M}}{N}{x} &\stepsto \elam{\reals}{\emon{M}{N}{x}}\\
+\emon{\elam{P}{M}}{N}{x} &\stepsto \elam{P}{\emon{M}{N}{x}}\\
+\emon{\eSeq{M}}{N}{x} &\stepsto \eSeq{\emon{M}{\emon{y}{\esub{N}{x}{z}}{z}}{y}}\\
+\emon{\easgneq{x}{y}{M}}{N}{x} &\stepsto \easgneq{x}{y}{\esub{N}{x}{M}}
+\end{align*}
+
+\newcommand{\isnorm}[1]{#1\text{ normal}}
+The structural cases are ``obvious'' and are listed here, where $\isnorm{M}$ says a proof term $M$ is already in normal form.
+\begin{align*}
+\infer{\eCons{M}{N} \stepsto \eCons{M'}{N}}{M \stepsto M'}\\
+\infer{\eCons{M}{N} \stepsto \eCons{M}{N'}}{\isnorm{M} & N \stepsto N'}\\
+\infer{\eProjL{M} \stepsto \eProjL{M'}}{M \stepsto M'}\\
+\infer{\eProjR{M} \stepsto \eProjR{M'}}{M \stepsto M'}\\
+\infer{\eInjL{M} \stepsto \eInjL{M'}}{M \stepsto M'}\\
+\infer{\eInjR{M} \stepsto \eInjR{M'}}{\isnorm{N} & M \stepsto M'}\\
+\infer{\eCase{A}{B}{C} \stepsto \eCase{A'}{B}{C}}{A \stepsto A'}\\
+\infer{\eapp{M}{N} \stepsto \eapp{M'}{N}}{M \stepsto M'}\\
+\infer{\eapp{M}{N} \stepsto \eapp{M}{N'}}{\isnorm{M} & N \stepsto N'}\\
+\infer{\eSwap{M} \stepsto \eSwap{M'}}{M \stepsto M'}\\
+\infer{\eloopelim{M}{N}{k} \stepsto \eloopelim{M'}{N}{k}}{M \stepsto M'}\\
+\infer{\eloopelim{M}{N}{k} \stepsto \eloopelim{M}{N'}{k}}{\isnorm{M} & N \stepsto N'}\\
+\infer{\efp{A}{B}{C} \stepsto \efp{A'}{B}{C}}{A \stepsto A'}\\
+\infer{\efp{A}{B}{C} \stepsto \efp{A}{B'}{C}}{\isnorm{A} & B \stepsto B'}\\
+\infer{\efp{A}{B}{C} \stepsto \efp{A}{B}{C'}}{\isnorm{A} & \isnorm{B} & C \stepsto C'}\\
+\infer{\easgneq{x}{y}{M} \stepsto \easgneq{x}{y}{M'}}{M \stepsto M'}\\
+\infer{\eSeq{M} \stepsto \eSeq{M'}}{M \stepsto M'}\\
+\infer{\eunpack{M}{N} \stepsto \eunpack{M'}{N}}{M \stepsto M'}\\
+\infer{\emon{M}{N}{x} \stepsto \emon{M'}{N}{x}}{M \stepsto M'}\\
+\infer{\erep{M}{N} \stepsto \erep{M'}{N}}{M \stepsto M'}\\
+\infer{\erep{M}{N} \stepsto \erep{M}{N'}}{M \isnorm & N \stepsto N'}\\
 \end{align*}
 
 \section{Theory Results}
@@ -1897,7 +1720,7 @@ Once the calculus has been written and proved sound, we will prove standard theo
 We list the results here and remark how they inform the design of the proof term language.
 
 \begin{lemma}[Progress]
-If $\proves{\Gamma}{M}{\phi},$ then either $M$ is (weak-head) normal or $M \stepsto N$ for some $N$.
+If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
 \end{lemma}
 
 \begin{lemma}[Preservation]
@@ -1946,7 +1769,8 @@ It is not the case that when $\proves{\Gamma}{M}{\phi \lor \psi}$ there always e
   But clearly $x < 1$ and $x > 0$ are not true in the empty context, let alone provable.
 \end{proof}
 
-It is for very good reason that Naive DP fails: unlike in many constructive logics, the players in \CdGL are both entitled to inspect the state of the world, so long as they do so only with the inexact comparisons of the approximate splitting rule.
+It is for very good reason that Naive DP fails: unlike in many constructive logics, the players in \CdGL are both entitled to inspect the state of the world: 
+Angel uses the inexact comparisons of the approximate splitting rule, and Demon is even entitled to arbitrary inspection.
 Naive DP is also stronger that what we really need to know, which is that when $\proves{\Gamma}{M}{\phi \lor \psi},$ then we can decide which of $\phi$ or $\psi$ is true.
 We prove this Weak DP:
 \begin{lemma}[Weak DP]
@@ -1963,12 +1787,12 @@ There is no standard approach because no similar result exists in the literature
 I propose one approach here.
 %TODO: Consider the reduction-from-games-to-systems approach
 \begin{lemma}[Game EP for Angel]
-If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively an Angel strategy $a$ such that for all Demon strategies $d$,
-we have some $\sb,\ab,\db$ where $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzF{\sb,\ab,\db}{\phi}$.
+If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively an Angel strategy $a$ such that 
+$\strategyforR{\alpha}{a}{\fint{\phi}{}}$.
 \end{lemma}
 \begin{lemma}[Game EP for Demon]
-If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively a Demon strategy $d$ such that for all Angel strategies $a$,
-we have for every $\sb,\ab,\db$ where $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ that $\rzF{\sb,\ab,\db}{\phi}$.
+If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively a strategy $a,$
+$\dstrategyforR{\alpha}{a}{\fint{\phi}{}}$.
 \end{lemma}
 This definition of EP for games is somewhat unsatisfying in that it relates the proof-theoretic semantics only to the realizability semantics, and not back to itself.
 However, the representation of strategies in the language of hybrid games is a non-trivial question itself, so it is not clear that expressing the existence of strategies proof-theoretically is any better.
@@ -1987,11 +1811,11 @@ It is true that constructive analysis and classical analysis describe the exact 
 However, the greater problem is that we might wish to use decision procedures to decide formulas involving disjunction $\phi \lor \psi,$ and the constructive $\lor$ connective does not follow from its classical counterpart.
 For example, it is perfectly acceptable to conclude $x > 0 \lor x \leq 0$ classically by QE, but unacceptable to so constructively, as there is no decision procedure which decides between the two branches for any concrete $x$.
 This goes to show we must carefully re-evaluate which forms of QE reasoning are sound in \CdGL; we can no longer accept the classical rule:
-\[\infer[QE]{\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
+\[\infer[\text{QE}]{\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
 
 Instead, we introduce several QE rules.
 Firstly, it is still sound to apply general QE to a double-negated formula:
-\[\infer[QE-DN]{\neg\neg\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
+\[\infer[\text{QE-DN}]{\neg\neg\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
 This is sound because $\neg\neg\phi$ holds constructively any time $\phi$ holds classically.
 Generally speaking, double negations can be used in a proof (and model) to indicate formulas which need not hold constructively.
 We postulate that in practical proving, most expensive arithmetic computations (such as postcondition reasoning and differential invariant reasoning) can be placed in a classical modality so that they are amenable to general QE.
@@ -1999,14 +1823,14 @@ We postulate that in practical proving, most expensive arithmetic computations (
 Secondly, there are several fragments of constructive arithmetic for which QE can be made constructive.
 We call a formula $\phi$ \emph{QE-positive} if all variables are universally quantified, and under the quantifiers there are only conjunctions of comparisons.
 Then the following rule is sound:
-\[\infer[QE-Pos]{\phi}{*}\] with the side condition that $\phi$ is  QE-positive and classically valid.
+\[\infer[\text{QE-Pos}]{\phi}{*}\] with the side condition that $\phi$ is  QE-positive and classically valid.
 QE-positive formulas have trivial computational content, because they represent tautologies that cannot be inspected.
 When $\phi$ is QE-positive and valid, we know $\phi(x)$ and each of its conjuncts describe the entire state space, and so hold merely by virtue of $x$ being a real number.
 A contentless proof term then suffices as a witness.
 
 We note another decidable fragment, which we call \emph{QE-negative}.
 We say a formula $\phi$ is \emph{QE-negative} if all variables are existentially quantified, and under the quantifiers there are  only disjunctions of comparisons.
-\[\infer[QE-Neg]{\phi}{*}\] with the side condition that $\phi$ is  QE-negative and classically valid.
+\[\infer[\text{QE-Neg}]{\phi}{*}\] with the side condition that $\phi$ is  QE-negative and classically valid.
 Unlike the QE-positive fragment, the QE-negative fragment has interesting computational content which can be consumed: a proof of $\phi$ consists of a satisfying assignment and a proof that it indeed satisifies some given disjunct.
 Fortunately, this content can be constructed automatically.
 In the case of a unary disjunction, this is the instance-finding problem for first-order arithmetic.
@@ -2016,16 +1840,23 @@ With multiple disjunctions, simply search for instances of each disjunct in turn
 The decidability of the QE-positive and QE-negative fragments may turn out to be a mere academic amusement, but the ability to embed classical arithmetic ought to significantly aid practical proofs.
 
 \section{Soundness Theorem}
-Soundness of the proof calculus w.r.t.\ the Kripke semantics can be proven by first proving soundness of the proof calculus w.r.t.\ to the realizability semantics,
-then proving realizability sound w.r.t.\ the Kripke semantics.
+\begin{lemma}[Renaming]
+  If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
+\end{lemma}
+\begin{lemma}[Context substitution]
+  If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
+\end{lemma}
+\begin{lemma}[Variable substitution]
+  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
+\end{lemma}
 \begin{theorem}[Soundness of Proof Calculus]
   If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
 \end{theorem}
-\begin{theorem}[Soundness of Realizability]
-  If $\phi$ is realizability-valid, then $\phi$ is Kripke-valid.
-\end{theorem}
-Both proofs follow by structural induction, on the derivation and formula respectively.
-In the former proof, proofs can be assumed to be normal.
+%\begin{theorem}[Soundness of Realizability]
+%  If $\phi$ is realizability-valid, then $\phi$ is Kripke-valid.
+%\end{theorem}
+The proof follows by structural induction on the derivation.
+Proofs can be assumed to be normal.
 
 \section{Relaxing (Constructive) Games to (Constructive) Systems}
 There is a folk theorem that given a game and a strategy for it, the strategy can be inlined into the game to produce a hybrid system which implements the strategy.

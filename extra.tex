@@ -145,3 +145,225 @@ This class of mistakes is simply impossible in the existentially-quantified styl
 
 
 It is that known that once a winning strategy has been found for a hybrid game, a hybrid system can mechanically been derived.
+
+
+\subsection{Real Constructive Games, Implicit}
+The above realizability and Kripke semantics will most likely be adopted, but we present several alternatives as food for thought.
+The above semantics assume a classical metatheory, but a simple way to make \dGL constructive is to reinterpret the standard \dGL semantics~\cite{DBLP:journals/tocl/Platzer17} in a constructive metatheory.
+For example, $\fint{\phi \lor \psi}{} = \fint{\phi}{} \cup \fint{\psi}{},$ but $\cup$ is can be interpreted as constructive union to mirror the constructive $\lor,$ thus for example it is not provable that $\{x \mapsto 0\} \in \fint{x < 0 \lor x \geq 0},$ which is the desired behavior.
+The only definition that needs to change is the dual operator, where we expect that $\dstrategyfor[\pdual{\alpha}]{X} = \strategyfor[\alpha]{X}$ and $\strategyfor[\pdual{\alpha}]{X} = \dstrategyfor[\alpha]{X}$.
+
+While this approach yields elegant definitions, I do not recommend it because it obscures the meaningful differences between classical and constructive \dGL, and is prone to error if we accidentally use classical reasoning in the metalogic.
+
+\subsection{Systems-Only Kripke Semantics}
+This is an early semantics for constructive \dL (without games), which is closer to standard intuitionistic Kripke semantics than the main Kripke semantics presented above.
+We present this mainly to provide a feel for the use of regions to represent the intuitionistic states that are typical of intuitionistic Kripke semantics.
+We do not expect to use this in the finished work.
+
+The semantics are based on intuitionstic Kripke frames.
+In typical abstract treatments, each intuitionistic world is in some sense epistemic: it represents which facts are currently known to be true.
+A preorder $\leq$ is used to represent which worlds are ``at least as knowledgeful'' as some other state.
+We take the same general approach that intuitionistic states represent the available knowledge, except the presentation is concrete.
+%\newcommand{\allregion}{\mathcal{R}}
+Where $\allvars$ is the countable set of identifiers, the set of program states $\allstate$ is $\mathbb{R}^\allvars$, then an intuitionistic state $X : \allcon \equiv 2^\allstate$ is simply a (usually uncountably infinite) set of states, and to ``know'' an intuitionistic state $X$ is to know that we must be in some $\omega \in X,$ but not \emph{which} $\omega$.
+Special case $X = \allcon$ means we know nothing, $X = \{\omega\}$ means that we know we are in exactly the state $\omega,$ and $X = \emptyset$ means we know with certainty that we have derived a contradiction, as we know we are in a state that belongs to the empty set, of which there are none.
+The preorder $\leq$ on intuitionisic worlds is also given concretely: $X \leq Y \equiv X \supseteq Y$: that is, if $Y$ is a subset of $X$ then it contains more information than $Y$ because it rules out all of the states that $Y$ does, plus some more.
+
+%There are several design options for the term semantics: do we include semi-algebraic set computations in the term language, and if so do we make a type distinction or identify sets with nondetermistic terms?
+%One can argue that semialgebraic sets or an equally powerful construct are \emph{necessary} in the term language (not just a nice-to-have because they make it more powerful) because without them we do not have the existence property (EP), which we will prove after introducing the semantics.
+%We also choose not to make a typing distinction in terms since it the technical complexity of introducing a type system is not well motivated by a system of exactly two types.
+%An alternative to explore would be to make the typing distinction, then have a family of operators for drawing elements from sets.
+
+Therefore we will choose $\tint{\theta}{\om} : \mathbb{R}$: the value of a term in some state is its unique value.
+The semantics are defined by:
+\begin{align*}
+  \tint{q}{\om} &= q\\
+  \tint{x}{\om} &= \om(x)\\
+  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} + \tint{\eta}{\om}\\
+  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}\\
+  \tint{\der{\theta}}{\om} &= \sum_{x\in\allvars}\frac{\partial\tint{\theta}{\om}}{\partial x}\om(\D{x})
+%  \tint{\somesemi{x}{F}}{\om} &= \{r \in \mathbb{R}~|~ \fint{F}{\subst[\om]{x}{r}}\}
+\end{align*}
+%It is arguable whether semialgebraic set terms should be allowed to be non-unique; if they are required to be unique then the semantics need not be deterministic in the first place.
+%The issue is primarily one of what it means to be intuitionistic:  if we are computing for example with rational numbers or lists of real-algebraic numbers, then it would make no sense to consider a semi-algebraic set computable.
+%Yet the whole point of using semialgebraic sets in \CdGL is that they are themselves a well-understood data structure for computer algebra, so can certainly be considered computable.
+%That being said, we will be forced to reconsider this decision once we present the program semantics, because nondeterminism in terms has a deep impact on nondeterminism and constructivity in programs.
+
+We give the semantics for formulas.
+In the case $\theta > \eta$, $B_\epsilon(\nu)$ is an open ball of diameter $\epsilon$ around state $\nu \in \mathbb{R}^{|\allvars|}$.
+This is used to capture the notion that a comparison $\theta > \eta$ should terminate if interpreted as a computation, within the current epistemic state.
+\begin{align*}
+  \fint{\phi \land \psi}{X}     &\lequiv \fint{\phi}{X}\text{ and }\fint{\psi}{X}\\
+  \fint{\phi \lor \psi}{X}      &\lequiv \fint{\phi}{X}\text{ or }\fint{\psi}{X}\\
+% TODO: Prove a monotonicity lemma to simplify this
+  \fint{\phi \limply \psi}{X}   &\lequiv \text{ for all }Y \subseteq X, \fint{\phi}{Y}\text{ implies }\fint{\psi}{Y}\\
+  \fint{\bot}{X}                &\lequiv X = \emptyset\\
+  \fint{\theta > \eta}{X}       &\lequiv \text{for all }\nu \in X, \exists \epsilon > 0, \text{for all } \mu \in (B_\epsilon(\nu) \cap X), \tint{\theta}{\mu} > \tint{\eta}{\mu}\\
+  \fint{\exists{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{f(\om)}~|~\om \in X\}} \text{ for some $f:\allstate \to \mathbb{R}$}\\
+  \fint{\forall{x}{\phi}}{X}    &\lequiv \fint{\phi}{\{\subst[\om]{x}{r}~|~\om \in X,  r \in \mathbb{R}\}}\\
+  \fint{\dbox{\alpha}{\phi}}{X} &\lequiv \text{for all }Y \subseteq X, Z \text{ s.t. }(Y,Z) \in \pint{\alpha}, \fint{\phi}{Z}\\
+  \fint{\ddiamond{\alpha}{\phi}}{X} &\lequiv \text{exists }Y, (X,Y)\in\pint{\alpha}\text{ and }\fint{\phi}{Y}\\
+  \fint{\theta \geq \eta}{X}    &\lequiv \fint{\eta > \theta \limply \bot}{X}%\text{for all }r\in \tint{\theta}{\om}, s\in\tint{\nu}, \om,\nu \in X, r \geq s\\
+\end{align*}
+
+We give the semantics for programs:
+\begin{align*}
+  (X,X) \in \pint{\ptest{\phi}}\text{ iff }&\fint{\phi}{X} \\
+  (X,Y) \in \pint{\humod{x}{\theta}} \text{ iff }& Y = \{\subst[\om]{x}{r}~|~\om \in X, r \in \tint{\theta}{X}\}\\
+  \pint{\alpha \cup \beta} =& \pint{\alpha} \cup \pint{\beta}\\
+  (X,Y) \in \pint{\alpha;~\beta} \text{ iff }& \text{exists }Z, (X,Z) \in \pint{\alpha}, (Z,Y) \in \pint{\beta}\\
+  (X,Y) \in \pint{\pevolvein{\D{x}=\theta}{\ivr}}\text{ iff }& Y = \{\nu~|~\exists \om \in X, t \in \mathbb{R}_{\geq0}, \varphi_\om:[0,t]\to\allstate,~\varphi_\om(0)=\om\text{ on }\{x,\D{x}\}^C\\
+   &\frac{\partial \varphi_\om(t)(x)}{\partial t}= \varphi_\om(t)(\D{x})\text{ and } \{\varphi_\om(t)(x)\}=\tint{\theta}{\varphi(\varphi(s))}\\
+   &\text{ and }\fint{\ivr}{\{\varphi_\mu(t)~|~\mu\in X}\}\\
+  \pint{\prepeat{\alpha}} =& \bigcup_{n\in\mathbb{N}} \pint{\alpha}^n
+\end{align*}
+\subsection{Intuitionistic Kripke Semantics with Computability}
+Kripke semantics can be generalized to the intuitionistic setting.
+In intuitionistic Kripke semantics, the world is typically understood epistemically, i.e., the semantics are not parameterized over the world as it is, simply what is known about the world.
+We can then understand an epistemic state as a region $Y \subseteq \allstate$ over \emph{actual} states: to know $Y$ is to know that we are in one of the states $\omega \in Y$.
+Thus to know $\allstate$ is to know nothing and to know $\emptyset$ is to know a contradiction (has been reached). 
+
+Given this understanding, we reach a semantics with much a similar flavor to the classical Kripke semantics.
+The formula semantics $\fint{\phi}{}$ is no longer read as the region on which $\phi$ is true, but the the (unique) largest region from which Angel has a strategy to prove $\phi$.
+\begin{align*}
+  \fint{\theta > \eta}{}         &= \{\om~|~\tint{\theta}{\om} > \tint{\eta}{\om}\}\\
+  \fint{\phi \land \psi}{}       &= \fint{\phi}{} \cap \fint{\psi}{}\\
+  \fint{\phi \lor \psi}{}        &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0, f(\nu)=1, \om\in A, \nu \in B, A \subseteq \fint{\phi}{}, B \subseteq\fint{\psi}{}\}\\
+  \fint{\phi \limply \psi}{}     &= \bigcup\{Z \subseteq \allstate ~|~ Z\subseteq\fint{\phi}{}\text{ implies }Z\subseteq\fint{\psi}{}\}\\
+  \fint{\forall{x}{\phi}}{}      &= \{\om~|~\subst[\om]{x}{r}\in\fint{\phi}{}, \text{ all }r\in\reals\}\\
+  \fint{\exists{x}{\phi}}{}      &= \{\om~|~\subst[\om]{x}{f(\om)}\in\fint{\phi},\text{ some }f:\allstate\mto \reals\}\\
+  \fint{\bot}{}                  &= \emptyset  \\
+  \fint{\ddiamond{\alpha}{\phi}} &= \strategyfor[\alpha]{\fint{\phi}{}}\\
+  \fint{\dbox{\alpha}{\phi}}     &= \dstrategyfor[\alpha]{\fint{\phi}{}}
+\end{align*}
+Where $A \mto B$ is the set of computable multi-valued functions from A to B.
+We use multi-valued functions rather than typical single-valued functions since they better capture the reasoning which is possible with computable reals:
+\begin{inparaenum}
+\item The approximate splitting principle used for case analysis on reals will need multivalued functions for most proofs.
+\item Multivalued functions support nondeterminism in strategies that single-valued functions do not.
+This is useful for example if we ever wish to synthesize a randomized implementation.
+\end{inparaenum}
+
+For each construct that requires a choice, the semantics expect the existence of a computable function that resolves the choice.
+Most often, intuitionistsic Kripke logics do not explicitly require the existence of such a computable function (but, as a metatheorem, they often exist).
+This is a legitimate choice in our case as well, but it would have the symptom that any proof calculus and any proof-theoretic semantics would be incomplete with respect to the intuitionistic semantics.
+We can also phrase the choice in philosophical terms: should a strategy which uses classical reasoning be consider a strategy at all?
+Should a game even be considered winnable when it is only won with a classical strategy?
+
+
+%, while $A \to B$ is the set of all computable functions from A to B, and where term semantics are as before.
+%In both cases we treat the output as a scalar (i.e. we just assume the interpretation of the multi-valued function is not unique).
+%Because even constructive set theories support a collection axiom that converts a multi-valued function to proper function, they can be used more-or-less interchangeably.
+
+
+The game semantics are given by:
+\begin{align*}
+  \strategyfor[\ptest{\phi}]{X}      &= \fint{\phi}{} \cup X\\
+  \strategyfor[\humod{x}{\theta}]{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
+  \strategyfor[\prandom{x}]{X}       &= \{\om~|~\subst[\om]{x}{f(\om)} \in X, \text{ some }f:\allstate\mto\reals\}\\
+  \strategyfor[\alpha;~\beta]{X}     &= \strategyfor[\alpha]{\strategyfor[\beta]{X}}\\
+  \strategyfor[\alpha\cup\beta]{X}   &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0,f(\nu)=1,\om\in A, \nu \in B, A \subseteq\strategyfor[\alpha]{X}, B \subseteq\strategyfor[\beta]{X}\}\\
+  \strategyfor[\pdual{\alpha}]{X}    &= \dstrategyfor[\alpha]{X}\\
+  \strategyfor[\prepeat{\alpha}]{X}  &= \bigcap\{Z\subseteq\allstate~|~X\cup\strategyfor[\alpha]{Z} \subseteq Z\}\\
+  \dstrategyfor[\ptest{\phi}]{X}      &= \fint{\phi}{}^C \cup X\\
+  \dstrategyfor[\humod{x}{\theta}]{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
+  \dstrategyfor[\prandom{x}]{X}       &= \{\om~|~\subst[\om]{x}{r} \in X, \text{ all }r:\reals\}\\
+  \dstrategyfor[\alpha;~\beta]{X}     &= \dstrategyfor[\alpha]{\dstrategyfor[\beta]{X}}\\
+  \dstrategyfor[\alpha\cup\beta]{X}   &= \dstrategyfor[\alpha]{X} \cap \dstrategyfor[\beta]{X}\\
+  \dstrategyfor[\pdual{\alpha}]{X}    &= \strategyfor[\alpha]{X}\\
+  \dstrategyfor[\prepeat{\alpha}]{X}  &= \bigcup\{Z\subseteq\allstate~|~Z\subseteq X\cap \dstrategyfor[\alpha]{Z}\}
+\end{align*}
+It is unclear what semantics would serve us best in the cases $\strategyfor[\prepeat{\alpha}]{X}$ and $\dstrategyfor[\prepeat{\alpha}]{X}$: while fixpoint constructions are widely used in constructive mathematics, fixpoint semantics do not make the termination conditions for a loop explicit.
+They might even admit the existence of loops which require undecidable termination conditions.
+
+\subsection{Real Constructive Games, Two Realizers}
+Of the possible semantics, Kripke semantics are abstract: truth of a formula implies the existence of a winning strategy, but the strategy does not appear explicitly in the semantics.
+Realizability semantics targets a lower level of abstraction: the semantics is parameterized by computable \emph{realizer} functions which implement strategies for Angel and Demon, respectively.
+Because realizer semantics are low level, they are less desirable as our fundamental definition of truth, but could be a useful middle step between a completely concrete proof-theoretic semantics and an abstract Kripke semantics.
+The realizability semantics consists of three main judgments:
+Realizability of a formula $\rzF{\sa,\aa,\da}{\phi}$ holds when the formula $\phi$ is realized by the Angel strategy $\aa$ and Demon strategy $\da$ when starting from state $\sa$.
+The Angel realizability judgement $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ says that after running $\alpha$ from initial state $\sa$ under control of Angel strategy $\aa$ and Demon strategy $\da,$ we will reach state $\sb$ with realizers $\ab$ and $\db$.
+The counterpart for Demon is written $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$.
+Note that both judgements are written in functional syntax and can be thought of as (partial) functions, because $\sb,\ab,\db$ are always unique.
+While hybrid games are themselves highly nondeterministic, the realizers resolve all nondeterminism.
+
+We write $\allRz$ for the set of all realizers.
+Per standard practice, realizers are coinductively defined and are untyped, and we do not specify a concrete internal representation.
+When a realizer $\aa$ is a coinductive pair, we write $\rzFst{\aa}$ for its first component and $\rzSnd{\aa}$ for its second component.
+When a realizer $\aa$ is a function (specifically $A \to \allRz$ for some base type $A$), we write $\rzApp{\aa}{x}$ for the component assigned to some $x:A$.
+We implicitly assume throughout that realizers have the right ``type'' (pair or function) for the given program.
+To be totally rigorous we should show that realizers are type-correct when extracting realizers from proofs.
+
+The set of realizers $\allRz$ is defined coinductively as the greatest set such that for all $\aa \in \allRz$, at least one of the following holds:
+\begin{itemize}
+\item $\rzFst{\aa} \in \mathbb{B}$ and $\rzSnd{\aa} \in \allRz$
+\item $\rzFst{\aa} \in \mathbb{R}$ and $\rzSnd{\aa} \in \allRz$
+\item $\rzFst{\aa} \in \allstate$ and $\rzSnd{\aa} \in \allRz$
+\item $\rzApp{\aa}{r} \in \allRz$ for all $r \in \mathbb{B}$
+\item $\rzApp{\aa}{r} \in \allRz$ for all $r \in \mathbb{R}$
+\item $\rzApp{\aa}{\ab} \in \allRz$ for all $\ab \in \allRz$ (i.e., the set of realizers is super-exponential)
+\item $\rzFst{\aa} \in \mathbb{R}$, $\rzApp{\rzSnd{\aa}}{s} \in \allstate$ and $\rzApp{\rzThd{\aa}}{s} \in \allRz$ for all $s \in [0,\rzFst{\aa}]$ and $\rzFrt{\aa}\in\allRz$
+\item $\aa = \epsilon$ (the unit realizer, realizes nothing)
+\end{itemize}
+Because this set is coinductively defined, it includes infinite strategies for infinite plays.
+There are several possible treatments of inifinite plays and strategies.
+The two simplest treatements, both of which result in the ``finite plays only'' treatment from classical \dGL, are:
+\begin{itemize}
+\item 
+ Interpret the judgements $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ inductively.
+ Then they will only ever hold when applied to finite strategies anyway.
+\item Quantify over finite traces only in the definition of validity
+\end{itemize}
+It is a bad idea to allow infinite strategies (with a coinductive interpretation of $\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$ and $\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}$) for either player, 
+because they would have a strategy to win every repetition game (for every postcondition, even false) by repeating forever, which is not very helpful.
+On some level, it seems more natural to allow infinite plays in boxes than in diamonds, which might simplify metalogical arguments that \CdGL is really talking about CPSs that run forever, but even this would require a careful rethinking of the semantics.
+
+We define the realization judgments recursively:
+\begin{align*}
+\rzF{\sa,\aa,\da}{\phi \land \psi}        &\text{ iff }\rzF{\sa,\aa 0,\da 0}{\phi}\text{ and }\rzF{\sa,\aa 1,\da 1}{\psi}\\
+\rzF{\sa,\aa,\da}{\phi \lor \psi}         &\text{ iff }\rzFst{\aa}=0\text{ and }\rzF{\sa,\rzSnd{\aa},\da 0}{\phi}\\
+                                          &\text{ or }\rzFst{\aa}=1\text{ and }\rzF{\sa,\rzSnd{\aa},\da 1}{\psi}\\
+\rzF{\sa,\aa,\da}{\phi \limply \psi}      &\text{ iff }\rzF{\sa,\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\phi}\text{ implies }\rzF{\sa,\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\psi}\\
+\rzF{\sa,\aa,\da}{\bot}                   &\text{ never}\\
+\rzF{\sa,\aa,\da}{\exists{x}{\phi}}       &\text{ iff }\rzF{\subst[\sa]{x}{\rzFst{\aa}},\rzSnd{\aa},\rzApp{\da}{\rzFst{\aa}}}{\phi}\\
+\rzF{\sa,\aa,\da}{\forall{x}{\phi}}       &\text{ iff }\rzF{\subst[\sa]{x}{\rzFst{\da}},\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}{\phi}\\
+\rzF{\sa,\aa,\da}{\theta > \eta}          &\text{ iff }\tint{\theta - \eta}{\sa} = \rzFst{\aa} \in \{0\}^C\\
+\rzF{\sa,\aa,\da}{\theta \geq \eta}       &\text{ iff }\rzF{\sa,\aa,\da}{\eta > \theta \limply \bot}\\
+\rzF{\sa,\aa,\da}{\ddiamond{\alpha}{\phi}}&\text{ iff } \rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzF{\sb,\ab,\db}{\phi}\\
+\rzF{\sa,\aa,\da}{\dbox{\alpha}{\phi}}    &\text{ iff } \rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ implies }\rzF{\sb,\ab,\db}{\phi}
+\end{align*}
+Note the use of ``implies'' in the diamond case: an Angel or Demon execution can fail (the function is partial) if the Angel or Demon player respectively does not have a strategy to pass a test or evolution domain constraint.
+These semantics say that Angel wins a box game if Demon does not have a strategy to reach the end.
+
+\begin{align*}
+\rzA{\sa,\aa,\da}{\humod{x}{\theta}}{\subst[\sb]{x}{\tint{\theta}{\sa}},\aa,\da}&\\
+\rzA{\sa,\aa,\da}{\prandom{x}}{\subst[\sb]{x}{\rzFst{\aa}},\rzSnd{\aa},\rzApp{\da}{\rzFst{\aa}}}&\\
+\rzA{\sa,\aa,\da}{\ptest{\phi}}{\sa,\rzSnd{\ab},\rzSnd{\da}}&\text{ iff }\rzF{\sa,\rzFst{\aa},\rzFst{\da}}{\phi}\\
+\rzA{\sa,\aa,\da}{\alpha;~\beta}{\Sc,\ac,\dc}&\text{ iff }\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzA{\sb,\ab,\db}{\beta}{\Sc,\ac,\dc}\\
+\rzA{\sa,\aa,\da}{\alpha \cup \beta}{\sb,\ab,\db}&\text{ iff }\rzFst{\aa}=0\text{ and }\rzA{\sa,\rzSnd{\aa},\da 0}{\alpha}{\sb,\ab,\db}\\
+                                                 &\text{ or }\rzFst{\aa}=1\text{ and }\rzA{\sa,\rzSnd{\aa},\da 1}{\beta}{\sb,\ab,\db}\\
+\rzA{\sa,\aa,\da}{\prepeat{\alpha}}{\Sc,\ac,\dc}&\text{ iff }\rzFst{\aa}=0\text{ and }(\sa,\aa,\da)=(\Sc,\ac,\dc)\\
+                                                &\text{ or }\rzFst{\aa}=1\text{ and }\rzA{\sa,\rzSnd{\aa},\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzA{\sb,\ab,\db}{\prepeat{\alpha}}{\Sc,\ac,\dc}\\
+\rzA{\sa,\aa,\da}{\pevolvein{\D{x}=\theta}{\ivr}}{\sb,\ab,\db}&\text{ iff for all }s\in[0,\rzFst{a}], \frac{\partial \rzSnd{a}(s)(x))}{\partial t}=\tint{\theta}{\rzSnd{a}}=\rzSnd{a}(\D{x})\\
+                                                 &\text{ and }\rzF{\rzApp{\rzSnd{\aa}}{\rzFst{\aa}},\rzApp{\rzThd{a}}{s},\rzApp{\rzFst{\da}}{s}}{\ivr}\text{ and } (\rzApp{\rzSnd{a}}{\rzFst{a}},\rzFrt{a},\rzApp{\rzSnd{d}}{\rzFst{a}})=(\sb,\ab,\db)\\
+\rzA{\sa,\aa,\da}{\pdual{\alpha}}{\sb,\ab,\db} &\text{ iff }\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}
+\end{align*}
+For simplicity we can define $\left(\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\right) \equiv \left(\rzA{\sa,\da,\aa}{\alpha}{\sb,\db,\ab}\right),$ but we give an explicit recursive definition here for clarity of exposition:
+\begin{align*}
+\rzD{\sa,\aa,\da}{\humod{x}{\theta}}{\subst[\sb]{x}{\tint{\theta}{\sa}},\aa,\da}&\\
+\rzD{\sa,\aa,\da}{\prandom{x}}{\subst[\sb]{x}{\rzFst{\da}},\rzApp{\aa}{\rzFst{\da}},\rzSnd{\da}}&\\
+\rzD{\sa,\aa,\da}{\ptest{\phi}}{\sa,\rzSnd{\ab},\rzSnd{\da}}&\text{ iff }\rzF{\sa,\rzFst{\da},\rzFst{\aa}}{\phi}\\
+\rzD{\sa,\aa,\da}{\alpha;~\beta}{\Sc,\ac,\dc}&\text{ iff }\rzD{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}\text{ and }\rzD{\sb,\ab,\db}{\beta}{\Sc,\ac,\dc}\\
+\rzD{\sa,\aa,\da}{\alpha \cup \beta}{\sb,\ab,\db}&\text{ iff }\rzFst{\da}=0\text{ and }\rzD{\sa,\aa 0,\rzSnd{\da}}{\alpha}{\sb,\ab,\db}\\
+                                                 &\text{ or } \rzFst{\da}=1\text{ and }\rzD{\sa,\aa 1,\rzSnd{\da}}{\beta} {\sb,\ab,\db}\\
+\rzD{\sa,\aa,\da}{\prepeat{\alpha}}{\Sc,\ac,\dc}&\text{ iff }\rzFst{\da}=0\text{ and }(\sa,\aa 0,\rzSnd{\da})=(\Sc,\ac,\dc)\\
+                                                &\text{ or }\rzFst{\da}=1\text{ and }\rzD{\sa,\aa 1,\rzSnd{\da}}{\alpha}{\sb,\ab,\db}\text{ and }\rzD{\sb,\ab,\db}{\prepeat{\alpha}}{\Sc,\ac,\dc}\\
+\rzD{\sa,\aa,\da}{\pevolvein{\D{x}=\theta}{\ivr}}{\sb,\ab,\db}&\text{ iff for all }s\in[0,\rzFst{\da}], \frac{\partial \rzSnd{\da}(s)(x))}{\partial t}=\tint{\theta}{\rzSnd{\da}}=\rzSnd{\da}(\D{x})\\
+                                                 &\text{ and }\rzF{\rzSnd{\da},\rzApp{\rzThd{\da}}{s},\rzApp{\rzFst{\aa}}{s}}{\ivr}\text{ and } (\rzApp{\rzSnd{\da}}{\rzFst{\da}},\rzFrt{\da},\rzApp{\rzSnd{\aa}}{\rzFst{\da}})=(\sb,\ab,\db)\\
+\rzD{\sa,\aa,\da}{\pdual{\alpha}}{\sb,\ab,\db} &\text{ iff }\rzA{\sa,\aa,\da}{\alpha}{\sb,\ab,\db}
+\end{align*}
+Then a formula $\phi$ is called \emph{valid} if for every state $\om,$ there exists a finite strategy $\aa$ such that for every finite strategy $\da,$ judgment $\rzF{\om,\aa,\da}{\phi}$ holds.
+
+Both the realizability and Kripke semantics might be of use in the final presentation.
+If both are used, we should prove them equivalent, which we expect to be the case because even our Kripke semantics holds only when strategies are computable.
+If we adopt a relaxed Kripke semantics with uncomputable strategies, we would then show that the realizability semantics prove a strict subset of the Kripke-valid formulas.
