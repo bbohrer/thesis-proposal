@@ -1397,6 +1397,7 @@ We present several semantics here, since the remaining tasks (proof term semanti
 \newcommand{\db}{D}
 \newcommand{\dc}{\delta}
 \newcommand{\allRz}{\mathcal{R}\mathbf{z}}
+\newcommand{\mto}{\rightharpoonup}
 
 \subsection{Real Constructive Games, One Realizer}
 \newcommand*{\strategyforR}[3][]{\varsigma_{#1}^{#2}(#3)}
@@ -1406,6 +1407,39 @@ Instead of giving explicit realizers for both players' strategies, we give a rea
 The benefits of this presentation are that it's clear Demon's strategy is being treated extensionally, i.e., Angel's strategy never gets to inspect Demon's strategy, and Angel's strategy works even if Demon employs uncomputable trickery.
 The local treatment may also simplify soundness proofs and certainly simplifies notation a bit.
 
+\begin{align*}
+  \fint{\theta > \eta}{}         &= \{\om~|~\tint{\theta}{\om} > \tint{\eta}{\om}\}\\
+  \fint{\phi \land \psi}{}       &= \fint{\phi}{} \cap \fint{\psi}{}\\
+  \fint{\phi \lor \psi}{}        &=\bigcup_a \fint{\phi}{} \cup_a \fint{\psi}{}\\
+%  \fint{\phi \lor \psi}{}        &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0, f(\nu)=1, \om\in A, \nu \in B, A \subseteq \fint{\phi}{}, B \subseteq\fint{\psi}{}\}\\
+  \fint{\phi \limply \psi}{}     &= \bigcup\{Z \subseteq \allstate ~|~ Z\subseteq\fint{\phi}{}\text{ constructively implies }Z\subseteq\fint{\psi}{}\}\\
+  \fint{\forall{x}{\phi}}{}      &= \{\om~|~\text{for all }r\in\reals, \subst[\om]{x}{r}\in\fint{\phi}{}\}\\
+  \fint{\exists{x}{\phi}}{}      &= \bigcup_{f:\allstate\mto \reals}\{\om~|~\subst[\om]{x}{f(\om)}\in\fint{\phi}\}\\
+  \fint{\bot}{}                  &= \emptyset  \\
+  \fint{\ddiamond{\alpha}{\phi}} &= \strategyfor[\alpha]{\fint{\phi}{}}\\
+  \fint{\dbox{\alpha}{\phi}}     &= \dstrategyfor[\alpha]{\fint{\phi}{}}
+\end{align*}
+We elaborate on the formula semantics.
+The discriminated union $A \cup_a B$ exists for a given relation $a$ (or we say $a$ is suitable for $A \cup_a B$) iff 
+and it only ever discriminates an element into a set where it is actually a member, i.e., $(x,0) \in a \limply x \in A$ and $(y,1) \in a \limply x \in B$.
+Then $A \cup_a B = \{x~|~ \exists y~(x,y) \in a, x \in A \cup B\}$.
+That is, not every member of $A \cup B$ must be sorted into one of the sets, but the discriminated union consists of those elements that can be so sorted.
+The meaning of $\phi \lor \psi$ is then the union of all such discriminated unions.
+This can be smaller than the classical set-theoretic union, e.g., $x < 0 \lor x \geq 0$ is classically a tautology but constructively holds everywhere but 0.
+This is notably more complicated a definition than even the typical constructive definition, and with good reason.
+Unlike many constructive logics, we assume that we are entitled to inspect the global state in a proof, just that we are not entitled to any magical, uncomputable inspections.
+The descriminator $a$ allows us to capture the notion of which inspections are considered computable.
+The use of $a$ is philosophically analogous to the use of a collection axiom in constructive ZF set theory to form proper functions from multi-valued functions.
+
+The definition of $\fint{\phi \limply \psi}{}$ also deserves special attention.
+The simpler alternative definition $\fint{\phi \limply \psi}{} = \fint{\psi} \cup \fint{\phi}^\complement$ ought to work just fine, but I am hesitant to use it as it hides important subtleties.
+Firstly, there are at least three sometimes-different notions of complement $S^\complement$ in common use in constructive analysis: logical complement defined by contradiction $\fint{x \in S \limply \bot}{},$ metric negation $\{x~|~\forall y \in S, \delta(x,y) > 0\},$ and plain old ``complement'' $\{x~|~\forall y \in S, x \neq y\}$.
+We risk causing confusion between the three, and also confusion over the fact that the union is classical, not constructive.
+Lastly, union and complement do not correspond clearly to standard proof methods for semantically proving implications, while our awkard-looking definition is quite simple for use in semantic proofs.
+The definition of implication reads best in the epistemic understanding of intuitionistic logic: No matter how much I know about the current state, if it's enough to know $\phi$ then it has to be enough to also know $\psi$.
+As is typical in the semantics of constructive logic, the notion ``constructively implies'' is left vague-sounding.
+However, it really just comes down to the rule (as followed in all the other semantic cases) that the state may be inspected only with computable discriminators.
+
 Now $\strategyforR[\alpha]{\aa}{X}$ is the winning region from which Angel will reach goal region $X$ by following strategy $\aa$, while 
 $\dstrategyforR[\alpha]{\aa}{X}$ is the winning region from which Demon will reach goal region $X$ assuming \emph{Angel} follows $\aa$.
 \begin{align*}
@@ -1414,8 +1448,8 @@ $\dstrategyforR[\alpha]{\aa}{X}$ is the winning region from which Demon will rea
 \strategyforR[\prandom{x}]{\aa}{X}         &=  \{\om~|~\subst[\om]{x}{\aa(\om)} \in X\}&&\text{}\\ 
 \strategyforR[\alpha;\beta]{\aa}{X}          &= \strategyforR[\alpha]{\rzFst{\aa}}{\strategyforR[\beta]{\rzSnd{\aa}}{X}} &&\text{}\\ 
 \strategyforR[\alpha\cup\beta]{\aa}{X}     &= \strategyforR[\alpha]{\rzSnd{\aa}}{X} \cup_{\rzFst{\aa}} \strategyforR[\beta]{\rzSnd{\aa}}{X}&&\text{}\\ 
-\strategyforR[\prepeat{\alpha}]{\aa}{X}   &=  \bigcap\{Z\subseteq S~|~X \cup_{\rzFst{\aa}} \strategyforR[\alpha]{\rzSnd{\aa}Z} \subseteq Z\}&&\text{}\\ 
-\strategyforR[\pdual{\alpha}]{\aa}{X}      &=  \dstrategyforR[\alpha]{\aa}{X}&&\text{}\\ 
+\strategyforR[\prepeat{\alpha}]{\aa}{X}     &=  \bigcap\{Z\subseteq S~|~X \cup_{\rzFst{\aa}} \strategyforR[\alpha]{\rzSnd{\aa}}{Z} \subseteq Z\}&&\text{}\\ 
+\strategyforR[\pdual{\alpha}]{\aa}{X}        &=  \dstrategyforR[\alpha]{\aa}{X}&&\text{}\\ 
 \dstrategyforR[\ptest{\phi}]{\aa}{X}           &= \fint{\phi}{}^\complement \cup X &&\text{}\\ 
 \dstrategyforR[\humod{x}{\theta}]{\aa}{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\} &&\text{}\\ 
 \dstrategyforR[\prandom{x}]{\aa}{X}         &= \{\om~|~\subst[\om]{x}{r} \in X\}&&\text{ for all }r \in \reals\\ 
@@ -1469,7 +1503,6 @@ For practical use, a sequent calculus can be implemented on top of the natural d
 In this natural deduction system with proof terms, the main proof judgement is $\proves{\Gamma}{M}{\phi},$ which says term $M$ is a proof of $\phi$ in the context $\Gamma$.
 The assumptions in the context are named, so that they may be mentioned in proof terms.
 
-\newcommand{\mto}{\rightharpoonup}
 \newcommand{\eprojL}[1]{\pi_1{#1}}
 \newcommand{\eprojR}[1]{\pi_2{#1}}
 \newcommand{\eProjL}[1]{\{\pi_1{#1}\}}
