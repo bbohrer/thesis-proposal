@@ -157,6 +157,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\VeriPhy}{VeriPhy\xspace}
 \newcommand{\ModelPlex}{ModelPlex\xspace}
 \newcommand{\dLi}{\ensuremath{\dL_\iota}\xspace}
+\newcommand{\GL}{GL\xspace}
 \newcommand{\tint}[2]{\lenvelope{#1}\renvelope{#2}}
 \newcommand{\fint}[1]{\lenvelope{#1}\renvelope}
 \newcommand{\pint}[1]{\lenvelope{#1}\renvelope} % (#2,#3) \in 
@@ -211,8 +212,9 @@ However, hybrid-system verification results are leaky: because we are truly inte
 we lose safety guarantees when implementations are not faithful to our model.
 Further still, a safety result in a formal logic such as \dGL is lost if the software tool which checks the proof is \emph{unsound}.
 
-My thesis is that these leaks can be sealed by placing the entire verification toolchain, from checking of safety proofs to runtime execution, on a common foundation in logic and programming languages.
-That is: \emph{Constructive logic and functional programming enable end-to-end verification of CPS, connecting the synthesis of practical implementations down to bulletproof theoretical foundations}.
+My thesis is that these leaks can be sealed by placing the entire verification toolchain, from checking of safety proofs to runtime execution, on a common foundation in constructive logic and programming languages.
+That is: \emph{Constructive Differential Game Logic (\CdGL) enables practical, end-to-end verification of cyber-physical systems.}
+\CdGL does so by connecting the synthesis of practical implementations down to bulletproof theoretical foundations.
 We show that a logical (corr.\ languages) approach provides a keystone against which high-level proofs can be rigorously connected to their implementations and foundations.
 The same approach even facilitates the proof author's connection to their proof, enabling proof languages beyond the state of the art.
 
@@ -221,6 +223,11 @@ We then propose the \CdGL, its constructive logical foundation.
 Unlike its classical predecessors \dGL and \dL, a \CdGL proof contains, in the general case, enough information to synthesis both monitors and controllers, which respectively check that the external world meets modeling assumptions and compute model-compliant (thus safe) control choices for the CPS implementation.
 The push-button synthesis process itself is proven correct down to machine-code level, with an end-to-end formal guarantee in a theorem prover that the implementation code is safe.
 To connect proofs to their foundations, we also contribute a formalization of the \KeYmaeraX prover core's soundness in \Isabelle, so that proofs can be automatically cross-checked in \Isabelle, in the common special case of hybrid systems proofs.
+We evaluate our toolchain on ground robotics models, culminating in a model capable of general 2D driving with acceleration on arc-shaped paths.
+Modeling and implementation mutually inform each other: if the implementation is unsafe or physical assumptions are unrealistic, monitors ensure we notice during testing.
+More subtly, but just as important: our correct-by-construction monitors ensure our model was flexible enough for practical use, as an overly conservative model would lead to monitors which always report unsafety.
+Not only does our end-to-end approach provide formal guarantees of runtime safety while presenting a clean linguistic interface to proof, but in validating environmental assumptions, it forces users to be truly honest as well.
+if the model is overly restrictive, correct-by-construction monitors ensure we notice during testing
 \end{abstract}
 
 %\begin{acknowledgments}
@@ -240,27 +247,39 @@ To connect proofs to their foundations, we also contribute a formalization of th
 Cyber-physical systems (CPSs) combining discrete control and continuous physical dynamics are pervasive in modern society: examples include driver assistance in cars, industrial robotics, airborne collision avoidance systems, the electrical grid, and medical devices.
 Many of these systems are safety-critical or even life-critical because they operate in close proximity to humans and in some cases perform life-sustaining functions.
 Formal safety verification of these systems is a key tool for attaining the strongest possible guarantees that they meet their safety objectives.
-As CPSs cement their role in society, the field of formal verification for CPSs has matured too, particularly verification of hybrid systems models, which provide a common formalism for the discrete and continuous aspects of a CPS.
+Therefore, as the importance of CPS in society grows, so does the importance of their formal verification.
+\emph{Hybrid systems} models, in particular, have succeeded in providing a common formalism for the discrete and continuous aspects of a CPS.
 Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is notable for its strong logical foundations and successful application in a number of case studies~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:conf/rss/MitschGP13,DBLP:conf/hybrid/PlatzerQ08} using the theorem provers \KeYmaera~\cite{DBLP:conf/cade/PlatzerQ08} and \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
 Other notable approaches include model-checking of automata-theoretic~\cite{DBLP:conf/lics/Henzinger96} models, control synthesis, and runtime monitoring.
 
-\paragraph{The Cast.}
-Each approach listed above will surely claim to be practical, but practicality is a matter of perspective.
-In this thesis, we arrive at practicality through the synthesis of three perspectives, represented by three characters: the Logician, the Engineer, and the Logic-User.
-Through this synthesis we also show that no prior work addresses the needs of all three characters at once.
+While approaches differ, the fundamental motivation for CPS motivation is always the same: to promote the safety and correctness of real systems.
+%TODO: Cite other end-to-end approaches
+The end-to-end philosophy recognizes that hybrid systems are only an abstraction of reality, so achieving safety in practice requires bridging the abstraction gaps between models and implementations.
+%TODO: Shit on everybody else
+In this thesis, we extend the \dL tradition to an end-to-end verification technique.
+We use \VeriPhy as a name both for the resulting software toolchain and the general approach.
+The \VeriPhy approach says that to achieve end-to-end guarantees, every stage of verification should be founded in logics and programming languages with well-defined formal semantics.
+By verifying systems \emph{constructively}, we enable automated synthesis of correct implementations in the general case.
+Because the source, implementation, and proof languages all have formal semantics, we can formally show that implementations are refinements of source models and thus are safe.
 
-The Logician follows in the formalist tradition of David Hilbert: to know something is to have a proof of it, to have a proof is to have a machine-checkable derivation in a sound, formal proof calculus, and to have a sound proof calculus is to have a formal semantics against which the rules have a formal proof of soundness.
+\paragraph{The Cast.}
+End-to-end verification is hard in large part because it must balance competing theoretical and practical needs.
+Throughout this thesis, we argue that the \VeriPhy meets these needs better than existing approaches by providing a dialogue between three characters: the Logician, the Engineer, and the Logic-User.
+We now introduce each character.
+
+The Logician follows in the formalist tradition of David Hilbert: to know something is to have a proof of it.
+Today's formalist goes further and says to have a proof is to have a machine-checkable derivation in a sound, formal proof calculus, and to have a sound proof calculus is to have a formal semantics against which the rules have a formal proof of soundness.
 The Logician holds mathematics to the highest standard possible, and they do so with good reason.
 CPS are often life-critical, and if all the Logician's paranoia can prevent defects in CPS, it has been worthwhile.
 Not only have flaws been found in designs of unverified CPS, but bugs in informal proofs are commonplace.
-Even bugs in proof calculi, while less common, have been uncovered through careful verification.
-While it cannot be known for sure whether fixing such bugs has ever prevented bugs in production, the Logician certainly seems justified in their paranoia.
+Even bugs in proof calculi, while less common, have been uncovered through careful verification~\cite{DBLP:conf/cpp/BohrerRVVP17}.
+Considering the existence of such bugs, the Logician is justified in their paranoia.
 
-The Engineer, however, may be shocked not only at the extent of paranoia but by the Logician's naivete.
-The Engineer is tasked with designing, building, and delivering a production CPS under time and budget constraints.
-The Engineer is no stranger to formal models, rather they are comfortable with highly complex models which completely confound the Logician's latest proof technique.
-They are a stranger only to the Logician's infinite patience: any technique which cannot show concrete safety benefits on realistic systems in a short timeframe will ultimately be discarded.
-To the Engineer, it is infinitely better to find one bug in the implementation than to eliminate every bug in an ideal model, because bugs in an ideal model might not translate to bugs in the implementation.
+The Engineer, however, might see these efforts as misdirected.
+The Engineer is the one tasked with designing, building, and delivering a production CPS under time and budget constraints.
+The Engineer will gladly use formal modeling and verification, but only if it can show concrete safety benefits on realistic systems in a short timeframe.
+Techniques that appeal to the Logician might appall the Engineer because they are time-consuming or only guarantee safety of an ideal model.
+The Engineer would rather fix one bug in the implementation than ten bugs in an ideal model, since fixing a bug in the model is not guaranteed to improve the quality of shipped code.
 
 The Logic-User is oft-forgotten, and sits between the Logician and Engineer on the spectrum from theory to practice.
 The Logic-User (sometimes called the Proof Engineer), is the person tasking with employing verification tools at scale.
@@ -268,14 +287,15 @@ Unlike the Logician, the Logic-User does not obsess with the soundness of proof 
 The Logic-User believes in the value of a verified model, but sympathizes with the Engineer's plea that only a nuanced model could hope to capture the difficulties faced in practice.
 Verification takes time, but the Logic-User expects their time to spent wisely: time should not be wasted on verification tasks that could easily be automated away, and no unnecessary barriers to learning the tool should be erected.
 
-As shown in \rref{tab:approach-comparison}, no approach satisfies all characters.
+As shown in \rref{tab:approach-comparison}, no prior approach satisfies all characters.
 General-purpose interactive theorem provers (GPITP) such as \Isabelle or \Coq satisfy the Logician's desire for solid logical foundations,
 but the Logic-User will be dissatisfied with the laborious proofs required when specialized support for CPS is absent, 
 and the Engineer will be dissatisfied that practical artifacts like controllers and runtime monitors must still be implemented manually.
 The Engineer can synthesize artifacts automatically if hybrid automata are used as the foundation, but the Logician will be disappointed with the paper-only foundations and the Logic-User disappointed by error-prone modeling constructs.
-The Logic-User is not truly satisfied with any approach, but domain-specific logics like \dL come closest: a program-like syntax makes it possible to avoid more modeling mistakes than with automata, and proof is not as laborious as with GPITP.
-This will in turn upset the Engineer because state-of-the-art synthesis tools for \dL~\cite{DBLP:journals/fmsd/MitschP16} only synthesize monitors, and are fragile when applied outside of ad-hoc special cases.
-The Logician is equally upset because prior to this thesis, the theory of \dL has been developed only in informal paper proofs.
+Of the available choices, the Logic-User prefers domain-specific logics like \dL: a program-like syntax helps avoid modeling mistakes, while proof is not as laborious as with GPITP.
+This comes at cost to the Engineer because state-of-the-art synthesis tools for \dL~\cite{DBLP:journals/fmsd/MitschP16} only synthesize monitors, and sometimes fail to synthesize monitors for complicated models in practice.
+Prior to this thesis, the Logician also paid the price that \dL's foundations were developed only informally on paper.
+
 Nor is the Logician truly satisfied with any approach: while GPITP's have rigorous foundations and support extraction of controllers or monitors, the extraction facilities are not provably correct, nor can the Logician convince themself that the modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs.
 
 \begin{table}[tbh]
@@ -310,25 +330,33 @@ We say that verification is practical if it also meets the needs of the Logic-Us
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
 \node[coordinate,pin={[pin distance=0.6in]210:{\rref{ch:logical-foundations},\rref{ch:end-to-end-v}}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-\draw (-5, 2) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.7in,text width=1.2in,text centered] (logic) {Foundations};
+\draw (-5, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.4in,text width=1.3in,text centered] (logic) {Foundations};
 \draw (-5, 2.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (formalization) {\dL Formalized};
 \draw (-5, 1.4) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (generalization) {\dL Generalized};
+\draw (-5, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (cgl) {Constructive \GL};
+\draw (-5, -0.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (cdgl) {Constructive \dGL};
 \draw node[left=0.3in of formalization] (formal-ref) {\rref{sec:isabelle-fml}};
 \draw node[left=0.3in of generalization] (gen-ref) {\rref{sec:definite-description}};
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
-\draw (5, 2) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.7in,text width=0.7in,text centered] (engine) {Artifacts};
+\draw (5, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.4in,text width=0.82in,text centered] (engine) {Artifacts};
 \draw (5, 2.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors) {Monitors};
 \draw (5, 1.4) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (controllers) {Controls};
+\draw (5, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (proofscript) {Proof Script};
+\draw (5, -0.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (proofterm) {Proof Term};
 \draw node[right=0.3in of monitors] (monitor-ref) {\rref{sec:veriphy}};
 \draw node[right=0.3in of controllers] (controllers-ref) {\rref{ch:proofplex}};
 \draw[dashed] (monitors) -- (monitor-ref);
 \draw[dashed] (controllers) -- (controllers-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
 \draw (1.45,-2) -- (0,-2.7);
-\draw (0, -3.5) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.85in,text width=0.8in,text centered] (luser) {Usability};
-\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
-\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
+\draw (0, -3.5) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.85in,text width=1.9in,text centered] (luser) {Usability};
+%\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
+\draw (-0.3, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
+\draw (0.1, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Lines of Model/Proof};
+%\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
+\draw (-1.38, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.6in] (modelmistake) {Model Mistakes};
+\draw (0.98, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.9in] (maintainable) {Maintainable?};
 \draw[->,very thick] (logic) -- (CdGLcirc);
 \draw[->,very thick] (CdGLcirc) -- (engine);
 \draw[dashed] (CdGLcirc) -- (luser);
@@ -341,25 +369,26 @@ We say that verification is practical if it also meets the needs of the Logic-Us
 The already-completed works in this thesis connect implementation artifacts to foundations by way of \dL:
 the monitor synthesis tool \VeriPhy (\rref{sec:veriphy}) connects an implementation (for example, of a robot: \rref{sec:ground-robotics}) to a formal model in \dL.
 \rref{ch:logical-foundations} then satisfies the logician by putting \dL (as implemented in \KeYmaeraX) on firm footing in \Isabelle (\rref{sec:isabelle-fml}), and also generalizing the foundations of \dL to survive future development (\rref{sec:definite-description}).
-In the proposed work, we show that we can better meet the needs of the Engineer and Logic-User by developing a generalization of \dL called Constructive Differential Game Logic (\CdGL), which supports hybrid systems with adversarial dynamics (hybrid games) and constructive reasoning.
-We first develop \CdGL, develop its foundations, and show that it leads to simpler models with less modeling errors (\rref{ch:cdgl}), then show (\rref{ch:proofplex}) that \CdGL supports synthesis of both controllers and monitors in the general case, in contrast to the state-of-the-art.
+The proposed work extends our logical foundation by developing \CdGL (Constructive \dGL) and Kaisar, a principled language for \CdGL proofs.
+We show that this foundation promotes simpler models (\rref{ch:cdgl}) and supports synthesis of both controllers and monitors in the general case.
+These additions meet the practical needs of the Engineer and Logic-User while extending the \VeriPhy pipeline on one end to high-level user proofs scripts and rounds out the other end by providing verified controllers, resulting in a stronger safety guarantee than prior versions of \VeriPhy.
 
 At last, we arrive at a concise thesis statement for the thesis as a whole:
 \begin{framed}
   \begin{quote}
-Constructive Differential Game Logic enables practical, end-to-end verification of cyber-physical systems.
+Constructive Differential Game Logic (\CdGL) enables practical, end-to-end verification of cyber-physical systems.
   \end{quote}
 \end{framed}
-This is not to say that the thesis is the first practical approach to CPS verification, nor the last step in making verification end-to-end.
-The needs of a real Logician, Logic-User, and Engineer are complex and ever-changing: tomorrow's Logic-User might seek full proof automation, tomorrow's Engineer might demand guaranteed resilience to sensing and actuation errors, and tomorrow's Logician might want a logical treatment of phenomena like concurrency and stochasticity which are challenging to incorporate with CPS today.
-The real-world drama of CPS also has characters which are not discussed in this thesis, like government regulatory agencies, end-users of the production CPS, and even other CPS's which might want to interact with ours.
-That being said, \rref{tab:approach-comparison} shows that the works of the thesis together a practical, foundational, end-to-end approach that meets the needs of the major players in a way that prior approaches have not.
-
-
+In \rref{sec:relwork}, we will compare the \CdGL+\VeriPhy approach in detail with other works that follow an end-to-end philosophy.
+Our take on end-to-end verification is that results implementation-level guarantees must come via formal guarantees connecting implementation to models, else the Logician will not accept the system as verified.
+For this verification to be practical, results should be transported to implementation level automatically, with artifacts that the Engineer can use.
+The Logic-User must be able to perform their proofs in a high-level, productive language.
+Viewed through this lens, \rref{tab:approach-comparison} shows that the \VeriPhy approach, with its strong foundation in logic, marries practical end-to-end verification foundation with rigorous foundations on a level that prior approaches have not.
 
 \section{Related Work}
+\label{sec:relwork}
 Here, we discuss works that are broadly related to the thesis as a whole.
-Works which are relevant only to a given chapter are discussed in that chapter.
+Works which are relevant primarily to one chapter are discussed in that chapter.
 
 
 \subsection{Verification of Theorem Provers}
@@ -373,14 +402,18 @@ Myreen and Davis proved the soundness of the ACL2-like theorem prover Mitawa in 
 Anand, Bickford, and Rahli~\cite{Anand+Rahli:2014,Rahli+Bickford:cpp:2016}
 proved the relative consistency of Nuprl's type theory~\cite{Constable+al:1986,Allen+al:2006} in Coq with the goal of generating a verified prover core.
 %
-We share a common goal: formally verifying that theorem provers are correct.
+Like the above works, the goal of \rref{sec:isabelle-fml} is to verify the correctness of a theorem prover (\KeYmaeraX).
+This goal is one part of the thesis' broader goal of bulletproof foundations: formal proofs are only as trustworthy as their foundations.
+Since proof in \dL is a lynchpin of the \VeriPhy approach, it was crucial to show the soundness of \dL's foundations.
 %
-However, the foundations of \dL differ greatly from those of the other provers (\dL intimately deals with programs with differential equations), leading to substantially different proofs (in our case, intricate proofs about real analysis and substitution).
+\rref{sec:isabelle-fml} exposed unique technical challenges because the foundations of \dL differ greatly from those of the other provers.
+Soundness for the differential equations of \dL involved significant proofs in real analysis.
+The \KeYmaeraX core is based on a uniform substitution calculus, so the formalization also includes significant proofs about substitution.
 
 Our verified checker supports a significant fragment of the \KeYmaeraX core, including enough to recheck proofs of safety for monitor-based synthesized controllers (${\approx}$100K steps).
 While the \Isabelle formalization is based directly on the calculus supported in \KeYmaeraX, another contribution of the thesis (\rref{sec:definite-description}) is to develop a foundation for \dL which is more amenable to the practical extensions used in \KeYmaeraX in practice.
-
-%
+Together, these two pieces provide a multifaceted argument how we can trust hybrid systems proofs as done in \KeYmaeraX.
+%TODO: Cite andre dGL formalization here
 %StarL~\cite{Lin+Mitra:lctrts:2015} is a framework for programming and simulating Android applications that control robots.
 %It uses a formalization of timed automata and has a discrete model of space in order to verify distributed applications.
 %V\"{o}lker~\cite{Volker:2000} defines the semantics of hybrid automata in Isabelle, but no verification techniques. 
