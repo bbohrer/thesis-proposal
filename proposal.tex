@@ -127,7 +127,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\allregion}{\mathcal{X}}
 \newcommand{\allnoms}{\mathcal{N}}
 \newcommand{\logname}{\text{\upshape\textsf{dH{\kern-0.05em}L}}\xspace}
-\newcommand{\dRL}{dR\mathcal{L}}
+\newcommand{\dRL}{\ensuremath{\mathsf{dRL}}\xspace}
 \newcommand{\nom}[1]{{\it #1}}
 \newcommand{\rexists}[2]{\lexists[\mathbb{R}]{#1}{#2}}
 \newcommand{\sexists}[2]{\lexists[\allworld]{#1}{#2}}
@@ -150,6 +150,9 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\pconst}[1]{#1}
 \newcommand{\om}{\omega}
 \newcommand{\tom}{\tilde{\omega}}
+%\newcommand{\dRL}{\textsf{dRL}\xspace}
+\newcommand{\DL}{\textsf{DL}\xspace}
+\newcommand{\CGL}{\textsf{CGL}\xspace}
 \newcommand{\CdGL}{\textsf{CdGL}\xspace}
 \newcommand{\ProofPlex}{ProofPlex\xspace}
 \newcommand{\Isabelle}{Isabelle/HOL\xspace}
@@ -158,6 +161,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\ModelPlex}{ModelPlex\xspace}
 \newcommand{\dLi}{\ensuremath{\dL_\iota}\xspace}
 \newcommand{\GL}{GL\xspace}
+\newcommand{\G}{\Gamma}
 \newcommand{\tint}[2]{\lenvelope{#1}\renvelope{#2}}
 \newcommand{\fint}[1]{\lenvelope{#1}\renvelope}
 \newcommand{\pint}[1]{\lenvelope{#1}\renvelope} % (#2,#3) \in 
@@ -227,7 +231,7 @@ We evaluate our toolchain on ground robotics models, culminating in a model capa
 Modeling and implementation mutually inform each other: if the implementation is unsafe or physical assumptions are unrealistic, monitors ensure we notice during testing.
 More subtly, but just as important: our correct-by-construction monitors ensure our model was flexible enough for practical use, as an overly conservative model would lead to monitors which always report unsafety.
 Not only does our end-to-end approach provide formal guarantees of runtime safety while presenting a clean linguistic interface to proof, but in validating environmental assumptions, it forces users to be truly honest as well.
-if the model is overly restrictive, correct-by-construction monitors ensure we notice during testing
+if the model is overly restrictive, correct-by-construction monitors ensure we notice during testing.
 \end{abstract}
 
 %\begin{acknowledgments}
@@ -262,27 +266,29 @@ The \VeriPhy approach says that to achieve end-to-end guarantees, every stage of
 By verifying systems \emph{constructively}, we enable automated synthesis of correct implementations in the general case.
 Because the source, implementation, and proof languages all have formal semantics, we can formally show that implementations are refinements of source models and thus are safe.
 
+%TODO: Go through and add all the dialogue
+%TODO: Discuss why all of these characters are real and important
 \paragraph{The Cast.}
 End-to-end verification is hard in large part because it must balance competing theoretical and practical needs.
 Throughout this thesis, we argue that the \VeriPhy meets these needs better than existing approaches by providing a dialogue between three characters: the Logician, the Engineer, and the Logic-User.
 We now introduce each character.
 
 The Logician follows in the formalist tradition of David Hilbert: to know something is to have a proof of it.
-Today's formalist goes further and says to have a proof is to have a machine-checkable derivation in a sound, formal proof calculus, and to have a sound proof calculus is to have a formal semantics against which the rules have a formal proof of soundness.
+Today's Logician goes further than Hilbert and says to have a proof is to have a machine-checkable derivation in a sound, formal proof calculus, and to have a sound proof calculus is to have a formal semantics against which the rules have a formal proof of soundness.
 The Logician holds mathematics to the highest standard possible, and they do so with good reason.
 CPS are often life-critical, and if all the Logician's paranoia can prevent defects in CPS, it has been worthwhile.
 Not only have flaws been found in designs of unverified CPS, but bugs in informal proofs are commonplace.
 Even bugs in proof calculi, while less common, have been uncovered through careful verification~\cite{DBLP:conf/cpp/BohrerRVVP17}.
 Considering the existence of such bugs, the Logician is justified in their paranoia.
 
-The Engineer, however, might see these efforts as misdirected.
+The Engineer, however, might see these efforts as misguided.
 The Engineer is the one tasked with designing, building, and delivering a production CPS under time and budget constraints.
 The Engineer will gladly use formal modeling and verification, but only if it can show concrete safety benefits on realistic systems in a short timeframe.
 Techniques that appeal to the Logician might appall the Engineer because they are time-consuming or only guarantee safety of an ideal model.
 The Engineer would rather fix one bug in the implementation than ten bugs in an ideal model, since fixing a bug in the model is not guaranteed to improve the quality of shipped code.
 
 The Logic-User is oft-forgotten, and sits between the Logician and Engineer on the spectrum from theory to practice.
-The Logic-User (sometimes called the Proof Engineer), is the person tasking with employing verification tools at scale.
+The Logic-User (called the Proof Engineer by some authors), is the person tasking with employing verification tools at scale.
 Unlike the Logician, the Logic-User does not obsess with the soundness of proof rules, because they trust that the Logician has implemented the verification tool correctly.
 The Logic-User believes in the value of a verified model, but sympathizes with the Engineer's plea that only a nuanced model could hope to capture the difficulties faced in practice.
 Verification takes time, but the Logic-User expects their time to spent wisely: time should not be wasted on verification tasks that could easily be automated away, and no unnecessary barriers to learning the tool should be erected.
@@ -296,7 +302,8 @@ Of the available choices, the Logic-User prefers domain-specific logics like \dL
 This comes at cost to the Engineer because state-of-the-art synthesis tools for \dL~\cite{DBLP:journals/fmsd/MitschP16} only synthesize monitors, and sometimes fail to synthesize monitors for complicated models in practice.
 Prior to this thesis, the Logician also paid the price that \dL's foundations were developed only informally on paper.
 
-Nor is the Logician truly satisfied with any approach: while GPITP's have rigorous foundations and support extraction of controllers or monitors, the extraction facilities are not provably correct, nor can the Logician convince themself that the modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs.
+%TODO: Cite and compare with Lars + Certicoq
+Nor is the Logician truly satisfied with any existing approach: while GPITP's have rigorous foundations and support extraction of controllers or monitors, the extraction facilities are not provably correct, nor can the Logician convince themself that the modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs.
 
 \begin{table}[tbh]
   \centering
@@ -311,6 +318,7 @@ Automata &\cellcolor{yellow!25}paper& \weakconnect &\cellcolor{green!25}monitors
   \caption{Comparison of Verification Approaches}
   \label{tab:approach-comparison}
 \end{table}
+%TODO: Refine. Mention all three characters. Justify characters and definition of end-to-end
 The goal of this thesis is to satisfy the needs of all three characters at once, a goal we call ``Practical, End-to-End Verification of CPS''.
 The terms ``practical'' and ``end-to-end'' are notoriously vague;
 to avoid ambiguity, this thesis defines verification to be end-to-end if it connects the formal end to the implementation end, meaning the real implementation of the CPS obeys some precise formal guarantee in terms of the system model, which itself rests on a bulletproof mathematical foundation.
@@ -318,6 +326,7 @@ We say that verification is practical if it also meets the needs of the Logic-Us
 
 %\draw (5, 2)  node[circle, fill=green!20,draw] (engine) {Artifacts};
 
+%TODO: Add new sections to thesis then reference in this figure
 \begin{figure}[tbh]
   \centering
 \begin{tikzpicture}
@@ -392,6 +401,7 @@ Works which are relevant primarily to one chapter are discussed in that chapter.
 
 
 \subsection{Verification of Theorem Provers}
+%TODO: Tighten up. Why hard, why different early on.
 The contributions of the thesis include a formalization of \dL in \Isabelle (\rref{sec:isabelle-fml}) which has been used to generate a verified proof-term checker for \dL (\rref{sec:veriphy}).
 We compare these contributions to other works on theorem prover verification.
 
@@ -450,12 +460,14 @@ The tradeoff is that verification is undecidable, and serious case studies usual
 The \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} theorem prover implements \dL and provides significant automation to minimize the number of interactions required.
 \dL and \KeYmaeraX have been applied in a number of case studies~\cite{DBLP:conf/cade/Platzer16}.
 
+% TODO: Why case study, where does that fit into thesis
 Our case study (\rref{sec:ground-robotics}) generalizes a \dL proofs of  1D straight-line motion (with direct velocity control)~\cite{DBLP:conf/pldi/BohrerTMMP18}, of 2D obstacle avoidance, and 1D liveness~\cite{DBLP:conf/rss/MitschGP13,DBLP:journals/ijrr/MitschGVP17}.
 A paper proof of liveness using \dL rules assumed perfect sensing and constant speed \cite{DBLP:journals/corr/abs-1709-02561}.
 Their controllers, like ours, are closely related to the classic \textsc{Dynamic-Window}~\cite{DBLP:journals/ram/FoxBT97} control algorithm.
 In contrast to the prior \dL effort, we offer stronger results, including 2D liveness, waypoint-following, and end-to-end correctness.
 
 \subsubsection{Synthesis for Planning and Control}
+%TODO: Defend why good
 The completed works on robotics verification (\rref{sec:ground-robotics}) and end-to-end verification (\rref{sec:veriphy}) do not explicitly verify the planner and controller, though they could in principle be combined with a verified planner~\cite{DBLP:conf/atva/RizaldiISA18}.
 An alternative approach is to synthesize the controller and/or planner, and we will explore controller synthesis in the proposed work (\rref{ch:proofplex})
 Others have explored synthesis of plans and controls, but none of them address correctness of low-level feedback control, and all trust the correctness of their kinematic models:
@@ -483,6 +495,7 @@ However, the guarantees of online verification are weaker and often lack a clear
 Since reachability tools rely on large, complicated codebases and models are challenging to get right, these assumptions present a correctness gap which stands in the way of an end-to-end argument.
 \item \ModelPlex is a tool for synthesizing monitors (for both the controller and plant) from proven-safe \dL models in \KeYmaeraX.
   However, it simply synthesizes a \dL formula describing the monitored conditions, not an executable program.
+%TODO: Careful about how we criticize
   Its present implementation only supports special cases of \dL and often fails mysteriously when applied outside this fragment.
 \item High-Assurance SPIRAL~\cite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17} is a compilation toolchain for \ModelPlex-synthesized monitors for \dL, but does not provide formal end-to-end guarantees, and has not been used to develop an end-to-end system capable of free-range 2D driving.
 \item A contribution of this thesis is the \VeriPhy~\cite{DBLP:conf/pldi/BohrerTMMP18} toolchain for \dL.
@@ -523,13 +536,15 @@ Their use of discrete-time temporal logic also raises foundational concerns, sin
 
 \chapter{Background: Differential Game Logic \dGL}
 \emph{Differential dynamic logic} (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
-\emph{Differential game logic} (\dGL)~\cite{DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} extends the programs $\alpha$ of \dL with a turn-taking operator $\pdual{\alpha}$ to enable representing and verifying hybrid \emph{games} combining discrete, continuous, and adversarial dynamics.
+\emph{Differential game logic} (\dGL)~\cite{DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} extends the programs $\alpha$ of \dL with a turn-taking operator $\pdual{\alpha}$ to enable representing and verifying hybrid \emph{games} which extend hybrid systems with \emph{adversarial} dynamics.
+
 While the already-completed thesis chapters (\rref{ch:logical-foundations}, \rref{sec:veriphy}) employ \dL, we present full \dGL since 
 \begin{inparaenum}[i)]
   \item the proposed works (\rref{ch:cdgl},\rref{ch:proofplex}) will require an understanding of full \dGL, and
   \item an introductory understanding of \dGL will also provide an introductory understanding of \dL.
 \end{inparaenum}
 While the syntax of \dGL and \dL are nearly identical, their semantic differences are deep: \dL is a regular modal logic whose denotational semantics can be and are given in the forward-chaining, relational Kripke style, while \dGL is a subregular logic with a backward-chaining winning-region semantics.
+%TODO: Either delete or add the axioms here
 While many basic axioms are the same in \dL and \dGL, some are necessarily different because \dGL is subregular: for example, Kripke's axiom K fails in \dGL and is in practice subsumed by a monotonicity rule.
 \section{Syntax}
 \label{sec:dgl-syntax}
@@ -569,6 +584,7 @@ In nondeterministic assignment $\prandom{x},$ Angel chooses a value $r \in \math
 Program $\pevolvein{\D{x}=\theta}{\phi}$ evolves $x$ continuously according to the differential equation (ODE) $\D{x}=\theta$ for a duration $d \geq 0$ of Angel's choosing, but Angel must ensure that $\phi$ is true throughout the evolution of $\D{x}=\theta,$ else they lose.
 In game $\pchoice{\alpha}{\beta},$ Angel chooses whether to play game $\alpha$ or game $\beta$.
 In game $\alpha;~\beta$ the players must first play $\alpha$ and then play $\beta$; this case is largely responsible for the need to employ backward-chaining semantics in \dGL, as it is most natural to first ask from what region $X$ $\beta$ is winnable, then ask from what region does Angel have a strategy to reach $X$ when playing $\alpha$.
+%TODO: Grammar
 In the iterated game $\prepeat{\alpha}$, Angel decides at the end of each loop iteration whether to continue playing $\alpha$ another time.
 All plays must be finite (Angel must stop eventually), but Angel need not decide a-priori \emph{when} to stop, let alone announce that decision to Demon beforehand.
 If Angel cannot reach the goal region without repeating $\alpha$ infinitely, then Angel loses.
@@ -577,6 +593,7 @@ That is, the player previously known as Demon makes the decisions in $\alpha,$ a
 We parenthesize hybrid games $\{ \alpha \}$ for clarity and disambiguation as needed.
 
 
+% TODO: Careful, change liveness+safety discussion to Angel+Demon, discuss why games better
 We now give an example hybrid game and example safety and liveness properties.
 The game in \rref{ex:driving-game} is a generalization of a standard hybrid systems model to a hybrid game.
 \newcommand{\obsvar}{{\it obs}\xspace}
@@ -619,7 +636,7 @@ We give examples of safety and liveness theorems:
 \begin{example}[1D Game Safety and Liveness]
   \begin{align*}
     \textit{safe} &\equiv \ddiamond{\alpha_\times}{\xvar \leq \obsvar}\\
-    \textit{live} &\equiv \ddiamond{\alpha_*}{(\xvar \geq \obsvar \lor t \leq \frac{T}{2})}
+    \textit{live} &\equiv \ddiamond{\alpha_*}{\left(\xvar \geq \obsvar \lor t \leq \frac{T}{2}\right)}
   \end{align*}
 \end{example}
 The safety theorem \emph{safe} says that Angel (the robot) has a strategy to ensure $\xvar \leq \obsvar$ (i.e. a strategy not to hit the obstacle) regardless how long Demon runs the loop and the ODE.
@@ -668,6 +685,7 @@ Throughout the semantics, states are written $\omega, \nu, \mu : \allstate$ wher
 
 \begin{definition}[Classical term semantics]\label{def:dgl-sem-term}
 The semantics of a term $\tint{\theta}{\om} : \mathbb{R}$ is the value of term $\theta$ in state $\om$, and is defined inductively on $\theta$:
+%TODO: Reformat for space
 \begin{align*}
   \tint{q}{\om} &= q \\
   \tint{x}{\om} &= \om(x)\\
@@ -681,6 +699,7 @@ Because every term mentions at most a finite number of variables and the partial
 An advantage of this semantics is that it is defined in every state while agreeing with the intuitive meaning of ``time derivative of $\tint{\theta}{\om}$'' whenever a differential appears in the postcondition of an ODE.
 
 \begin{definition}[Classical formula semantics]\label{def:dgl-sem-fml}
+% TODO: Emphasize backward-chaining and why, maybe foreshadow forward-chaining games later
 The semantics of a formula $\phi$ is given by the relation $\fint{\phi}{\om},$ which is defined inductively on $\phi$
 \begin{align*}
 \fint{\theta \sim \eta}  &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\} && \text{ for }\sim \in \{\leq,<,=,\neq,>,\geq\}\\
@@ -745,6 +764,10 @@ The proof calculus is given as a Hilbert system: axioms are repeatedly applied t
 {
 \linferenceRule[equiv]{\ddiamond{\humod{x}{\theta}}{\phi(x)}}{\lexists{x}{\phi(x)}}
 }{}
+%\begin{figure}
+%  \centering
+%  \begin{calculuscollections}{\columnwidth}
+%    \begin{calculus}
 \cinferenceRule[dglsolve|{$\langle'\rangle$}]{$\D{y}(t)=\theta$}
 {
 \linferenceRule[equiv]{\ddiamond{\pevolve{\D{x}=\theta}}{\phi}}{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}
@@ -782,9 +805,11 @@ The proof calculus is given as a Hilbert system: axioms are repeatedly applied t
   \caption{Selected axioms for \dGL}
   \label{fig:dgl-axioms}
 \end{figure}
+%TODO: Talk more about how proofs go, how things fit together
 Axiom \irref{dglbox} says that the modalities $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ are dual to each other for arbitrary games $\alpha,$ whereas the axiom \irref{dgldual} says game 
 $\pdual{\alpha}$ is dual to $\alpha$.
 In practical proofs it is often easier to say that the $\pdual{\alpha}$ operation switches players and then plays $\alpha,$ e.g. the derived axiom:
+%TODO: Label
 \[\ddiamond{\pdual{\alpha}}{\phi} \lequiv \dbox{\alpha}{\phi}\]
 Axiom \irref{dglassign} says assignments can be eliminated by substituting in the postcondition, while \irref{dglrandom} says random assignments can be converted to quantifiers.
 Axiom \irref{dglsolve} says that if there exists a function $y(t)$ which solves an ODE, then the ODE can be eliminated by substituting in $y(t)$.
@@ -819,6 +844,7 @@ Errors of the first kind are the easiest to address: assuming we have not accide
 To totally eliminate errors of the second kind requires a more ambitious effort: once we have formalized \dL in another prover, how do we know that we have formalized every important feature and that we have not forgotten one?
 After all, if we forget to include a certain feature in our paper proof, we might very easily forget it in a mechanized proof as well, and because this is not a soundness error, we will not catch it simply by attempting to prove soundness in the prover.
 
+%TODO: Refine
 Errors of the second kind can be addressed by completing the circle, so to speak: modern theorem provers contain code generation facilities which can be used to synthesize a proof checker from an appropriately-written formal development.
 If that proof checker is willing to accept the \dL proofs that are constructed in practice, then there is little question to the exhaustiveness of the development, because no matter whether the paper proof and mechanized proof forgot to account for some feature from the implementation, the implementation itself certainly cannot forget.
 While the work involved in bringing a mechanization up to speed with the practical implementation can be significant, there is also a second payoff: the resulting proof checker is guaranteed sound by construction, and can be used as a backup for the standard \KeYmaeraX prover core, effectively removing the core from the trusted computing base.
@@ -840,6 +866,8 @@ This has prepared the author for the foundational work that remains in the propo
 \section{Definite Descriptions in dL}
 % sec:isabelle-fml
 \label{sec:definite-description}
+%TODO: Note just brute but too weak! Required totality which is bogus
+%TODO: Maybe import figures from talk
 While \rref{sec:isabelle-fml} addresses the gap between theory presentations of \dL and its usage in the theorem \KeYmaeraX, it does so in a somewhat brute force way: manually formalizing every extension that has been added to the \KeYmaeraX core over time.
 This is unmaintainable as the number of extensions grows, and moreover we would prefer a definition mechanism where new constructs can be defined without increasing the size of the core.
 That is to say, one of the lessons learned from the work described in \rref{sec:isabelle-fml} is that a more maintainable way to put a theorem prover on bulletproof foundations is to work from both ends at once, not just formalizing the proof calculus in great detail but also redesigning the proof calculus to be more general in the first place, so that what were once a grab bag of extensions are now elegantly described in the core language.
@@ -852,6 +880,7 @@ This work is of relevance to the overall thesis in two ways.
 First, it justifies the choice to focus primarily on the core polynomial term language in the development of \CdGL, as the foundations of additional terms (albeit a classical foundation) have now been studied in detail.
 Moreover, it again demonstrates the author's ability to work with the foundations of the logic: whereas the work in \rref{sec:isabelle-fml} focused on a painstakingly detailed reproduction of a proof calculus which had largely already been developed, this work required a wholesale overhaul of the semantics underlying \dL, much in the way an extension from classical \dGL to constructive \CdGL will require another semantic overhaul.
 
+% TODO: Move up/integrate
 It is perhaps surprising that \dLi requires a new semantics in the first place.
 The simplicity of \dL terms is exploited in several ways throughout the theory of \dL, the main properties being that terms are defined everywhere and that they are everywhere infinitely differentiable and locally Lipschitz-continuous, meaning that all differential equations expressible in \dL have guaranteed uniqueness and existence of solutions by the Picard-Lindel\"of theorem.
 The simple addition of definite descriptions invalidates all of these assumptions.
@@ -862,6 +891,7 @@ The \dLi calculus maintains as much generality as reasonably possible, so that f
 The theoretical developments for \dLi culminate in soundness and equi-expressiveness proofs with respect to \dL, which very much the same kind of results we aim to achieve for the \CdGL theory.
 
 \subsection{Related Work}
+%TODO: Use figure from talk
 Formalizations of \KeYmaeraX~\cite{DBLP:conf/pldi/BohrerTMMP18}, Coq~\cite{DBLP:journals/jfrea/Barras10}, and NuPRL~\cite{DBLP:conf/itp/AnandR14} all omit or simplify whichever practical features are most theoretically challenging for their specific logic: discontinuous and partial terms in \KeYmaeraX, termination-checking in Coq, or context management in NuPRL.
 When formalizations of theorem provers \emph{do} succeed in reflecting the implementation~\cite{DBLP:journals/jar/KumarAMO16}, they owe a credit to the generality of the underlying theory: it is much more feasible to formalize a general base theory than to formalize ad-hoc extensions as they arise.
 Our calculus, as with modern implementations~\cite{DBLP:conf/cade/FultonMQVP15} and machine-checked correctness proofs~\cite{DBLP:conf/cpp/BohrerRVVP17} for \dL, is based on uniform substitution~\cite[\S35,\S40]{Church:1956}: symbols ranging over predicates, programs, etc. are explicitly represented in the syntax.
@@ -869,8 +899,9 @@ This improves the ease with which \dLi can be implemented and its soundness proo
 We show that in contrast to \dL, \dLi can directly represent a hybrid system featuring such ODEs, which we base on Hubbard's leaky bucket~\cite[\S4.2]{Hubbard}.
 Then the water drains out the cooler at a rate proportional to the square root of the current volume  by Torricelli's Law~\cite{driver1998torricelli}, or rate 0 if the valve is closed.
 In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b}, they are equipped with an induction operator, making it easier to write sophisticated computations.
-\irref{DI} is the \emph{differential induction}~\cite{DBLP:journals/logcom/Platzer10}
-Quantifier elimination rule \irref{QEeps} says first-order arithmetic, a fragment, is decidable~\cite{tarski1998decision}.
+%\irref{DI} is the \emph{differential induction}~\cite{DBLP:journals/logcom/Platzer10}
+%TODO: Broken ref, also check and fix all refs
+%Quantifier elimination rule \irref{QEeps} says first-order arithmetic, a fragment, is decidable~\cite{tarski1998decision}.
 
 \chapter{Completed Work:  End-to-End Robot Verification}
 %ch:logical-foundations
@@ -881,16 +912,20 @@ We begin by motivating end-to-end verification and defining it, then give our ap
 
 \section{\VeriPhy Pipeline for End-to-End Verification}
 \label{sec:veriphy}
+%TODO: Main figures from slides and paper would help
 As discussed in the introduction (\rref{ch:introduction}), end-to-end verification of CPS is in part motivated by the same factors as CPS in general: CPS such as self driving cars and robots are often safety critical because of their proximity to humans, and formal methods are a powerful tool for insuring that these critical systems are in fact safe enough to be trusted around humans. Because CPS are only growing more and more popular over time, any work that addresses their safety is poised to increase in impact, as well.
 
+%TODO: Rewrite as thecal motivation not paper motivation, use characters
 To fully motivate end-to-end verification, however, one must assess the key question of what it even \emph{means} to verify the safety of a CPS.
 When we first learn how to prove theorems in math class, we may not always know how to do the proof, or we may not always know whether a proof has sufficient detail, but it is almost always clear \emph{what} we are trying to do, because the theorems we prove come from a longstanding mathematical tradition with an established library of well-defined and well-understood mathematical terms: there is little debate today what it means to be a real number, nor what it means to be a group.
 As soon as we enter the realm of even discrete programs, this changes entirely. Not only might programs be written in an endless and ever changing array of programming languages, but it is no longer clear what we want to prove about a program. On one end of the spectrum we might simply prove that a program satisfies a simple property like termination or absence of segfaults and call it a day, while at the other end of the spectrum we might develop a full functional specification and prove that the entire specification is met. In practice, we often want something in between, because the more expressive a program property is, typically the harder it is to prove. All of this is also compounded by the nature of software: while the real numbers change only occasionally (with the advent of fields like nonstandard analysis or constructive analysis \texttt{;-)}), real software can change hundreds of times per day. Many interesting programs can only be proved with the intervention of humans, and it is a total nonstarter to ask a human to perform the verification of a complex program hundreds of times per day.
 
 These issues only grow more pernicious in CPS, where physics enters the mix as well.
 It is equally true in CPS that code evolves and should not need to be constantly reverified by hand.
+%TODO "Most general" is too vague
 It is even more true that it becomes difficult to nail down a proper specification: not only are there a variety of possible properties to prove, but because CPS's are fundamentally constrained by the laws of physics, the most general properties are often not provable because they are \emph{simply false}: A car cannot avoid collision if it is an inch behind an intruder vehicle that slams on its breaks, nor can a car avoid collisions if its sensors exhibit an arbitrarily large error.
 Even once a specification has been identified, proving it is now more difficult because the verification of CPS spans several subspecialties of verification which require diverse reasoning principles.
+%TODO: Committee won't know what controls level is
 At the controls level (which is the focus of this thesis), CPS verification must reason seamlessly about both discrete control code and continuous dynamical systems (differential equations) that describe the kinematics of the system. Furthermore, these arguments are by far easiest to make at a high level of abstraction where controls are nondeterministic, variables are real-valued, and time evolves continuously (which also provides the strongest results), yet we expect results to hold of a low-level implementation where control is deterministic, variables have finite arithmetic precision, and a controller can only sense every so often.
 This is without even considering stochastic, distributed, and adversarial dynamics, let alone vulnerabilities in the network stack.
 
@@ -933,6 +968,7 @@ Yet requirement \label{item:open-ended} is satisfied: the sensors and actuators 
 It is not unrealistic to suggest that one day, we could verify sensors and actuators against these specifications in HOL4, at least given some weaker assumptions.
 
 \subsection{Related Work}
+%TODO: Cite Lars, etc
 \paragraph{Verified Compilation.}
 We use the CakeML~\cite{DBLP:conf/icfp/TanMKFON16} verified ML compiler and its associated verification tools~\cite{DBLP:conf/icfp/MyreenO12,DBLP:conf/esop/GueneauMKN17}.
 CakeML is higher-level than other languages such as Clight with verified compilers such as floating-point CompCert~\cite{DBLP:conf/arith/BoldoJLM13}.
@@ -945,6 +981,7 @@ It could be used as a code generation target, but this would be a detour because
 %Related work on compilation after Isabelle
 %Examples of these include CompCert~\cite{DBLP:journals/cacm/Leroy09}, a verified C compiler, and Cogent~\cite{DBLP:conf/asplos/AmaniHCRCOBNLST16}, a linearly typed, total functional language with proof-producing compilation to C.
 
+%TODO: Cite Eva etc., check latest isabelle things
 \paragraph{Machine Arithmetic Verification.}
 Machine arithmetic correctness is a major \VeriPhy component.
 We verify arithmetic soundness foundationally.
@@ -954,6 +991,7 @@ We chose \Isabelle and HOL4 over Coq because their combination of cutting-edge a
 Static analysis of arithmetic for hybrid systems has been studied~\cite{DBLP:conf/emsoft/MartinezMST10,DBLP:conf/emsoft/MajumdarSZ12,DBLP:conf/cav/BouissouGPTV09}, but without foundational safety proofs for general dynamics.
 
 \section{Case Study: End-to-End Ground Robotics Verification}
+% TODO: Why is this the right question, compare to first model, compare systems vs. games, compare to initial mode cite, motivate in overall intro too.
 % sec:veriphy
 \label{sec:ground-robotics}
 
@@ -1135,6 +1173,7 @@ The environments and the evaluation results are summarized below:
 \label{fig:patrol-plan}
 \end{figure*}
 
+%TODO: Reduce down, seems unnecessary
 \begin{table*}
 \caption{Average speed, Monitor failure rates, plant violation rates, for AirSim and human driver in Rectangle, Turns, and Clover for Patrol missions}
 \label{tab:results}
@@ -1166,200 +1205,893 @@ Simulation is an essential part of evaluating models and designs for any robotic
 Multiple simulation platforms are available, of which AirSim~\cite{shah2018airsim} is a recent platform for UAVs and autonomous cars.
 Other simulators would likely have worked as well, but we chose AirSim because it is configured with high-fidelity physical and visual models out of the box, reducing the chances of introducing modeling errors.
 
-\chapter{Ongoing Work: \CdGL: Constructive Differential Game Logic}
-\label{ch:cdgl}
-Throughout this thesis, end-to-end verification is conceived as the problem of placing the correctness of realistic CPS on the most rigorous, formal logical foundation possible.
-The logic we use to verify a CPS model (thus far, \dL) is then the centerpiece and our understanding of its foundations are of central importance.
-In \rref{ch:logical-foundations}, we started at the centerpiece and dug inward: we established a more rigorous foundation for \dL as it is used in practice in the theorem prover by building a formally verified prover core and by providing a unified foundation for the grabbag of features that arise in practice.
-In \rref{ch:end-to-end-v}, we started at the centerpiece and dug outward: model-driven monitor synthesis connects CPS implementations to their formal models;
-we showed that this connection can be made with full rigor for serious models and their implementations, placing our understanding of implementation-level safety on firm footing.
+%TODO: MAJOR: Add Kaisar section
+%TODO: MAJOR: Change to done work, add section on proposed d extension
+\chapter{Completed Work: \CGL: Constructive Game Logic}
+\label{ch:cgl}
+\newcommand{\projUp}[2]{{#1}\uparrow{#2}}
+\newcommand{\projDown}[3]{{#1}\downarrow{#2(#3)}}
+\newcommand{\projBV}[3]{\projDown{#1}{#2}{\boundvars{#3}^\complement}}
+\newcommand{\sapp}[2]{#1(#2)}
+\newcommand{\sadj}[2]{#1^*(#2)}
+\newcommand{\spp}[1]{\sapp{\sigma}{#1}}
+\newcommand{\adj}[1]{\sadj{\sigma}{#1}}
+\newcommand{\drv}{\mathcal{D}}
+\newcommand{\nzvar}{\textit{nz}}
+%\newcommand{\invvar}{\textit{inv}}	
+\newcommand{\convvar}{\textit{cnv}}
+\newcommand{\erefl}{\textsf{refl}}
+\newcommand{\pstep}{\textsf{step}}
+\newcommand{\modvar}{\textit{mod}}
+\newcommand{\monvar}{\textsf{m}
+}
+\newcommand{\rangevar}{\textsf{Range}}
+\newcommand{\testvar}{\textsf{test}}
+\newcommand{\elem}[2]{\textsf{Dec}[#1](#2)}
+\newcommand{\spc}{\hspace{0.15in}}
+\newcommand{\kwmod}{\textsf{mod}}
+\newcommand{\emod}[2]{#1~\kwmod~#2}
+\newcommand{\kwdiv}{\textsf{div}}
+\newcommand{\ediv}[2]{#1~\kwdiv~#2}
+\newcommand{\kwsig}{\Sigma}
+\newcommand{\sig}[1]{\kwsig(#1)}
+\newcommand{\nim}{\textsc{Nim}}
+\newcommand{\cake}{\textsc{CC}}
+\newcommand{\interp}{I}
+\newcommand{\valset}[1]{\mathfrak{V}(#1)}
+\newcommand{\kwbool}{\m{\mathbb{B}}}
+\newcommand{\kwint}{\m{\mathbb{Z}}}
+\newcommand{\kwreal}{\m{\mathbb{R}}}
+\newcommand{\kwintsig}{\Xi}
+\newcommand{\intsig}[1]{\kwintsig(#1)}
+\newcommand{\churchkleene}{\omega_{\text{CK}}}
+\newcommand{\restL}[1]{#1_L}
+\newcommand{\restR}[1]{#1_R}
+\newcommand{\apL}[1]{#1_{\langle{0}\rangle}}
+\newcommand{\apR}[1]{#1_{\langle{1}\rangle}}
+\newcommand{\dpL}[1]{#1_{[0]}}
+\newcommand{\dpR}[1]{#1_{[1]}}
 
-In the proposed work, the time has come to question the centerpiece itself.
-Vanilla \dL has been used thus far in part because it comes with rich theoretical backing, a mature implementation, and prior cases studies for inspiration and comparison.
-However, as a logic, it hardly exists in isolation: A family of logics including \QdL, \SdL, and \dGL have explored the addition of distributed, stochastic, and adversarial dynamics to hybrid systems, respectively.
-Further unexplored logical questions await: notably, all of the above logics are classical.
-When constructive logic is a key tool in software verification, we must earnestly ask what could be gained for end-to-end CPS verification by adopting constructive foundations.
-We must also ask which member of the \dL family (which might not even be discovered yet) is best suited for end-to-end CPS verification.
+\newcommand{\va}{a}
+\newcommand{\vb}{b}
+\newcommand{\vca}{\overline{a}}
+\newcommand{\vcb}{\overline{b}}
 
-This thesis views end-to-end verification as resolving the concerns of three entities:
-the logician concerned with rigorous foundations, the practitioner concerned with software artifacts resulting from verification, and the logic-user, concerned primarily with simplicity and readability of their models and the ease of their proofs.
-We have already satisfied the logician: we have made \dL proofs in \KeYmaeraX indisputable.
-However, we argue that constructivity and games both have crucial advantages for the practitioner and logic-user.
-Thus, a constructive games logic (\CdGL) is the optimal foundation to resolve the concerns of all three.
+\newcommand{\btt}{\texttt{tt}}
+\newcommand{\bff}{\texttt{ff}}
+\newcommand{\stt}{\top}
+\newcommand{\sff}{\bot}
+\newcommand{\demonactive}[2]{\textrm{aD}(#1,#2)}
+\newcommand{\demondormant}[2]{\textrm{dD}(#1,#2)}
+\newcommand{\sren}[3]{\urename[{#1}]{#2}{#3}}%{\subst[{#1}]{#2}{#3}}
+\newcommand{\ssub}[3]{\subst[{#1}]{#2}{#3}}
+\newcommand{\eren}[3]{\urename[{#1}]{#2}{#3}}%{\subst[{#1}]{#2}{#3}}
+\newcommand{\earen}[2]{\urename[{#1}]{\boundvars{#2}}{\vec{y}}}%{\subst[{#1}]{\boundvars{#2}}{\vec{y}}}
+
+\newcommand{\allcon}{\allregion}
+\newcommand{\somesemi}[2]{\epsilon #1~|~#2}
+
+\newcommand{\rzF}[2]{#1 \vdash #2}
+\newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
+\newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
+\newcommand{\rzFst}[1]{#1_0}
+\newcommand{\rzSnd}[1]{#1_1}
+\newcommand{\rzThd}[1]{#1_2}
+\newcommand{\rzFrt}[1]{#1_3}
+\newcommand{\rzApp}[2]{#1#2}
+\newcommand{\sa}{\omega}
+\renewcommand{\sb}{\nu}
+\newcommand{\Sc}{\mu}
+\renewcommand{\aa}{a}
+\newcommand{\ab}{A}
+\newcommand{\ac}{\aleph}
+\newcommand{\da}{d}
+\newcommand{\db}{D}
+\newcommand{\dc}{\delta}
+\newcommand{\allRz}{\mathcal{R}\mathbf{z}}
+\newcommand{\rzfor}[1]{#1\,\allRz}
+
+\newcommand{\mto}{\rightharpoonup}
+\newcommand{\esub}[3]{[{#3}/{#2}]{#1}}
+\newcommand{\tsub}[3]{\subst[#1]{#2}{#3}}
+
+%\newcommand{\rzF}[2]{#1 \vdash #2}
+%\newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
+%\newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
+\newcommand{\rzNil}{\epsilon}
+\newcommand{\rzCons}[2]{(#1,#2)}
+\newcommand{\rzBLam}[2]{\lambda #1:\allstate.~#2}
+\newcommand{\rzHOLam}[3]{\Lambda #1:\rzfor{#2}.~#3}
+\newcommand{\rzFOLam}[3]{\Lambda #1:#2.~#3}
+%\newcommand{\rzApp}[2]{#1\,#2}
+\newcommand{\fintR}[1]{\fint{#1}} %{#1#2}
+\newcommand*{\strategyforR}[2][]{{#2}\Langle{#1}\Rangle}
+\newcommand*{\istrat}[3][]{\strategyforR[#1]{#2}^{#3}}
+
+\newcommand*{\dstrategyforR}[2][]{{#2}\lenvelopewide{#1}\renvelopewide}
+%{{#2}\llbracket{#1}\rrbracket}
+\newcommand*{\idstrat}[3][]{\dstrategyforR[#1]{#2}^{#3}}
+%TODO: Constraint to just Y <=  [[Gamma]]
+\newcommand{\cint}[1]{\fint{\bigwedge #1}}
+\newcommand{\cintR}[1]{\fintR{\bigwedge #1}}
+\newcommand{\seq}[2]{#1 \vdash #2}
+\newcommand{\proves}[3]{#1\allowbreak\vdash #2 \allowbreak \mathop{:} #3}
+
+
+\newcommand{\eprojL}[1]{\pi_1{#1}}
+\newcommand{\eprojR}[1]{\pi_2{#1}}
+\newcommand{\eProjL}[1]{\lstrike\pi_1{#1}\rstrike}
+\newcommand{\eProjR}[1]{\lstrike\pi_2{#1}\rstrike}
+\newcommand{\edprojL}[1]{\langle\pi_1{#1}\rangle}
+\newcommand{\edprojR}[1]{\langle\pi_2{#1}\rangle}
+\newcommand{\ebprojL}[1]{[\pi_1{#1}]}
+\newcommand{\ebprojR}[1]{[\pi_2{#1}]}
+
+\newcommand{\edOpencons}{\langle}
+\newcommand{\edClosecons}{\rangle}
+\newcommand{\edSepcons}{,}
+\newcommand{\edcons}[2]{\edOpencons{#1}\edSepcons{#2}\edClosecons}
+%\newcommand{\edcons}[2]{\langle#1,#2\rangle}
+\newcommand{\ebOpencons}{[}
+\newcommand{\ebSepcons}{,}
+\newcommand{\ebClosecons}{]}
+\newcommand{\ebcons}[2]{\ebOpencons#1\ebSepcons#2\ebClosecons}
+\newcommand{\eCons}[2]{\lstrike{#1,#2}\rstrike}
+\newcommand{\eSnoc}[2]{\llensehat{#1,#2}\rlensehat}
+\newcommand{\pmodality}[2]{\llensehat{#1}\rlensehat{#2}}
+\newcommand{\econs}[2]{\eCons{#1}{#2}}
+\newcommand{\einjL}[1]{\ell \cdot #1}
+\newcommand{\einjR}[1]{r \cdot #1}
+\newcommand{\kwcase}{\textrm{case}}
+\newcommand{\ecaseHead}[1]{\langle\kwcase\textrm{ }#1{\text{\textrm{ of }}}}
+\newcommand{\ecaseLeft}[2]{#1\Rightarrow~#2}
+\newcommand{\ecaseRight}[2]{~|~#1\Rightarrow~#2}
+\newcommand{\ecaseEnd}{\rangle}
+\newcommand{\ecasegen}[5]{\ecaseHead{#1}\allowbreak\ecaseLeft{#2}{#3}\allowbreak\ecaseRight{#4}{#5}\ecaseEnd}
+\newcommand{\ecase}[3]{\ecasegen{#1}{\ell}{#2}{r}{#3}}
+\newcommand{\edcase}[3]{\ecase{#1}{#2}{#3}}
+\newcommand{\ercase}[3]{\langle\textrm{case}_*\ #1\text{ of }\pvs\Rightarrow~#2~|~\pvg\Rightarrow#3\rangle}
+\newcommand{\eCase}[3]{\lstrike\kwcase\textrm{ }#1\textrm{ of }\allowbreak\ell\Rightarrow~#2~\allowbreak|~r\Rightarrow~#3\rstrike} %\{\textrm{case}\}\ #1\textrm{ of }\ell.~#2~|~r.~#3
+
+\newcommand{\edinjL}[1]{\langle\ell \cdot #1\rangle}
+\newcommand{\edinjR}[1]{\langle r \cdot #1\rangle}
+\newcommand{\eInjL}[1]{\lstrike\ell \cdot #1\rstrike}
+\newcommand{\eInjR}[1]{\lstrike{r \cdot #1}\rstrike}
+\newcommand{\kwrep}{\textrm{rep}}
+\newcommand{\erep}[3]{{#1}\textrm{ }\kwrep\text{ }#3.~{#2}}
+\newcommand{\eapp}[2]{#1\ #2}
+\newcommand{\elamgen}[3]{\lambda #1:#2.~ #3}
+\newcommand{\eplam}[2]{\elamgen{\pvx}{#1}{#2}}
+\newcommand{\etlam}[2]{\elamgen{x}{#1}{#2}}
+\newcommand{\ebseq}[1]{[\iota~#1]}
+\newcommand{\ebseqinv}[1]{[\iota~{#1}^{-1}]}
+\newcommand{\edseq}[1]{\langle\iota~#1\rangle}
+\newcommand{\edseqinv}[1]{\langle\iota~{#1}^{-1}\rangle}
+\newcommand{\eSeq}[1]{\lstrike\iota~#1\rstrike}
+\newcommand{\eSeqinv}[1]{\lstrike\iota~{#1}^{-1}\rstrike}
+\newcommand{\ebOpenswap}{[\textrm{yield }}
+\newcommand{\ebCloseswap}{]}
+\newcommand{\ebswap}[1]{\ebOpenswap#1\ebCloseswap}
+\newcommand{\edOpenswap}{\langle\textrm{yield }}
+\newcommand{\edCloseswap}{\rangle}
+\newcommand{\edswap}[1]{\edOpenswap#1\edCloseswap}
+%\llensehat \rlensehat  \lstrike \rstrike
+\newcommand{\eSwap}[1]{\lstrike\textrm{yield }#1\rstrike}
+\newcommand{\ePaws}[1]{\llensehat\textrm{yield }#1\rlensehat}
+\newcommand{\emonInfix}[1]{{\circ_{#1}}}
+\newcommand{\emon}[3]{{#1} \emonInfix{#3} {#2}}
+%\newcommand{\eQEpos}{\textrm{QE}_{pos}}
+%\newcommand{\eQEneg}{\textrm{QE}_{neg}}
+\newcommand{\eQE}[2]{\textsf{FO}[#1](#2)}
+%\newcommand{\eQEN}[1]{\textsf{QE}[#1]_\mathbb{N}}
+%\newcommand{\eQER}[1]{\textsf{QE}[#1]_\mathbb{R}}
+\newcommand{\emetsplit}{\textrm{split}\met}
+\newcommand{\esplit}[3]{\textrm{split }{[#1\sim#2]}~#3}
+\newcommand{\kwstop}{\textrm{stop}}
+\newcommand{\kwgo}{\textrm{go}}
+\newcommand{\estop}[1]{\langle\kwstop\ #1\rangle}
+\newcommand{\ego}[1]{\langle\kwgo\ #1\rangle}
+\newcommand{\kwroll}{\textrm{roll}}
+\newcommand{\kwunroll}{\textrm{unroll}}
+\newcommand{\ebroll}[1]{[\kwroll\ {#1}]}
+\newcommand{\ebunroll}[1]{[\kwunroll\ #1]}
+\newcommand{\eRoll}[1]{\lstrike\kwroll\ #1\rstrike}
+\newcommand{\eUnroll}[1]{\lstrike\kwunroll\ #1\rstrike}
+\newcommand{\eghost}[4]{\textrm{Ghost}[#1=#2](#3.~#4)}
+\newcommand{\eAsgn}[4]{\lstrike\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4\rstrike}
+\newcommand{\eAsgneq}[4]{\eAsgn{#1}{#2}{#3}{#4}}
+\newcommand{\etconsgen}[5]{\langle{\eren{#4}{#1}{#2}}~{{:}{*}}~#3.~#5\rangle}
+\newcommand{\etcons}[2]{\etconsgen{x}{y}{\pvx}{#1}{#2}}
+\newcommand{\ietcons}[3]{\langle{\eren{#2}{#1}{~}}~{{:}{*}}~#3\rangle}
+
+\newcommand{\ebasgneq}[4]{[\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4]}
+\newcommand{\edasgneq}[4]{\langle\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4\rangle}
+\newcommand{\edasgn}[4]{\edasgneq{#1}{#2}{#3}{#4}}
+\newcommand{\ebasgn}[4]{\ebasgneq{#1}{#2}{#3}{#4}}
+\newcommand{\iebasgn}[2]{[\humod{#1}{\eren{f}{#1}{~}}\text{ in }~#2]}
+\newcommand{\iedasgn}[2]{\langle\humod{#1}{\eren{f}{#1}{~}}\text{ in }~#2\rangle}
+%\newcommand{\iedasgn}[2]{\edasgneq{~}{#1}{#1}{#2}}
+%\newcommand{\iebasgn}[2]{\ebasgneq{~}{#1}{#1}{#2}}
+
+\newcommand{\eunpack}[2]{\textrm{unpack}(#1,\pvx y.~#2)}
+\newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
+\newcommand{\eloopelim}[3]{(#1, x.~{#2}^{#3})}
+\newcommand{\efpgen}[5]{\textit{FP}(#1, #2.~#3, #4.~#5)}
+\newcommand{\efp}[3]{\efpgen{#1}{\pvs}{#2}{\pvg}{#3}}
+\newcommand{\met}{\ensuremath{\mathcal{M}}}
+\newcommand{\conv}{\varphi\xspace}
+\newcommand{\Gemp}{\cdot}
+\newcommand{\issimp}[1]{{#1}\ \textrm{simp}}
+\newcommand{\eforHead}[4]{\textrm{for}(#1:\conv(\met)={#2};#3;{#4})} %#3:\met>0\land\met_0=\met
+\newcommand{\eforBody}[1]{\{#1\}}
+\newcommand{\eforgen}[5]{\eforHead{#1}{#2}{#3}{#4}\eforBody{#5}}
+\newcommand{\efor}[2]{\eforgen{\pvx}{#1}{\pvy}{#2}{\alpha}}
+\newcommand{\oldof}[1]{\textrm{old}(#1)}
+\newcommand{\isnorm}[1]{#1\text{ normal}}
+\newcommand{\allpt}{\mathbf{Pt}}
+\newcommand{\alltrace}[1]{\mathbf{Tr}(#1)}
+%TODO: samekh and simketh for the lols
+\newcommand{\dinline}[2]{\sigma_{\dbox{#1}{}}{(#2)}}
+\newcommand{\ainline}[2]{\sigma_{\ddiamond{#1}{}}{(#2)}}
+\newcommand{\case}{\textbf{Case}\xspace}
+
+Throughout this thesis, the glue that unified the Logician's high-level abstract models with the Engineer's low-level implementations has been \dL for \emph{classical} hybrid \emph{systems}.
+While \rref{ch:end-to-end-v} showed that the connection between \dL models and implementations holds even in realistic case studies, it has also revealed the room that \dL leaves for improvement as such a glue.
+We argue that the restrictions to \emph{systems} and \emph{classical} reasoning pose limitations for the Engineer and Logic-User.
+
+
 
 The completed sections of the thesis have revealed several weaknesses from the practitioner's perspective:
 \begin{itemize}
 \item
-The state-of-the-art supports only synthesis of control and plant monitors, not controllers nor plant simulations.
-The programmer might be content to write the controller themselves, but they are less content to prove for themselves that it always satisfies the monitor.
-For the programmer, the CPS has not been proven correct unless they know the monitor will be satisfied!
-Plant simulations are also valuable because they provide a complementary way to evaluate and understand a model, which is more familiar to most programmers.
+\VeriPhy synthesizes only monitors, not controllers.
+The Logician and Engineer would prefer to synthesize both, because the synthesized controller is guaranteed to satisfy the controller monitor, while a hand-written controller is not.
 \item
-The state-of-the-art in synthesis lacks robustness, often restricting the user to special cases and failing to synthesize otherwise.
-Important control paradigms such as model-predictive control do not fall within the supported special cases, nor do any controllers containing loops.
-The \ModelPlex synthesis approach started from the assumption that the model alone is sufficient, which was then falsified by the need to handle complex models, especially those whose plants are not nilpotent.
-The resulting approach scrapes invariant information from proofs in an ad-hoc fashion to aid synthesis.
-While the invariant information is essential, the ad-hoc nature stands in the way of robustness.
+Experience suggests \VeriPhy is not robust to complex models, and that the key to providing robustness is to make the key insights from the hybrid \emph{proof} available to the synthesizer.
+The classical Hilbert calculus of \dL complicates this because interpretations of classical logics and Hilbert calculi as computation are complex and indirect.
+We wish to provide a constructive logic with a natural-deduction calculus, so that proofs can be understood as programs that \emph{implement} monitoring and control, so that the synthesizer simply compiles proofs to executable form.
+We show that proofs for \emph{games} (systems + adversarial dynamics) elegantly allow a single model and proof to provide both the monitor and the control.
 \item
-The synthesized monitors are not tight.
-The arithmetic approximations used in \rref{sec:veriphy} are conservative, and in practice can be prohibitively so, to the extent that significant cleverness is exerted in tweaking units of measure to avoid overflow errors.
-The implementation of arithmetic in synthesis is a fundamental question, but the present answer of integer interval arithmetic demands too much of the programmer.
+\VeriPhy uses fixed-point intervals to implement arithmetic computations.
+In the present implementation, limited arithmetic precision has proven to be a significant hurdle for users.
+Of the many arithmetic options available, constructive logic provides a conclusive solution: implement arithmetic with computable reals.
+\item
+Games allow several model simplifications over systems, which help the Logic-User.
+Games allow existentially-quantified ($\ddiamond{\alpha}{\phi}$) controllers in safety proofs, where a system model would have to give the full control logic explicitly because controllers are universally quantified ($\dbox{\alpha}{\phi}$) in systems safety proofs.
+In complicated models such as \rref{ch:end-to-end-v}, this control logic accounts for most model complexity.
+Furthermore, practical experience shows that even experts often make modeling mistakes involving \emph{totality}: it is easy to write a controller with no transitions, making universal safety theorems \emph{vacuous}.
+Existential controllers obviate this issue, because safety will \emph{fail to prove} if an existential controller were not total.
 \end{itemize}
+
+Looking beyond the core theme of end-to-end verification, the Logician and Logic-User both have additional reasons to pursue constructive proof:
 All these concerns are addressed by the combination of games and constructivity:
 \begin{itemize}
 \item
-The main challenge in synthesizing a controller is deciding which control path to take (for example, acceleration vs. braking) when multiple options are plausible.
-All such decisions are captured by a proof of the shape $\ddiamond{\ctrl}{\phi}$: in proving a diamond property, we have specified which path to take in order to achieve $\phi$.
-Such synthesis is only possible in general when the proof is constructive: the state-of-the-art proof technique for such properties in fact applies the law of excluded middle to undecidable propositions, so constructivity is anything but a theoretical concern.
-In this chapter, we will incorporate an alternative proof method only case-analyzes decidable properties so that synthesis is possible.
-Games also play a part in controller synthesis: A typical game proof supports a diamond proof for control and a box proof for plant, making it simple to synthesize both a controller and monitor together.
+Many users find formal proof more intimidating to learn than code.
+A computational interpretation opens the possibility of writing \CGL proofs in a familiar programming syntax, by writing code that implements a strategy.
+We suggest that this could ease adoption of game proofs.
 \item
-Robustness issues in the state-of-the-art are simply a side effect of the fact that there is no proof representation available that closely corresponds to intuitive notions of control and monitoring.
-While proof representations are available, including one developed by the author, these representations use a low-level classical Hilbert calculus with no obvious computational interpretation and no obvious correspondence to intuitive ``human-level'' proofs.
-Developing a proof-theoretic semantics with a computational interpretation of proof terms is par for the course in constructive logic.
-By developing such semantics for \CdGL, we will lay the foundation for robust implementation of proof-driven synthesis.
-\item
-Conservativity is a consequence of the chosen arithmetic implementation: fixed-precision interval arithmetic.
-Better libraries might alleviate the practical concern, but constructive mathematics provides a more general answer: computable reals.
-Constructive proofs in \CdGL have the convenient property that whenever a proof of $\ddiamond{\ctrl}{\phi}$ exists, a controller exists which uses only \emph{total} computations on computable reals (e.g.\ the controller will never attempt to compare two reals for exact equality).
-Certainly interval arithmetic has its own advantages in performance, but with computable reals we resolve conservativity issues conclusively.
-\end{itemize}
-
-For the logic-user:
-\begin{itemize}
-\item
-Short, simple models are desirable.
-Longer models are more likely to contain mistakes, and modeling mistakes are the hardest kind to catch as we cannot simply ``prove'' their presence or absence.
-As \rref{sec:planar-driving-system} and \rref{ex:driving-system} show, hybrid systems models are typically much more complicated than their hybrid game counterpart, because strategic choices must be modeled in the hybrid system which in games are deferred to the proof.
-Thus, games generally (\dGL or \CdGL) eliminate a prominent source of needless model complexity.
-\item
-Beyond reducing complexity, games models preclude common mistakes which have led even experienced researchers to write vacuous models in practice.
-Specifically, in a standard \dL safety proof, safety is proven only for states from which at least one guard of the controller is satisfied.
-An intuitive notion of safety requires that at least one guard is satisfied in each state (the controller is \emph{total}), which is often false when models are not written carefully.
-In games, we can (and by default do) require that controllers satisfy \emph{co-safety}, which implies any faulty, non-total controller will be caught when at proof time since a co-safety proof will necessarily fail.
-Catching such mistakes is important because otherwise the logic-user, having proved a vacuous theorem, would assume their system is safe when in fact \emph{nothing} of note has been proven.
-\item
-For many programmers, formal proofs are more intimidating than code and thus possess a steeper learning curve.
-While not a focus of the present thesis, a computational interpretation opens up the possibility of writing \CdGL proofs by writing the code that implements a winning strategy.
-We suggest that such an approach would ease adoption of proofs for CPS.
-\end{itemize}
-
-Lastly, even though the logician's foundational concerns have been adequately addressed in the previous chapters, there are independent motivations for \CdGL from a foundational, theoretical perspective:
-\begin{itemize}
-\item As discussed in related work, constructive program logics are a nearly-unexplored topic, and even constructive modal logic generally is a lightly explored field.
-\CdGL is not only a generalization of  \dGL and \dL, but also of (Harel's) First-order Dynamic Logic and (Parikh's) Game Logic, which itself generalizes (Pratt's) PDL and (Peleg's) Concurrent Dynamic Logic.
-In developing \CdGL, we indirectly develop the first serious constructive treatment for all the above logics as well, specifically the first to feature a full proof-theoretic treatment based on proof terms and their normalization.
-It is also the first treatment of any of the above to support standard constructive properties such as the Existential Property
-\item
-The Curry-Howard correspondence, wherein propositions are interpreted types and proofs are interpreted as programs,
-has for many years been the backbone of cross-pollination between programming languages and logic research.
-\CdGL gives the first understanding of Curry-Howard for game logics or any dynamic logic:
-Proofs of $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ are understood computationally as winning strategies, for the P-player and N-player, respectively.
-In the special case, they are understood as \emph{controlling} program $\alpha$ to achieve $\phi$ or \emph{monitoring} an execution for compliance with $\alpha,$ which ensures $\phi$ as postcondition.
+As discussed in related work, constructive program logics are nearly unexplored.
+This is surprising because the Curry-Howard correspondence, wherein propositions are interpreted types and proofs are interpreted as programs, has for many years been the backbone of cross-pollination between programming languages and logic research.
+\CGL gives the first Curry-Howard interpretation of Game Logic, and the most exhaustive for any dynamic logic.
+Proofs of $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ are understood computationally as winning strategies for a computational player who moves first or second, respectively.
+They are respectively understood as \emph{controlling} program $\alpha$ to achieve $\phi$ or \emph{monitoring} an execution for compliance with $\alpha,$ which ensures $\phi$ as postcondition.
 This substantiates the claim that such proofs suffice for synthesis, and we posit that this correspondence is applicable to \emph{any} nondeterministic program logic.
-\footnote{One could also apply this interpretation to deterministic logics, but they lack our motivations of synthesis and monitoring, which is perhaps the reason this interpretation never developed sooner}
+%, and even constructive modal logic generally is a lightly explored field.
+\CGL generalizes  First-order Dynamic Logic and (Parikh's) Game Logic, which itself generalizes (Pratt's) PDL and (Peleg's) Concurrent Dynamic Logic.
+Thus \CGL includes the first serious Curry-Howard treatment for all the above logics as well.
+
+Specifically, we give the first to feature a full proof-theoretic treatment based on proof terms and their normalization.
+We then prove meta-theoretical properties such as the Existential Property which attest to \CGL's constructivity.
 \end{itemize}
 
+%TODO: cite
+This chapter covers the discrete first-order \CGL, which will be extended to \emph{hybrid} games (\CdGL) in \rref{sec:cdgl}.
+We treat the discrete fragment first in large part because there is such a significant gap in the literature, and the discrete result is a contribution of broader interest to the constructive logic community, which stands on its own.
 
 %\textrm_{\alpha{Sys}}
 
+%TODO: Condense, update from POPL
 \section{Related Work}
 \newcommand{\semiset}[2]{\{#1~|~#2\}} 
-Several approaches have been taken to developing intuitionistic and constructive modal logics, including dynamic logics.
-What unequivocally sets us apart from these works is that we are the first to develop a proofs-as-programs interpretation, e.g. we develop a language of proof terms and study its operational semantics in full.
-Only a few prior works suggest an explicit representation of strategies, and they do not develop an operation semantics for strategies, let alone prove its properties.
+This work is at the intersection of game logic and constructive modal logics.
+Individually, they have a rich literature, but little work has been done at their intersection.
+Of these, we are the first for \GL and the first with a proofs-as-programs interpretation for a full first-order program logic.
 
-%TODO: Reread nerode and his semantics
-\subsection{Semantics for Constructive Modal Logics}
-We discuss several general approaches for semantics of constructive modal logics.
-The main approaches of interest to us are intuitionistic Kripke semantics and realizability semantics.
+\paragraph{Games in Logic} 
+Propositional \GL was introduced by~\cite{DBLP:conf/focs/Parikh83}, followed by coalitional \GL~\cite{DBLP:journals/logcom/Pauly02}.
+A first-order version of \GL is the basis of differential game logic \dGL~\cite{DBLP:journals/tocl/Platzer15} for hybrid games.
+Logics with explicit strategies are forerunners to \CGL, such as Strategy Logic~\cite{DBLP:conf/concur/ChatterjeeHP07}, Alternating-Time Temporal Logic (ATL)~\cite{DBLP:journals/jacm/AlurHK02}, CATL~\cite{DBLP:conf/atal/HoekJW05}, Ghosh's SDGL~\cite{ghosh2008strategies}, and Ramanujam's structured strategies~\cite{DBLP:conf/kr/RamanujamS08}.
+Dynamic-epistemic~\cite{DBLP:series/lncs/Benthem15,DBLP:journals/games/BenthemPR11,van2001games} and evidence logics~\cite{DBLP:journals/sLogica/BenthemP11} are also used for strategic reasoning with an emphasis on knowledge, and Hoare calculi, while more restrictive, have been equipped with Angelic nondeterminism~\cite{DBLP:journals/corr/Mamouras16}.
+In the above, strategies are reified in the \emph{formula} language, if at all.
+In contrast, we reify them in the \emph{proof} language, which crucially preserves the simplicity of the \GL formula language.
+We argue the simple \GL-style formula language promotes practical proving, while our clean separation between formulas and strategies aids our theoretical developments by which we justify that \CGL is constructive.
+Prior logical explorations of \emph{hybrid} games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} are classical.
 
-Intuitionistic Kripke semantics are perhaps the most widely-used approach, an overview is given in~\cite{DBLP:journals/apal/Wijesekera90}.
-Like classical Kripke semantics, their intuitionistic counterparts are parameterized over worlds, except the worlds represent what is currently \emph{known} about the world.
-Intuitionistic Kripke semantics are also equipped with a preorder $w_1 \geq w_2$ which holds when $w_1$ contains all the knowledge of $w_2$ and possibly more.
-This technique can be (and has been) applied to dynamic logics, with the twist that both the world per se and our knowledge about the world can change throughout executions.
+\paragraph{Constructive Modal Logics}
+A major contribution of \CGL is our constructive semantics for games, not to be confused with game semantics~\cite{DBLP:journals/iandc/AbramskyJM00}, which are used to give programs semantics \emph{in terms of} games.
+We draw on work in semantics for constructive modal logics, of which two main approaches are intuitionistic Kripke semantics and realizability semantics.
 
-Realizability semantics ~\cite{DBLP:journals/mscs/Oosten02,lipton1992constructive} are particularly appealing to the computer scientist, because they give the semantics in terms of a \emph{realizer}, a program which performs the proof.
-Such semantics are usually given abstractly, i.e., they do not specify a particular programming language, but the standard notion of computability is understood.
-Our realizability semantics are then more concrete than most, because they fall out of the operational semantics on strategy proof terms.
-A traditional abstract reachability semantics can then serve as a middle step connecting the operational semantics to the model-theoretic semantics.
+An overview of Intuitionistic Kripke semantics is given by~\cite{DBLP:journals/apal/Wijesekera90}.
+Intuitionistic Kripke semantics are parameterized over worlds, but in contrast to classical Kripke semantics, possible worlds represent what is currently \emph{known} of the world.
+Worlds are preordered by $w_1 \geq w_2$ when $w_1$ contains at least the knowledge in $w_2$.
+Kripke semantics were used in Constructive Concurrent \DL~\cite{DBLP:journals/apal/WijesekeraN05}, where both the world and knowledge of it change during execution.
+A key advantage of realizability semantics~\cite{DBLP:journals/mscs/Oosten02,lipton1992constructive} is their explicit interpretation of constructivity as computability~\cite{DBLP:conf/cca/Bauer05} by giving a \emph{realizer}, a program which witnesses a fact.
+Our semantics combine elements of both: Strategies are represented by realizers, while the game state is a Kripke world.
+Constructive set theory~\cite{DBLP:journals/jsyml/AczelG06} aids in understanding which set operations are permissible in constructive semantics.
+%Such semantics are usually given abstractly, i.e., they do not specify a particular programming language, but the standard notion of computability is understood.
+%Our realizability semantics are then more concrete than most, because they fall out of the operational semantics on strategy proof terms.
+%To support games, we combine aspects of both: the Angel player will express their strategy explicitly with a realizer, while the Demon strategy is given non-constructively, as it is safest as Angel to assume our opponent is entitled even to uncomputable strategies.
 
-Type theory has been used as a semantics of constructive ZF set theory~\cite{DBLP:journals/jsyml/AczelG06}.
-Topological models have been used, especially for modal logics of space~\cite{DBLP:reference/spatial/BenthemB07}.
-While \CdGL is not intended as a spatial logic, it does operate over a concrete topological space.
-A close relative of topological models are neighborhood models~\cite{DBLP:conf/lori/BenthemBE17}.
-Intuitionistic Kripke semantics for modal logic have been compared to a categorical semantics~\cite{DBLP:conf/csl/AlechinaMPR01}.
-Sheaf-theoretic models of first-order modal logic have been given~\cite{Hilken_afirst}, which provide a general treatment of the idea that an individual might change across states, as well as presheaf~\cite{DBLP:journals/aml/Ghilardi89} models.
-For (classical) PDL, stochastic Kripke semantics have been compared to coalgebra semantics~\cite{DBLP:journals/corr/abs-1109-3685}.
+Modal semantics have also exploited mathematical structures such as:
+\begin{inparaenum}[i)]
+\item Neighborhood models~\cite{DBLP:conf/lori/BenthemBE17}, topological models for spatial logics~\cite{DBLP:reference/spatial/BenthemB07}, hybrid systems~\cite{DBLP:conf/lfcs/ArtemovDN97}, and temporal logics of dynamical systems~\cite{DBLP:journals/lmcs/Fernandez-Duque18}.
+\item Categorical~\cite{DBLP:conf/csl/AlechinaMPR01}, sheaf~\cite{Hilken_afirst}, and pre-sheaf~\cite{DBLP:journals/aml/Ghilardi89} models.
+\item Coalgebraic semantics for classical Propositional Dynamic Logic (PDL)~\cite{DBLP:journals/corr/abs-1109-3685}.
+\end{inparaenum}
+While games are known to exhibit algebraic structure~\cite{DBLP:journals/sLogica/Goranko03}, such laws are not essential to this work.
+Our semantics are also notable for the seamless interaction between a constructive Angel and classical Demon.
 
-\subsection{Specific Constructive Modal Logics}
-We discuss  a variety of constructive modal logics which have been developed, including treatments of PDL and Concurrent DL.
-Among intuitionistic dynamic logics, dynamic-epistemic logic (DEL)~\cite{DBLP:journals/logcom/FrittellaGKPS16} possesses a well-understood proof-theoretic semantics, but this semantics does not tell the whole story, since it neither exposes the underlying computational interpretation nor has its relation to a model-theoretic semantics been explored.
-While an argument can made in the case of DEL to take the proof-theoretic semantics as primary, model-theoretic semantics are an essential part of the story for \CdGL, because the physical world and the real numbers which represent it are conceptually prior to proof.
-Proof-theoretic semantics for constructive, paraconsistent LTL have also been given~\cite{DBLP:journals/japll/KamideW10}.
-
-Constructive tableaux have been developed for Concurrent Dynamic Logic~\cite{DBLP:journals/apal/WijesekeraN05}, which is a special case of \CdGL.
-However, only an intuitionistic Kripke semantics are given, and a proofs-as-programs interpretation is not developed.
-
-Arguably, the closest paper in spirit is~\cite{degen2006towards}, because they pursue an intuitionistic PDL which satisfies an existence property (EP) for programs, which is an important step in our development of a proofs-as-programs interpretation.
-However, they stop short of full EP and show a special case, and question the usability of their own logic since their implication introduction rule has an nonsyntactic side condition.
-Moreover, they suggest that the first-order case (which we support) is beyond the methods of their day.
-
-Intuitionistic Kripke semantics have also been given for a fragment of PDL~\cite{DBLP:journals/fuin/Celani01}, specifically multimodal System K with an iteration modality.
-
-\subsection{Game Logic}
-First off, all previous logical explorations of hybrid games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} have explored only the classical case.
-Explicit strategies for GL were proposed~\cite{ghosh2008strategies}.
-The logic developed therein is suspect because ``a game is winnable'' and ``a game is winnable by a given strategy'' are defined as entirely different formulas, when they ought to be intimately connected.
-
-Another explicit treatment of strategies is given in \cite{DBLP:conf/kr/RamanujamS08}, but their presentation is also questionable because arbitrary strategies are only allowed for the propositional games, which appears to exclude most interesting strategies for repeated games.
-
-The prior works only treat Parikh's propositional GL, and moreover the connection between strategies as proof terms and constructivity was not made, so no proof theory was developed, in contrast to our work.
-
-van Benthem has also written on strategies in logic~\cite{DBLP:series/lncs/Benthem15}, but his exploration is in the context of dynamic-epistemic~\cite{DBLP:journals/games/BenthemPR11,van2001games} and evidence logics~\cite{DBLP:journals/sLogica/BenthemP11}, not GL per se.
-
-\subsection{Constructive Analysis}
-Constructive real analysis has been studied in depth, and is essential to the success of \CdGL: computationally interpreting first-order real arithmetic and differential equation reasoning will require a solid foundation in constructive analysis.
-
-The foundational work on constructive analysis is Bishop~\cite{bishop1967foundations}, and a more recent in-depth treatment is given by Bridges~\cite{bridges2007techniques}.
+%\subsection{Constructivity and State}
+Because \CGL is first-order, a constructive approach must also address the constructivity of operations that inspect game state.
+The base sorts of \CGL include both natural numbers, where exact equality and case-analysis are computable, and real numbers, where exact equality is not computable.
+Throughout, we use the reals of Bishop and Bridges~\cite{bishop1967foundations,bridges2007techniques}, which contain the same uncountably-many numbers as the classical reals $\mathbb{R},$ but do not admit decidable equality.
 A realizability interpretation of Bishop's analysis has been explored~\cite{DBLP:journals/mst/Schwichtenberg08}.
-We are particularly interested in the constructive version of the Picard-Lindel\"{o}f theorem, which has been proven previously in Coq~\cite{DBLP:conf/itp/MakarovS13}.
+Constructive reals have been implemented efficiently in theorem provers, for example the CORN~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011} library.
 
-Constructive analysis typically deals with the true reals, defined constructively: i.e., there are uncountably many reals in constructive analysis.
-Closely related are the \emph{computable reals}: the countable subset of the reals which have an actual implementation as a computer program.
-The computable reals are traditionally modeled by the Baire space~\cite{CM_1968__20__194_0}.
-In the semantics of \emph{hybrid games}, we simply employ the continuum as a given.
-What is essential, however, is to ensure that computable reals are an adequate model for \emph{strategies}, i.e., no strategy should be allowed to exploit an operation that is not decidable on the computable reals.
-As we move toward implementation, it will be important to have access to an efficient implementation of computable reals.
-One such implementation is CORN~\cite{Krebbers+Spitters:lmcs:corn:2011}, which includes a constructive version of Rolle's Theorem/Mean Value Theorem, another key component for \CdGL.
+\paragraph{Constructivity and Dynamic Logic}
+With \CGL, we bring to fruition several past efforts to develop constructive dynamic logics.
+Prior work on PDL~\cite{degen2006towards} sought an Existence Property for Propositional Dynamic Logic (PDL), but they questioned the practicality of their own implication introduction rule, whose side condition is non-syntactic.
+Furthermore, one of our results is a first-order Existence Property, which Degen cited as an open problem beyond the methods of their day.
+To our knowledge, only~\cite{kamide2010strong} considers Curry-Howard or functional proof terms for a program logic.
+While their work is a notable precursor to ours, their logic is a weak fragment of PDL without tests, monotonicity, or unbounded iteration, while we support not only PDL but the much more powerful first-order \GL.
+Lastly, we are preceded by Constructive Concurrent Dynamic Logic, \cite{DBLP:journals/apal/WijesekeraN05} which gives a Kripke semantics for Concurrent Dynamic Logic \cite{DBLP:journals/jacm/Peleg87}, a proper fragment of \GL.
+Their work focuses on an epistemic interpretation of constructivity, algebraic laws, and tableaux reasoning.
+We differ in our use of realizability semantics and natural deduction, which were essential to developing a Curry-Howard interpretation for \CGL.
+In summary, we are justified in claiming to be the first work which develops Curry-Howard with proof terms and an Existence Property for an \emph{expressive} program logic, the first constructive game logic, and the only with first-order proof terms.
+
+While constructive natural deduction calculi map most directly to functional programs, proof terms can be generated for any proof calculus, including a well-known interpretation of classical logic as continuation-passing style~\cite{DBLP:conf/popl/Griffin90}.
+Proof terms have been developed~\cite{DBLP:conf/cpp/FultonP16} for a Hilbert calculus for \dL, a dynamic logic for hybrid systems.
+Their work focuses on a provably correct interchange format for classical \dL proofs, not constructive logics.
+
+Intuitionistic modalities were also explored in dynamic-epistemic logic (DEL)~\cite{DBLP:journals/logcom/FrittellaGKPS16}, but that work is interested primarily in proof-theoretic semantics while we employ realizability semantics to stay firmly rooted in computation.
+Proof-theoretic semantics for constructive, paraconsistent LTL have also been given~\cite{DBLP:journals/japll/KamideW10}.
+Intutionistic Kripke semantics have also been applied to multimodal System K with iteration~\cite{DBLP:journals/fuin/Celani01}, a weak fragment of PDL.
 
 \section{Syntax}
-The term language of \CdGL is that of \dL:
-\[\theta \bebecomes  q \alternative x \alternative \theta + \eta \alternative \theta \cdot \theta \alternative \der{\theta}\]
-where $q \in \mathbb{Q}$ is a literal, $x$ a variable, $\theta + \eta$ a sum, $\theta \cdot \eta$ a product and $\der{\theta}$ a derivative.
+We define the language of \CGL, consisting of terms, games, and formulas.
+The simplest terms are \emph{program variables} $x, y \in \allvars$ where $\allvars$ is the set of variable identifiers.
+The program variables, which are mutable, contain the state of the game, which is globally scoped.
+We assume a signature $\kwsig$ assigning a fixed base sort $\sig{x} = \tau$ to each $x,$ and we assume the base sorts consist of at least the integers $\mathbb{Z},$ the Bishop reals $\mathbb{R},$ and Booleans $\mathbb{B},$ which we use in our examples and semantics.
+\begin{definition}[Terms]
+A \emph{term} $f, g$ is an arbitrary Type-2~\cite{DBLP:series/txtcs/Weihrauch00} computable function over the game state.
+That is, in the case that $f$ and $g$ are real-valued, they must be computable when the program variables are represented as streams of bits.
 
-The formulas of \CdGL are:
-\[\phi \bebecomes \theta > \eta \alternative  \phi \land \psi \alternative \phi \lor \psi \alternative \phi \limply \psi \alternative \bot \alternative \ddiamond{\alpha}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \forall{x}{\phi} \alternative \exists{x}{\phi}\]
-where $\theta > \eta$ is true when $\theta$ is greater than $\eta,$ $\phi \land \psi$ is true when $\phi$ and $\psi$ are both true, $\phi \lor \psi$ is true when either $\phi$ or $\psi$ is true (and we know which one), $\phi \limply \psi$ is true when $\psi$ is true under the assumption that $\phi$ is true, and $\bot$ is not true.
-$\ddiamond{\alpha}{\phi}$ is true when Angel has a strategy for $\alpha$ to reach the region where $\phi$ is true (and we know which strategy, and we know why $\phi$ is true in the end).
-Likewise, $\dbox{\alpha}{\phi}$ is true when Demon has a strategy for $\alpha$ to reach the region where $\phi$ is true.
-$\lforall{x}{\phi}$ is true when $\phi$ is true under the assumption that $x$ is a fresh (real-valued) variable.
-Likewise, $\lexists{x}{\phi}$ is true when $\phi$ is true under some assignment of $x$ (and we know which one).
+We give a nonexhaustive grammar of terms, specifically those used in our examples:
+\[f,g ~\bebecomes~  \cdots \alternative q \alternative x \alternative f + g \alternative f \cdot g \alternative \ediv{f}{g} \alternative \emod{f}{g}\]
+where $q \in \mathbb{Q}$ is a rational literal, $x$ a program variable, $f + g$ a sum, $f \cdot g$ a product, and $\ediv{f}{g}$ and $\emod{f}{g}$ are the quotient and remainder in integer division of $f$ by $g$, respectively.
+We leave the implementation language of $f$ unspecified for the standard reason that different implementers might use different languages to implement realizers.
+\label{def:terms}
+ \end{definition}
+Quotient and remainder are integer operations only, and ill-typed for arguments of other types.
+A game in \CGL is played between a constructive player named Angel and a classical player named Demon.
+We say that whichever player moves next is the \emph{active} player while their opponent is  \emph{dormant}.
+We emphasize this terminology differs subtly from standard descriptions of classical \GL: when both players are classical one identifies Angel with the active player and Demon with the dormant player.
+%We discuss the source of this subtlety after introducing basic syntax in \rref{def:cgl-formula}.
 
-Since \CdGL is a constructive logic, classical duality axioms such as $\phi \lor \psi \equiv \neg(\neg \phi \land \neg psi)$ do not hold, and thus none of the above constructs are derived.
-Even in a constructive logic, however, the constructs $\neg \phi \equiv (\phi \limply \bot), \phi \lequiv \psi \equiv (\phi \limply \psi \land \psi \limply \phi),$ and $\theta \geq \eta \equiv \neg(\eta > \theta)$ are derived.
-The equivalence $\theta \geq \eta \equiv \neg(\eta > \theta)$ is standard in constructive analysis, but nonstrict inequalities will merit special attention since equality on reals is undecidable, and thus nonstrict inequalities are as well.
-For example, the trichotomy axiom of classical analysis:
-\[\theta < \eta \lor \theta = \eta \lor \theta > \eta\]
-is false constructively, as it is undecidable which of three cases holds.
+In \CGL, hybrid games follow the same syntax as in \dGL, except that all formulas appearing in games are \CdGL formulas.
+As with $\phi \lor \psi,$ The Angel player must make choices computably in $\alpha \cup \beta,$ in $\prepeat{\alpha},$ and in $\prandom{x}$.
+We parenthesize games with braces $\{ \alpha \}$ when necessary.
+Sequential and nondeterministic composition both associate to the right, i.e., $\alpha \cup \beta \cup \gamma \equiv \{\alpha \cup \{\beta \cup \gamma\}\}$.
+This does not affect their semantics as both operators are associative, but aids in reading proof terms.
 
-In \CdGL, hybrid games follow the same syntax as in \dGL, except that all formulas appearing in games are \CdGL formulas.
+%\begin{definition}[Games]
+%The set of \emph{games} $\alpha,\beta$ is defined recursively as such:
+%%\[\alpha,\beta ~\bebecomes~ \ptest{\phi} \alternative \humod{x}{f} \alternative \prandom{x} \alternative  \pchoice{\alpha}{\beta} \alternative \alpha;\beta \alternative \prepeat{\alpha} \alternative \pdual{\alpha}\]
+%\end{definition}
+%In  the \emph{test game} $\ptest{\phi},$ the active player wins if they present a constructive proof that $\phi$ currently holds to the dormant player.
+%If the active player cannot present a proof, the dormant player wins by default and we informally say the active player ``broke the rules''. 
+%In deterministic assignment games $\humod{x}{f},$ neither player makes a choice, but the program variable $x$ takes on the value of a term $f$ of the same type.
+%In nondeterministic assignment games $\prandom{x}$, the active player picks the value of $x$.
+%In the choice game $\alpha \cup \beta,$ the active player chooses whether to play game $\alpha$ or game $\beta$.
+%In the sequential composition game $\alpha;\beta$, game $\alpha$ is played first, then $\beta$ from the resulting state.
+%In the repetition game $\prepeat{\alpha},$ the active player chooses after each repetition of $\alpha$ whether to continue playing, but loses if they repeat $\alpha$ infinitely.
+%Notably, the exact number of repetitions can depend on the dormant player's moves, so the active player need not know, let alone announce, the exact number of iterations in advance.
+%In the dual game $\prepeat{\alpha},$ the active player becomes dormant and vice-versa, then $\alpha$ is played.
+
+\begin{definition}[\CGL Formulas]
+The set of \CGL \emph{formulas} $\phi$ (also $\psi, \rho$) is given recursively by the grammar:
+\[ \phi ~\bebecomes~ \ddiamond{\alpha}{\phi} \alternative \dbox{\alpha}{\phi} \alternative f \sim_\tau g\]
+\label{def:cgl-formula}
+\end{definition}
+The defining constructs in \CGL (and \GL) are the modalities $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$.
+In \CGL, in subtle contrast to \GL, these modalities say that Angel can construct a proof of $\phi$ in every end state of game $\alpha,$ when starting as the active or dormant player, respectively.
+One could also imagine modalities $\demonactive{\alpha}{\phi}$ and $\demondormant{\alpha}{\phi}$ which hold when an active or dormant Demon has a strategy to show $\phi$ as a postcondition of $\alpha$.
+The modal formula $\dbox{\alpha}{\phi}$ of classical \GL corresponds to what we call $\demondormant{\alpha}{\phi}$, as Angel is always active and Demon always dormant.
+We depart from the classical tradition because a constructive player (Angel) competing against a classical player (Demon) is fundamentally asymmetric.
+The constructive modalities $\demonactive{\alpha}{\phi}$ and $\demondormant{\alpha}{\phi}$ could be of independent theoretical interest, but we focus on $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ because they are the modalities useful for synthesis, whereas $\demonactive{\alpha}{\phi}$ and $\demondormant{\alpha}{\phi}$ are merely used to show that the constructive player cannot possibly win.
+
+We assume the presence of interpreted comparison predicates $\sim_\tau \in \{\leq, <, =, \neq, >, \geq\}$ for every numeric sort $\tau$.
+Comparisons are typed, i.e., they are ill-typed for arguments of different sorts.
+
+The standard connectives of first-order constructive logic can be derived from games and comparisons.
+Verum ($\btt$) is defined $1 > 0$ and falsum ($\bff$) is $0 > 1$.
+Conjunction $\phi \land \psi$ is defined $\ddiamond{\ptest{\phi}}{\psi},$ 
+disjunction $\phi \lor  \psi$ is defined $\ddiamond{\ptest{\phi} \cup \ptest{\psi}}{\top},$
+implication $\phi \limply \psi$ is defined $\dbox{\ptest{\phi}}{\psi}$,
+universal quantification $\lforall{x}{\phi}$ is defined $\dbox{\prandom{x}}{\phi},$ and 
+existential quantification $\lexists{x}{\phi}$ is defined $\ddiamond{\prandom{x}}{\phi}$.
+As usual in logic, equivalence $\phi \lequiv \psi$ can also be defined $(\phi \limply \psi) \land (\psi \limply \phi)$.
+As usual in constructive logics, negation $\neg \phi$ is defined $\phi \limply \bff$, and inequality is defined by equivalence $f \neq g \equiv \neg(f = g)$, known as Heyting's axiom in the context of constructive reals.
+Likewise, we define $\theta \geq \eta \equiv \neg(\eta > \theta)$.
+We will use the derived constructs freely but present semantics and proof rules only for the core constructs to minimize duplication.
+Indeed, it will aid in understanding of the proof term language to keep the definitions above in mind, because the proof terms for many first-order programs follow those from first-order constructive logic.
+Note that in \CGL, classical duality axioms such as $\phi \lor \psi \equiv \neg(\neg \phi \land \neg psi)$ do not hold.
+
+For convenience, we also write derived operators where the dormant player is given control of a single choice before returning control to the active player.
+The \emph{dormant choice} $\dchoice{\alpha}{\beta},$ defined $\pdual{({\pchoice{\pdual{\alpha}}{\pdual{\beta}}})},$ says the dormant player chooses which branch to take, but the active player controls the subgames.
+\emph{Dormant repetition} $\drepeat{\alpha}$ is defined likewise by $\{\{\alpha\pdual{{}}\} \prepeat{{}}\} \pdual{{}}$.
+
+We write $\eren{\phi}{x}{y}$ (likewise for $\alpha$ and $f$) for the \emph{renaming} of $x$ for $y$ and vice versa in formula $\phi$, and write $\tsub{\phi}{x}{f}$ for the \emph{substitution} of term $f$ for program variable $x$ in $\phi$, if the substitution is admissible (\rref{def:lem-admit}).
+
+
+\subsection{Example Games}
+\label{sec:example-games}
+We demonstrate the meaning and usage of the \CGL constructs by introducing two classic games.
+
+\paragraph{Nim.}
+Nim (\rref{fig:CGL-nim}) is the standard introductory example of a discrete, 2-player, zero-sum, perfect-information game.
+The constant $\nim$ defines the body of the game Nim, i.e., one turn for each player.
+\begin{figure}
+\begin{align*}
+\nim =\Big\{\big\{&\ptest{c>0}; 
+                 \{\humod{c}{c-1} \cup \humod{c}{c-2} \cup \humod{c}{c-3}\};
+                \ptest{c \geq 0}\big\};\\
+             \big\{&\ptest{c>0}; 
+                 \{\humod{c}{c-1} \cup \humod{c}{c-2} \cup \humod{c}{c-3}\};
+                \ptest{c \geq 0}\big\}\pdual{}\Big\}
+\end{align*}
+\caption{Example game: Nim}
+\label{fig:CGL-nim}
+\end{figure}
+The game state consists of single counter $c:\mathbb{N},$ which each player chooses ($\cup$) to reduce by 1, 2, or 3 ($\humod{c}{c-k}$).
+The counter is non-negative, so setting a negative value is a violation of the rules ($\ptest{c \geq 0}$), and the game repeats until some player cannot make a move, at which point that player is declared the loser ($\ptest{c > 0}$).
+%Angel controls the duration of the game loop.
+\begin{proposition}[Dormant winning region]
+\label{prop:nim-demon-wins}
+Suppose $c \equiv 0 ~(\textup{mod}~ 4),$  Angel controls the loop duration, and Demon acts first.
+Then dormant Angel has a strategy to ensure $c = 0$.
+That is, the following \CGL formula is valid (true in every state): %TODO: not quite what valid means
+\[c > 0 \limply \emod{c}{4} = 0 \limply
+\dbox{\drepeat{\nim}}{\,c = 0}
+\]
+\end{proposition}
+\rref{prop:nim-demon-wins} says a dormant Angel has a strategy to reduce $c$ to exactly $0$ after enough iterations.
+This implies Angel wins the game because Demon violate the rules once $c=0$ and no move is valid..
+%Stating the winning theorem for Angel requires a bit more care since Angel moves first and we wish to state that Angel can force Demon to break the rules when $c=0$.
+We now state the winning region for an active Angel player.
+Here the postcondition $\bff$; because $\bff$ is not true in any state, \rref{prop:nim-angel-wins} indicates that Angel forces Demon to break the rules by failing a test.
+\begin{proposition}[Active winning region]
+\label{prop:nim-angel-wins}
+Suppose $c \not\equiv 1 ~(\textup{mod}~ 4)$ initially, Angel controls the loop duration, and Angel acts first.
+Then Angel wins by forcing a rule violation by Demon, i.e, the following \CGL formula is valid:
+\[c > 0 \limply \emod{c}{4} \neq 1 \limply \ddiamond{\prepeat{\nim}}{\bff}\]
+\end{proposition}
+
+\paragraph{Cake-cutting.}
+Another classic 2-player game, from the study of equitable division, is the cake-cutting problem~\cite{DBLP:journals/sLogica/PaulyP03a}: 
+The active player cuts the cake in two, then the (initially-)dormant player gets first choice of a piece.
+This is an optimal protocol for splitting the cake in the sense that the active player is incentivized to split the cake evenly, else the dormant player could take the larger piece.
+Cake-cutting is also one of the simplest examples of a game with real-valued variables.
+The constant $\cake$ in \rref{fig:CGL-cake} defines the cake-cutting game.
+Here $x$ is the relative size (from $0$ to $1$) of the first piece, $y$ is the size of the second piece, $a$ is the size of the active player's piece, and $d$ is the size of dormant player's piece.
+\begin{figure}
+\begin{align*}
+\cake =\,&\prandom{x}; \ptest{0 \leq x \leq 1}; \humod{y}{1-x};\\
+            &\{\dchoice{\humod{a}{x};\humod{d}{y}}{\humod{a}{y};\humod{d}{x}}\}
+\end{align*}
+\caption{Example game: cake-cutting}
+\label{fig:CGL-cake}
+\end{figure}
+The game is played only once.
+The active player picks the division of the cake, which must be a fraction $0 \leq x \leq 1$.
+The dormant player then picks which slice goes to whom.
+
+An active Angel has a tight strategy to achieve a $0.5$ cake share, as stated in \rref{prop:cake-angel-wins}.
+\begin{proposition}[Active winning region]
+\label{prop:cake-angel-wins}
+The following formula is valid:
+\[\ddiamond{\cake}{\,a \geq 0.5}\]
+\end{proposition}
+Surprisingly, a dormant Angel does not have a computable strategy to achieve exactly $0.5$ share of the cake, but rather for any $k < 0.5$ has a strategy to achieve share $k$, as shown in \rref{prop:cake-demon-wins}
+\begin{proposition}[Dormant winning region]
+\label{prop:cake-demon-wins}
+The following formula is valid:
+\[0 < k < 0.5 \limply \dbox{\cake}{\,d > 0.5 - k}\]
+\end{proposition}
+This reveals the subtleties of computations on reals, which we now briefly discuss.
+\paragraph{Computability and reals.}
+Exact comparisons on constructive reals are not decidable, e.g. formulas such as $x = 0.5 \lor x \neq 0.5$ and $x > y \lor x \leq y$ are not valid constructively.
+The standard comparison principle for constructive reals, which will appear as a rule in \rref{sec:proof-calculus}, is the \emph{approximate splitting principle}:
+for any $\epsilon > 0,$ the formula $x > y \lor x < y + \epsilon$ is valid, because approximate comparisons require only finitely-many digits, making them Type-2 computable~\cite{DBLP:series/txtcs/Weihrauch00}.
+Because disjunction is defined as Angelic choice, it is no surprise that the same challenge arises when choosing which path to take in a game, e.g. Angel is forced to fail a test in $\pchoice{\ptest{x < 0}}{\ptest{x \geq 0}}$ for real-valued $x$ because unlike in classical \GL Angel cannot apply the law of excluded middle.
+Sometimes both branches of an approximate split are satisfied at once, e.g., $y < x < x + \epsilon$.
+In this case Angel's strategy might suggest \emph{multiple} correct moves, but the \emph{collection axiom} of constructive set theory~\cite{DBLP:journals/mst/Schwichtenberg08,bishop1967foundations,bridges2007techniques} says such strategies are still constructive: intuitively, Angel's move is determined by which of $y < x$ or $x < x + \epsilon$ happened to be demonstrated first.
+
+Because dormant Angel can choose $k$ arbitrarily close to 0.5, we argue this is not a serious practical limitation, rather we take it as confirmation that the difference between constructive and classical games, while simple, is real and arises even in simple games.
+The need to use inexact comparisons is entirely reflective of the challenges that arise any time we wish to compare real (or even floating-point) numbers in software.
+Certainly, Angel will not bemoan the loss of $\epsilon$ slices of cake.
+We will revisit the surprising fact that the dormant wining region was slightly weaker than the active one in \rref{sec:dual-sem}, and we will revisit Nim and cake-cutting with proof in \rref{sec:proof-calculus}.
+
+
+
+
+
+\section{Semantics}
+\label{sec:rel-sem}
+We now develop the semantics of \CGL.
+The major  challenge for \CGL is capturing the competition between a \emph{constructive} Angel and \emph{classical} Demon.
+We use realizability semantics~\cite{DBLP:journals/mscs/Oosten02,lipton1992constructive} to make the relationship between constructive proofs and programs particularly clear.
+Our realizers give Angel's computable strategy, while the opponent Demon may act classically.
+Because Angel is computable but Demon is classical, our semantics has the flavor both of realizability semantics and of a traditional Kripke semantics for programs.
+
+The semantic functions are indexed by  a \emph{game state} $\om \in \allstate$ where we write $\allstate$ for the set of all states.
+We additionally write $\stt, \sff \in \allstate$ for the pseudo-states $\stt$ and $\sff$ indicating that Angel or Demon respectively has won the game early by forcing the other to fail a test.
+For a fixed signature $\kwsig,$ each $\om \in \allstate$ maps each $x \in \allvars$ to a value $\om(x) \in \valset{\sig{x}},$ where $\valset{\tau}$ is the set of values of type $\tau,$ i.e., $\valset{\kwint} = \mathbb{Z}$ and $\valset{\kwreal} = \mathbb{R}$.
+We write $\ssub{\om}{x}{v}$ for the state that agrees with $\om$ except that $x$ is assigned value $v$ where $v \in \valset{\tau}$.
+\begin{definition}[Arithmetic term semantics]
+\label{def:term-sem}
+A term $f$ is simply a computable function of the state, so the interpretation $\tint{f}{\om}$ of term $f$ in state $\om$ is $f(\om)$.
+\end{definition}
+\begin{definition}[Realizers] 
+Realizers $\aa,\ab,\ac \in \allRz$ (where $\allRz$ is the set of all realizers) are defined coinductively:
+\[\aa,\ab,\ac ~\bebecomes~ \rzNil \alternative \rzBLam{\om}{f} \alternative \rzFOLam{x}{\tau}{\aa} \alternative \rzHOLam{x}{\phi}{\aa} \alternative \rzCons{\aa}{\ab}\alternative \rzApp{\aa}{v} \alternative \rzApp{\aa}{\ab} \alternative \rzApp{\aa}{\om}\]
+\end{definition} 
+where $f$ is a term over the state $\om$.
+Here $\rzNil$ is the unit realizer.
+Lambda realizers, for example  $\rzBLam{\om}{f}$,consume argument $\nu$ and compute the term $f$ with $\nu$ substituted for $\om$.
+We write $\rzCons{\aa}{\ab}$ for a pair of realizers, and $\rzFst{\aa}$ and $\rzSnd{\aa}$ for its components.
+Realizers for sequential compositions $\alpha;\beta$ follow the outer structure of an $\alpha$ realizer, but return a $\beta$ realizer as a continuation on each branch.
+Realizers for Angelic and Demonic repetitions $\prepeat{\alpha}$ are both coinductive streams of $\alpha$-realizers.
+Realizer application is written (e.g.) $\rzApp{\aa}{\om}$.
+%Base-lambdas of return type $\mathbb{B} \equiv \{0,1\}$ realize Angel choices $\langle{\cup}\rangle,$ while base-lambdas of return type $\Sigma(\tau)$ realize Angelic nondeterministic assignments $\langle\prandom{x}\rangle$.
+%The first-order realizer $\rzFOLam{x}{\tau}{\ab}$ realizes Demonic nondeterministic assignments $[\prandom{x}]$where $\Sigma(x) = \tau$.
+%It accepts a value $v$ of type $\tau$ and produces a $\psi$-realizer $\tsub{\ab}{x}{v}$, where $\tsub{\ab}{x}{v}$ is $\ab$ with every occurrence of $x$ replaced by $v$.
+%The higher-order realizer $\rzHOLam{x}{\phi}{\ab},$ realizes Demonic tests  $[\ptest{\phi}]$ by taking a realizer $\ac$ for $\phi$ and producing a realizer $\tsub{\ab}
+%{x}{\ac}$ for $\psi$, where $\tsub{\ab}{x}{\ac}$ is $\ab$ with every occurrence of variable $x$ replaced by realizer $\ac$.
+%Note this typing constraint on $x, \ab,$ and $\ac$ ensures termination as typical in lambda calculus.
+
+
+%TODO: discuss duality axioms around here
+%This insight is revealed most clearly for \GL, which generalizes \DL with a duality operator $\pdual{\alpha}$ whose effect is to pass control between the players and thereby alternate between the modalities: $\dbox{\pdual{\alpha}}{\phi} \lequiv \ddiamond{\alpha}{\phi}$ and vice versa.
+%The dual region of $X$ is written $\sdual{X},$ and is defined by $\sff \in \sdual{X}$ iff $\stt \in X,$ as well as $\stt \in \sdual{X}$ iff $\sff \in X,$ and $\sdual{X}=X$ otherwise.
+
+\subsection{Formula and game semantics}
+We write $\fintR{\phi} \subseteq \allRz \times \allstate$ for the region (written $X,Y,Z$) of realizer-state pairs which realize formula $\phi$.
+Because Angel commits to a computable strategy from the start, all nondeterminism in the game semantics is Demonic.
+We write $\strategyforR[\alpha]{X} : \powerset{\allRz \times \allstate}$ for the set of final realizer-state pairs $(\ab,\nu)$ which result from Angel playing first in $\alpha$ for some $(\aa,\om) \in X$.
+Likewise, $\dstrategyforR[\alpha]{X} : \powerset{\allRz \times \allstate}$ gives the realizer-state pairs $(\ab,\nu)$ resulting when Demon plays first.
+The realizer $\ab$ paired with each final state $\nu$ is used to play Angel's strategy in any following game $\alpha$ (resp.\ any formula $\phi$), and serves as a continuation.
+The definitions below implicitly assume $\sff, \stt \notin X,$ they extend to the case $\sff \in X$ (likewise $\stt \in X$) using the equations 
+$\dstrategyforR[\alpha]{(X \cup \{\sff\})} = \dstrategyforR[\alpha]{X} \cup\{\sff\}$ and 
+$\strategyforR[\alpha]{(X \cup \{\sff\})} = \strategyforR[\alpha]{X} \cup\{\sff\}$.
+That is, if Demon has already won by forcing an Angel violation initially, any remaining game can be skipped with an immediate Demon victory, and vice-versa.
+\begin{definition}[Formula semantics]
+\begin{align*}
+(\rzNil,\om) \in  \fintR{f \sim g}                 &\text{ iff } \tint{f}{\om} \sim \tint{g}{\om}\\
+(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}}       &\text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\\
+(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}}              &\text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})
+\end{align*}
+\end{definition}
+
+\begin{definition}[Angel game forward semantics]
+\begin{align*}
+\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}
+                                                    \cup \{\sff~|~(\aa,\om) \in X,~(\rzFst{\aa},\om) \notin \fintR{\phi}\}\\ 
+\strategyforR[\humod{x}{f}]{X}  &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\}&&\text{}\\ 
+\strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\ 
+\strategyforR[\alpha;\beta]{X}           &= \strategyforR[\beta]{(\strategyforR[\alpha]{X})} &&\text{}\\ 
+\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\
+\strategyforR[\prepeat{\alpha}]{X}     &= \bigcap\{\apL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\strategyforR[\alpha]{\apR{Z}}) \subseteq Z\}	
+&&\\
+\strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}
+%bigcap_{\rho\in\allfml,\ab:\rzfor{\rho}}\fintR{\rzSnd{\ab}}{\rho}~|~\fintR{\rzSnd{\rzApp{\aa}{\ab}}}{\psi} \cup_{\rzFst{\rzApp{\aa}{\ab}}} \fintR{\rzFst{\ab}}{\ddiamond{\alpha}{\rho}} \subseteq \fintR{\rzSnd{\ab}}{\rho}&&\text{}\\ 
+\end{align*}
+\end{definition}
+\begin{definition}[Demon game forward semantics]
+\begin{align*}
+\dstrategyforR[\ptest{\phi}]{X} &= \{(\rzApp{\aa}{\ab},\om)~|~(\aa,\om) \in X, (\ab,\om) \in \fintR{\phi}, \ab \in \allRz\}
+                                                \cup \{\top~|~ (\aa,\om) \in X,\text{ but no } (\ab,\om) \in \fintR{\phi}\}&&\\
+\dstrategyforR[\humod{x}{f}]{X} &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\} &&\text{}\\ 
+\dstrategyforR[\prandom{x}]{X}     &= \{(\rzApp{\aa}{r},\ssub{\om}{x}{r})~|~r \in \valset{\Sigma(x)}\}&&\\ 
+\dstrategyforR[\alpha;\beta]{X}       &= \dstrategyforR[\beta]{(\dstrategyforR[\alpha]{X})} &&\text{}\\ 
+\dstrategyforR[\alpha\cup\beta]{X}  &= \dstrategyforR[\alpha]{\dpL{X}} \cup \dstrategyforR[\beta]{\dpR{X}} &&\text{}\\ 
+\dstrategyforR[\prepeat{\alpha}]{X} &= \bigcap\{\dpL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\dstrategyforR[\alpha]{\dpR{Z}}) \subseteq Z\}&&\\
+\dstrategyforR[\pdual{\alpha}]{X}    &= (\strategyforR[\alpha]{X}) &&\text{}
+%\bigcup_{J\in\allfml}\fintR{\rzFst{\aa}}{J}~|~\fintR{\rzFst{\aa}}{J} \subseteq \fintR{\rzSnd{\aa}}{\dbox{\alpha}{J}} \cap \fintR{\rzThd{\aa}}{\psi}\\
+\end{align*}
+\end{definition}
+Comparisons $f \sim g$ defer to the term semantics, so the interesting cases are the program modalities.
+Both $\dbox{\alpha}{\phi}$ and $\ddiamond{\alpha}{\phi}$ ask whether Angel wins $\alpha$ by following the given strategy, and differ only in whether Demon vs.\ Angel is the active player, thus in both cases \emph{every} Demonic choice must satisfy Angel's goal, and early Demon wins are counted as Angel losses.
+The program cases exploit the \emph{Angelic} $\apL{Z}, \apR{Z}$ and \emph{Demonic} projections $\dpL{Z}, \dpR{Z}$, which represent binary decisions made by constructive Angel and classical Demon, respectively.
+The Angelic projections, which are defined $\apL{Z} = \{(\rzSnd{\aa}, \om)~|~\rzFst{\aa}(\om)=0\}$ and $\apR{Z} = \{(\rzSnd{\aa}, \om)~|~\rzFst{\aa}(\om)=1\}$, filter by which branch Angel chooses with $\rzFst{\aa}(\om) \in \mathbb{B},$ then project the remaining strategy $\rzSnd{\aa}$.
+The Demonic projections, which are defined $\dpL{Z} \equiv \{(\rzFst{\aa},\om)~|~(\aa,\om) \in Z\}$ and $\dpR{Z} \equiv \{(\rzSnd{\aa},\om)\},$ contain all the same states as $Z,$ but left-project and right-project the realizer, respectively, to notify Angel which branch was taken.
+We now discuss the Angel cases, then the Demon cases.
+
+Angelic tests $\ptest{\phi}$ end in the current state $\om$ with remaining realizer $\rzSnd{\aa}$ if Angel can realize $\phi$ with $\rzFst{\aa}$.
+Angelic deterministic assignments consume no realizer and simply update the state, then end.
+Angelic nondeterministic assignments $\prandom{x}$ ask the realizer $\rzFst{\aa}$ to compute a new value for $x$ from the current state.
+Angelic compositions $\alpha;\beta$ first play $\alpha,$ then $\beta$ from the resulting state using the resulting continuation.
+
+Angelic choice games $\alpha \cup \beta$ use the Angelic projections to decide which branch is taken according to $\rzFst{\aa}$.
+The realizer $\rzSnd{\aa}$ may be reused between $\alpha$ and $\beta,$ since $\rzSnd{\aa}$ could just invoke $\rzFst{\aa}$ if it must decide which branch has been taken.
+This definition of Angelic choice (corres.\ constructive disjunction) captures the reality that realizers in \CGL, in contrast with most constructive logics, are entitled to observe a game state, but they must do so in computable fashion.
+
+In Angelic repetition $\prepeat{\alpha},$ Angel has fixed a computable strategy in advance, which is invoked after each repetition to decide whether the loop continues, based on the current state.
+
+\subsection{Duality semantics}
+\label{sec:dual-sem}
+To play the dual game $\pdual{\alpha},$ the active and dormant players switch roles, then play $\alpha$.
+In \emph{classical} \GL, this characterization of duality is interchangeable with the definition of $\pdual{\alpha}$ as the game that Angel wins exactly when it is impossible for Angel to lose.
+The characterizations are \emph{not} interchangeable in \CGL because the Determinacy Axiom (all games have winners) of \GL is not valid in \CGL:
+\begin{remark}[Indeterminacy]
+The classically equivalent determinacy axiom schemata
+\(\lnot\ddiamond{\alpha}{\lnot\phi} \limply \dbox{\alpha}{\phi}\) as well as \(\ddiamond{\alpha}{\lnot\phi} \lor \dbox{\alpha}{\phi}\) of classical \GL are not valid in \CGL.
+\end{remark}
+\begin{remark}[Classical duality]
+In classical \GL, Angelic dual games are characterized by the axiom schema $\ddiamond{\pdual{\alpha}}{\phi} \lequiv \neg \ddiamond{\alpha}{\neg \phi},$ which is not valid in in \CGL.
+\label{rem:cdd}
+\end{remark}
+\begin{remark}[Classical interdefinability] \label{rem:consistencydeterminacyduality}
+In classical \GL, the equivalence $\ddiamond{\pdual{\alpha}} \lequiv \dbox{\alpha}{\phi}$ is provable from the axiom schemata $\ddiamond{\pdual{\alpha}}{\phi} \lequiv \neg \ddiamond{\alpha}{\neg \phi}$ and $\dbox{\alpha}{\phi} \lequiv \neg \ddiamond{\alpha}{\neg \phi}$ (consistency \& determinacy).
+\end{remark}
+%\rref{rem:cdd} holds since classical and constructive negation disagree.
+\CGL takes $\ddiamond{\pdual{\alpha}}{\phi} \lequiv \dbox{\alpha}{\phi}$  and $\dbox{\pdual{\alpha}}{\phi} \lequiv \ddiamond{\alpha}{\phi}$ as primary, since the two axiom schemata of \rref{rem:consistencydeterminacyduality} do not hold.
+Determinacy is interesting in its own right, and \CGL is determined in the following weak sense due to a classical existence dichotomy of strategies:
+\begin{proposition}[Weak determinacy]
+If Angel is active, every game $\alpha$ with goal $\phi$ is determined because either 
+there exists a strategy $\aa$ such that $\strategyforR[\alpha]{(\{\aa\} \times \allstate)} \subseteq \fintR{\phi} \cup \{\stt\}$ (Angel wins for every Demon decision) 
+or for all $\aa,$ $\strategyforR[\alpha]{(\{\aa\} \times \allstate)}  \cap (\fintR{\phi} \cup \{\stt\})^\complement \neq \emptyset$ (Demon wins for some decision).
+Symmetrically if Angel is dormant, then every game $\alpha$ with goal $\phi$ is determined because either 
+there exists a strategy $\aa$ such that $\dstrategyforR[\alpha]{(\{\aa\} \times \allstate)} \subseteq \fintR{\phi} \cup \{\stt\}$
+or for all $\aa,$ $\dstrategyforR[\alpha]{(\{\aa\} \times \allstate)}  \cap (\fintR{\phi} \cup \{\stt\})^\complement \neq \emptyset$.
+\end{proposition}
+Note that determinacy could be stated as a double-negated axiom if we extend \CGL with modalities for the winning regions of active and dormant Demons.
+
+\subsection{Demonic semantics}
+Demon wins a Demonic test by presenting a realizer $\ab$ as evidence that the precondition holds.
+If they cannot present a realizer (i.e., because none exists), then Angel wins by default.
+Else Angel's higher-order realizer $\aa$ consumes the evidence of the pre-condition, i.e., Angelic strategies are entitled to depend (computably) on \emph{how} Demon demonstrated the precondition.
+Angel can check that Demon passed the test by executing $\ab$.
+%We do not inspect the state in composing $\rzApp{\aa}{\ab}$, only in the final application $\rzApp{\rzApp{\aa}{\ab}}{\om},$ ensuring no uncomputable computations sneak into the realizer.
+%We also confirm that this works as an understanding of Demonic tests: if Angel can ensure $\phi$ is true, they should be able to convince Demon by handing Demon as evidence a realizer $\ab$.
+In demonic nondeterministic assignment $\prandom{x},$ Demon chooses to set $x$ to \emph{any} value of its type.
+In the Demonic choice game $\pchoice{\alpha}{\beta},$ Demon chooses classically between $\alpha$ and $\beta$.
+
+Not every syntactically-valid $\phi$-strategy is sensible.
+In $\strategyforR[\prepeat{\alpha}]{Z},$ realizers must be ``effectively well-founded,'' meaning they lead the loop to terminate.
+For each $\aa$ there must be a computable termination metric $\met$ (\rref{def:poly-metric}) such that $a(\om) = \mathcal{M}=0$ on $\om \in X$ and 
+$\sup_{(\ac,\om) \in Y}\mathcal{M}(\om) < \sup{(\ac,\om) \in \strategyforR[\alpha]{Y}}$ for all $Y$ and suitable $\ac$, where $<$ is the ordering on the metric.
+If a $\phi$-realizer $\aa$ satisfies this constraint (or if it does not even apply) then we say $\aa$ is \emph{suitable} for $\phi$.
+
+We can now formally define validity of formulas and intuitionistic sequents.
+A formula $\phi$ is \emph{valid} iff there exists a suitable realizer $\aa$ uniformly for all states, i.e., such that  $\{\aa\} \times \allstate \subseteq \fintR{\phi}$.
+An intuitionistic sequent $\seq{\G}{\phi}$ is \emph{valid} if the formula $\bigwedge \G \limply \phi$ is valid, 
+that is if there exists suitable $\aa$ such that for all suitable $\ab$ and $\om$ for which $(\ab,\om) \in \cintR{\G}$ holds it is the case that
+$(\rzApp{\ab}{\aa},\om) \in \fintR{\phi},$ where $\bigwedge \G$ is the conjunction of all assumptions in $\G$.
+We also write $\aa \models (\bigwedge \G \limply \phi)$ to say $\aa$ is the witness of $\G \vdash \phi$.
+
+%TODO resolve the \bigwedge explicitly in this definition of validity. Or at least say that it'll divvy up the realizer so that there's one for each conjunct, never mind associativity.
+
+
+%TODO: Polish importance
+\paragraph{Proof Calculus}
+\newcommand{\pvl}{\ell}
+\newcommand{\pvr}{r}
+\CGL uses a constructive natural deduction calculus equipped with proof terms.
+For practical use, a sequent calculus could be implemented ``as a library'' on top of the natural deduction calculus.
+The main proof judgement is $\proves{\Gamma}{M}{\phi},$ which says term $M$ is a proof of $\phi$ in the context $\Gamma$.
+The assumptions in the context are named, so that they may be mentioned in proof terms.
+We give an example proof rule:
+\[\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
+{
+\linferenceRule[formula]
+{\proves{\G}{A}{\ddiamond{\alpha\cup\beta}{\phi}}
+        &\proves{\G,\pvl:\ddiamond{\alpha}{\phi}}{B}{\psi}
+        &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
+{\proves{\G}{\edcase{A}{B}{C}}{\psi}}
+}{}\]
+This says that a case analysis $\edcase{A}{B}{C}$ eliminates the choice $\ddiamond{\alpha\cup\beta}{\phi}$ (which must be proven by $A$) to prove any conclusion $\psi,$ so long as $B$ and $C$ prove $\psi$ assuming the left or right branch were taken, respectively.
+
+\paragraph{Operational Semantics}
+Proof terms can be understood as pure functional programs in the sense that they reduce to normal forms. We write $\isnorm{M}$ to say $M$ is normal, or $M \stepsto M'$ to say $M$ reduces to $M'$ in one step.
+The normal forms are as follows:
+\begin{lemma}[Alternative Normal Form Characterization]
+\label{lem:normal-forms-alt}
+If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is either:
+\begin{itemize}
+\item A case-redex that inspects the state, e.g. case on $\esplit{\theta}{\theta+epsilon}{M},$ or
+\item An introduction rule for the outermost connective of $\phi$.
+       In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
+\end{itemize}
+\end{lemma}
+\section{Theory Results}
+We prove standard theoretical results.
+We list the results here and remark how they inform the design of the proof term language.
+
+\begin{lemma}[Progress]
+If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
+\end{lemma}
+
+\begin{lemma}[Preservation]
+If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
+\end{lemma}
+
+\begin{lemma}[Existence Property]
+If $\proves{\Gamma}{M}{\exists{x:\tau}{\phi}}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
+we have 
+$(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
+\label{lem:term-ep}
+\end{lemma}
+\begin{lemma}[Disjunction Property]
+When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists realizer $\ab$ and computable $f,$ s.t.\ for every $\om$ and $\aa$ such that $(\aa,\omega) \in \cintR{\G}$, either $f(\omega)=0$ and $(\rzFst{\ab},\omega) \in \fintR{\phi}{}$, else $f(\omega)=1$ and $(\rzSnd{\ab},\omega) \in \fintR{\psi}$.
+\end{lemma}
+\begin{lemma}[Active Strategy Property]
+If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$ 
+then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
+\end{lemma}
+\begin{lemma}[Dormant Strategy Property]
+If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then there exists a realizer $\ab$ such thta for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$ 
+then $\dstrategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
+\end{lemma}
+While these properties have short proofs, the deeper point is that they fall out naturally from design choices which were far-reaching, such as our use of realizability.
+
+% TODO: Reduce and then say more arith is good question for full thesis then cite Lombardi 
+\subsection{Arithmetic Proofs}
+\CdGL accepts constructive analysis as its foundation instead of the classical analysis used in \dGL.
+One challenge is ensuring that such proves are no more complex than strictly necessary, yet still sound by constructive principles.
+
+In lieu of the law of excluded middle, the case analysis principle in constructive analysis is the Approximate Splitting Principle:
+\[\infer{\Gamma \vdash \theta > \eta \lor \theta < \eta + \epsilon}{\Gamma \vdash \epsilon > 0}\]
+That is, we can freely compare two terms, so long as we allow an overlap of some $\epsilon > 0$.
+We allow arbitrary proofs of $\epsilon > 0$ for generality, but in practice $\epsilon$ will usually be a rational literal, for which the premiss is trivially decidable.
+
+The constructive theory of first-order arithmetic differs from the classical theory precisely because exact comparisons are not decidable.
+While it is not known whether the full theory is decidable, several decidable fragments are known in the literature, which provide a starting point for proof automation.
+%Most arithmetic proofs in classical \dGL make heavy use of automated decision procedures (quantifier elimination, or QE) over real-closed fields.
+% It is true that constructive analysis and classical analysis describe the exact same field, the reals, which is real-closed regardless of how it is defined.
+% However, the greater problem is that we might wish to use decision procedures to decide formulas involving disjunction $\phi \lor \psi,$ and the constructive $\lor$ connective does not follow from its classical counterpart.
+% For example, it is perfectly acceptable to conclude $x > 0 \lor x \leq 0$ classically by QE, but unacceptable to so constructively, as there is no decision procedure which decides between the two branches for any concrete $x$.
+% This goes to show we must carefully re-evaluate which forms of QE reasoning are sound in \CdGL; we can no longer accept the classical rule:
+% \[\infer[\text{QE}]{\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
+
+% Instead, we introduce several QE rules.
+% Firstly, it is still sound to apply general QE to a double-negated formula:
+% \[\infer[\text{QE-DN}]{\neg\neg\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
+% This is sound because $\neg\neg\phi$ holds constructively any time $\phi$ holds classically.
+% Generally speaking, double negations can be used in a proof (and model) to indicate formulas which need not hold constructively.
+% We postulate that in practical proving, most expensive arithmetic computations (such as postcondition reasoning and differential invariant reasoning) can be placed in a classical modality so that they are amenable to general QE.
+
+% Secondly, there are several fragments of constructive arithmetic for which QE can be made constructive.
+% We call a formula $\phi$ \emph{QE-positive} if all variables are universally quantified, and under the quantifiers there are only conjunctions of comparisons.
+% Then the following rule is sound:
+% \[\infer[\text{QE-Pos}]{\phi}{*}\] with the side condition that $\phi$ is  QE-positive and classically valid.
+% QE-positive formulas have trivial computational content, because they represent tautologies that cannot be inspected.
+% When $\phi$ is QE-positive and valid, we know $\phi(x)$ and each of its conjuncts describe the entire state space, and so hold merely by virtue of $x$ being a real number.
+% A contentless proof term then suffices as a witness.
+
+% We note another decidable fragment, which we call \emph{QE-negative}.
+% We say a formula $\phi$ is \emph{QE-negative} if all variables are existentially quantified, and under the quantifiers there are  only disjunctions of comparisons.
+% \[\infer[\text{QE-Neg}]{\phi}{*}\] with the side condition that $\phi$ is  QE-negative and classically valid.
+% Unlike the QE-positive fragment, the QE-negative fragment has interesting computational content which can be consumed: a proof of $\phi$ consists of a satisfying assignment and a proof that it indeed satisifies some given disjunct.
+% Fortunately, this content can be constructed automatically.
+% In the case of a unary disjunction, this is the instance-finding problem for first-order arithmetic.
+% Implementations of this problem, while not simple, are widely available: the most obvious implementation is that which first solves the validity problem by constructing a cylindrical algebraic decomposition (CAD), then searches the CAD for the satisfying instance.
+% With multiple disjunctions, simply search for instances of each disjunct in turn.
+
+% The decidability of the QE-positive and QE-negative fragments may turn out to be a mere academic amusement, but the ability to embed classical arithmetic ought to significantly aid practical proofs.
+
+\section{Soundness Theorem}
+\begin{lemma}[Renaming]
+  If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
+\end{lemma}
+\begin{lemma}[Context substitution]
+  If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
+\end{lemma}
+\begin{lemma}[Variable substitution]
+  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
+\end{lemma}
+\begin{theorem}[Soundness of Proof Calculus]
+  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
+\end{theorem}
+%\begin{theorem}[Soundness of Realizability]
+%  If $\phi$ is realizability-valid, then $\phi$ is Kripke-valid.
+%\end{theorem}
+The proof follows by structural induction on the derivation.
+Proofs can be assumed to be normal.
+
+%TODO: Do this next on monday
+\chapter{Proposed Work: \CdGL}
+\label{sec:cdgl}
+In the proposed work, we extend \CGL from \rref{ch:cgl} to support \emph{hybrid} games so that we can model and verify adversarial CPS's.
+We call the resulting extension \CdGL.
+Extending \CGL to \CdGL is important for the same reason that it is important to allow ODEs in hybrid systems models rather than just discrete approximations of the plant.
+The Logician seeks a model that is clearly in close correspondence with reality, and this correspondence is might clearer for continuous physics than for discrete approximations.
+The Logic-User also wants reasoning about the model to be straightforward, and experience suggests direct verification of a continuous model is conceptually simpler than verification of a discrete approximation.
+
+We propose developing the theory of \CdGL, then evaluating \CdGL by using the 2D planar robot of \rref{sec:ground-robotics} as a case study.
+
+%TODO: Talk about why arbitrary computable functions were used in \CGL anyway
+\section{\CdGL Theory}
+We propose to generalize the results of \rref{ch:cgl} for \CdGL and also provide several results which were not given in past publications.
+The first step is to extend the language of games $\alpha,\beta$ to \emph{hybrid} games by adding differential equations:
+\[\alpha,\beta ::= \cdots\ |\ \pevolvein{\D{x}=f}{\phi}\]
+As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\phi}$ says that $x$ evolves continuously according to $\D{x}=f$ for a duration controlled by the active player, which is chosen subject to the constraint $\phi$ throughout.
+
+One of the major hurdles in this proposed work is to give an appropriate semantics and proof calculus for constructive differential equations.
+However, wee assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a differential equation, and constructive formalization of Picard iteration~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
+We briefly review the \dGL rules for differential equation games and suggest why a constructive interpretation should be feasible.
+%TODO continue here
+\begin{figure}
+  \centering
+  \begin{calculuscollections}{\columnwidth}
+    \begin{calculus}
+\cinferenceRule[Qdglsolve|{$\langle'\rangle$}]{$\D{y}(t)=f$}
+{
+\linferenceRule[equiv]{\ddiamond{\pevolve{\D{x}=f}{\phi}}}{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}
+}{}
+\cinferenceRule[dglweak|DW]{}
+{
+\dbox{\pevolvein{\D{x}=f}{\phi}}{\phi}
+}{}
+\cinferenceRule[dglcut|DC]{}
+{
+\linferenceRule[lpmi]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}\lequiv \dbox{\pevolvein{\D{x}=f}{\psi \land \rho}}{\phi}}{\dbox{\pevolvein{\D{x}=f}{\psi}}{\rho}}
+}{}
+\cinferenceRule[dglind|DI]{}
+{
+\linferenceRule[lpmi]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}}{\phi \land \dbox{\pevolvein{\D{x}=f}{\psi}}{\D{\phi}}}
+}{}
+\cinferenceRule[dglghost|DG]{}
+{
+\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}}{\lexists{y}{\dbox{\pevolvein{\D{x}=f,\D{y}=a(x)*y+b}{\psi}}{\phi}}}
+}{}
+\cinferenceRule[dglconst|DS]{}
+{
+\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=c}{\psi}}{\phi}}{\lforall{t}{(\lforall{0{\leq}s{\leq}t}{\dbox{\humod{x}{x+cs}}{\psi}}) \limply \dbox{\humod{x}{x+ct}}{\phi}}}
+}{}
+%TODO: Update to correct rule
+\cinferenceRule[dglvariant|DV]{}
+{
+\linferenceRule[lpmi]{\ddiamond{\pevolve{\D{x}=f}}{g>c()}}{\lexists{d>0}{\dbox{\D{x}=f}{g\geq d}}}
+}{}
+\end{calculus}
+\end{calculuscollections}
+\caption{Differential equation rules}
+\label{fig:diffeq-rules}
+\end{figure}
+\rref{fig:diffeq-rules} gives an axiomatization for differential equations in classical \dL or \dGL.
+Axiom \irref{Qdglsolve} is typically derived from the others and says that we can verify a differential equation by verifying its solution.
+Axiom \irref{dglconst}, which is not derived, is the special case of \irref{Qdglsolve} for constant ODEs.
+To show \irref{dglconst} constructively valid, it should suffice to show constructively that $x(t) = x_0 + ct$ is the unique solution of $\D{x}=c$.
+This is a special case of the Picard-Lindel\"{o}f theorem, which is true constructively~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011}.
+Picard-Lindel\"{o}f is also the basis of validity for \irref{dglghost}, which says it is sound to extend a system of differential equations with a new continuous variable, so long as the new equation is linear.
+%TODO: Cite tyk lics18
+The linearity constraint ensures the existence interval (i.e., the time before an infinite asymptote is reached, if any) of the differential equation is maintained, for soundness.
+Axiom \irref{dglghost} is mainly used in its forward direction to help prove postconditions which are invariant but not inductive, and in its converse direction to implement \irref{Qdglsolve}.
+For differential equations whose solutions are infeasibly complicated, the ``bread-and-butter'' proofs are done with \irref{dglcut}, \irref{dglind}, and \irref{dglweak}.
+\irref{dglind} says that a postcondition $\phi$ is invariant if it holds initially and if its differential (e.g., $\der{f\geq g} \equiv \der{f} \geq \der{g}$) is invariant.
+\irref{dglcut} allows one \irref{dglind} to serve as a ``lemma'' to another by adding it to the domain constraint, and \irref{dglweak} allows closing the proof by proving the postcondition from a sufficiently strengthened domain constraint.
+Validity of \irref{dglind} follows from the Mean-Value Theorem or its generalization, Rolle's Theorem, which has been proven constructively~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011}.
+The classical validity proofs of \irref{dglcut} and \irref{dglweak} are direct, and we expect the same for an appropriately-chosen semantics.
+
 
 \section{Example System}
 As a case study for \CdGL, we propose reproducing the 2D planar robot of \rref{sec:ground-robotics} as a hybrid game, and providing a constructive proof that the robot can reach its waypoints while maintaining its speed limits.
 In order to assess the feasibility of this task early, without access to an implementation of \CdGL, we propose performing the proof in classical \dGL in \KeYmaeraX and inspecting by hand that the proof uses only constructive reasoning.
 We give the hybrid game model here.
 The plant is identical to that of \rref{sec:ground-robotics}: the robot is fixed at the origin facing toward the +y axis, while the waypoint moves relative to it:
+% TODO: Make fonts consistent A B T v need fix
 \begin{align*}
 \plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
  &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\} %  ~\land~ yg > 0
@@ -1390,6 +2122,7 @@ where $J$ is the loop invariant as defined in \rref{sec:ground-robotics}.
 \end{theorem}
 In this form, \rref{thm:angel-wins} corresponds to the liveness, \rref{thm:liveness}.
 However, we propose also to generalize \rref{thm:angel-wins} slightly, thus proving \rref{thm:liveness} and \rref{thm:safe} (safety) in one go.
+%TODO: Talk about what right theorems in games are vs liveness in systems
 \begin{theorem}[Generalized Angel Winnability]
 \label{thm:angel-wins-gen}
 The following \dL formula is valid:
@@ -1410,442 +2143,216 @@ The example demonstrates several advantages of hybrid games proving generally ov
 Not only is the model shorter, waypoint-following exhibits turn-taking behavior which is challenging to characterize in a hybrid system.
 The Angel player must follow an arbitrary waypoint, i.e., one chosen by Demon.
 In order to make victory for Angel even possible, the responsibility is Demon's to choose a waypoint that is feasible.
+% TODO: Fix ref
 Expressing this turn-taking in \rref{thm:live} is cumbersome, while in \rref{thm:angel-wins-gen}, it falls naturally out of the fact that acceleration is controlled by Angel while all else is up to Demon.
 Lastly, we have the advantage that safety and liveness need not be proved separately, but can be combined as a single winnability theorem.
 This obviously saves time and energy, but there is a conceptual advantage as well: in the systems setting, we must prove \emph{all} options are safe and that \emph{one} is live.
 In the games setting, we can simply prove that \emph{one} strategy is safe-and-live, so for states our strategy will never enter, we need not even consider safety.
 
+% TODO: fonts plz
 The winnability approach ought to apply to any \emph{reach-avoid} problem for a control-plant loop, i.e., any theorem of form:
-\[\text{pre} \limply \ddiamond{\prepeat{(\ctrl;~\pdual{(\plant)};~\ptest{\text{safe}})}}{\text{live}}\]
+\[\text{pre} \limply \ddiamond{\prepeat{(\ctrl;~\pdual{(\plant)};~\ptest{\textsf{safe}})}}{\textsf{live}}\]
 Within the hybrid systems literature, and certainly within the \dL literature, most systems can be expressed as control-plant loops, and the most important properties are reach-avoid properties or special cases thereof.
-Thus we are justified to claim that a wide array of verification tasks would benefit from the simplicity provided by modeling and proving with games.
+Thus we are justified to claim that many verification tasks would benefit from the simplicity provided by modeling and proving with games.
 
-\section{Semantics}
-Several styles of semantics are widely used for constructive logics, and each has its own advantages.
-We present several semantics here, since the remaining tasks (proof term semantics, theoretical results) will inform the choice between them.
-\newcommand{\allcon}{\allregion}
-\newcommand{\somesemi}[2]{\epsilon #1~|~#2}
-
-\newcommand{\rzF}[2]{#1 \vdash #2}
-\newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
-\newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
-\newcommand{\rzFst}[1]{#1_0}
-\newcommand{\rzSnd}[1]{#1_1}
-\newcommand{\rzThd}[1]{#1_2}
-\newcommand{\rzFrt}[1]{#1_3}
-\newcommand{\rzApp}[2]{#1#2}
-\newcommand{\sa}{\omega}
-\renewcommand{\sb}{\nu}
-\newcommand{\Sc}{\mu}
-\renewcommand{\aa}{a}
-\newcommand{\ab}{A}
-\newcommand{\ac}{\aleph}
-\newcommand{\da}{d}
-\newcommand{\db}{D}
-\newcommand{\dc}{\delta}
-\newcommand{\allRz}{\mathcal{R}\mathbf{z}}
-\newcommand{\mto}{\rightharpoonup}
-
-\subsection{Real Constructive Games, One Realizer}
-\newcommand*{\strategyforR}[3][]{\varsigma_{#1}^{#2}(#3)}
-\newcommand*{\dstrategyforR}[3][]{\delta_{#1}^{#2}(#3)}
-The semantics given here can be thought of as the ``halfway-point'' between fully Kripke-style or fully realizability-style semantics.
-Instead of giving explicit realizers for both players' strategies, we give a realizer just for the Angel player, and quantify over Demon's decisions locally.
-The benefits of this presentation are that it's clear Demon's strategy is being treated extensionally, i.e., Angel's strategy never gets to inspect Demon's strategy, and Angel's strategy works even if Demon employs noncomputable trickery.
-The local treatment may also simplify soundness proofs and certainly simplifies notation a bit.
-
-\begin{align*}
-  \fint{\theta > \eta}{}         &= \{\om~|~\tint{\theta}{\om} > \tint{\eta}{\om}\}\\
-  \fint{\phi \land \psi}{}       &= \fint{\phi}{} \cap \fint{\psi}{}\\
-  \fint{\phi \lor \psi}{}        &=\bigcup_a \fint{\phi}{} \cup_a \fint{\psi}{}\\
-%  \fint{\phi \lor \psi}{}        &= \bigcup\{A \cup B \subseteq \allstate~|~\exists f:\allstate\mto 2, f(\om)=0, f(\nu)=1, \om\in A, \nu \in B, A \subseteq \fint{\phi}{}, B \subseteq\fint{\psi}{}\}\\
-  \fint{\phi \limply \psi}{}     &= \bigcup\{Z \subseteq \allstate ~|~ Z\subseteq\fint{\phi}{}\text{ constructively implies }Z\subseteq\fint{\psi}{}\}\\
-  \fint{\forall{x}{\phi}}{}      &= \{\om~|~\text{for all }r\in\reals, \subst[\om]{x}{r}\in\fint{\phi}{}\}\\
-  \fint{\exists{x}{\phi}}{}      &= \bigcup_{f:\allstate\mto \reals}\{\om~|~\subst[\om]{x}{f(\om)}\in\fint{\phi}\}\\
-  \fint{\bot}{}                  &= \emptyset  \\
-  \fint{\ddiamond{\alpha}{\phi}} &= \strategyfor[\alpha]{\fint{\phi}{}}\\
-  \fint{\dbox{\alpha}{\phi}}     &= \dstrategyfor[\alpha]{\fint{\phi}{}}
-\end{align*}
-We elaborate on the formula semantics.
-The discriminated union $A \cup_a B$ exists for a given relation $a$ (or we say $a$ is suitable for $A \cup_a B$) iff 
-and it only ever discriminates an element into a set where it is actually a member, i.e., $(x,0) \in a \limply x \in A$ and $(y,1) \in a \limply x \in B$.
-Then $A \cup_a B = \{x~|~ \exists y~(x,y) \in a, x \in A \cup B\}$.
-That is, not every member of $A \cup B$ must be sorted into one of the sets, but the discriminated union consists of those elements that can be so sorted.
-The meaning of $\phi \lor \psi$ is then the union of all such discriminated unions.
-This can be smaller than the classical set-theoretic union, e.g., $x < 0 \lor x \geq 0$ is classically a tautology but constructively holds everywhere but 0.
-This is notably more complicated a definition than even the typical constructive definition, and with good reason.
-Unlike many constructive logics, we assume that we are entitled to inspect the global state in a proof, just that we are not entitled to any magical, noncomputable inspections.
-The discriminator $a$ allows us to capture the notion of which inspections are considered computable.
-The use of $a$ is philosophically analogous to the use of a collection axiom in constructive ZF set theory to form proper functions from multi-valued functions.
-
-The definition of $\fint{\phi \limply \psi}{}$ also deserves special attention.
-The simpler alternative definition $\fint{\phi \limply \psi}{} = \fint{\psi} \cup \fint{\phi}^\complement$ ought to work just fine, but I am hesitant to use it as it hides important subtleties.
-Firstly, there are at least three sometimes-different notions of complement $S^\complement$ in common use in constructive analysis: logical complement defined by contradiction $\fint{x \in S \limply \bot}{},$ metric negation $\{x~|~\forall y \in S, \delta(x,y) > 0\},$ and plain old ``complement'' $\{x~|~\forall y \in S, x \neq y\}$.
-We risk causing confusion between the three, and also confusion over the fact that the union is classical, not constructive.
-Lastly, union and complement do not correspond clearly to standard proof methods for semantically proving implications, while our awkward-looking definition is quite simple for use in semantic proofs.
-The definition of implication reads best in the epistemic understanding of intuitionistic logic: No matter how much I know about the current state, if it's enough to know $\phi$ then it has to be enough to also know $\psi$.
-As is typical in the semantics of constructive logic, the notion ``constructively implies'' is left vague-sounding.
-However, it really just comes down to the rule (as followed in all the other semantic cases) that the state may be inspected only with computable discriminators.
-
-Now $\strategyforR[\alpha]{\aa}{X}$ is the winning region from which Angel will reach goal region $X$ by following strategy $\aa$, while 
-$\dstrategyforR[\alpha]{\aa}{X}$ is the winning region from which Demon will reach goal region $X$ assuming \emph{Angel} follows $\aa$.
-\begin{align*}
-\strategyforR[\ptest{\phi}]{\aa}{X}           &= \fint{\phi}{} \cap X &&\text{}\\ 
-\strategyforR[\humod{x}{\theta}]{\aa}{X} &=  \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}&&\text{}\\ 
-\strategyforR[\prandom{x}]{\aa}{X}         &=  \{\om~|~\subst[\om]{x}{\aa(\om)} \in X\}&&\text{}\\ 
-\strategyforR[\alpha;\beta]{\aa}{X}          &= \strategyforR[\alpha]{\rzFst{\aa}}{\strategyforR[\beta]{\rzSnd{\aa}}{X}} &&\text{}\\ 
-\strategyforR[\alpha\cup\beta]{\aa}{X}     &= \strategyforR[\alpha]{\rzSnd{\aa}}{X} \cup_{\rzFst{\aa}} \strategyforR[\beta]{\rzSnd{\aa}}{X}&&\text{}\\ 
-\strategyforR[\prepeat{\alpha}]{\aa}{X}     &=  \bigcap\{Z\subseteq S~|~X \cup_{\rzFst{\aa}} \strategyforR[\alpha]{\rzSnd{\aa}}{Z} \subseteq Z\}&&\text{}\\ 
-\strategyforR[\pdual{\alpha}]{\aa}{X}        &=  \dstrategyforR[\alpha]{\aa}{X}&&\text{}\\ 
-\dstrategyforR[\ptest{\phi}]{\aa}{X}           &= \fint{\phi}{}^\complement \cup X &&\text{}\\ 
-\dstrategyforR[\humod{x}{\theta}]{\aa}{X} &= \{\om~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\} &&\text{}\\ 
-\dstrategyforR[\prandom{x}]{\aa}{X}         &= \{\om~|~\subst[\om]{x}{r} \in X\}&&\text{ for all }r \in \reals\\ 
-\dstrategyforR[\alpha;\beta]{\aa}{X}          &= \dstrategyforR[\alpha]{\rzFst{\aa}}{\dstrategyforR[\beta]{\rzSnd{\aa}}{X}} &&\text{}\\ 
-\dstrategyforR[\alpha\cup\beta]{\aa}{X}     &= \dstrategyforR[\alpha]{\rzFst{\aa}}{X} \cap \dstrategyforR[\beta]{\rzSnd{\aa}}{X}&&\text{}\\ 
-\dstrategyforR[\pdual{\alpha}]{\aa}{X}      &= \strategyforR[\alpha]{\aa}{X}&&\text{}\\ 
-\dstrategyforR[\prepeat{\alpha}]{\aa}{X}   &= \bigcup\{Z\subseteq S~|~Z \subseteq X \cap \dstrategyforR[\alpha]{\aa}{Z}\}&&\text{}
-\end{align*}
-where $A \cup_\aa B \equiv \{\om~|~ (\aa(\om)=0\text{ and } \om \in A) \text{ or }(\aa(\om)=1\text{ and } \om \in B)\}$ should be understood as a constructive union of $A \cup B$ where the realizer function $\aa$ is used to decide whether element $\om$ should seek membership in A vs B.
-In $\strategyforR[\alpha;\beta]{\aa}{X}$ (and $\dstrategyforR[\alpha;\beta]{\aa}{X}$), distinct strategies $\rzFst{\aa}$ and $\rzSnd{\aa}$ may be used for $\alpha$ and $\beta$.
-In $\strategyforR[\alpha\cup\beta]{\aa}{X},$ the realizer $\rzFst{\aa}$ is used to decide whether to play $\alpha$ or $\beta$, then the remaining strategy $\rzSnd{\aa}$ is used to play the remaining game.
-It need not be different strategies for $\alpha$ vs.\ $\beta$ since $\rzSnd{\aa}$ could just invoke $\rzFst{\aa}$ to decide which branch had been taken.
-In $\strategyforR[\prepeat{\alpha}]{\aa}{X},$ the realizer $\rzFst{\aa}$ is used to decide whether to terminate the loop, then $\rzSnd{\aa}$ is used to play the loop body.
-Not every syntactically valid strategy is sensible.
-We only consider a strategy to be well-formed if every $A \cup_\aa B$ satisfies the side conditions that $\aa(\om)=0$ implies $\om \in A$ and $\aa(\om)=1$ for all $\om$. 
-Because $\aa$ must be computable, this will also require that $A$ and $B$ are either separated by some distance $\epsilon > 0$ or when they overlap, always overlap by some distance $\epsilon > 0,$ i.e., they never meet exactly at a point.
-In the case $\dstrategyforR[\prepeat{\alpha}]{\aa}{X},$ a strategy is additionally only well-formed if it is ``well-founded,'' meaning it will lead the loop to terminate.
-Specifically, $\aa$ is well-founded (with respect to $X$ and $\alpha$) if there is a computable termination metric $\mathcal{M}$ such that $a(\om) = \mathcal{M}=0$ on $\om \in X$ and $\sup_{\om \in Y}\mathcal{M}(\om) < \sup{\om \in \dstrategyforR[\alpha]{\aa}{Y}}$ for all $Y$, where $<$ is the ordering on the metric.
-Given the nature of computable union, it is worth noting that this loop semantics does not always stop as early as possible: if we have just barely entered the edge of the goal region, the strategy might detect this as being outside the union, in which case we repeat the loop and then enter further into the goal region, which ought to terminate the loop, just one step too late.
-
-Then the semantics for $\dbox{\alpha}{\phi}$ and $\ddiamond{\alpha}{\phi}$ are defined as:
-\[\fint{\dbox{\alpha}{\phi}}{} = \bigcup_\aa \dstrategyforR[\alpha]{\aa}{\fint{\phi}{}}\]
-\[\fint{\ddiamond{\alpha}{\phi}}{} = \bigcup_\aa \strategyforR[\alpha]{\aa}{\fint{\phi}{}}\]
-The classical union over all $\aa$ is justified by the fact that there are countably many strategies and it's decidable whether a given strategy wins a given game, so if a winning strategy does exist, Angel would eventually find it by an exhaustive search. We never test for the absence of such a strategy, so it is of no concern that a search would loop in that case.
-
-%TODO: Constraint to just Y <=  [[Gamma]]
-
-
-In $\dstrategyforR[\ptest{\phi}]{\aa}{X},$ Angel can present us a proof of $\phi,$ and if so we win if we already in the goal region.
-The set complement in that case is classical: anywhere outside of $\fint{\phi}{},$ Angel would fail to present a proof.
-Unlike Angel, Demon is entitled to use noncomputable magic in its strategy, so $\dstrategyforR[\alpha\cup\beta]{\aa}{X}$ and $\dstrategyforR[\prepeat{\alpha}]{\aa}{X}$ use classical unions, not constructive unions.
-
-
-\section{Proof Calculus}
-\newcommand{\proves}[3]{#1 \vdash #2\mathop{:}#3}
-As usual when developing a new logic, we will develop a proof calculus for \CdGL and prove that the calculus is sound.
-Because a proof calculus already exists for classical \dGL, we focus here on the considerations that are unique to constructive logics.
-
-First and foremost, to substantiate the notion that proofs in \CdGL correspond to winning strategies for games (or for any formula), we propose to augment each proof rule with explicit \emph{proof terms} $M$.
-This allows us to explore the proof-theoretic semantics is detail simply by developing a structural operational semantics for the proof terms.
-For example, when proof terms satisfy progress and preservation, then every provable formula has a canonical (and cut-free) proof.
-Furthermore, by showing that the structural operation semantics are a concrete implementation of the realizability semantics, we give a synthesis algorithm for computable strategies from proofs.
-
-Any proof system can be augmented with proof terms, but some systems yield simpler interpretations of proof terms as programs than others.
-Several proof calculi for \dL have been developed, including sequent calculi and Hilbert systems.
-Two systems of proof terms have been developed for classical \dL, but one uses Hilbert calculus alone and the other mixes Hilbert calculus with propositional sequent calculus.
-Hilbert systems can be modeled computationally by combinatory logic and sequent calculus can be modeled with continuation-passing style proof terms, but both are typically more complex than the lambda-calculi which serve as computational models of natural deduction calculi.
-For this reason, we propose developing a natural deduction calculus for \CdGL, in order to simplify the proof term language.
-For practical use, a sequent calculus can be implemented on top of the natural deduction calculus.
-
-In this natural deduction system with proof terms, the main proof judgement is $\proves{\Gamma}{M}{\phi},$ which says term $M$ is a proof of $\phi$ in the context $\Gamma$.
-The assumptions in the context are named, so that they may be mentioned in proof terms.
-
-\newcommand{\eprojL}[1]{\pi_1{#1}}
-\newcommand{\eprojR}[1]{\pi_2{#1}}
-\newcommand{\eProjL}[1]{\{\pi_1{#1}\}}
-\newcommand{\eProjR}[1]{\{\pi_2{#1}\}}
-\newcommand{\edprojL}[1]{\langle\pi_1{#1}\rangle}
-\newcommand{\edprojR}[1]{\langle\pi_2{#1}\rangle}
-\newcommand{\ebprojL}[1]{[\pi_1{#1}]}
-\newcommand{\ebprojR}[1]{[\pi_2{#1}]}
-\newcommand{\econs}[2]{(#1,#2)}
-\newcommand{\edcons}[2]{\langle#1,#2\rangle}
-\newcommand{\ebcons}[2]{[#1,#2]}
-\newcommand{\eCons}[2]{\{#1,#2\}}
-\newcommand{\etcons}[2]{\econs{#1}{#2}}
-\newcommand{\einjL}[1]{\ell \cdot #1}
-\newcommand{\einjR}[1]{r \cdot #1}
-\newcommand{\ecase}[3]{\textrm{case }#1\textrm{ of }\ell.~#2~|~r.~#3}
-\newcommand{\edinjL}[1]{\langle\ell \cdot #1\rangle}
-\newcommand{\edinjR}[1]{\langle r \cdot #1\rangle}
-\newcommand{\edcase}[3]{\langle\langle\textrm{case}\rangle\ #1\textrm{ of }\ell.~#2~|~r.~#3\rangle}
-\newcommand{\eInjL}[1]{\{\ell \cdot #1\}}
-\newcommand{\eInjR}[1]{\{r \cdot #1\}}
-\newcommand{\eCase}[3]{\{\textrm{case}\}\ #1\textrm{ of }\ell.~#2~|~r.~#3}
-\newcommand{\erep}[3]{{#1}\textrm{ rep }#3.~{#2}}
-\newcommand{\eapp}[2]{#1\ #2}
-\newcommand{\elam}[2]{\lambda x:#1.~ #2}
-\newcommand{\ebseq}[1]{[\iota~#1]}
-\newcommand{\ebseqinv}[1]{[\iota~{#1}^{-1}]}
-\newcommand{\edseq}[1]{\langle\iota~#1\rangle}
-\newcommand{\edseqinv}[1]{\langle\iota~{#1}^{-1}\rangle}
-\newcommand{\eSeq}[1]{\{\iota~#1\}}
-\newcommand{\eSeqinv}[1]{\{\iota~{#1}^{-1}\}}
-\newcommand{\ebswap}[1]{[\textrm{swap }#1]}
-\newcommand{\edswap}[1]{\langle\textrm{swap }#1\rangle}
-\newcommand{\eSwap}[1]{\{\textrm{swap }#1\}}
-\newcommand{\emon}[3]{{#1} {\circ_{#3}} {#2}}
-\newcommand{\eQEpos}{\textrm{QE}_{pos}}
-\newcommand{\eQEneg}{\textrm{QE}_{neg}}
-\newcommand{\esplit}[1]{\textrm{split }#1}
-\newcommand{\edroll}[1]{\langle\textrm{roll}\rangle\ #1}
-\newcommand{\edunroll}[1]{\langle\textrm{unroll}\rangle\ #1}
-\newcommand{\ebroll}[1]{[\textrm{roll}]\ {#1}}
-\newcommand{\ebunroll}[1]{[\textrm{unroll}]\ #1}
-\newcommand{\eRoll}[1]{\{\textrm{roll}\}\ #1}
-\newcommand{\eUnroll}[1]{\{\textrm{unroll}\}\ #1}
-\newcommand{\edasgn}[1]{\langle{:=}\ #1\rangle}
-\newcommand{\edasgninv}[1]{\langle{:=}^{-1}\ #1\rangle}
-\newcommand{\ebasgn}[1]{[{:=}\ #1]}
-\newcommand{\ebasgninv}[1]{[{:=}^{-1}\ #1]}
-\newcommand{\eAsgn}[1]{\{{:=}\ #1\}}
-\newcommand{\eAsgninv}[1]{\{{:=}^{-1}\ #1\}}
-\newcommand{\easgneq}[3]{#1\text{ was }#2\text{ in }#3}
-\newcommand{\eunpack}[2]{\textrm{unpack}(#1,x y.~#2)}
-\newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
-\newcommand{\eloopelim}[3]{(#1, x.~{#2}^{#3})}
-\newcommand{\efp}[3]{\textit{FP}(#1, x.~#2, y.~#3)}
-\newcommand{\G}{\Gamma}
-
-\[\infer{\proves{\G}{\ewhile{\mathcal{M}}{N}}{\ddiamond{\prepeat{\alpha}}{\phi}}}
-        {\proves{\G,\mathcal{M}=x,0<\mathcal{M}}{N}{\ddiamond{\alpha}{\mathcal{M}<x}}}\]
-where $\mathcal{M}$ is a termination metric, $x$ is fresh.
-The con rule corresponds to the metric on reals where $x < y \equiv \floor{x} < \floor{y}$.
-For games, we often want to support the following inductively defined metrics (in terms of metrics $M_1, M_2, N_1, N_2$):
-\begin{itemize}
-\item Lexicographic product metric $(M,N)$ where $0_{(M,N)}=(0_M,0_N)$ and $(M_1,N_1) < (M_2,N_2)$ iff (1) $M_1 < M_2$ or (2) $M_1 = M_2$ and $N_1 < N_2$.
-\item The sum metric $M \lor N$ where  $0_{M \lor N} = 0_N$ and $\ell\cdot M < r\cdot N$ always and $\ell\cdot M_1 <\ell \cdot M_2$ iff $M_1 < M_2$ in metric $M$ and $r\cdot N_1 < r\cdot N_2$ iff $N_1 < N_2$ in metric $N$.
-\end{itemize}
-The sum metric is the natural metric on disjoint sums.
-It's useful for loops that follow one strategy first, then another strategy, and can replaced by $\ddiamond{\prepeat{\alpha}}{\phi} \lequiv \ddiamond{\prepeat{\alpha}}{\ddiamond{\prepeat{\alpha}}{\phi}}$.
-
-\section{Operational Semantics}
-The design of the operational semantics is intimately related to what normal forms we want.
-In the proposed calculus, normal forms are as follows:
-\begin{lemma}[Normal Form Characterization]
-\label{lem:normal-forms}
-If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is either:
-\begin{itemize}
-\item A case-redex that inspects the state, e.g. case on $\esplit{\epsilon}$
-\item Monotonicity, or
-\item An introduction rule for the outermost connective of $\phi$.
-       In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
-\end{itemize}
-\end{lemma}
-Perhaps it is surprising that monotonicity has to be a normal form.
-This is the case because the assignment rule cannot always be applied left-to-right, and monotonicity allows applying it right-to-left when needed.
-The alternative is to introduce a second equality rule which uses renaming:
-\[\infer{\proves{\G}{\easgneq{y}{x}{M}}{\dbox{\alpha}{\phi}}}
-          {\proves{\subst[\G]{x}{y},x=\subst[\theta]{x}{y}}{M}{\phi}}\]
-If this rule is introduced, we need not evaluate right-to-left, and so the theorem becomes:
-\begin{lemma}[Alternative Normal Form Characterization]
-\label{lem:normal-forms-alt}
-If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is either:
-\begin{itemize}
-\item A case-redex that inspects the state, e.g. case on $\esplit{\epsilon},$ or
-\item An introduction rule for the outermost connective of $\phi$.
-       In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
-\end{itemize}
-\end{lemma}
-This rule raises suspicions, because it requires renaming the whole context and possibly remembering the entire execution history.
-However, forall already requires this and forall seems to work, so I'd be okay with using this rule.
-
-\newcommand{\esub}[3]{[#3/#2]#1}
-We give the reduction rules for proof terms:
-
-The reduction rules for $\emon{M}{N}{x}$ and the argument for their normalization are subtle.
-The termination argument is by lexicographic induction on the postcondition formula  $\phi$ and on the derivation $M$.
-
-\newcommand{\isnorm}[1]{#1\text{ normal}}
-The structural cases are ``obvious'' and are listed here, where $\isnorm{M}$ says a proof term $M$ is already in normal form.
-
-\section{Theory Results}
-Once the calculus has been written and proved sound, we will prove standard theoretical results.
-We list the results here and remark how they inform the design of the proof term language.
-
-\begin{lemma}[Progress]
-If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
-\end{lemma}
-
-\begin{lemma}[Preservation]
-If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
-\end{lemma}
-%TODO': Need to fix loop induction because substitution lemma fails
-
-\begin{lemma}[Normal Form Existence]
-\label{lem:normal-exists}
-If $\proves{\Gamma}{M}{\phi},$ there exists normal $N$ such that $\proves{\Gamma}{N}{\phi}$.
-\end{lemma}
-
-%\begin{lemma}[Normal Form Characterization]
-%\label{lem:normal-forms}
-%If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is an introduction rule for the outermost connective of $\phi$.
-%In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
-%\end{lemma}
-
-\begin{lemma}[Term Existence Property]
-\label{lem:term-ep}
-If $\proves{\Gamma}{M}{\exists{x}{\phi(x)}}$, then there exists proof $N$ and term $\theta$ such that $\proves{\Gamma}{N}{\phi(\theta)}$.
-\end{lemma}
-\begin{proof}[Sketch.]
-AWLOG $M$ is normal by \rref{lem:normal-exists}.
-Then the outermost step is existential introduction, which contains the witness $\theta$.
-\end{proof}
-
-While the proof of \rref{lem:term-ep} is simple, the fact that \rref{lem:term-ep} is even true reveals the importance of choosing an expressive term language.
-In \CdGL, as in traditional \dGL, all terms are polynomials.
-However, there are many existential formulas which are only true of individuals that are non-polynomial, for example:
-\[\exists{t}{\ddiamond{\humod{x}{1};~\pevolve{\D{t}=-1,\D{x}=x}}{(t=0 \land x = y)}}\]
-is true for $t = \ln y$, which is not polynomial.
-If the existential introduction rule only allows polynomials, it will surely be incomplete in this case.
-A natural solution is to extend the term language with constructs for integration and algebraic numbers, which regain completeness for differential equations and real arithmetic, respectively.
-This solution is also natural because proof reductions for differential equations and quantifier elimination, respectively, naturally correspond to integrals and real-algebraic numbers.
-Because these constructs are of relatively little use in source-level hybrid game models, we intentionally do not present them when presenting the term language.
-However, to make \rref{lem:term-ep} totally rigorous, we will give them a semantics as all other terms have.
-
-Another standard property is the Disjunction Property (DP), which does not hold in its naive form in \CdGL
-\begin{lemma}[Naive DP]
-It is not the case that when $\proves{\Gamma}{M}{\phi \lor \psi}$ there always exists an $N$ such that $\proves{\Gamma}{M}{\phi}$ or $\proves{\Gamma}{M}{\psi}$.
-\end{lemma}
-\begin{proof}
-  Consider $\phi \equiv x < 1$ and $\psi \equiv x > 0$.
-  Then $\proves{\Gamma}{M}{\phi \lor \psi}$ where $M$ is the approximate splitting rule.
-  But clearly $x < 1$ and $x > 0$ are not true in the empty context, let alone provable.
-\end{proof}
-
-It is for very good reason that Naive DP fails: unlike in many constructive logics, the players in \CdGL are both entitled to inspect the state of the world: 
-Angel uses the inexact comparisons of the approximate splitting rule, and Demon is even entitled to arbitrary inspection.
-Naive DP is also stronger that what we really need to know, which is that when $\proves{\Gamma}{M}{\phi \lor \psi},$ then we can decide which of $\phi$ or $\psi$ is true.
-We prove this Weak DP:
-\begin{lemma}[Weak DP]
-When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists $f : \allstate \mto \mathbb{B}$ such that for every state $\omega$ where $\omega \in \fint{\phi \lor \psi}{}$, if $f(\omega)=0$ then $\omega \in \fint{\phi}{}$, else $f(\omega)=1$ and $\omega \in \fint{\psi}{}
-$\end{lemma}
-\begin{proof}
-  AWLOG $M$ is normal, then it ends in disjunction introduction.
-  The introduction rule contains $f$ as a witness.
-\end{proof}
-
-Because \CdGL is a game logic, it is natural to desire a counterpart to EP and DP for the games connectives.
-That is, in order to establish Curry-Howard for the diamond and box modalities, we should construct the winning strategies for each player given only the proofs.
-There is no standard approach because no similar result exists in the literature.
-I propose one approach here.
-%TODO: Consider the reduction-from-games-to-systems approach
-\begin{lemma}[Game EP for Angel]
-If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively an Angel strategy $a$ such that 
-$\strategyforR{\alpha}{a}{\fint{\phi}{}}$.
-\end{lemma}
-\begin{lemma}[Game EP for Demon]
-If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then for each state $\omega$ there exists constructively a strategy $a,$
-$\dstrategyforR{\alpha}{a}{\fint{\phi}{}}$.
-\end{lemma}
-This definition of EP for games is somewhat unsatisfying in that it relates the proof-theoretic semantics only to the realizability semantics, and not back to itself.
-However, the representation of strategies in the language of hybrid games is a non-trivial question itself, so it is not clear that expressing the existence of strategies proof-theoretically is any better.
-
-\subsection{Arithmetic Proofs}
-\CdGL accepts constructive analysis as its foundation instead of the classical analysis used in \dGL.
-One challenge is ensuring that such proves are no more complex than strictly necessary, yet still sound by constructive principles.
-
-In lieu of the law of excluded middle, the case analysis principle in constructive analysis is the Approximate Splitting Principle:
-\[\infer{\Gamma \vdash \theta > \eta \lor \theta < \eta + \epsilon}{\Gamma \vdash \epsilon > 0}\]
-That is, we can freely compare two terms, so long as we allow an overlap of some $\epsilon > 0$.
-We allow arbitrary proofs of $\epsilon > 0$ for generality, but in practice $\epsilon$ will usually a rational literal, for which the premiss is trivially decidable.
-
-Most arithmetic proofs in classical \dGL make heavy use of automated decision procedures (quantifier elimination, or QE) over real-closed fields.
-It is true that constructive analysis and classical analysis describe the exact same field, the reals, which is real-closed regardless of how it is defined.
-However, the greater problem is that we might wish to use decision procedures to decide formulas involving disjunction $\phi \lor \psi,$ and the constructive $\lor$ connective does not follow from its classical counterpart.
-For example, it is perfectly acceptable to conclude $x > 0 \lor x \leq 0$ classically by QE, but unacceptable to so constructively, as there is no decision procedure which decides between the two branches for any concrete $x$.
-This goes to show we must carefully re-evaluate which forms of QE reasoning are sound in \CdGL; we can no longer accept the classical rule:
-\[\infer[\text{QE}]{\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
-
-Instead, we introduce several QE rules.
-Firstly, it is still sound to apply general QE to a double-negated formula:
-\[\infer[\text{QE-DN}]{\neg\neg\phi}{*}\] with the side condition that $\phi$ is a classical consequence of the theory of real-closed fields.
-This is sound because $\neg\neg\phi$ holds constructively any time $\phi$ holds classically.
-Generally speaking, double negations can be used in a proof (and model) to indicate formulas which need not hold constructively.
-We postulate that in practical proving, most expensive arithmetic computations (such as postcondition reasoning and differential invariant reasoning) can be placed in a classical modality so that they are amenable to general QE.
-
-Secondly, there are several fragments of constructive arithmetic for which QE can be made constructive.
-We call a formula $\phi$ \emph{QE-positive} if all variables are universally quantified, and under the quantifiers there are only conjunctions of comparisons.
-Then the following rule is sound:
-\[\infer[\text{QE-Pos}]{\phi}{*}\] with the side condition that $\phi$ is  QE-positive and classically valid.
-QE-positive formulas have trivial computational content, because they represent tautologies that cannot be inspected.
-When $\phi$ is QE-positive and valid, we know $\phi(x)$ and each of its conjuncts describe the entire state space, and so hold merely by virtue of $x$ being a real number.
-A contentless proof term then suffices as a witness.
-
-We note another decidable fragment, which we call \emph{QE-negative}.
-We say a formula $\phi$ is \emph{QE-negative} if all variables are existentially quantified, and under the quantifiers there are  only disjunctions of comparisons.
-\[\infer[\text{QE-Neg}]{\phi}{*}\] with the side condition that $\phi$ is  QE-negative and classically valid.
-Unlike the QE-positive fragment, the QE-negative fragment has interesting computational content which can be consumed: a proof of $\phi$ consists of a satisfying assignment and a proof that it indeed satisifies some given disjunct.
-Fortunately, this content can be constructed automatically.
-In the case of a unary disjunction, this is the instance-finding problem for first-order arithmetic.
-Implementations of this problem, while not simple, are widely available: the most obvious implementation is that which first solves the validity problem by constructing a cylindrical algebraic decomposition (CAD), then searches the CAD for the satisfying instance.
-With multiple disjunctions, simply search for instances of each disjunct in turn.
-
-The decidability of the QE-positive and QE-negative fragments may turn out to be a mere academic amusement, but the ability to embed classical arithmetic ought to significantly aid practical proofs.
-
-\section{Soundness Theorem}
-\begin{lemma}[Renaming]
-  If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
-\end{lemma}
-\begin{lemma}[Context substitution]
-  If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
-\end{lemma}
-\begin{lemma}[Variable substitution]
-  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
-\end{lemma}
-\begin{theorem}[Soundness of Proof Calculus]
-  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
+%For many subgoals of a proof, constructivity is overkill: in particular, many arithmetic goals benefit from access to classical quantifier elimination, and their proofs never need be inspected.
+\subsection{Relating Classical and Constructive Games}
+After validating \CdGL on the above case study, we propose to study the relationship between constructive and classical games, specifically \CdGL vs.\ \dGL.
+Typically, constructive logics support a ``G\"{o}del-Gentzen'' (GG) translation, which allows the classical counterpart to be embedded in a constructive logic.
+We propose to develop a GG translation for \CdGL for the dual reasons that a GG translation increases our confidence that we have the ``right'' definition of \CdGL, and that it is of independent interest to know that every classical \dGL property can be proved using \CdGL technology.
+We let $T$ stand for the translation.
+\begin{theorem}[GG embedding]
+  If $\phi$ is provable in \dGL, then $\proves{\Gemp}{M}{T(\phi)}$ in \CdGL for some $M$.
 \end{theorem}
-%\begin{theorem}[Soundness of Realizability]
-%  If $\phi$ is realizability-valid, then $\phi$ is Kripke-valid.
-%\end{theorem}
-The proof follows by structural induction on the derivation.
-Proofs can be assumed to be normal.
+This result is useful because it allows us to embed classical statements in a constructive proof, much as if $T$ were a ``modality''.
+Because $\dGL$ is (relatively) complete, this also yields a limited completeness theorem in \CdGL.
 
-\section{Relaxing (Constructive) Games to (Constructive) Systems}
-There is a folk theorem that given a game and a strategy for it, the strategy can be inlined into the game to produce a hybrid system which implements the strategy.
-Because \CdGL represents strategies explicitly, it gives us a framework in which to make this a true theorem.
-Beyond our academic interest in making the folk theorem rigorous, this also provides an alternative formulation of EP for games: whenever a strategy is proved to exist, the strategy can be witnessed by inlining it into the hybrid game to produce a hybrid system.
+The converse question asks whether every $\CdGL$ theorem is true in \dGL, i.e.:
+\begin{theorem}[Converse embedding]
+If $\proves{\Gamma}{M}{\phi}$ in \CdGL then $\phi$ is provable in \dGL.
+\label{thm:conv-embed}
+\end{theorem}
+Such an embedding theorem, when true, typically has a simple proof by induction on $M$.
+While not technically deep, this theorem is helpful as an additional check on the design of \CdGL.
 
-\newcommand{\allpt}{\mathbf{Pt}}
-\newcommand{\alltrace}[1]{\mathbf{Tr}(#1)}
-%TODO: samekh and simketh for the lols
-\newcommand{\dinline}[2]{\sigma_{\dbox{#1}{}}{(#2)}}
-\newcommand{\ainline}[2]{\sigma_{\ddiamond{#1}{}}{(#2)}}
-We introduce some new concepts in order to state the theorem rigorously.
-We write $\allpt$ for the set of all proof terms and $\alltrace{\alpha}$ for the set of all program traces for a program $\alpha$.
-A trace is simply the sequence of all choices taken, e.g., which branch of a nondeterministic choice is executed or which term is substituted for a nondeterministic assignment.
-We then introduce the inlining function $\dinline{\alpha}{M}$ and $\ainline{\alpha}{M}$ which inline Demon or Angel strategies $M$ (respectively) into a game $\alpha$.
-We write $\alpha \leq \beta$ to say $\alpha$ refines $\beta$.
-In the case of systems, $\alpha$ refines $\beta$ when its state transitions are a strict subset of those for $\beta$.
-To generalize refinement to games, we observe that the dual operator reverses direction of refinement, i.e., $(\pdual{\alpha} \leq \beta) \equiv (\alpha \geq \beta)$.
-We say a formula $\phi$ is $\alpha$-controllable in $\Gamma$ if there exists a computable function $f:\allstate\mto\allpt$ such that in every $\omega \in \fint{\Gamma}{},$ we have $\proves{\Gamma}{f(\omega)}{\ddiamond{\alpha}{\phi}}$ and additionally $\alpha$ is decideable (i.e., deterministic, with all branches computable) within $\Gamma$.
-We say a formula $\phi$ is $\alpha$-monitorable in $\Gamma$ (for a system $\alpha$) if there exists a computable function $f:\alltrace{\alpha} \times \allstate \mto \allpt$ where for $\omega \in \fint{\Gamma}{}$ and $\nu$ such that $(\omega,\nu)\in\pint{\alpha}{}$ witnessed by a trace $t \in \alltrace{\alpha}$, then $\proves{\Gamma}{f(t,\omega)}{\dbox{\alpha}{\phi}}$.
-These notions of controllability and monitorability are non-trivial, but they capture the notions that (in addition to the initial state) an Angel proof can be used to compute a system under-approximation of the game where the same postcondition is achievable in a computable way, while a Demon proof can be used to compute a system over-approximation where the postcondition can be guaranteed given knowledge of which path was taken.
-Given these non-trivial definitions, the relaxation theorems are stated simply:
+\subsection{Relaxing (Constructive) Games to (Constructive) Systems}
+We provide another new theoretical result in order to solidify the connection between \CdGL and plain \dL, which is used for the input of the \VeriPhy tool.
+\rref{thm:conv-embed} already says every \CdGL theorem is a theorem of \dGL, and a close reading holds true if \CdGL and \dGL are each restricted to systems.
+To complete the connection between \CdGL and \dL, it suffices to show that every proven game in \CdGL can be refined to a system by inlining the strategy from the proof.
+This has long been a folk theorem for \dGL, which we now make rigorous.
+In doing so, we show how we could automatically process \CdGL models and proofs to generate systems models and proofs which are adequate as an input to the existing \VeriPhy tool.
+This allows us to connect \CdGL to \VeriPhy without reimplementing \VeriPhy from the ground up for constructive games.
+
+We introduce some notation here to state the relaxations rigorously.
+We write $\alpha \leq \beta$ to say that $\alpha$ \emph{refines} $\beta$, i.e., the behaviors of $\alpha$ are a subset of the behaviors of $\beta$.
+%TODO: Cite sarah lics17 here
+The refinement logic \dRL developed refinement for \dL, which can be extended to games by defining $(\pdual{\alpha} \leq \beta) \equiv (\alpha \geq \beta)$.
+That is, the effect of the dual operator is to flip the direction of the inclusion just as it flips modalities.
+Our goal is to show that there are (computable) inlining functions $\dinline{\alpha}{\da}$ and $\ainline{\alpha}{\aa}$ which inline Demon or Angel strategies $\da,\aa$ (respectively) into a game $\alpha$.
+We demand that the inlining functions produce refinements, which guarantees by monotonicity that the original theorems hold also of the refined system.
+That is, safety proofs, when inlined only ever restrict the set of behaviors, which preserves any safety property.
+When liveness proofs are inlined, they expand the set of behaviors, which preserves any liveness property.
+
+% $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then let $\beta = \ainline{\alpha}{M}$.
+%  Then $\beta \leq \alpha$ and $\phi$ is $\beta$-controllable in $\Gamma$.
+%  If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then let $\beta = \dinline{\alpha}{M}$.
+%  Then $\beta \geq \alpha$ and $\phi$ is $\beta$-monitorable in $\Gamma$.
 \begin{theorem}[Angelic relaxation]
-  If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then let $\beta = \ainline{\alpha}{M}$.
-  Then $\beta \leq \alpha$ and $\phi$ is $\beta$-controllable in $\Gamma$.
+  If $\aa \models \ddiamond{\alpha}{\phi}$ then $\ainline{\alpha}{\aa} \leq \alpha$ and $\aa' \models \ddiamond{\ainline{\alpha}{\aa}}{\phi}$ for some $\aa'$.
 \end{theorem}
 \begin{theorem}[Demonic relaxation]
-  If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then let $\beta = \dinline{\alpha}{M}$.
-  Then $\beta \geq \alpha$ and $\phi$ is $\beta$-monitorable in $\Gamma$.
+  If $\da \models \dbox{\alpha}{\phi}$ then $\dinline{\alpha}{\da} \geq \alpha$ and $\da' \models \dbox{\dinline{\alpha}{\da}}{\phi}$ for some $\da'$.
 \end{theorem}
 
+The Demonic relaxation of a safe system can then be fed to \VeriPhy as we already know it is safe too.
 
-\section{Relating Classical and Constructive Games}
-%Corollary: by composition, constructive games reduce under whatever silly assumptions to classical gamesx
-Every constructive theorem holds classically:
-\begin{theorem}[Conservativity]
-If $\proves{\Gamma}{M}{\phi}$ in \CdGL then $\phi$ is valid in \dGL.
-\end{theorem}
 
-\dGL can then be encoded in \CdGL via a typical G\"{o}del-Gentzen style translation (let that translation be called $T$).
-\begin{theorem}[\dGL Embedding]
-  If $\phi$ is valid in \dGL, then $T(\phi)$ is Kripke-valid in \CdGL.
-\end{theorem}
-This result is useful because it allows us to embed classical statements in a constructive proof, much as if classicality were a ``modality''.
-For many subgoals of a proof, constructivity is overkill: in particular, many arithmetic goals benefit from access to classical quantifier elimination, and their proofs never need be inspected.
+%TODO: Kaisar goest here
+\chapter{Ongoing Work: \Kaisar, Structured Proofs for Dynamic Logics}
+\label{ch:kaisar}
+At this point we have identified the logic \CdGL as the backbone of our verification toolchain.
+However, \CdGL will need to be implemented for practical use.
+Experience shows that Bellerophon, the existing proof scripting language for \dGL, poses unnecessary barriers or the Logic-User.
+Moreover, there is surprisingly little extant research on principled designs for proof languages, so we take this opportunity to investigate the design of proof languages for dynamic logics (incl.\ Hoare logics) generally.
+We will then specialize the design to \CdGL and implement it, which will provide a tool to check \CdGL proofs.
+
+The first inspiration for the Kaisar language is the Isar proof language from Isabelle/HOL, with its notion of \emph{structured proof}.
+The defining feature of Isar is its use of block-structured statements for reasoning steps such as making an assumption, cutting in a fact, or proving a subgoal.
+When facts are introduced to the context, they may be assigned names, by which they are later referenced.
+
+While the simple act of naming facts seems trivial from the perspective of a programming language, it is both deep from the perspective of dynamic logic proofs and impactful in the context of the \dL family.
+Any well-behaved programming (or proof) language requires well-behaved scoping rules.
+Preferably, the scope of a variable should always be determined lexically by the construct that introduces it.
+This is actually non-trivial for program logics, because a fact about the state can be invalidated by executing a program, e.g., the fact $x=0$ will cease to hold upon assigning $\humod{x}{1}$.
+This is one reason that Bellerophon does not have named contexts, only references by position and value, which are far more fragile and/or verbose.
+Even traditional proof languages, such as Coq scripts, struggle with this: while Coq script does have named facts, those facts are scoped dynamically.
+Our first contribution is that Kaisar has lexical scope, unlike Coq script and Bellerophon.
+
+%TODO: Cite self
+The second main contribution solves an issue identified during the design and implementation of the first iteration of Kaisar.
+In practice, most Logic-Users are not satisfied to maintain both the source code/model for a verified system \emph{and} a separate proof artifact.
+Many of the proof steps in a \CdGL proof are determined automatically by the structure of the program, because most of the common program constructs have a single canonical introduction rule.
+If we completely separate the proof from the model, we end up duplicating ``canonical'' steps between the model and proof, with an unacceptable 50\% proof-writing overhead for the Logic-User.
+
+Prior approaches which do not have this overhead are not structured, i.e., they do not have lexical scope, but rather work by verification-condition generation (see \rref{sec:sec:kaisar-relwork}).
+Thus the contribution of Kaisar is not just to achieve lexical scope but to do so while avoiding proof-vs.-model duplication.
+
+The basic trick to avoiding proof duplication is to write proofs \emph{as} programs which have been annotated with enough insights to complete the proof.
+We call the combination of a program and annotations a proven-program.
+A proven-program contains only the minimal possible proof information beyond a program, e.g., invariant annotations for loops and witness annotations for quantifier instantiation.
+Kaisar is by no means the first language to prove programs by adding annotations to them, for example Dafny does the same.
+
+%TODO: Also compare with Ivy
+We argue that Kaisar offers something unique, however.
+Prior annotation-based languages like Dafny rely on incomplete proof automation based on black-box use of SMT solvers.
+That automation is known to be fragile: changes as simple as rewriting $x + y < z$ to $x < z - y$ can break a proof.
+Kaisar is interesting because it fuses the ease-of-use of annotation-based proving with the full power of structured first-order proof, a la Isar.
+In doing so, we dodge the scalability and transparency issues that come with past annotation-based approaches.
+
+Fusing Dafny-like ease-of-use with Isar-like generality is technically challenging.
+The core challenge behind Kaisar is to manage the proof context in the face of program dynamics.
+From a birds-eye perspective, the context-management challenges in Kaisar are much like those faced when we developed the operational semantics of \CGL proofs in \rref{ch:cgl}.
+We will also show that (in the systems case) this context can be understood in the context of differential-dynamic hybrid logic (\dHL) developed by the author, where program states can be assigned names and then referenced via \emph{nominals}.
+We equip Kaisar with several constructs for nominal reasoning, and give examples of when nominal reasoning in program proof and modeling may be useful.
+
+
+\section{Proposed Design}
+We start by defining the language of proven-programs $\alpha$:
+\[\alpha ::= x{:=}\theta\ |\ x{:=}*\ |\ ?x:\phi\ |\ \alpha;\beta\ |\ \alpha\cup\beta\ |\ (\alpha)^*@\{B\}\ |\ \{B\}\ |\ L: \alpha\]
+where $B$ is a structured proof block and $L$ is a label.
+In the loop case, the annotated block $\{B\}$ proves that the loop invariant follows from the current context.
+The invariant need not be explicitly annotated because (it is a metatheorem that) the conclusion of a proof can be inferred from the proof automatically.
+The proof of the inductive step is embedded in the annotated loop body $\alpha$.
+
+There is a general-purpose generalization construct $\{B\}$ which embeds a structured proof $B$ in a program: the proof $B$ starts with the program's current proof context, and imports the conclusion of $B$ back into the broader proof.
+While we may choose to employ other constructs in structured proofs $B,$ I give some of the natural choices here:
+\[B ::= \text{show}~x:\phi~U\ |\ \text{have}~x:\phi~U~B\ |\ \text{note}~x'\phi~F~B\]
+where $U$ is an unstructured proof according to the native language of the host prover and $F$ is a forward-style explicit proof term.
+In this simple base language, every proof block ends with a single ``show'' statement and the shown statement is considered to be its conclusion, though any facts proven with ``have'' can also be exported to the proof context without hurting anyone.
+Before the ``show'' may be any series of ``haves'' (which cut in structured proofs) and ``notes'' (which cut in forward proofs).
+
+The program construct $?(x:\phi)$ can also function like the Isar ``assume'' keyword for introducing assumptions since  the implication $\phi \rightarrow \psi$ and box test $[?\phi]\psi$ are equivalent.
+More generally, we can implement what (Martin Davis 1981) called ``Obvious Logical Inferences,'' 
+(TODO: reference [17] in old paper draft) that is proof-checking can identify formulas up to trivial syntactic identities, which Isar and Mizar do.
+
+The first nominal construct is labeling $L: \alpha,$ which introduces a label $L$ which refers to the current state, then behaves as program $\alpha$.
+The label $L$ can then be used in both the term language and formula language.
+The term language contains (at least) literals, variables, nominals, and functions:
+\[\theta ::= c\ |\ x\ |\ @_L(\theta)\ |\ f(\theta)\]
+The nominal term $@_L(\theta)$ refers to the old value of $\theta$ in state $L$.
+One of the major technical contributions in the Kaisar implementation will be an elaboration pass that implements $@_L(\theta)$ using ghost variables to remember the state $L$.
+%TODO: Self-cite LICS18
+This can be done following the translation in PAPER and means that the Logic-User does not have to write out hybrid-logic proofs manually to handle nominals.
+
+\newcommand{\eafter}[1]{\geq(#1)}
+Formulas contain at least comparisons, propositional connectives, and nominals:
+\[\phi ::=  \theta \sim \eta\ |\ \phi \land \psi\ |\ \neg \phi\ |\ \lforall{x}{\phi}\|\ @_L(\phi)\ |\ \eafter{L}\]
+where $\sim$ stands for any comparison operator $\sim \in \{<,\leq,=,\neq,\geq,>\}$.
+The nominal $@_L(\phi)$ gives the truth value of $\phi$ as of label $L,$ and can be elaborated into $\phi$ where are terms $\theta$ become the nominal $@_L(\theta),$ which is it turn elaborated into ghost variables and/or substitutions.
+The proposition $\eafter{L}$ if the current program counter is ``after'' $L$, and is implemented as a binary ghost variable.
+This is a natural variation on the proposition $L$ of hybrid logic which holds true exactly \emph{at} state $L,$ and is useful for example in Owicki-Gries reasoning, where it is known to be the \emph{only} kind of ghosting necessary for completeness. %TODO: Cite lamport
+
+
+\section{Proposed Theory}
+Soundness is a sine qua non for any proof language.
+Beyond soundness, a key property that makes the Kaisar design work is the fact that in the proof-checking judgement, the formula proved has the output modality, i.e., we can syntactically compute the model proved as a function of its proof.
+Rather than write the checking judgement explicitly and proving its mode, we give a strongest-postcondition semantics for Kaisar proofs, then the desired modality follows directly from the fact that strongest-postcondition is a function.
+
+I just write $\G_\alpha$ to mean ``whatever context contains everything from $\G$, but renamed for $\alpha$, also any facts exported from checking $\alpha$.''
+In particular, this means that when checking $?(x:\phi);\alpha,$ assumption $x:\phi$ will be added into the context in checking $\alpha$.
+\begin{align*}
+\spost{\{\text{show} \phi UP\}}{\G}       &= \phi                                               &&\text{if UP proves }\phi\\
+\spost{\{\text{have} x:\phi~UP~SP\}}{\G} &= \spost{SP}{\G,x:\phi}                           &&\text{if UP proves }\phi\\
+\spost{\alpha;\beta}{\G}                       &= \spost{\beta}{\G_\alpha,\spost{\G}{\beta}} &&\\
+\spost{\alpha\cup\beta}{\G}                  &= \spost{\alpha}{\G} \vee \spost{\beta}{\G}    &&\\
+\spost{?(x:\phi)}{\G} &= \phi &&\\
+\spost{\humod{x}{\theta}}{\G} &=(x=\theta) &&\\
+\spost{(\alpha)^*@\{B\}}{\G} &= \spost{\{B\}}{G} &&\text{if }\spost{\alpha}{{\G_\alpha}_{\{B\}}}=\spost{\{B\}}{\G}\\
+\spost{L: \alpha}{\G} &= \spost{\alpha}{\G,L} 
+\end{align*}
+That is, ``show'' must prove its declared goal, and ``have'' must prove the lemma before proceeding to SP.
+In $\alpha;\beta,$ the conclusion is given by $\beta,$ but the proof of $\beta$ has access to all results proven in $\alpha$.
+In $\alpha\cup\beta,$ the postcondition is the disjunction of those for $\alpha$ and $\beta$ because either branch might be taken.
+Tests assume $\phi,$ which they also conclude by default.
+Every assignment to $x$ exports a fact which by convention is also named $x$.
+%This is one of the main cases where applying ``obvious inference rules'' automatically would be very helpful, because we can apply the simplification $\phi \wedge \phi = \phi$ when both branches prove the same thing.
+
+If we wish for a different postcondition than the inferred one, we insert a block-style proof.
+For example, the following is a proof that both $1$ and $2$ are positive (with $\cup$ written as U):
+\begin{verbatim}
+     (x:=1 {show (x > 0) using x by auto})
+U   (x:= 2 {show (x > 0) using x by auto})
+\end{verbatim}
+the result of checking this proven program is that the program $x{:=}1 \cup x{:=}2$ has $x > 0$ as a postcondition.
+We could write the block proof once instead, after the program:
+\begin{verbatim}
+(x:=1 U  x:=2)
+{show (x > 0) using x by auto}
+\end{verbatim}
+
+
+%I wrote the test $?(\phi)$ as having trivial postcondition because in the box case it doesn't prove anything, just assume things. But $\phi$ is of course the postcondition for the diamond case, and maybe makes the most sense even in the box case if we want to say the postcondition is what gets exported.
+
+The loop case is perhaps most surprising.
+The invariant is ``chosen'' by checking the proof $B$ which is the proof that ``the invariant holds initially''.
+Then proof-checking succeeds if the body proves that the invariant is preserved, and the postcondition is the invariant.
+As mentioned previously, an explicit generalization step may be added if a postcondition other than the invariant is desired.
+As another toy example, here is a proof that incrementing 2 repeatedly gives a positive number:
+\begin{verbatim}
+x:=2;
+{x:=x+1}*@{show gr1:"x>1" using x by auto}
+{show "x>0" using gr1 by auto}
+\end{verbatim}
+
+Labels do not modify the postcondition, they just add themselves to the context.
+
+%TODO: Expand
+We also wish to state and prove a formal property which attests the modularity that we've gained by supporting lexical scope.
+The only known result of this type is for VDM, which we use as an inspiration.
+
+\section{Related Work}
+\label{sec:kaisar-relwork}
+%TODO: Talk about VCGs, Coq, Dafny, VDM, old(), Apt, see arxiv paper for more
 
 \chapter{Proposed Work: \ProofPlex, Proof-Directed Game Synthesis}
 % \label{ch:cdgl}
@@ -1897,6 +2404,7 @@ Once a relaxation for the controller model (and controller proof) in a hybrid ga
 What remains is to supply the untrusted controller.
 Because \ProofPlex, unlike \ModelPlex, also synthesizes monitors by exploiting angelic proofs, we automatically provide an ``untrusted'' controller which in fact is trustworthy, because it simply an implementation of the (operational) angelic dynamics of the control proof in \CdGL. By the work in the previous chapter, these operational semantics refine the standard denotational semantics of both the hybrid game and of its systems relaxation, meaning they satisfy the monitor.
 
+%TODO: check
 \chapter{Conclusion} 
 \section{Timeline}
 The timeline given below is from the time this document is completed (say, April 2019).
@@ -1930,3 +2438,54 @@ Total time: 13 months
 
 
 \end{document}
+
+
+%TODO: Rewrite in terms of characters
+%Throughout this thesis, end-to-end verification is conceived as the problem of placing the correctness of realistic CPS on the most rigorous, formal logical foundation possible.
+%The logic we use to verify a CPS model (thus far, \dL) is then the centerpiece and our understanding of its foundations are of central importance.
+%In \rref{ch:logical-foundations}, we started at the centerpiece and dug inward: we established a more rigorous foundation for \dL as it is used in practice in the theorem prover by building a formally verified prover core and by providing a unified foundation for the grabbag of features that arise in practice.
+%In \rref{ch:end-to-end-v}, we started at the centerpiece and dug outward: model-driven monitor synthesis connects CPS implementations to their formal models;
+%we showed that this connection can be made with full rigor for serious models and their implementations, placing our understanding of implementation-level safety on firm footing.
+
+%TODO: careful w criticism
+%In the proposed work, the time has come to question the centerpiece itself.
+%Vanilla \dL has been used thus far in part because it comes with rich theoretical backing, a mature implementation, and prior cases studies for inspiration and comparison.
+%However, as a logic, it hardly exists in isolation: A family of logics including \QdL, \SdL, and \dGL have explored the addition of distributed, stochastic, and adversarial dynamics to hybrid systems, respectively.
+%Further unexplored logical questions await: notably, all of the above logics are classical.
+%When constructive logic is a key tool in software verification, we must earnestly ask what could be gained for end-to-end CPS verification by adopting constructive foundations.
+%We must also ask which member of the \dL family (which might not even be discovered yet) is best suited for end-to-end CPS verification.
+%
+%This thesis views end-to-end verification as resolving the concerns of three entities:
+%the logician concerned with rigorous foundations, the practitioner concerned with software artifacts resulting from verification, and the logic-user, concerned primarily with simplicity and readability of their models and the ease of their proofs.
+%We have already satisfied the logician: we have made \dL proofs in \KeYmaeraX indisputable.
+%However, we argue that constructivity and games both have crucial advantages for the practitioner and logic-user.
+%Thus, a constructive games logic (\CGL) is the optimal foundation to resolve the concerns of all three.
+%TODO: Condense
+%\item
+%The synthesized monitors are not tight.
+%The arithmetic approximations used in \rref{sec:veriphy} are conservative, and in practice can be prohibitively so, to the extent that significant cleverness is exerted in tweaking units of measure to avoid overflow errors.
+%The implementation of arithmetic in synthesis is a fundamental question, but the present answer of integer interval arithmetic demands too much of the programmer.
+%\item
+%The main challenge in synthesizing a controller is deciding which control path to take (for example, acceleration vs. braking) when multiple options are plausible.
+%All such decisions are captured by a proof of the shape $\ddiamond{\ctrl}{\phi}$: in proving a diamond property, we have specified which path to take in order to achieve $\phi$.
+%Such synthesis is only possible in general when the proof is constructive: the state-of-the-art proof technique for such properties in fact applies the law of excluded middle to undecidable propositions, so constructivity is anything but a theoretical concern.
+%In this chapter, we will incorporate an alternative proof method only case-analyzes decidable properties so that synthesis is possible.
+%Games also play a part in controller synthesis: A typical game proof supports a diamond proof for control and a box proof for plant, making it simple to synthesize both a controller and monitor together.
+%\begin{itemize}
+%\item
+%Conservativity is a consequence of the chosen arithmetic implementation: fixed-precision interval arithmetic.
+%Better libraries might alleviate the practical concern, but constructive mathematics provides a more general answer: computable reals.
+%Constructive proofs in \CdGL have the convenient property that whenever a proof of $\ddiamond{\ctrl}{\phi}$ exists, a controller exists which uses only \emph{total} computations on computable reals (e.g.\ the controller will never attempt to compare two reals for exact equality).
+%Certainly interval arithmetic has its own advantages in performance, but with computable reals we resolve conservativity issues conclusively.
+%\end{itemize}
+%\item
+%Short, simple models are desirable.
+%Longer models are more likely to contain mistakes, and modeling mistakes are the hardest kind to catch as we cannot simply ``prove'' their presence or absence.
+%As \rref{sec:planar-driving-system} and \rref{ex:driving-system} show, hybrid systems models are typically much more complicated than their hybrid game counterpart, because strategic choices must be modeled in the hybrid system which in games are deferred to the proof.
+%Thus, games generally (\dGL or \CdGL) eliminate a prominent source of needless model complexity.
+%\item
+%Beyond reducing complexity, games models preclude common mistakes which have led even experienced researchers to write vacuous models in practice.
+%Specifically, in a standard \dL safety proof, safety is proven only for states from which at least one guard of the controller is satisfied.
+%An intuitive notion of safety requires that at least one guard is satisfied in each state (the controller is \emph{total}), which is often false when models are not written carefully.
+%%In games, we can (and by default do) require that controllers satisfy \emph{co-safety}, which implies any faulty, non-total controller will be caught when at proof time since a co-safety proof will necessarily fail.
+%Catching such mistakes is important because otherwise the logic-user, having proved a vacuous theorem, would assume their system is safe when in fact \emph{nothing} of note has been proven.
