@@ -150,17 +150,19 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\pconst}[1]{#1}
 \newcommand{\om}{\omega}
 \newcommand{\tom}{\tilde{\omega}}
-%\newcommand{\dRL}{\textsf{dRL}\xspace}
+\newcommand{\dLN}{\ensuremath{\dL_N}}
+\newcommand{\dHL}{\textsf{dHL}\xspace}
 \newcommand{\DL}{\textsf{DL}\xspace}
 \newcommand{\CGL}{\textsf{CGL}\xspace}
 \newcommand{\CdGL}{\textsf{CdGL}\xspace}
+\newcommand{\dLi}{\ensuremath{\dL_\iota}\xspace}
+\newcommand{\GL}{GL\xspace}
+\newcommand{\ltac}{\ensuremath{\mathcal{L}_{\tt tac}}~}
 \newcommand{\ProofPlex}{ProofPlex\xspace}
 \newcommand{\Isabelle}{Isabelle/HOL\xspace}
 \newcommand{\Coq}{Coq\xspace}
 \newcommand{\VeriPhy}{VeriPhy\xspace}
 \newcommand{\ModelPlex}{ModelPlex\xspace}
-\newcommand{\dLi}{\ensuremath{\dL_\iota}\xspace}
-\newcommand{\GL}{GL\xspace}
 \newcommand{\G}{\Gamma}
 \newcommand{\tint}[2]{\lenvelope{#1}\renvelope{#2}}
 \newcommand{\fint}[1]{\lenvelope{#1}\renvelope}
@@ -1434,6 +1436,30 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \newcommand{\dinline}[2]{\sigma_{\dbox{#1}{}}{(#2)}}
 \newcommand{\ainline}[2]{\sigma_{\ddiamond{#1}{}}{(#2)}}
 \newcommand{\case}{\textbf{Case}\xspace}
+\newcommand{\spost}[2]{\mathsf{sp}(#1,#2)}
+\newcommand{\kwassume}{\textbf{assume}}
+\newcommand{\kwassert}{\textbf{assert}}
+\newcommand{\kwlet}{\textbf{let}}
+\newcommand{\kwstate}{\textbf{state}}
+\newcommand{\kwsolve}{\textbf{solve}}
+\newcommand{\kwshow}{\textbf{show}}
+%\newcommand{\kwassume}{\textbf{assume}}
+\newcommand{\kwby}{\textbf{by}}
+\newcommand{\kwusing}{\textbf{using}}
+\newcommand{\kwnote}{\textbf{note}}
+\newcommand{\kwhave}{\textbf{have}}
+\newcommand{\kwinv}{\textbf{inv}}
+\newcommand{\kwghost}{\textbf{Ghost}}
+\newcommand{\kwind}{\textbf{Ind}}
+\newcommand{\kwpre}{\textbf{Pre}}
+\newcommand{\kwfinally}{\textbf{finally}}
+\newcommand{\kwassign}{\textbf{assign}}
+\newcommand{\kwmid}{\textbf{after}}
+\newcommand{\kwfirst}{\textbf{have}}
+\newcommand{\kwthen}{\textbf{then}}
+%\newcommand{\kwcase}{\textbf{case}}
+\newcommand{\kwfocus}{\textbf{focus}}
+
 
 Throughout this thesis, the glue that unified the Logician's high-level abstract models with the Engineer's low-level implementations has been \dL for \emph{classical} hybrid \emph{systems}.
 While \rref{ch:end-to-end-v} showed that the connection between \dL models and implementations holds even in realistic case studies, it has also revealed the room that \dL leaves for improvement as such a glue.
@@ -1537,7 +1563,7 @@ Because \CGL is first-order, a constructive approach must also address the const
 The base sorts of \CGL include both natural numbers, where exact equality and case-analysis are computable, and real numbers, where exact equality is not computable.
 Throughout, we use the reals of Bishop and Bridges~\cite{bishop1967foundations,bridges2007techniques}, which contain the same uncountably-many numbers as the classical reals $\mathbb{R},$ but do not admit decidable equality.
 A realizability interpretation of Bishop's analysis has been explored~\cite{DBLP:journals/mst/Schwichtenberg08}.
-Constructive reals have been implemented efficiently in theorem provers, for example the CORN~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011} library.
+Constructive reals have been implemented efficiently in theorem provers, for example the CORN~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011} library.
 
 \paragraph{Constructivity and Dynamic Logic}
 With \CGL, we bring to fruition several past efforts to develop constructive dynamic logics.
@@ -2029,7 +2055,7 @@ The first step is to extend the language of games $\alpha,\beta$ to \emph{hybrid
 As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\phi}$ says that $x$ evolves continuously according to $\D{x}=f$ for a duration controlled by the active player, which is chosen subject to the constraint $\phi$ throughout.
 
 One of the major hurdles in this proposed work is to give an appropriate semantics and proof calculus for constructive differential equations.
-However, wee assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a differential equation, and constructive formalization of Picard iteration~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
+However, wee assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a differential equation, and constructive formalization of Picard iteration~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
 We briefly review the \dGL rules for differential equation games and suggest why a constructive interpretation should be feasible.
 %TODO continue here
 \begin{figure}
@@ -2074,7 +2100,7 @@ We briefly review the \dGL rules for differential equation games and suggest why
 Axiom \irref{Qdglsolve} is typically derived from the others and says that we can verify a differential equation by verifying its solution.
 Axiom \irref{dglconst}, which is not derived, is the special case of \irref{Qdglsolve} for constant ODEs.
 To show \irref{dglconst} constructively valid, it should suffice to show constructively that $x(t) = x_0 + ct$ is the unique solution of $\D{x}=c$.
-This is a special case of the Picard-Lindel\"{o}f theorem, which is true constructively~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011}.
+This is a special case of the Picard-Lindel\"{o}f theorem, which is true constructively~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011}.
 Picard-Lindel\"{o}f is also the basis of validity for \irref{dglghost}, which says it is sound to extend a system of differential equations with a new continuous variable, so long as the new equation is linear.
 %TODO: Cite tyk lics18
 The linearity constraint ensures the existence interval (i.e., the time before an infinite asymptote is reached, if any) of the differential equation is maintained, for soundness.
@@ -2082,7 +2108,7 @@ Axiom \irref{dglghost} is mainly used in its forward direction to help prove pos
 For differential equations whose solutions are infeasibly complicated, the ``bread-and-butter'' proofs are done with \irref{dglcut}, \irref{dglind}, and \irref{dglweak}.
 \irref{dglind} says that a postcondition $\phi$ is invariant if it holds initially and if its differential (e.g., $\der{f\geq g} \equiv \der{f} \geq \der{g}$) is invariant.
 \irref{dglcut} allows one \irref{dglind} to serve as a ``lemma'' to another by adding it to the domain constraint, and \irref{dglweak} allows closing the proof by proving the postcondition from a sufficiently strengthened domain constraint.
-Validity of \irref{dglind} follows from the Mean-Value Theorem or its generalization, Rolle's Theorem, which has been proven constructively~\cite{DBLP:journals/corr/abs-11063-448,Krebbers+Spitters:lmcs:corn:2011}.
+Validity of \irref{dglind} follows from the Mean-Value Theorem or its generalization, Rolle's Theorem, which has been proven constructively~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011}.
 The classical validity proofs of \irref{dglcut} and \irref{dglweak} are direct, and we expect the same for an appropriately-chosen semantics.
 
 
@@ -2208,7 +2234,7 @@ The Demonic relaxation of a safe system can then be fed to \VeriPhy as we alread
 
 
 %TODO: Kaisar goest here
-\chapter{Ongoing Work: \Kaisar, Structured Proofs for Dynamic Logics}
+\chapter{Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}
 \label{ch:kaisar}
 At this point we have identified the logic \CdGL as the backbone of our verification toolchain.
 However, \CdGL will need to be implemented for practical use.
@@ -2228,8 +2254,7 @@ This is one reason that Bellerophon does not have named contexts, only reference
 Even traditional proof languages, such as Coq scripts, struggle with this: while Coq script does have named facts, those facts are scoped dynamically.
 Our first contribution is that Kaisar has lexical scope, unlike Coq script and Bellerophon.
 
-%TODO: Cite self
-The second main contribution solves an issue identified during the design and implementation of the first iteration of Kaisar.
+The second main contribution solves an issue identified during the design and implementation of the first iteration of Kaisar~\cite{DBLP:journals/corr/abs-1908-05535}.
 In practice, most Logic-Users are not satisfied to maintain both the source code/model for a verified system \emph{and} a separate proof artifact.
 Many of the proof steps in a \CdGL proof are determined automatically by the structure of the program, because most of the common program constructs have a single canonical introduction rule.
 If we completely separate the proof from the model, we end up duplicating ``canonical'' steps between the model and proof, with an unacceptable 50\% proof-writing overhead for the Logic-User.
@@ -2272,8 +2297,8 @@ In this simple base language, every proof block ends with a single ``show'' stat
 Before the ``show'' may be any series of ``haves'' (which cut in structured proofs) and ``notes'' (which cut in forward proofs).
 
 The program construct $?(x:\phi)$ can also function like the Isar ``assume'' keyword for introducing assumptions since  the implication $\phi \rightarrow \psi$ and box test $[?\phi]\psi$ are equivalent.
-More generally, we can implement what (Martin Davis 1981) called ``Obvious Logical Inferences,'' 
-(TODO: reference [17] in old paper draft) that is proof-checking can identify formulas up to trivial syntactic identities, which Isar and Mizar do.
+More generally, we can implement what Martin Davis called ``Obvious Logical Inferences~\cite{DBLP:conf/ijcai/Davis81} ,''
+ that is proof-checking can identify formulas up to trivial syntactic identities, which Isar and Mizar do.
 
 The first nominal construct is labeling $L: \alpha,$ which introduces a label $L$ which refers to the current state, then behaves as program $\alpha$.
 The label $L$ can then be used in both the term language and formula language.
@@ -2281,8 +2306,7 @@ The term language contains (at least) literals, variables, nominals, and functio
 \[\theta ::= c\ |\ x\ |\ @_L(\theta)\ |\ f(\theta)\]
 The nominal term $@_L(\theta)$ refers to the old value of $\theta$ in state $L$.
 One of the major technical contributions in the Kaisar implementation will be an elaboration pass that implements $@_L(\theta)$ using ghost variables to remember the state $L$.
-%TODO: Self-cite LICS18
-This can be done following the translation in PAPER and means that the Logic-User does not have to write out hybrid-logic proofs manually to handle nominals.
+This can be done following the translation in \cite{DBLP:conf/lics/BohrerP18} and means that the Logic-User does not have to write out hybrid-logic proofs manually to handle nominals.
 
 \newcommand{\eafter}[1]{\geq(#1)}
 Formulas contain at least comparisons, propositional connectives, and nominals:
@@ -2290,7 +2314,7 @@ Formulas contain at least comparisons, propositional connectives, and nominals:
 where $\sim$ stands for any comparison operator $\sim \in \{<,\leq,=,\neq,\geq,>\}$.
 The nominal $@_L(\phi)$ gives the truth value of $\phi$ as of label $L,$ and can be elaborated into $\phi$ where are terms $\theta$ become the nominal $@_L(\theta),$ which is it turn elaborated into ghost variables and/or substitutions.
 The proposition $\eafter{L}$ if the current program counter is ``after'' $L$, and is implemented as a binary ghost variable.
-This is a natural variation on the proposition $L$ of hybrid logic which holds true exactly \emph{at} state $L,$ and is useful for example in Owicki-Gries reasoning, where it is known to be the \emph{only} kind of ghosting necessary for completeness. %TODO: Cite lamport
+This is a natural variation on the proposition $L$ of hybrid logic which holds true exactly \emph{at} state $L,$ and is useful for example in Owicki-Gries reasoning, where it is known~\cite{DBLP:journals/tse/Lamport77} to be the \emph{only} kind of ghosting necessary for completeness.
 
 
 \section{Proposed Theory}
@@ -2349,10 +2373,63 @@ Labels do not modify the postcondition, they just add themselves to the context.
 %TODO: Expand
 We also wish to state and prove a formal property which attests the modularity that we've gained by supporting lexical scope.
 The only known result of this type is for VDM, which we use as an inspiration.
+We also propose to prove completeness against the \CdGL calculus.
+
+%TODO: Maybe a paragraph about implementation
 
 \section{Related Work}
 \label{sec:kaisar-relwork}
 %TODO: Talk about VCGs, Coq, Dafny, VDM, old(), Apt, see arxiv paper for more
+Structured proof languages were introduced in Mizar~\cite{conf/mkm/BancerekBGKMNPU15,Wenzel2002}.
+Isar~\cite{DBLP:conf/mkm/Wenzel06,DBLP:conf/tphol/Wenzel99,Wenzel07isabelle/isar} is one of the best-developed systems today, and has been successfully applied to large-scale verification tasks~\cite{Nipkow2002,DBLP:journals/cacm/KleinAEHCDEEKNSTW10,DBLP:journals/afp/Lochbihler07}.
+Other examples include DECLARE~\cite{Syme1997DECLAREAP} for HOL, TLAPS for ${\rm TLA}^+$~\cite{DBLP:conf/fm/CousineauDLMRV12,DBLP:conf/hybrid/Lamport92}, SSReflect~\cite{DBLP:journals/jfrea/GonthierM10} and declarative proofs~\cite{DBLP:conf/types/Corbineau07} in Coq.
+Kaisar is inspired immediately by Isar, and reuses its \kwnote{}, \kwshow{}, and \kwhave{} keywords.
+Natural-language structured proof paradigms have also been developed~\cite{Lamport12,Lamport95}.
+
+``Mizar modes'' have been used to implement structured proofs to provers without extending the core.
+Mizar modes are available Cambridge HOL~\cite{DBLP:conf/tphol/Harrison96}, Isabelle~\cite{DBLP:conf/cpp/KaliszykPU16}, and HOL Light~\cite{DBLP:conf/tphol/Wiedijk01}.
+The ``mode'' approach was also used to write the Iris Proof Mode (IPM) in Coq~\cite{DBLP:conf/popl/KrebbersTB17}, which implements the Iris concurrent separation logic in Coq's \ltac language.
+Coq and \KeYmaeraX both~\cite{Barras:1997,BohrerCPP17} have small LCF-style cores, which promote implementations of structured proof outside the core.
+%IPM uses Coq's unstructured proof style and focuses (a) on embedding object logics in metalogics and (b) on the concerns of separation logic (e.g. managing of different context types, state ownership).
+%The \kwassume{},  are taken directly from Isar, and Kaisar's \kwlet{} construct is a straightforward generalization of Isar's \kwlet{} construct w
+
+
+Two classes of languages closely related to structured proofs are tactics languages (which implement reuseable automation) and unstructured proof languages (which implement concrete proofs).
+Automation can often be written in the prover's implementation language: OCaml in Coq, ML in Isabelle, or Scala in \KeYmaeraX.
+Domain-specific languages for tactics include untyped \ltac~\cite{Delahaye:2000:TLS:1765236.1765246}, reflective Rtac~\cite{malecha2015rtac-coqpl}, and dependently typed Mtac~\cite{Ziliani:2013:MMT:2544174.2500579} in Coq, Eisbach~\cite{Matichuk:2016:EPM:2904234.2904264} in Isabelle, and VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}.
+Examples of unstructured languages are the Coq~\cite{COQ} script language and the Isabelle~\cite{Nipkow:2002:IPA:1791547} apply-script language.
+\KeYmaeraX features a language named Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} for unstructured proofs and tactics.
+Bellerophon consists of regular expression-style tactic combinators (sequential composition, repetition, etc.) and a standard tactics library featuring, e.g. sequent calculus rules and general-purpose automation.
+Bellerophon's strength is in tactics that compose the significant automation provided in its library.
+Its weakness is in performing large-scale concrete proofs.
+It lacks both the nominals unique to Kaisar and structuring.
+For example, assumptions in Bellerophon are unnamed and referred to by their index or by search, which can become unreadable or brittle at scale.
+
+
+Kaisar is distinguished from the above by its metatheory, especially for nominals.
+While Isar and Coq's declarative language have formally defined semantics, we know of only one interactive proof language besides Kaisar with significant metatheoretic results:  VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}.
+We share with VeriML the goal of solving practical interactive proof problems via principled proof languages with metatheoretic guarantees.
+We differ in that VeriML's theory addresses staged computation while ours addresses stateful context management.
+
+The theory of Kaisar explains state change with nominals, a la hybrid differential dynamic logic \dHL~\cite{DBLP:conf/lics/BohrerP18}, first proposed as \dLN~\cite{DBLP:journals/entcs/Platzer07}.
+In \dHL, nominal formulas enable stating and proving theorems about named states.
+Our goal differs: we apply named states to simplify proofs of theorems, but nominals don't appear in the theorems.
+
+While we provide the most general treatment of historical state and its theory via nominals, there is a rich tradition of historical reference in program proofs.
+It has long been known that historical reference, implementable with ghost state, is an essential component of proof in many domains~\cite{DBLP:journals/tcs/AptBM79,Owicki1976,DBLP:books/garland/Owicki75,apt2010verification,DBLP:journals/acta/Clint73}.
+It has been known equally long~\cite{DBLP:journals/acta/Clarke80} that manual ghost arguments can make proofs clumsy.
+A number of verification tools ~\cite{KeYBook,DBLP:conf/cade/FultonMQVP15,DBLP:conf/lpar/Leino10,this-is-boogie-2-2,Barnett2005,DBLP:conf/fosad/LeinoMS09,DBLP:books/daglib/p/LeavensBR99} offer ad-hoc historical reference constructs without theoretical justification which can reference only the initial program state.
+We generalize them and provide the first formal treatment of historical reference.
+
+
+We are broadly interested in exploiting other principled design ideas from the proof language literature.
+Beyond structured proof, another notable principled feature is the use of pattern-matching for formula selection, which has been investigated by Traut ~\cite{traut2014pattern} and Gonthier~\cite{DBLP:conf/itp/GonthierT12,noschinskipattern}.
+When proving programs in Isar, it is possible to assign custom case labels~\cite{DBLP:journals/afp/Noschinski15} to produce more readable proofs, which gives a similar flavor to proofs in the original Kaisar design~\cite{DBLP:journals/corr/abs-1908-05535}.
+
+%VeriML has a different focus: promoting prover extensibility while providing tactic efficiency with staging.
+%Their metatheory validates the safety of staging, while our metatheory validates the correctness and generality of reasoning across states with nominals.
+%In our metatheory, \dLN{} formulas provide a clean specification for the nominal terms of Kaisar.
+%TODO: Discuss plans for pattern-matching in Kaisar v2
 
 \chapter{Proposed Work: \ProofPlex, Proof-Directed Game Synthesis}
 % \label{ch:cdgl}
@@ -2434,7 +2511,7 @@ Total time: 13 months
 %\newcommand{\bibpreamble}{This text goes between the ``Bibliography''
 %  header and the actual list of references}
 \bibliographystyle{apacite}
-\bibliography{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL} %your bib file
+\bibliography{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL,constructive-games,kaisar} %your bib file
 
 
 \end{document}
