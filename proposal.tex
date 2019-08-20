@@ -2269,7 +2269,7 @@ Kaisar is by no means the first language to prove programs by adding annotations
 
 %TODO: Also compare with Ivy
 We argue that Kaisar offers something unique, however.
-Prior annotation-based languages like Dafny rely on incomplete proof automation based on black-box use of SMT solvers.
+Prior annotation-based languages like Dafny~\cite{DBLP:conf/lpar/Leino10} rely on incomplete proof automation based on black-box use of SMT solvers.
 That automation is known to be fragile: changes as simple as rewriting $x + y < z$ to $x < z - y$ can break a proof.
 Kaisar is interesting because it fuses the ease-of-use of annotation-based proving with the full power of structured first-order proof, a la Isar.
 In doing so, we dodge the scalability and transparency issues that come with past annotation-based approaches.
@@ -2370,8 +2370,8 @@ x:=2;
 
 Labels do not modify the postcondition, they just add themselves to the context.
 
-%TODO: Expand
-We also wish to state and prove a formal property which attests the modularity that we've gained by supporting lexical scope.
+%TODO: Read Kleymann99 VDM, state describe and state prop for Kaisar
+We also wish to state and prove \emph{adaptation completeness}~\cite{DBLP:journals/fac/Kleymann99},a formal property which attests the modularity that we've gained by supporting lexical scope.
 The only known result of this type is for VDM, which we use as an inspiration.
 We also propose to prove completeness against the \CdGL calculus.
 
@@ -2379,12 +2379,12 @@ We also propose to prove completeness against the \CdGL calculus.
 
 \section{Related Work}
 \label{sec:kaisar-relwork}
-%TODO: Talk about VCGs, Coq, Dafny, VDM, old(), Apt, see arxiv paper for more
 Structured proof languages were introduced in Mizar~\cite{conf/mkm/BancerekBGKMNPU15,Wenzel2002}.
 Isar~\cite{DBLP:conf/mkm/Wenzel06,DBLP:conf/tphol/Wenzel99,Wenzel07isabelle/isar} is one of the best-developed systems today, and has been successfully applied to large-scale verification tasks~\cite{Nipkow2002,DBLP:journals/cacm/KleinAEHCDEEKNSTW10,DBLP:journals/afp/Lochbihler07}.
 Other examples include DECLARE~\cite{Syme1997DECLAREAP} for HOL, TLAPS for ${\rm TLA}^+$~\cite{DBLP:conf/fm/CousineauDLMRV12,DBLP:conf/hybrid/Lamport92}, SSReflect~\cite{DBLP:journals/jfrea/GonthierM10} and declarative proofs~\cite{DBLP:conf/types/Corbineau07} in Coq.
 Kaisar is inspired immediately by Isar, and reuses its \kwnote{}, \kwshow{}, and \kwhave{} keywords.
 Natural-language structured proof paradigms have also been developed~\cite{Lamport12,Lamport95}.
+Apt's \emph{proof outlines}~\cite{apt2010verification} are another paradigm that provides limited proof structuring.
 
 ``Mizar modes'' have been used to implement structured proofs to provers without extending the core.
 Mizar modes are available Cambridge HOL~\cite{DBLP:conf/tphol/Harrison96}, Isabelle~\cite{DBLP:conf/cpp/KaliszykPU16}, and HOL Light~\cite{DBLP:conf/tphol/Wiedijk01}.
@@ -2418,13 +2418,25 @@ Our goal differs: we apply named states to simplify proofs of theorems, but nomi
 While we provide the most general treatment of historical state and its theory via nominals, there is a rich tradition of historical reference in program proofs.
 It has long been known that historical reference, implementable with ghost state, is an essential component of proof in many domains~\cite{DBLP:journals/tcs/AptBM79,Owicki1976,DBLP:books/garland/Owicki75,apt2010verification,DBLP:journals/acta/Clint73}.
 It has been known equally long~\cite{DBLP:journals/acta/Clarke80} that manual ghost arguments can make proofs clumsy.
-A number of verification tools ~\cite{KeYBook,DBLP:conf/cade/FultonMQVP15,DBLP:conf/lpar/Leino10,this-is-boogie-2-2,Barnett2005,DBLP:conf/fosad/LeinoMS09,DBLP:books/daglib/p/LeavensBR99} offer ad-hoc historical reference constructs without theoretical justification which can reference only the initial program state.
+A number of verification tools ~\cite{KeYBook,DBLP:conf/cade/FultonMQVP15,DBLP:conf/lpar/Leino10,this-is-boogie-2-2,Barnett2005,DBLP:conf/fosad/LeinoMS09,DBLP:books/daglib/p/LeavensBR99,DBLP:journals/fac/Kleymann99} offer ad-hoc historical reference constructs without theoretical justification which can reference only the initial program state.
 We generalize them and provide the first formal treatment of historical reference.
 
 
 We are broadly interested in exploiting other principled design ideas from the proof language literature.
 Beyond structured proof, another notable principled feature is the use of pattern-matching for formula selection, which has been investigated by Traut ~\cite{traut2014pattern} and Gonthier~\cite{DBLP:conf/itp/GonthierT12,noschinskipattern}.
 When proving programs in Isar, it is possible to assign custom case labels~\cite{DBLP:journals/afp/Noschinski15} to produce more readable proofs, which gives a similar flavor to proofs in the original Kaisar design~\cite{DBLP:journals/corr/abs-1908-05535}.
+
+Kaisar's structuring paradigm can be contrasted with proof by verification-condition generation~\cite{DBLP:conf/ifip/King71}: Many approaches to program verification work by generating a first-order logic formula (the verification condition) which, if true, implies correctness of the program.
+The VC is then fed to either an automatic prover or an interactive prover.
+A major limitation of VCG's is that in many cases it is undecidable whether the VC is valid, so any automation used is incomplete.
+Approaches which rely solely on automated backends then fail to scale to large proofs, and approaches that use interactive provers face their own scalability issues because there is a lack of \emph{traceability}: the resulting verification condition appears cryptic and disconnected from the program text.
+The first-order goals the user proves in Kaisar are the same as they would prove in VCG with interactive proof, but the contribution of Kaisar is that the first-order proofs are written in context, and the present place in the program can easily be traced by reading the proof.
+
+Dafny~\cite{DBLP:conf/lpar/Leino10} is an example of a prominent system which uses VCG with SMT-solving as an incomplete backend.
+Dafny allows using assertions and equational reasoning to assist automation, but even then incompleteness makes debugging a failed proof attempt challenging.
+Ivy~\cite{DBLP:conf/pldi/PadonMPSS16} is one system which sidesteps the opacity of backend solvers by using a decidable specification logic, so that its backend solver is complete.
+%TODO: Make sure we proved CdGL is undecidable.
+However, this approach does not apply to undecidable logics such as \CdGL.
 
 %VeriML has a different focus: promoting prover extensibility while providing tactic efficiency with staging.
 %Their metatheory validates the safety of staging, while our metatheory validates the correctness and generality of reasoning across states with nominals.
