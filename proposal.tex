@@ -89,6 +89,14 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\vivar}{\textsf{vi}}
 \newcommand{\vlvar}{\textsf{vl}}
 \newcommand{\vhvar}{\textsf{vh}}
+\newcommand{\obsvar}{{\sf obs}\xspace}
+\newcommand{\Tvar}{{\sf T}\xspace}
+\newcommand{\Avar}{{\sf A}\xspace}
+\newcommand{\Bvar}{{\sf B}\xspace}
+%\newcommand{\SBvar}{{\it SB }\xspace}
+\newcommand{\xvar}{{\sf x}\xspace}
+\newcommand{\vvar}{{\sf v}\xspace}
+\newcommand{\avar}{{\sf a}\xspace}
 \newcommand{\ctrl}{\textsf{ctrl}\xspace}
 \newcommand{\ctrlliv}{\ctrl_{\text{a}}}
 \newcommand{\plant}{\textsf{plant}\xspace}
@@ -598,14 +606,6 @@ We parenthesize hybrid games $\{ \alpha \}$ for clarity and disambiguation as ne
 % TODO: Careful, change liveness+safety discussion to Angel+Demon, discuss why games better
 We now give an example hybrid game and example safety and liveness properties.
 The game in \rref{ex:driving-game} is a generalization of a standard hybrid systems model to a hybrid game.
-\newcommand{\obsvar}{{\it obs}\xspace}
-\newcommand{\Tvar}{{\it T}\xspace}
-\newcommand{\Avar}{{\it A}\xspace}
-\newcommand{\Bvar}{{\it B}\xspace}
-%\newcommand{\SBvar}{{\it SB }\xspace}
-\newcommand{\xvar}{{\it x}\xspace}
-\newcommand{\vvar}{{\it v}\xspace}
-\newcommand{\avar}{{\it a}\xspace}
 \begin{example}[Acceleration-Controlled 1D Driving]
 \label{ex:driving-game}
 \begin{align}
@@ -1207,8 +1207,6 @@ Simulation is an essential part of evaluating models and designs for any robotic
 Multiple simulation platforms are available, of which AirSim~\cite{shah2018airsim} is a recent platform for UAVs and autonomous cars.
 Other simulators would likely have worked as well, but we chose AirSim because it is configured with high-fidelity physical and visual models out of the box, reducing the chances of introducing modeling errors.
 
-%TODO: MAJOR: Add Kaisar section
-%TODO: MAJOR: Change to done work, add section on proposed d extension
 \chapter{Completed Work: \CGL: Constructive Game Logic}
 \label{ch:cgl}
 \newcommand{\projUp}[2]{{#1}\uparrow{#2}}
@@ -1313,7 +1311,6 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \newcommand*{\dstrategyforR}[2][]{{#2}\lenvelopewide{#1}\renvelopewide}
 %{{#2}\llbracket{#1}\rrbracket}
 \newcommand*{\idstrat}[3][]{\dstrategyforR[#1]{#2}^{#3}}
-%TODO: Constraint to just Y <=  [[Gamma]]
 \newcommand{\cint}[1]{\fint{\bigwedge #1}}
 \newcommand{\cintR}[1]{\fintR{\bigwedge #1}}
 \newcommand{\seq}[2]{#1 \vdash #2}
@@ -1432,7 +1429,6 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \newcommand{\isnorm}[1]{#1\text{ normal}}
 \newcommand{\allpt}{\mathbf{Pt}}
 \newcommand{\alltrace}[1]{\mathbf{Tr}(#1)}
-%TODO: samekh and simketh for the lols
 \newcommand{\dinline}[2]{\sigma_{\dbox{#1}{}}{(#2)}}
 \newcommand{\ainline}[2]{\sigma_{\ddiamond{#1}{}}{(#2)}}
 \newcommand{\case}{\textbf{Case}\xspace}
@@ -1511,13 +1507,9 @@ Specifically, we give the first to feature a full proof-theoretic treatment base
 We then prove meta-theoretical properties such as the Existential Property which attest to \CGL's constructivity.
 \end{itemize}
 
-%TODO: cite
-This chapter covers the discrete first-order \CGL, which will be extended to \emph{hybrid} games (\CdGL) in \rref{sec:cdgl}.
+This chapter covers the discrete first-order \CGL~\cite{poplcgl}, which will be extended to \emph{hybrid} games (\CdGL) in \rref{ch:cdgl}.
 We treat the discrete fragment first in large part because there is such a significant gap in the literature, and the discrete result is a contribution of broader interest to the constructive logic community, which stands on its own.
 
-%\textrm_{\alpha{Sys}}
-
-%TODO: Condense, update from POPL
 \section{Related Work}
 \newcommand{\semiset}[2]{\{#1~|~#2\}} 
 This work is at the intersection of game logic and constructive modal logics.
@@ -1747,7 +1739,7 @@ In this case Angel's strategy might suggest \emph{multiple} correct moves, but t
 Because dormant Angel can choose $k$ arbitrarily close to 0.5, we argue this is not a serious practical limitation, rather we take it as confirmation that the difference between constructive and classical games, while simple, is real and arises even in simple games.
 The need to use inexact comparisons is entirely reflective of the challenges that arise any time we wish to compare real (or even floating-point) numbers in software.
 Certainly, Angel will not bemoan the loss of $\epsilon$ slices of cake.
-We will revisit the surprising fact that the dormant wining region was slightly weaker than the active one in \rref{sec:dual-sem}, and we will revisit Nim and cake-cutting with proof in \rref{sec:proof-calculus}.
+%We will revisit the surprising fact that the dormant wining region was slightly weaker than the active one in \rref{sec:dual-sem}, and we will revisit Nim and cake-cutting with proof in \rref{sec:proof-calculus}.
 
 
 
@@ -1943,7 +1935,7 @@ If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M
 \end{lemma}
 \section{Theory Results}
 We prove standard theoretical results.
-We list the results here and remark how they inform the design of the proof term language.
+We list the results here.% and remark how they inform the design of the proof term language.
 
 \begin{lemma}[Progress]
 If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
@@ -2036,9 +2028,8 @@ While it is not known whether the full theory is decidable, several decidable fr
 The proof follows by structural induction on the derivation.
 Proofs can be assumed to be normal.
 
-%TODO: Do this next on monday
 \chapter{Proposed Work: \CdGL}
-\label{sec:cdgl}
+\label{ch:cdgl}
 In the proposed work, we extend \CGL from \rref{ch:cgl} to support \emph{hybrid} games so that we can model and verify adversarial CPS's.
 We call the resulting extension \CdGL.
 Extending \CGL to \CdGL is important for the same reason that it is important to allow ODEs in hybrid systems models rather than just discrete approximations of the plant.
@@ -2057,7 +2048,6 @@ As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\phi}$ says that $x$ 
 One of the major hurdles in this proposed work is to give an appropriate semantics and proof calculus for constructive differential equations.
 However, wee assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a differential equation, and constructive formalization of Picard iteration~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
 We briefly review the \dGL rules for differential equation games and suggest why a constructive interpretation should be feasible.
-%TODO continue here
 \begin{figure}
   \centering
   \begin{calculuscollections}{\columnwidth}
@@ -2101,8 +2091,7 @@ Axiom \irref{Qdglsolve} is typically derived from the others and says that we ca
 Axiom \irref{dglconst}, which is not derived, is the special case of \irref{Qdglsolve} for constant ODEs.
 To show \irref{dglconst} constructively valid, it should suffice to show constructively that $x(t) = x_0 + ct$ is the unique solution of $\D{x}=c$.
 This is a special case of the Picard-Lindel\"{o}f theorem, which is true constructively~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011}.
-Picard-Lindel\"{o}f is also the basis of validity for \irref{dglghost}, which says it is sound to extend a system of differential equations with a new continuous variable, so long as the new equation is linear.
-%TODO: Cite tyk lics18
+Picard-Lindel\"{o}f is also the basis of validity for \irref{dglghost}~\cite{DBLP:conf/lics/PlatzerT18}, which says it is sound to extend a system of differential equations with a new continuous variable, so long as the new equation is linear.
 The linearity constraint ensures the existence interval (i.e., the time before an infinite asymptote is reached, if any) of the differential equation is maintained, for soundness.
 Axiom \irref{dglghost} is mainly used in its forward direction to help prove postconditions which are invariant but not inductive, and in its converse direction to implement \irref{Qdglsolve}.
 For differential equations whose solutions are infeasibly complicated, the ``bread-and-butter'' proofs are done with \irref{dglcut}, \irref{dglind}, and \irref{dglweak}.
@@ -2117,7 +2106,6 @@ As a case study for \CdGL, we propose reproducing the 2D planar robot of \rref{s
 In order to assess the feasibility of this task early, without access to an implementation of \CdGL, we propose performing the proof in classical \dGL in \KeYmaeraX and inspecting by hand that the proof uses only constructive reasoning.
 We give the hybrid game model here.
 The plant is identical to that of \rref{sec:ground-robotics}: the robot is fixed at the origin facing toward the +y axis, while the waypoint moves relative to it:
-% TODO: Make fonts consistent A B T v need fix
 \begin{align*}
 \plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
  &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\} %  ~\land~ yg > 0
@@ -2169,15 +2157,13 @@ The example demonstrates several advantages of hybrid games proving generally ov
 Not only is the model shorter, waypoint-following exhibits turn-taking behavior which is challenging to characterize in a hybrid system.
 The Angel player must follow an arbitrary waypoint, i.e., one chosen by Demon.
 In order to make victory for Angel even possible, the responsibility is Demon's to choose a waypoint that is feasible.
-% TODO: Fix ref
-Expressing this turn-taking in \rref{thm:live} is cumbersome, while in \rref{thm:angel-wins-gen}, it falls naturally out of the fact that acceleration is controlled by Angel while all else is up to Demon.
+Expressing this turn-taking in \rref{thm:liveness} is cumbersome, while in \rref{thm:angel-wins-gen}, it falls naturally out of the fact that acceleration is controlled by Angel while all else is up to Demon.
 Lastly, we have the advantage that safety and liveness need not be proved separately, but can be combined as a single winnability theorem.
 This obviously saves time and energy, but there is a conceptual advantage as well: in the systems setting, we must prove \emph{all} options are safe and that \emph{one} is live.
 In the games setting, we can simply prove that \emph{one} strategy is safe-and-live, so for states our strategy will never enter, we need not even consider safety.
 
-% TODO: fonts plz
 The winnability approach ought to apply to any \emph{reach-avoid} problem for a control-plant loop, i.e., any theorem of form:
-\[\text{pre} \limply \ddiamond{\prepeat{(\ctrl;~\pdual{(\plant)};~\ptest{\textsf{safe}})}}{\textsf{live}}\]
+\[\textsf{pre} \limply \ddiamond{\prepeat{(\ctrl;~\pdual{(\plant)};~\ptest{\textsf{safe}})}}{\textsf{live}}\]
 Within the hybrid systems literature, and certainly within the \dL literature, most systems can be expressed as control-plant loops, and the most important properties are reach-avoid properties or special cases thereof.
 Thus we are justified to claim that many verification tasks would benefit from the simplicity provided by modeling and proving with games.
 
@@ -2211,8 +2197,7 @@ This allows us to connect \CdGL to \VeriPhy without reimplementing \VeriPhy from
 
 We introduce some notation here to state the relaxations rigorously.
 We write $\alpha \leq \beta$ to say that $\alpha$ \emph{refines} $\beta$, i.e., the behaviors of $\alpha$ are a subset of the behaviors of $\beta$.
-%TODO: Cite sarah lics17 here
-The refinement logic \dRL developed refinement for \dL, which can be extended to games by defining $(\pdual{\alpha} \leq \beta) \equiv (\alpha \geq \beta)$.
+The refinement logic \dRL~\cite{DBLP:conf/lics/LoosP16} developed refinement for \dL, which can be extended to games by defining $(\pdual{\alpha} \leq \beta) \equiv (\alpha \geq \beta)$.
 That is, the effect of the dual operator is to flip the direction of the inclusion just as it flips modalities.
 Our goal is to show that there are (computable) inlining functions $\dinline{\alpha}{\da}$ and $\ainline{\alpha}{\aa}$ which inline Demon or Angel strategies $\da,\aa$ (respectively) into a game $\alpha$.
 We demand that the inlining functions produce refinements, which guarantees by monotonicity that the original theorems hold also of the refined system.
@@ -2233,7 +2218,6 @@ When liveness proofs are inlined, they expand the set of behaviors, which preser
 The Demonic relaxation of a safe system can then be fed to \VeriPhy as we already know it is safe too.
 
 
-%TODO: Kaisar goest here
 \chapter{Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}
 \label{ch:kaisar}
 At this point we have identified the logic \CdGL as the backbone of our verification toolchain.
@@ -2267,7 +2251,6 @@ We call the combination of a program and annotations a proven-program.
 A proven-program contains only the minimal possible proof information beyond a program, e.g., invariant annotations for loops and witness annotations for quantifier instantiation.
 Kaisar is by no means the first language to prove programs by adding annotations to them, for example Dafny does the same.
 
-%TODO: Also compare with Ivy
 We argue that Kaisar offers something unique, however.
 Prior annotation-based languages like Dafny~\cite{DBLP:conf/lpar/Leino10} rely on incomplete proof automation based on black-box use of SMT solvers.
 That automation is known to be fragile: changes as simple as rewriting $x + y < z$ to $x < z - y$ can break a proof.
@@ -2371,11 +2354,20 @@ x:=2;
 Labels do not modify the postcondition, they just add themselves to the context.
 
 %TODO: Read Kleymann99 VDM, state describe and state prop for Kaisar
+%Read it. When {p}S{q} and {p1}S{q1} are equitrue for all S, want derivation of the {p1}S{q1} from {p}S{q}. Main place this doesn't hold in basic
+%Hoare logics is when p,q talk about variables that are ghosts or otherwise not mentioned in S. 
+%Will have to think about how to do that in CdGL, maybe by monotoniticy, not by V because that's CdL.
 We also wish to state and prove \emph{adaptation completeness}~\cite{DBLP:journals/fac/Kleymann99},a formal property which attests the modularity that we've gained by supporting lexical scope.
 The only known result of this type is for VDM, which we use as an inspiration.
 We also propose to prove completeness against the \CdGL calculus.
 
-%TODO: Maybe a paragraph about implementation
+This chapter has a significant implementation component, through which we will also implement \CdGL proof checking.
+The Kaisar parser will produce an abstract syntax tree which is then elaborated to the intermediate representation (IR), a natural-deduction calculus based on the calculus from \rref{ch:cdgl}.
+The initial implementation of Kaisar will implement proof-checking directly on the IR.
+Because every constructive theorem holds classically, a second possible implementation approach is to generate classical \dGL proofs from the IR, then check that the proof uses only constructive steps.
+A benefit of this approach is that it can connect to the verified \KeYmaeraX core and take advantage of our trust in that core.
+In \rref{ch:proofplex}, we will use the same IR as the input to synthesis.
+
 
 \section{Related Work}
 \label{sec:kaisar-relwork}
@@ -2386,7 +2378,7 @@ Kaisar is inspired immediately by Isar, and reuses its \kwnote{}, \kwshow{}, and
 Natural-language structured proof paradigms have also been developed~\cite{Lamport12,Lamport95}.
 Apt's \emph{proof outlines}~\cite{apt2010verification} are another paradigm that provides limited proof structuring.
 
-``Mizar modes'' have been used to implement structured proofs to provers without extending the core.
+``Mizar modes'' have been used to implement structured proofs for provers without extending the core.
 Mizar modes are available Cambridge HOL~\cite{DBLP:conf/tphol/Harrison96}, Isabelle~\cite{DBLP:conf/cpp/KaliszykPU16}, and HOL Light~\cite{DBLP:conf/tphol/Wiedijk01}.
 The ``mode'' approach was also used to write the Iris Proof Mode (IPM) in Coq~\cite{DBLP:conf/popl/KrebbersTB17}, which implements the Iris concurrent separation logic in Coq's \ltac language.
 Coq and \KeYmaeraX both~\cite{Barras:1997,BohrerCPP17} have small LCF-style cores, which promote implementations of structured proof outside the core.
@@ -2424,6 +2416,8 @@ We generalize them and provide the first formal treatment of historical referenc
 
 We are broadly interested in exploiting other principled design ideas from the proof language literature.
 Beyond structured proof, another notable principled feature is the use of pattern-matching for formula selection, which has been investigated by Traut ~\cite{traut2014pattern} and Gonthier~\cite{DBLP:conf/itp/GonthierT12,noschinskipattern}.
+Pattern-matching was also investigated in the first proposal for Kaisar~\cite{DBLP:journals/corr/abs-1908-05535}.
+Based on this experience, we plan to leave pattern matching out of the core calculus for simplicity, but experiment with pattern-matching in the implementation.
 When proving programs in Isar, it is possible to assign custom case labels~\cite{DBLP:journals/afp/Noschinski15} to produce more readable proofs, which gives a similar flavor to proofs in the original Kaisar design~\cite{DBLP:journals/corr/abs-1908-05535}.
 
 Kaisar's structuring paradigm can be contrasted with proof by verification-condition generation~\cite{DBLP:conf/ifip/King71}: Many approaches to program verification work by generating a first-order logic formula (the verification condition) which, if true, implies correctness of the program.
@@ -2435,13 +2429,7 @@ The first-order goals the user proves in Kaisar are the same as they would prove
 Dafny~\cite{DBLP:conf/lpar/Leino10} is an example of a prominent system which uses VCG with SMT-solving as an incomplete backend.
 Dafny allows using assertions and equational reasoning to assist automation, but even then incompleteness makes debugging a failed proof attempt challenging.
 Ivy~\cite{DBLP:conf/pldi/PadonMPSS16} is one system which sidesteps the opacity of backend solvers by using a decidable specification logic, so that its backend solver is complete.
-%TODO: Make sure we proved CdGL is undecidable.
-However, this approach does not apply to undecidable logics such as \CdGL.
-
-%VeriML has a different focus: promoting prover extensibility while providing tactic efficiency with staging.
-%Their metatheory validates the safety of staging, while our metatheory validates the correctness and generality of reasoning across states with nominals.
-%In our metatheory, \dLN{} formulas provide a clean specification for the nominal terms of Kaisar.
-%TODO: Discuss plans for pattern-matching in Kaisar v2
+However, this approach does not apply to \CdGL, which inherits decidability from \dGL.
 
 \chapter{Proposed Work: \ProofPlex, Proof-Directed Game Synthesis}
 % \label{ch:cdgl}
@@ -2484,7 +2472,6 @@ The subthesis of this chapter is that this content can and should be used to aut
 \item Model-predictive controllers using differential equations
 \item Differential equations with not only differential invariants but also differential ghosts, which together suffice to prove any polynomial invariant of a polynomial ODE
 \item Controllers containing loops
-%TODO: Model a nuclear power plant so I can have a nonatomic plant of an atomic plant :D
 \item Nonatomic plants which for example employ different ODEs in different cases, or may employ sequences of ODEs to model different stages of a system
 \end{itemize}
 
@@ -2493,25 +2480,18 @@ Once a relaxation for the controller model (and controller proof) in a hybrid ga
 What remains is to supply the untrusted controller.
 Because \ProofPlex, unlike \ModelPlex, also synthesizes monitors by exploiting angelic proofs, we automatically provide an ``untrusted'' controller which in fact is trustworthy, because it simply an implementation of the (operational) angelic dynamics of the control proof in \CdGL. By the work in the previous chapter, these operational semantics refine the standard denotational semantics of both the hybrid game and of its systems relaxation, meaning they satisfy the monitor.
 
-%TODO: check
 \chapter{Conclusion} 
 \section{Timeline}
-The timeline given below is from the time this document is completed (say, April 2019).
-Due to geographic issues, I expect to propose in early Fall (Sep 2019).
-If all goes according to plan, I intend to defend in late Spring 2020.
-%I also intend to go on the academic job market Fall 2019.
-%Realistically some of the time below will be spent on job searching.
-%I have tried to make my timeline permissive enough to allow time for that.
+I plan to propose mid-Fall 2019 (October).
+If all goes according to plan, I intend to defend in early Fall 2020.
 
-Total time: 13 months
+Total: 12 months
 \begin{itemize}
-\item 1 month: Extend \dL formalization in Isabelle to support \dLi
-\item 1 month: Refine \KeYmaeraX to \Isabelle interface, ensure sufficient support for case study
-\item 4 months: Develop \CdGL theory (Submit to POPL in July 2019)
-\item 2 months: Implement \CdGL proof checking
-\item 2 months: Develop \ProofPlex implementation (Submit in January 2020) 
-\item 1 month: Generalize ground robotics case study to \CdGL
-\item 2 months: Write thesis document
+\item 3 months (Sep-Nov) Extend \CGL theory to \CdGL theory (Submit to IJCAR around February 2020, or Fossacs in Oct 2019 if done early)
+\item 3 months (Dec-Feb) Implement Kaisar with \CdGL proof checking (Submit to ITP or FM late March 2020)
+\item 2 months: (Mar-Apr) Develop \ProofPlex implementation (Submit to CAV in February 2020 or RV, May 2020) 
+\item 1 month: (May) Generalize ground robotics case study to \CdGL
+\item 3 months: (June-August) Write thesis document, defend
 \end{itemize}
 
 \appendix
@@ -2529,52 +2509,3 @@ Total time: 13 months
 \end{document}
 
 
-%TODO: Rewrite in terms of characters
-%Throughout this thesis, end-to-end verification is conceived as the problem of placing the correctness of realistic CPS on the most rigorous, formal logical foundation possible.
-%The logic we use to verify a CPS model (thus far, \dL) is then the centerpiece and our understanding of its foundations are of central importance.
-%In \rref{ch:logical-foundations}, we started at the centerpiece and dug inward: we established a more rigorous foundation for \dL as it is used in practice in the theorem prover by building a formally verified prover core and by providing a unified foundation for the grabbag of features that arise in practice.
-%In \rref{ch:end-to-end-v}, we started at the centerpiece and dug outward: model-driven monitor synthesis connects CPS implementations to their formal models;
-%we showed that this connection can be made with full rigor for serious models and their implementations, placing our understanding of implementation-level safety on firm footing.
-
-%TODO: careful w criticism
-%In the proposed work, the time has come to question the centerpiece itself.
-%Vanilla \dL has been used thus far in part because it comes with rich theoretical backing, a mature implementation, and prior cases studies for inspiration and comparison.
-%However, as a logic, it hardly exists in isolation: A family of logics including \QdL, \SdL, and \dGL have explored the addition of distributed, stochastic, and adversarial dynamics to hybrid systems, respectively.
-%Further unexplored logical questions await: notably, all of the above logics are classical.
-%When constructive logic is a key tool in software verification, we must earnestly ask what could be gained for end-to-end CPS verification by adopting constructive foundations.
-%We must also ask which member of the \dL family (which might not even be discovered yet) is best suited for end-to-end CPS verification.
-%
-%This thesis views end-to-end verification as resolving the concerns of three entities:
-%the logician concerned with rigorous foundations, the practitioner concerned with software artifacts resulting from verification, and the logic-user, concerned primarily with simplicity and readability of their models and the ease of their proofs.
-%We have already satisfied the logician: we have made \dL proofs in \KeYmaeraX indisputable.
-%However, we argue that constructivity and games both have crucial advantages for the practitioner and logic-user.
-%Thus, a constructive games logic (\CGL) is the optimal foundation to resolve the concerns of all three.
-%TODO: Condense
-%\item
-%The synthesized monitors are not tight.
-%The arithmetic approximations used in \rref{sec:veriphy} are conservative, and in practice can be prohibitively so, to the extent that significant cleverness is exerted in tweaking units of measure to avoid overflow errors.
-%The implementation of arithmetic in synthesis is a fundamental question, but the present answer of integer interval arithmetic demands too much of the programmer.
-%\item
-%The main challenge in synthesizing a controller is deciding which control path to take (for example, acceleration vs. braking) when multiple options are plausible.
-%All such decisions are captured by a proof of the shape $\ddiamond{\ctrl}{\phi}$: in proving a diamond property, we have specified which path to take in order to achieve $\phi$.
-%Such synthesis is only possible in general when the proof is constructive: the state-of-the-art proof technique for such properties in fact applies the law of excluded middle to undecidable propositions, so constructivity is anything but a theoretical concern.
-%In this chapter, we will incorporate an alternative proof method only case-analyzes decidable properties so that synthesis is possible.
-%Games also play a part in controller synthesis: A typical game proof supports a diamond proof for control and a box proof for plant, making it simple to synthesize both a controller and monitor together.
-%\begin{itemize}
-%\item
-%Conservativity is a consequence of the chosen arithmetic implementation: fixed-precision interval arithmetic.
-%Better libraries might alleviate the practical concern, but constructive mathematics provides a more general answer: computable reals.
-%Constructive proofs in \CdGL have the convenient property that whenever a proof of $\ddiamond{\ctrl}{\phi}$ exists, a controller exists which uses only \emph{total} computations on computable reals (e.g.\ the controller will never attempt to compare two reals for exact equality).
-%Certainly interval arithmetic has its own advantages in performance, but with computable reals we resolve conservativity issues conclusively.
-%\end{itemize}
-%\item
-%Short, simple models are desirable.
-%Longer models are more likely to contain mistakes, and modeling mistakes are the hardest kind to catch as we cannot simply ``prove'' their presence or absence.
-%As \rref{sec:planar-driving-system} and \rref{ex:driving-system} show, hybrid systems models are typically much more complicated than their hybrid game counterpart, because strategic choices must be modeled in the hybrid system which in games are deferred to the proof.
-%Thus, games generally (\dGL or \CdGL) eliminate a prominent source of needless model complexity.
-%\item
-%Beyond reducing complexity, games models preclude common mistakes which have led even experienced researchers to write vacuous models in practice.
-%Specifically, in a standard \dL safety proof, safety is proven only for states from which at least one guard of the controller is satisfied.
-%An intuitive notion of safety requires that at least one guard is satisfied in each state (the controller is \emph{total}), which is often false when models are not written carefully.
-%%In games, we can (and by default do) require that controllers satisfy \emph{co-safety}, which implies any faulty, non-total controller will be caught when at proof time since a co-safety proof will necessarily fail.
-%Catching such mistakes is important because otherwise the logic-user, having proved a vacuous theorem, would assume their system is safe when in fact \emph{nothing} of note has been proven.
