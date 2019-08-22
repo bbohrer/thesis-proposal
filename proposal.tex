@@ -1461,8 +1461,6 @@ Throughout this thesis, the glue that unified the Logician's high-level abstract
 While \rref{ch:end-to-end-v} showed that the connection between \dL models and implementations holds even in realistic case studies, it has also revealed the room that \dL leaves for improvement as such a glue.
 We argue that the restrictions to \emph{systems} and \emph{classical} reasoning pose limitations for the Engineer and Logic-User.
 
-
-
 The completed sections of the thesis have revealed several weaknesses from the practitioner's perspective:
 \begin{itemize}
 \item
@@ -1578,12 +1576,14 @@ Intutionistic Kripke semantics have also been applied to multimodal System K wit
 
 \section{Syntax}
 We define the language of \CGL, consisting of terms, games, and formulas.
-The simplest terms are \emph{program variables} $x, y \in \allvars$ where $\allvars$ is the set of variable identifiers.
-The program variables, which are mutable, contain the state of the game, which is globally scoped.
+Terms include global, mutable \emph{program variables} $x, y \in \allvars$ where $\allvars$ is the set of variable identifiers.
 We assume a signature $\kwsig$ assigning a fixed base sort $\sig{x} = \tau$ to each $x,$ and we assume the base sorts consist of at least the integers $\mathbb{Z},$ the Bishop reals $\mathbb{R},$ and Booleans $\mathbb{B},$ which we use in our examples and semantics.
 \begin{definition}[Terms]
 A \emph{term} $f, g$ is an arbitrary Type-2~\cite{DBLP:series/txtcs/Weihrauch00} computable function over the game state.
 That is, in the case that $f$ and $g$ are real-valued, they must be computable when the program variables are represented as streams of bits.
+This is in contrast to \dGL, which is restricted to polynomial terms.
+We support arbitrary computable terms both because many non-polynomial terms have proven useful in practice and because for \CGL we want terms to serve as witnesses to existentials.
+Even the theory of polynomial terms gives rise to existentials whose witnesses are non-polynomial, whereas the theory of computable terms has computable terms as witnesses.
 
 We give a nonexhaustive grammar of terms, specifically those used in our examples:
 \[f,g ~\bebecomes~  \cdots \alternative q \alternative x \alternative f + g \alternative f \cdot g \alternative \ediv{f}{g} \alternative \emod{f}{g}\]
@@ -1593,7 +1593,7 @@ We leave the implementation language of $f$ unspecified for the standard reason 
  \end{definition}
 Quotient and remainder are integer operations only, and ill-typed for arguments of other types.
 A game in \CGL is played between a constructive player named Angel and a classical player named Demon.
-We say that whichever player moves next is the \emph{active} player while their opponent is  \emph{dormant}.
+We say that whichever player moves next is the \emph{active} player while their opponent is \emph{dormant}.
 We emphasize this terminology differs subtly from standard descriptions of classical \GL: when both players are classical one identifies Angel with the active player and Demon with the dormant player.
 %We discuss the source of this subtlety after introducing basic syntax in \rref{def:cgl-formula}.
 
@@ -1888,7 +1888,8 @@ In the Demonic choice game $\pchoice{\alpha}{\beta},$ Demon chooses classically 
 
 Not every syntactically-valid $\phi$-strategy is sensible.
 In $\strategyforR[\prepeat{\alpha}]{Z},$ realizers must be ``effectively well-founded,'' meaning they lead the loop to terminate.
-For each $\aa$ there must be a computable termination metric $\met$ (\rref{def:poly-metric}) such that $a(\om) = \mathcal{M}=0$ on $\om \in X$ and 
+%(\rref{def:poly-metric})
+For each $\aa$ there must be a computable termination metric $\met$  such that $a(\om) = \mathcal{M}=0$ on $\om \in X$ and 
 $\sup_{(\ac,\om) \in Y}\mathcal{M}(\om) < \sup{(\ac,\om) \in \strategyforR[\alpha]{Y}}$ for all $Y$ and suitable $\ac$, where $<$ is the ordering on the metric.
 If a $\phi$-realizer $\aa$ satisfies this constraint (or if it does not even apply) then we say $\aa$ is \emph{suitable} for $\phi$.
 
@@ -2033,12 +2034,11 @@ Proofs can be assumed to be normal.
 In the proposed work, we extend \CGL from \rref{ch:cgl} to support \emph{hybrid} games so that we can model and verify adversarial CPS's.
 We call the resulting extension \CdGL.
 Extending \CGL to \CdGL is important for the same reason that it is important to allow ODEs in hybrid systems models rather than just discrete approximations of the plant.
-The Logician seeks a model that is clearly in close correspondence with reality, and this correspondence is might clearer for continuous physics than for discrete approximations.
+The Logician seeks a model that is clearly in close correspondence with reality, and this correspondence is clearer for continuous physics than for discrete approximations.
 The Logic-User also wants reasoning about the model to be straightforward, and experience suggests direct verification of a continuous model is conceptually simpler than verification of a discrete approximation.
 
 We propose developing the theory of \CdGL, then evaluating \CdGL by using the 2D planar robot of \rref{sec:ground-robotics} as a case study.
 
-%TODO: Talk about why arbitrary computable functions were used in \CGL anyway
 \section{\CdGL Theory}
 We propose to generalize the results of \rref{ch:cgl} for \CdGL and also provide several results which were not given in past publications.
 The first step is to extend the language of games $\alpha,\beta$ to \emph{hybrid} games by adding differential equations:
@@ -2058,7 +2058,7 @@ We briefly review the \dGL rules for differential equation games and suggest why
 }{}
 \cinferenceRule[dglweak|DW]{}
 {
-\dbox{\pevolvein{\D{x}=f}{\phi}}{\phi}
+\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\phi}}{\psi}}{\dbox{\pevolvein{\D{x}=f}{\phi}}{\phi\limply\psi}}
 }{}
 \cinferenceRule[dglcut|DC]{}
 {
@@ -2076,10 +2076,8 @@ We briefly review the \dGL rules for differential equation games and suggest why
 {
 \linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=c}{\psi}}{\phi}}{\lforall{t}{(\lforall{0{\leq}s{\leq}t}{\dbox{\humod{x}{x+cs}}{\psi}}) \limply \dbox{\humod{x}{x+ct}}{\phi}}}
 }{}
-%TODO: Update to correct rule
 \cinferenceRule[dglvariant|DV]{}
-{
-\linferenceRule[lpmi]{\ddiamond{\pevolve{\D{x}=f}}{g>c()}}{\lexists{d>0}{\dbox{\D{x}=f}{g\geq d}}}
+{\linferenceRule[lpmi]{\ddiamond{\pevolve{\D{x}=f(x)}}{f \geq g}}{\lexists{\veps>0}{(\dbox{\pevolve{\D{x}=f(x)}}{(f \leq g \limply \D{f} \geq \D{g}+\veps)})}}
 }{}
 \end{calculus}
 \end{calculuscollections}
@@ -2099,7 +2097,8 @@ For differential equations whose solutions are infeasibly complicated, the ``bre
 \irref{dglcut} allows one \irref{dglind} to serve as a ``lemma'' to another by adding it to the domain constraint, and \irref{dglweak} allows closing the proof by proving the postcondition from a sufficiently strengthened domain constraint.
 Validity of \irref{dglind} follows from the Mean-Value Theorem or its generalization, Rolle's Theorem, which has been proven constructively~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011}.
 The classical validity proofs of \irref{dglcut} and \irref{dglweak} are direct, and we expect the same for an appropriately-chosen semantics.
-
+The axioms of \label{fig:diffeq-rules} will need adaptation to the constructive setting.
+Even leaving constructivity aside, \CdGL also supports a stronger term language than \dGL, and we will need to treat continuity and differentiability carefully as was done in \rref{sec:definite-description}.
 
 \section{Example System}
 As a case study for \CdGL, we propose reproducing the 2D planar robot of \rref{sec:ground-robotics} as a hybrid game, and providing a constructive proof that the robot can reach its waypoints while maintaining its speed limits.
@@ -2124,7 +2123,9 @@ In the games setting, the acceleration is existentially quantified in the model,
 \[\ctrl~\equiv~ \pdual{(\prandom{(\xgvar,\ygvar)};\,\prandom{[\vlvar,\vhvar]};\,\prandom{\kvar};\,\ptest{\planreq})};\,\prandom{\avar}\]
 }
 
-We propose to prove a winnability theorem saying the robot can always control its way to the goal region within its speed limits.
+Recall that in \rref{sec:ground-robotics} we proved \emph{safety} (the robot never leaves the path) and \emph{liveness} (the robot eventually reaches its goal).
+We wish to show the same high-level properties here, but in the context of games we express them as Angel's ability to win a game against Demon.
+The following winnability theorem says the robot can always control its way to the goal region within its speed limits (liveness):
 \begin{theorem}[Angel Winnability]
 \label{thm:angel-wins}
 The following \dL formula is valid:
@@ -2134,9 +2135,8 @@ The following \dL formula is valid:
 \end{align*}
 where $J$ is the loop invariant as defined in \rref{sec:ground-robotics}.
 \end{theorem}
-In this form, \rref{thm:angel-wins} corresponds to the liveness, \rref{thm:liveness}.
+%In this form, \rref{thm:angel-wins} corresponds to liveness, \rref{thm:liveness}.
 However, we propose also to generalize \rref{thm:angel-wins} slightly, thus proving \rref{thm:liveness} and \rref{thm:safe} (safety) in one go.
-%TODO: Talk about what right theorems in games are vs liveness in systems
 \begin{theorem}[Generalized Angel Winnability]
 \label{thm:angel-wins-gen}
 The following \dL formula is valid:
@@ -2353,13 +2353,23 @@ x:=2;
 
 Labels do not modify the postcondition, they just add themselves to the context.
 
-%TODO: Read Kleymann99 VDM, state describe and state prop for Kaisar
-%Read it. When {p}S{q} and {p1}S{q1} are equitrue for all S, want derivation of the {p1}S{q1} from {p}S{q}. Main place this doesn't hold in basic
-%Hoare logics is when p,q talk about variables that are ghosts or otherwise not mentioned in S. 
-%Will have to think about how to do that in CdGL, maybe by monotoniticy, not by V because that's CdL.
-We also wish to state and prove \emph{adaptation completeness}~\cite{DBLP:journals/fac/Kleymann99},a formal property which attests the modularity that we've gained by supporting lexical scope.
-The only known result of this type is for VDM, which we use as an inspiration.
-We also propose to prove completeness against the \CdGL calculus.
+We wish to provide a formal guarantee regarding the modularity provided by Kaisar's lexical scope.
+We take inspiration from the \emph{adaptation completeness}~\cite{DBLP:journals/fac/Kleymann99} theorem for VDM, which says any Hoare specification which is equi-true for all programs is interderivable for all programs.
+However, we are less concerned with adapting a program to new specifications than with adapting proofs when only one part of the program changes.
+We propose a \emph{modularity completeness} which says every provable property has a modular proof.
+Informally, a modular proof is one where a change to a subprogram requires changes only to the subproof for that program.
+\begin{theorem}[Modularity completeness]
+  Here $C,D$ stand for contexts $\mathsf{Prog} \to \mathsf{Prog}$ and $\mathsf{Prog} \to \mathsf{Formula},$ respectively.
+  For any $\proves{\G}{M}{\ddiamond{\alpha}}{\phi}$ and $C(\beta) = \alpha,$ there exists $D$ such that:
+\begin{enumerate}
+\item there exists $A$ such that $\proves{\G}{A}{D(\beta)}$
+\item there exists natural $F$ such that for every program $\gamma,$ $\proves{\G}{F(\gamma)}{D(\gamma) \limply \ddiamond{C(\gamma)}{\phi}}$.
+\end{enumerate}
+\end{theorem}
+That is, we decompose the proven program $\alpha$ as a subprogram $\beta$ in a context $C$.
+The \emph{modular proof} uses an \emph{interface} $D(\beta)$ which specifies all the properties of $\beta$ needed in the rest of the proof.
+Then the modular proof consists of a proof $A$ that $\beta$ satisfies interface $D$ and a proof $F$ that \emph{any} program $\gamma$ which satisfies interface $D$ can be substituted for $\beta$ in context $C$ and maintain the postcondition $\phi$.
+We also propose to prove completeness w.r.t.\ the \CdGL calculus.
 
 This chapter has a significant implementation component, through which we will also implement \CdGL proof checking.
 The Kaisar parser will produce an abstract syntax tree which is then elaborated to the intermediate representation (IR), a natural-deduction calculus based on the calculus from \rref{ch:cdgl}.
