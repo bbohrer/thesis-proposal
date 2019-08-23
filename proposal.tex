@@ -971,9 +971,9 @@ Yet requirement \label{item:open-ended} is satisfied: the sensors and actuators 
 It is not unrealistic to suggest that one day, we could verify sensors and actuators against these specifications in HOL4, at least given some weaker assumptions.
 
 \subsection{Related Work}
-%TODO: Cite Lars, etc
 \paragraph{Verified Compilation.}
 We use the CakeML~\cite{DBLP:conf/icfp/TanMKFON16} verified ML compiler and its associated verification tools~\cite{DBLP:conf/icfp/MyreenO12,DBLP:conf/esop/GueneauMKN17}.
+Recent work~\cite{DBLP:conf/esop/HupelN18} also provides extraction of CakeML code from \Isabelle proofs, but its present iteration does not support all features needed in this work.
 CakeML is higher-level than other languages such as Clight with verified compilers such as floating-point CompCert~\cite{DBLP:conf/arith/BoldoJLM13}.
 This makes the verification of sandbox implementation in CakeML against hybrid systems semantics painless.
 We chose this over, e.g., translation validation with unverified compilers~\cite{DBLP:conf/pldi/SewellMK13} since translation validation can be brittle.
@@ -981,14 +981,12 @@ We chose this over, e.g., translation validation with unverified compilers~\cite
 Lustre~\cite{DBLP:journals/tse/HalbwachsLR92} is a CPS-centric language with a verified compiler, V\'{e}lus~\cite{DBLP:conf/pldi/BourkeBDLPR17}.
 Writing and compiling a Lustre controller provides no end-to-end guarantees because physical modeling and verification are left unanswered.
 It could be used as a code generation target, but this would be a detour because the Lustre language differs greatly from hybrid programs.
-%Related work on compilation after Isabelle
-%Examples of these include CompCert~\cite{DBLP:journals/cacm/Leroy09}, a verified C compiler, and Cogent~\cite{DBLP:conf/asplos/AmaniHCRCOBNLST16}, a linearly typed, total functional language with proof-producing compilation to C.
 
-%TODO: Cite Eva etc., check latest isabelle things
 \paragraph{Machine Arithmetic Verification.}
 Machine arithmetic correctness is a major \VeriPhy component.
 We verify arithmetic soundness foundationally.
 This is an active research area with libraries available in HOL Light~\cite{DBLP:conf/sfm/Harrison06}, Coq~\cite{DBLP:conf/arith/BoldoM10,DBLP:conf/tphol/DaumasRT01,DBLP:conf/mkm/BoldoFM09,DBLP:journals/iandc/Melquiond12}, \Isabelle~\cite{DBLP:journals/afp/Yu13}, etc.
+Standalone arithmetic checkers~\cite{DBLP:conf/tacas/2018-1} have also been verified in HOL and Coq~\cite{DBLP:conf/fmcad/BeckerZMDMF18}.
 Of these, only PFF in Coq~\cite{DBLP:conf/tphol/DaumasRT01} provides the qualitative rounding correctness results we need, so we prove them in \Isabelle using the seL4~\cite{DBLP:journals/cacm/KleinAEHCDEEKNSTW10} machine word library.
 We chose \Isabelle and HOL4 over Coq because their combination of cutting-edge analysis libraries~\cite{DBLP:conf/itp/ImmlerT16}, mature formalization of $\dL$~\cite{DBLP:conf/cpp/BohrerRVVP17}, proof-producing code extraction~\cite{DBLP:conf/icfp/MyreenO12}, and classical foundations positions them well for our end-to-end pipeline.
 Static analysis of arithmetic for hybrid systems has been studied~\cite{DBLP:conf/emsoft/MartinezMST10,DBLP:conf/emsoft/MajumdarSZ12,DBLP:conf/cav/BouissouGPTV09}, but without foundational safety proofs for general dynamics.
