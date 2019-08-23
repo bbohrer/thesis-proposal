@@ -461,7 +461,7 @@ Their downsides typically include a significantly larger trusted base (${\approx
 Typical restrictions include restriction to linear differential equations, bounded-time safety, or bounded state spaces.
 In a notable exception regarding large trusted cores, \cite{DBLP:conf/tacas/Immler15} verifies a set-based reachability analysis for ODEs in Isabelle using his differential equations library~\cite{DBLP:conf/itp/ImmlerT16}.
 While it is trustworthy, it only computes numerical solutions to differential equations, and so cannot handle full hybrid systems nor the symbolic reasoning necessary to show correctness in the general case.
-Reachability analysis has been applied to ground robotics~\cite{chen2015benchmark},
+Reachability analysis has been applied to ground robotics~\cite{chen2015benchmark}.
 
 \subsubsection{Differential Dynamic Logics}
 This thesis is part of a long line of work using differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer08,DBLP:conf/lics/Platzer12a,DBLP:journals/jar/Platzer17} and logics descended from it.
@@ -763,7 +763,7 @@ The proof calculus is given as a Hilbert system: axioms are repeatedly applied t
 {
 \linferenceRule[equiv]{\ddiamond{\humod{x}{\theta}}{\phi(x)}}{\phi(\theta)}
 }{}
-\cinferenceRule[dglrandom|{$\langle:*\rangle$}]{}
+\cinferenceRule[dglrandom|{$\langle{:}*\rangle$}]{}
 {
 \linferenceRule[equiv]{\ddiamond{\humod{x}{\theta}}{\phi(x)}}{\lexists{x}{\phi(x)}}
 }{}
@@ -1277,7 +1277,7 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \newcommand{\rzSnd}[1]{#1_1}
 \newcommand{\rzThd}[1]{#1_2}
 \newcommand{\rzFrt}[1]{#1_3}
-\newcommand{\rzApp}[2]{#1#2}
+\newcommand{\rzApp}[2]{#1\,#2}
 \newcommand{\sa}{\omega}
 \renewcommand{\sb}{\nu}
 \newcommand{\Sc}{\mu}
@@ -1720,7 +1720,7 @@ An active Angel has a tight strategy to achieve a $0.5$ cake share, as stated in
 The following formula is valid:
 \[\ddiamond{\cake}{\,a \geq 0.5}\]
 \end{proposition}
-Surprisingly, a dormant Angel does not have a computable strategy to achieve exactly $0.5$ share of the cake, but rather for any $k < 0.5$ has a strategy to achieve share $k$, as shown in \rref{prop:cake-demon-wins}
+Surprisingly, a dormant Angel does not have a computable strategy to achieve exactly $0.5$ share of the cake, but rather for any $k < 0.5$ has a strategy to achieve share $k$, as shown in \rref{prop:cake-demon-wins}.
 \begin{proposition}[Dormant winning region]
 \label{prop:cake-demon-wins}
 The following formula is valid:
@@ -1729,7 +1729,7 @@ The following formula is valid:
 This reveals the subtleties of computations on reals, which we now briefly discuss.
 \paragraph{Computability and reals.}
 Exact comparisons on constructive reals are not decidable, e.g. formulas such as $x = 0.5 \lor x \neq 0.5$ and $x > y \lor x \leq y$ are not valid constructively.
-The standard comparison principle for constructive reals, which will appear as a rule in \rref{sec:proof-calculus}, is the \emph{approximate splitting principle}:
+The standard comparison principle for constructive reals, which will appear as a rule in \rref{sec:arith-proof}, is the \emph{approximate splitting principle}:
 for any $\epsilon > 0,$ the formula $x > y \lor x < y + \epsilon$ is valid, because approximate comparisons require only finitely-many digits, making them Type-2 computable~\cite{DBLP:series/txtcs/Weihrauch00}.
 Because disjunction is defined as Angelic choice, it is no surprise that the same challenge arises when choosing which path to take in a game, e.g. Angel is forced to fail a test in $\pchoice{\ptest{x < 0}}{\ptest{x \geq 0}}$ for real-valued $x$ because unlike in classical \GL Angel cannot apply the law of excluded middle.
 Sometimes both branches of an approximate split are satisfied at once, e.g., $y < x < x + \epsilon$.
@@ -1961,6 +1961,7 @@ then $\dstrategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} 
 While these properties have short proofs, the deeper point is that they fall out naturally from design choices which were far-reaching, such as our use of realizability.
 
 \subsection{Arithmetic Proofs}
+\label{sec:arith-proof}
 \CdGL accepts constructive analysis as its foundation instead of the classical analysis used in \dGL.
 One challenge is ensuring that such proofs are no more complex than strictly necessary, yet still sound by constructive principles.
 
@@ -2206,7 +2207,7 @@ In practice, most Logic-Users are not satisfied to maintain both the source code
 Many of the proof steps in a \CdGL proof are determined automatically by the structure of the program, because most of the common program constructs have a single canonical introduction rule.
 If we completely separate the proof from the model, we end up duplicating ``canonical'' steps between the model and proof, with an unacceptable 50\% proof-writing overhead for the Logic-User.
 
-Prior approaches which do not have this overhead are not structured, i.e., they do not have lexical scope, but rather work by verification-condition generation (see \rref{sec:sec:kaisar-relwork}).
+Prior approaches which do not have this overhead are not structured, i.e., they do not have lexical scope, but rather work by verification-condition generation (see \rref{sec:kaisar-relwork}).
 Thus the contribution of Kaisar is not just to achieve lexical scope but to do so while avoiding proof-vs.-model duplication.
 
 The basic trick to avoiding proof duplication is to write proofs \emph{as} programs which have been annotated with enough insights to complete the proof.
@@ -2435,7 +2436,13 @@ Yet even though verification is undecidable, proof \emph{checking} is utterly de
 Therefore, the ultimate question behind this chapter is, ``can the proof content be reused for synthesis''?, to which the thesis statement answers ``yes''.
 A proof in \CdGL is nothing but a winning strategy for a hybrid game, which contains both all the control decisions made by the Angelic player and the assumptions monitored of the Demonic player.
 In short, the following could be called the punchline of the thesis:
-\[\text{A box proof witnesses monitorability and a diamond witnesses controllability, thus a \CdGL proof witnesses synthesizability}\]
+
+\begin{framed}
+  \begin{quote}
+A box proof witnesses monitorability and a diamond witnesses controllability, thus a \CdGL proof witnesses synthesizability
+  \end{quote}
+\end{framed}
+
 Whenever the players alternate turns in a game, the proof alternates modalities.
 Whenever we prove a $\ddiamond{\alpha}{P}$ property, we do so by witnessing the decisions (computations) Angel performs to achieve $P$.
 In proving a $\dbox{\alpha}{P}$ property, we enumerate rules which Angel must uphold until control passes to Demon, and in doing so we enumerate the contents of a monitor.
