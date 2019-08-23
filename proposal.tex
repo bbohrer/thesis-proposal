@@ -312,8 +312,8 @@ Of the available choices, the Logic-User prefers domain-specific logics like \dL
 This comes at cost to the Engineer because state-of-the-art synthesis tools for \dL~\cite{DBLP:journals/fmsd/MitschP16} only synthesize monitors, and sometimes fail to synthesize monitors for complicated models in practice.
 Prior to this thesis, the Logician also paid the price that \dL's foundations were developed only informally on paper.
 
-%TODO: Cite and compare with Lars + Certicoq
 Nor is the Logician truly satisfied with any existing approach: while GPITP's have rigorous foundations and support extraction of controllers or monitors, the extraction facilities are not provably correct, nor can the Logician convince themself that the modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs.
+While verified and proof-producing code extracters exist for Coq~\cite{anand2017certicoq} and \Isabelle~\cite{DBLP:conf/esop/HupelN18}, the latter supports a limited feature set and neither addresses the question whether systems are modeled correctly.
 
 \begin{table}[tbh]
   \centering
@@ -434,10 +434,8 @@ The \KeYmaeraX core is based on a uniform substitution calculus, so the formaliz
 Our verified checker supports a significant fragment of the \KeYmaeraX core, including enough to recheck proofs of safety for monitor-based synthesized controllers (${\approx}$100K steps).
 While the \Isabelle formalization is based directly on the calculus supported in \KeYmaeraX, another contribution of the thesis (\rref{sec:definite-description}) is to develop a foundation for \dL which is more amenable to the practical extensions used in \KeYmaeraX in practice.
 Together, these two pieces provide a multifaceted argument how we can trust hybrid systems proofs as done in \KeYmaeraX.
-%TODO: Cite andre dGL formalization here
-%StarL~\cite{Lin+Mitra:lctrts:2015} is a framework for programming and simulating Android applications that control robots.
-%It uses a formalization of timed automata and has a discrete model of space in order to verify distributed applications.
-%V\"{o}lker~\cite{Volker:2000} defines the semantics of hybrid automata in Isabelle, but no verification techniques. 
+Recently, an independent formalization of classical \dGL has been made~\cite{DBLP:journals/afp/Platzer19}, which emphasizes uniform substitution and simplicity of the formalization over suitability for extraction of a verified checker.
+
 \subsection{Verification of CPS}
 %
 Hybrid systems verification is a broad and actively studied field.
@@ -525,7 +523,7 @@ Notably, none of these approaches show correctness unconditionally: all have a t
   Moreover, \VeriPhy adopts a deeper understanding of hybrid systems: several stages of \VeriPhy exploit language-level semantic proofs that link the initial hybrid system model to a low-level executable semantics.
   High-Assurance SPIRAL uses only syntactic transformations and does not have a semantic understanding of hybrid system, which precludes the clear connection between the system model and compiled code as provided by \VeriPhy.
 \item 
-Anand and Knepper~\cite{Anand+Knepper:itp:2015} developed the framework ROSCoq based on the Logic of Events for reasoning about distributed CPS in Coq with constructive reals and generating verified controllers.
+Anand and Knepper~\cite{DBLP:conf/itp/AnandK15} developed the framework ROSCoq based on the Logic of Events for reasoning about distributed CPS in Coq with constructive reals and generating verified controllers.
 Their use of constructive reals is prescient, and inspires the design choices in \rref{ch:proofplex}.
 However, they provide limited support for reasoning about derivatives, requiring extensive manual proofs by the user.
 They do not synthesize and automatically verify monitors, nor is their machine code verified.
@@ -875,7 +873,7 @@ While \rref{sec:isabelle-fml} addresses the gap between theory presentations of 
 This is unmaintainable as the number of extensions grows, and moreover we would prefer a definition mechanism where new constructs can be defined without increasing the size of the core.
 That is to say, one of the lessons learned from the work described in \rref{sec:isabelle-fml} is that a more maintainable way to put a theorem prover on bulletproof foundations is to work from both ends at once, not just formalizing the proof calculus in great detail but also redesigning the proof calculus to be more general in the first place, so that what were once a grab bag of extensions are now elegantly described in the core language.
 
-Recent work by the author~\cite{hilbert-epsilons} does exactly that by introducing the logic \dLi which extends \dL with a definite description construct $\meps{x}{\phi(x)}$ meaning the unique $x$ (if a unique one exists) such that $\phi(x)$ is true.
+Recent work by the author~\cite{DBLP:conf/cade/BohrerFP19} does exactly that by introducing the logic \dLi which extends \dL with a definite description construct $\meps{x}{\phi(x)}$ meaning the unique $x$ (if a unique one exists) such that $\phi(x)$ is true.
 The underlying reason for this extension is that an unending array of extensions to \dL, both past and future, are simply new term constructs which do not fall within the restrictive polynomial language of traditional \dL.
 Because the formula language of \dL is relatively unrestricted, containing all of first-order real arithmetic and dynamic modalities, one can achieve the desired power in the term language through the definite description construct, which effectively imports the powers of the formula language into the term language.
 
@@ -903,7 +901,6 @@ We show that in contrast to \dL, \dLi can directly represent a hybrid system fea
 Then the water drains out the cooler at a rate proportional to the square root of the current volume  by Torricelli's Law~\cite{driver1998torricelli}, or rate 0 if the valve is closed.
 In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b}, they are equipped with an induction operator, making it easier to write sophisticated computations.
 %\irref{DI} is the \emph{differential induction}~\cite{DBLP:journals/logcom/Platzer10}
-%TODO: Broken ref, also check and fix all refs
 %Quantifier elimination rule \irref{QEeps} says first-order arithmetic, a fragment, is decidable~\cite{tarski1998decision}.
 
 \chapter{Completed Work:  End-to-End Robot Verification}
