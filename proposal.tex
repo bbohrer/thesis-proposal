@@ -20,7 +20,10 @@ pdfpagemode=UseOutlines]{hyperref}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{amssymb}
+
+% For underbracket
+\usepackage{mathtools}
+
 \usepackage[bbsets,Dfprime]{math}
 \usepackage[prefixflatinterpret,bracketmodalinterpret,modernsign,substopindex,shortmquant,mquantifiertype,mconnectiveformal,bracketinterpret,fixformat,setfixinterpret,modifopindex,seqarrow,seqoptional,sidenotecalculus,abbrseqcontext,shortterms,nosigmaterms,novarterms]{logic}
 \usepackage[pretest,nocommandblocks]{progreg}
@@ -101,6 +104,10 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\ctrlliv}{\ctrl_{\text{a}}}
 \newcommand{\plant}{\textsf{plant}\xspace}
 \newcommand{\psimp}{\ensuremath{\alpha_{SV}}\xspace}
+\newcommand{\sandbox}{\textsf{\upshape sandbox}\xspace}
+\newcommand{\fallback}{\textsf{\upshape fallback}\xspace}
+\newcommand{\verifiedmodelbody}{\ensuremath{\ctrl;\plant}}
+\newcommand{\verifiedmodel}{\ensuremath{\prepeat{(\verifiedmodelbody)}}}
 \newcommand{\exctrl}{\textsf{ctrl}_{SV}\xspace}
 \newcommand{\pdrive}{\textsf{go}\xspace}
 \newcommand{\pstop}{\textsf{stop}\xspace}
@@ -124,10 +131,64 @@ pdfpagemode=UseOutlines]{hyperref}
 \newrefformat{fig}{Fig.\,\ref{#1}}
 \newrefformat{case}{case\,\ref{#1}}
 
+
+% -------------------------------------------------
+% Colors
+% -------------------------------------------------
+\definecolor{semblue}{rgb}{0,0,0.7}
+\definecolor{vgreen}{rgb}{.1,.5,0}
+\definecolor{vdarkgreen}{rgb}{.06,.3,0}
+\definecolor{vred}{rgb}{.7,0,0}
+\definecolor{vblue}{rgb}{.1,.15,.62}
+\definecolor{vgray}{rgb}{.35,.35,.35}
+\definecolor{darkishgray}{rgb}{.35,.35,.35}
+\definecolor{vvblue}{rgb}{.14,.21,.868}%{1.4*vblue}
+%{.12,.18,.744}%{1.2*vblue}
+
+% blueish, print well in grayscale
+\definecolor{lsblue}{HTML}{16303A}
+\definecolor{lslightblue}{HTML}{2E6579}
+\definecolor{lsverylightblue}{HTML}{4699B9}
+\definecolor{lsgreen}{HTML}{5ECEF9}
+\definecolor{lslightgreen}{HTML}{54B9DF}
+
+% red-ish
+\definecolor{lsred}{HTML}{B94D5D}
+\definecolor{lslightred}{HTML}{F16579}
+\definecolor{lsdarkred}{HTML}{3A181D}
+
+% 3D7178
+\definecolor{smigreen}{RGB}{61,113,120}
+% DDDDD
+\definecolor{smiwhite}{RGB}{221,221,221}
+% 191919
+\definecolor{smiblack}{RGB}{25,25,25}
+% 323232
+\definecolor{smidarkgray}{RGB}{50,50,50}
+% 5A5A5A
+\definecolor{smigray}{RGB}{90,90,90}
+% 7F0000
+\definecolor{smired}{RGB}{127,0,0}
+
+% ---------
+% semantics
+% ---------
 \newcommand{\ws}{\nu}
 \newcommand{\wt}{\omega}%
+\newcommand{\wsig}{\mu}%
 \newcommand{\I}{\iconcat[state=\ws]{\stdI}}%
 \newcommand{\It}{\iconcat[state=\wt]{\stdI}}%
+\newcommand{\Isig}{\iconcat[state=\wsig]{\stdI}}%
+\newcommand{\tweak}[1]{#1}
+\newcommand{\untweak}[1]{}
+\newcommand{\ignore}[1]{}
+\newcommand{\stdI}{\interpretation[state=\nu]}%
+\newcommand{\rsem}[2]{#2\lenvelope#1\renvelope}
+\newcommand{\wsem}[2]{#2\llense#1\rlense}
+\newcommand{\cmlsem}[2]{#2\lmoustach#1\rmoustach}
+\newcommand{\machsem}[2]{#2\llid#1\rlid}
+\newcommand{\cmlcompile}[1]{\ensuremath\texttt{CML}(#1)}
+\newcommand{\cmldet}[1]{\ensuremath\texttt{cmlSandbox}}
 
 \newcommand{\allint}{\mathcal{I}}
 \newcommand{\allworld}{\mathcal{W}}
@@ -298,7 +359,7 @@ Techniques that appeal to the Logician might appall the Engineer because they ar
 The Engineer would rather fix one bug in the implementation than ten bugs in an ideal model, since fixing a bug in the model is not guaranteed to improve the quality of shipped code.
 
 The Logic-User is oft-forgotten, and sits between the Logician and Engineer on the spectrum from theory to practice.
-The Logic-User (called the Proof Engineer by some authors), is the person tasking with employing verification tools at scale.
+The Logic-User (called the Proof Engineer by some authors), is the person tasked with employing verification tools at scale.
 Unlike the Logician, the Logic-User does not obsess with the soundness of proof rules, because they trust that the Logician has implemented the verification tool correctly.
 The Logic-User believes in the value of a verified model, but sympathizes with the Engineer's plea that only a nuanced model could hope to capture the difficulties faced in practice.
 Verification takes time, but the Logic-User expects their time to spent wisely: time should not be wasted on verification tasks that could easily be automated away, and no unnecessary barriers to learning the tool should be erected.
@@ -313,7 +374,7 @@ This comes at cost to the Engineer because state-of-the-art synthesis tools for 
 Prior to this thesis, the Logician also paid the price that \dL's foundations were developed only informally on paper.
 
 Nor is the Logician truly satisfied with any existing approach: while GPITP's have rigorous foundations and support extraction of controllers or monitors, the extraction facilities are not provably correct, nor can the Logician convince themself that the modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs.
-While verified and proof-producing code extracters exist for Coq~\cite{anand2017certicoq} and \Isabelle~\cite{DBLP:conf/esop/HupelN18}, the latter supports a limited feature set and neither addresses the question whether systems are modeled correctly.
+While verified and proof-producing code extractors exist for Coq~\cite{anand2017certicoq} and \Isabelle~\cite{DBLP:conf/esop/HupelN18}, the latter supports a limited feature set and neither addresses the question whether systems are modeled correctly.
 
 \begin{table}[tbh]
   \centering
@@ -865,43 +926,93 @@ Additional features include operations like division, absolute value, and min an
 This has prepared the author for the foundational work that remains in the proposed thesis chapters.
 
 \section{Definite Descriptions in dL}
-% sec:isabelle-fml
 \label{sec:definite-description}
-%TODO: Note just brute but too weak! Required totality which is bogus
-%TODO: Maybe import figures from talk
-While \rref{sec:isabelle-fml} addresses the gap between theory presentations of \dL and its usage in the theorem \KeYmaeraX, it does so in a somewhat brute force way: manually formalizing every extension that has been added to the \KeYmaeraX core over time.
-This is unmaintainable as the number of extensions grows, and moreover we would prefer a definition mechanism where new constructs can be defined without increasing the size of the core.
-That is to say, one of the lessons learned from the work described in \rref{sec:isabelle-fml} is that a more maintainable way to put a theorem prover on bulletproof foundations is to work from both ends at once, not just formalizing the proof calculus in great detail but also redesigning the proof calculus to be more general in the first place, so that what were once a grab bag of extensions are now elegantly described in the core language.
+A significant gap between theory presentations of \dL and its implementation in \KeYmaeraX is that theory presentations of \dL assume all terms are polynomial, while \KeYmaeraX allows extended terms featuring division, exponents, and interpreted functions.
+\rref{sec:isabelle-fml} approached this gap with brute force: division by constants, absolute value, min, and max are added to the language of terms.
+However, the brute-force approach is brittle in multiple ways. 
+Every new construct requires significant additions to the Isabelle/HOL formalization of \dL, which hurts maintainability.
+The extended constructs are not supported in their full generality, either, because \dL expects that all terms are total (defined everywhere) and that continuous systems contain only ($C^\infty$-smooth) continuous terms, since the soundness proofs for \dL axioms are simplest in that case.
 
-Recent work by the author~\cite{DBLP:conf/cade/BohrerFP19} does exactly that by introducing the logic \dLi which extends \dL with a definite description construct $\meps{x}{\phi(x)}$ meaning the unique $x$ (if a unique one exists) such that $\phi(x)$ is true.
-The underlying reason for this extension is that an unending array of extensions to \dL, both past and future, are simply new term constructs which do not fall within the restrictive polynomial language of traditional \dL.
-Because the formula language of \dL is relatively unrestricted, containing all of first-order real arithmetic and dynamic modalities, one can achieve the desired power in the term language through the definite description construct, which effectively imports the powers of the formula language into the term language.
+Recent work by the author~\cite{DBLP:conf/cade/BohrerFP19} develops another approach which both provides these constructs in their full generality and provides a more promising foundation for future extensions, \emph{without} increasing the size of the core when adding new constructs.
+We introduce the logic \dLi~(\rref{fig:dli-overview}) which extends \dL with a definite description construct $\meps{x}{\phi(x)}$ meaning the unique $x$ (if a unique one exists) such that $\phi(x)$ is true.
+Definite descriptions make terms as expressive as formulas, including non-polynomial terms which can be discontinuous or partial.
+Combined with $\dLi$'s pairing construct $(\theta,\eta),$ vector terms are also supported.
 
-This work is of relevance to the overall thesis in two ways.
-First, it justifies the choice to focus primarily on the core polynomial term language in the development of \CdGL, as the foundations of additional terms (albeit a classical foundation) have now been studied in detail.
-Moreover, it again demonstrates the author's ability to work with the foundations of the logic: whereas the work in \rref{sec:isabelle-fml} focused on a painstakingly detailed reproduction of a proof calculus which had largely already been developed, this work required a wholesale overhaul of the semantics underlying \dL, much in the way an extension from classical \dGL to constructive \CdGL will require another semantic overhaul.
+As illustrated in \rref{fig:dli-overview} in blue, \dLi includes interesting foundational changes:
+\begin{itemize}
+\item Because terms are partial, \dLi is a free logic with a 3-valued semantics
+\item The axioms and proof rules of \dL are revised to be valid for \dLi semantics.
+When an axiom requires terms to be continuous or total, the axioms now state these requirements explicitly.
+Significant theorems can proven for differential equations which cannot be written in \dL.
+\item The uniform substitution calculus of \dL is generalized to \dLi with modest changes, despite major semantic differences.
+\end{itemize}
 
-% TODO: Move up/integrate
-It is perhaps surprising that \dLi requires a new semantics in the first place.
-The simplicity of \dL terms is exploited in several ways throughout the theory of \dL, the main properties being that terms are defined everywhere and that they are everywhere infinitely differentiable and locally Lipschitz-continuous, meaning that all differential equations expressible in \dL have guaranteed uniqueness and existence of solutions by the Picard-Lindel\"of theorem.
-The simple addition of definite descriptions invalidates all of these assumptions.
-To deal with this generalization, the term semantics of \dLi are made partial and the formula semantics are recast a 3-valued {\L}ukasiewicz semantics.
-All axioms and proof rules of \dL are then revised so that hold valid over the 3-valued semantics of \dLi and are proven sound again with respect to the new semantics.
-The \dLi calculus maintains as much generality as reasonably possible, so that for example it is possible to prove properties even about systems which do not satisfy uniqueness of solutions.
+\begin{figure}
+\centering
+    \begin{tikzpicture}[scale=1.6]
+    \draw[fill=vblue!20,draw] (0,0) rectangle (1.4,0.275);
+    \draw (0.75,0.125) node  {{\L}ukasiewicz\phantom{y}};
+    \draw[fill=vblue!20,draw] (1.4,0) rectangle (2.7,0.275) ;
+    \draw (2.05,0.125) node {Free Logic};
+    \draw[fill=vblue!20,draw] (2.7,0) rectangle (3.9,0.275);
+    \draw (3.3,0.125) node {$\reals$ Analysis};
+    \draw[fill=vblue!20,draw] (1,0.275) rectangle (2,0.6);
+    \draw (1.55,0.425) node {U.\ Subst.\phantom{y}};
+    \draw[fill=vblue!20,draw] (2,0.275) rectangle (3.23,0.6);
+    \draw (2.58,0.425) node {Ind.\ Types};
+    \draw (2,0.78) node (dle){$\dLi$};
+    \draw (0.75,1) node (part) {Partiality};
+    \draw (1.60,1.5) node (disc) {Discontinuity};
+    \draw (2.73,1.2) node (ext) {Extensibility};
+    \draw (3.25,0.9) node (vect) {Vectoriality};
+    \draw (dle) -- (part);
+    \draw (dle) -- (disc);
+    \draw (dle) -- (ext);
+    \draw (dle) -- (vect);
+\end{tikzpicture}
+\caption{\dLi features and technical challenges}
+\label{fig:dli-overview}
+\end{figure}
 
+In the context of the thesis, this section shows that the extended term language used in practice is amenable to a foundational treatment like those provided by theory.
+This section also qualifies the author for the remaining foundational tasks: whereas \rref{sec:isabelle-fml} focused on a detailed reproduction of an existing proof calculus, 
+\dLi required a wholesale revision of \dL semantics, just as extending \dGL to \CdGL will.
 The theoretical developments for \dLi culminate in soundness and equi-expressiveness proofs with respect to \dL, which very much the same kind of results we aim to achieve for the \CdGL theory.
 
 \subsection{Related Work}
-%TODO: Use figure from talk
-Formalizations of \KeYmaeraX~\cite{DBLP:conf/pldi/BohrerTMMP18}, Coq~\cite{DBLP:journals/jfrea/Barras10}, and NuPRL~\cite{DBLP:conf/itp/AnandR14} all omit or simplify whichever practical features are most theoretically challenging for their specific logic: discontinuous and partial terms in \KeYmaeraX, termination-checking in Coq, or context management in NuPRL.
+As shown in \rref{fig:prover-formalizations}, there are formalizations of \KeYmaeraX~\cite{DBLP:conf/pldi/BohrerTMMP18}, Coq~\cite{DBLP:journals/jfrea/Barras10}, NuPRL~\cite{DBLP:conf/itp/AnandR14}, and HOL4~\cite{DBLP:journals/jar/KumarAMO16}, connecting each to its logical foundation.
+With the possible exception of HOL4, each formalization omits features which are theoretically challenging for their specific logic: discontinuous and partial terms in \KeYmaeraX, termination-checking in Coq, or context management in NuPRL.
+Thus only a subset of the implementation is guaranteed sound.
 When formalizations of theorem provers \emph{do} succeed in reflecting the implementation~\cite{DBLP:journals/jar/KumarAMO16}, they owe a credit to the generality of the underlying theory: it is much more feasible to formalize a general base theory than to formalize ad-hoc extensions as they arise.
 Our calculus, as with modern implementations~\cite{DBLP:conf/cade/FultonMQVP15} and machine-checked correctness proofs~\cite{DBLP:conf/cpp/BohrerRVVP17} for \dL, is based on uniform substitution~\cite[\S35,\S40]{Church:1956}: symbols ranging over predicates, programs, etc. are explicitly represented in the syntax.
 This improves the ease with which \dLi can be implemented and its soundness proof checked mechanically in future work.
 We show that in contrast to \dL, \dLi can directly represent a hybrid system featuring such ODEs, which we base on Hubbard's leaky bucket~\cite[\S4.2]{Hubbard}.
 Then the water drains out the cooler at a rate proportional to the square root of the current volume  by Torricelli's Law~\cite{driver1998torricelli}, or rate 0 if the valve is closed.
 In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b}, they are equipped with an induction operator, making it easier to write sophisticated computations.
-%\irref{DI} is the \emph{differential induction}~\cite{DBLP:journals/logcom/Platzer10}
-%Quantifier elimination rule \irref{QEeps} says first-order arithmetic, a fragment, is decidable~\cite{tarski1998decision}.
+%
+\newcommand{\circsize}{0.3in}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=1.6]
+    \draw (0,2) node {Prover};
+    \draw (1,2) node[rectangle,fill=vblue!20,draw] (nuprl) {NuPRL};
+    \draw (2,2) node[rectangle,fill=vblue!20,draw] (coq) {Coq};
+    \draw (3.3,2) node[rectangle,fill=vblue!20,draw] (kyx) {\KeYmaeraX};
+    \draw (4.6,2) node[rectangle,fill=vblue!20,draw] (hol4) {HOL4};
+    \draw (0,1) node {Challenge};
+    \draw (0,0) node {Foundation};
+    \draw (1,0) node[circle,fill=vblue!20,draw,text width=\circsize] (nuprl-log) {PRL};
+    \draw (2,0) node[circle,fill=vblue!20,draw,text width=\circsize] (coq-log) {CIC};
+    \draw (3.3,0) node[circle,fill=vblue!20,draw,text width=\circsize] (kyx-log) {\dL};
+    \draw (4.6,0) node[circle,fill=vblue!20,draw,text width=\circsize] (hol4-log) {HOL};
+    \draw [style=dashed,line width=0.6mm] (nuprl) -- (nuprl-log) node[midway,right=0.025in]  {$\Gamma$};
+    \draw [style=dashed,line width=0.6mm] (coq) -- (coq-log) node[midway,right=0.025in]  {$\Downarrow$};
+    \draw [style=dashed,line width=0.6mm] (kyx) -- (kyx-log) node[midway,right=0.025in]  {$\rightharpoonup, C^\infty$};
+    \draw [-,line width=0.6mm] (hol4) -- (hol4-log) node[midway,above=0.025in,sloped]  {\citeyear{DBLP:journals/jar/KumarAMO16}};
+    \end{tikzpicture}
+\caption{Prover formalizations and challenges}
+\label{fig:prover-formalizations}
+  \end{figure}
 
 \chapter{Completed Work:  End-to-End Robot Verification}
 %ch:logical-foundations
@@ -912,43 +1023,69 @@ We begin by motivating end-to-end verification and defining it, then give our ap
 
 \section{\VeriPhy Pipeline for End-to-End Verification}
 \label{sec:veriphy}
-%TODO: Main figures from slides and paper would help
-As discussed in the introduction (\rref{ch:introduction}), end-to-end verification of CPS is in part motivated by the same factors as CPS in general: CPS such as self driving cars and robots are often safety critical because of their proximity to humans, and formal methods are a powerful tool for insuring that these critical systems are in fact safe enough to be trusted around humans. Because CPS are only growing more and more popular over time, any work that addresses their safety is poised to increase in impact, as well.
-
-%TODO: Rewrite as thecal motivation not paper motivation, use characters
-To fully motivate end-to-end verification, however, one must assess the key question of what it even \emph{means} to verify the safety of a CPS.
-When we first learn how to prove theorems in math class, we may not always know how to do the proof, or we may not always know whether a proof has sufficient detail, but it is almost always clear \emph{what} we are trying to do, because the theorems we prove come from a longstanding mathematical tradition with an established library of well-defined and well-understood mathematical terms: there is little debate today what it means to be a real number, nor what it means to be a group.
-As soon as we enter the realm of even discrete programs, this changes entirely. Not only might programs be written in an endless and ever changing array of programming languages, but it is no longer clear what we want to prove about a program. On one end of the spectrum we might simply prove that a program satisfies a simple property like termination or absence of segfaults and call it a day, while at the other end of the spectrum we might develop a full functional specification and prove that the entire specification is met. In practice, we often want something in between, because the more expressive a program property is, typically the harder it is to prove. All of this is also compounded by the nature of software: while the real numbers change only occasionally (with the advent of fields like nonstandard analysis or constructive analysis \texttt{;-)}), real software can change hundreds of times per day. Many interesting programs can only be proved with the intervention of humans, and it is a total nonstarter to ask a human to perform the verification of a complex program hundreds of times per day.
-
-These issues only grow more pernicious in CPS, where physics enters the mix as well.
-It is equally true in CPS that code evolves and should not need to be constantly reverified by hand.
-%TODO "Most general" is too vague
-It is even more true that it becomes difficult to nail down a proper specification: not only are there a variety of possible properties to prove, but because CPS's are fundamentally constrained by the laws of physics, the most general properties are often not provable because they are \emph{simply false}: A car cannot avoid collision if it is an inch behind an intruder vehicle that slams on its breaks, nor can a car avoid collisions if its sensors exhibit an arbitrarily large error.
-Even once a specification has been identified, proving it is now more difficult because the verification of CPS spans several subspecialties of verification which require diverse reasoning principles.
-%TODO: Committee won't know what controls level is
-At the controls level (which is the focus of this thesis), CPS verification must reason seamlessly about both discrete control code and continuous dynamical systems (differential equations) that describe the kinematics of the system. Furthermore, these arguments are by far easiest to make at a high level of abstraction where controls are nondeterministic, variables are real-valued, and time evolves continuously (which also provides the strongest results), yet we expect results to hold of a low-level implementation where control is deterministic, variables have finite arithmetic precision, and a controller can only sense every so often.
-This is without even considering stochastic, distributed, and adversarial dynamics, let alone vulnerabilities in the network stack.
-
-All of this goes to say, that in seeking end-to-end verification of CPS, in seeking the strongest possible results about CPS as they exist in actual implementation and not merely in mathematical models, \emph{identifying the right question is half the battle}.
-As soon as we seek to nail down a definition of end-to-end verification, we will realize this is in fact a moving target.
-It is unfeasible to summarily verify every desirable property of every sensor, actuator, and controller, simply because a cornucopia of such components exist, all of which are in constant flux: 
-If today we prove that today's controller is correct, Murphy's Law dictates that a superior controller is released for purchase tomorrow.
-With all the considerations in mind, it is less essential to ensure that every conceivable component of the CPS has been verified in full, but rather to devise and carry out an approach where:
-\begin{enumerate}
-\item \label{item:evolution} Control software is free to evolve without reverification
-\item \label{item:end-to-end} Safety of the system as it is implemented can be tied formally to a rigorous theoretical foundation
-\item \label{item:high-level} When a human is required to perform verification, they are allowed to do so at a high level (hybrid systems) with their results automatically transported to implementation level
-\item \label{item:open-ended} The architecture is open-ended enough that one could plausibly verify those components whose correctness is presently assumed.
-\end{enumerate}
-While it is specifically because of requirement \ref{item:end-to-end} that we call our work \emph{end-to-end}, the author believes that all of the above are essential for verification to be applicable in realistic systems while still claiming full generality and full rigor.
+Recall our notion of end-to-end verification from \rref{ch:introduction}: we wish to produce formal guarantees that apply to practical implementations of a CPS by proving that the implementation refines a provably safe hybrid system model.
+We wish for the refinement process to be fully automatic for the sake of the Engineer who builds the CPS and does not want to do formal proofs.
+Granted, the Engineer will need the Logic-User's help to verify the hybrid system model, but this is done only once: it is more important that we need not redo manual proofs each time the Engineer changes their code.
+At the same time, each refinement step should provide machine-checkable evidence, in order to satisfy the Logician that the proof is correct.
 Our approach, which we will refer to as the \VeriPhy approach (as it is implemented in our tool \VeriPhy), achieves all of the above, as we will now describe.
 
-Requirement \ref{item:evolution} effectively requires a significant \emph{runtime verification} component, where the safety of control decisions is checked online, and potentially-unsafe decisions are replaced by provably safe ones.
-Requirements \ref{item:end-to-end} and \ref{item:high-level} entail an equally significant hybrid systems verification component.
-Requirement \ref{item:open-ended}, arguably the easiest to satisfy, can be satisfied by providing a clean interface between those components which are proven correct and those which are trusted.
+In light of the fact that a real Engineer might use languages where formal verification is difficult, and that their code may change hundreds of times per day, the \VeriPhy approach employs runtime monitoring so that the Engineer's controller is untrusted.
+Specifically, we monitor whether the implementation complies to the source-model.
+The Logic-User wants source-model verification to be as simple as possible and the Logician wants safety of the model to closely match an intuitive notion of real-world safety.
+For these reasons, the source-model is a hybrid program, verified in \KeYmaeraX with \dL.
 
-With all these requirements in mind, the \VeriPhy approach starts with modeling and verifying a hybrid system in \dL using \KeYmaeraX.
-The \VeriPhy tool then synthesizes an \emph{executable correct-by-construction monitor}  as follows:
+\begin{figure*}[tb]
+\centering
+\includegraphics[width=6in]{graphics/veriphy-overview.png}
+%\resizebox{6in}{!}{
+%\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.0cm,
+%  thick,
+%  model node/.style={rectangle,rounded corners,text centered,fill=black!20,draw,font=\sffamily,inner xsep=0pt,text width=2.7cm},
+%  container/.style={rectangle,text centered,draw,fill=gray!10,font=\sffamily,dashed}
+%  ]
+%  \tikzstyle{stepbox}=[minimum height=3.3\baselineskip]
+%  \tikzstyle{outbox}=[]
+%  \tikzstyle{optbox}=[dashed]
+%\node[model node,stepbox,text width=2.7cm] (model) at (0,0) {CPS Model (\dL)\\$\phi \limply\dibox{\prepeat{\alpha}}\psi$};
+%&\node[model node,outbox,text width=2.5cm,below=1.8cm of model] (safetyproof) {System safe\strut};
+%\node[model node,stepbox,right=1.1cm of model] (ivmonitor) {Sandbox (\dL)\\ $\phi \limply \dbox{\sandbox}\psi$};
+%\node[model node,outbox,below=1.8cm of ivmonitor] (ivmonitorproof) {Sandbox safe\strut};
+%\node[model node,outbox,right=1.3cm of ivmonitorproof,yshift=0.1cm] (ptproof) {Intervals, checker sound};
+%\coordinate[above=2.2cm of ptproof] (ptanchor);
+%\node[model node,outbox,right=0.8cm of ptproof] (cakeproof) {Compilation sound\strut};
+%\node[model node,stepbox,above=1.5cm of cakeproof] (cake) {Sandbox\\ (ARM/x64 exec.)};
+%
+%%step numbers and names
+%\node[above=0cm of model,align=center] {Step 1\\\strut Prove model safety};
+%\node[above=0cm of ivmonitor,align=center] (step3text) {Step 2\\\strut Synthesize safe sandbox};
+%\node[above=0cm of cake,align=center] {Step 3\\\strut Compile};
+%
+%\draw[-,black,very thick,dashed] (ptproof) -- node[anchor=east,align=center,pos=0.34] {Soundness proof\\PLDI \citeyear[\S2]{DBLP:conf/pldi/BohrerTMMP18}} (ptanchor);
+%\draw (model) -- node[anchor=east,align=center] {Safety proof\strut\\PLDI \citeyear[\S3]{DBLP:conf/pldi/BohrerTMMP18}} (safetyproof);
+%\draw (model) -- node (myxtactic) {} (ivmonitor);
+%\draw (ivmonitor) -- node (ivtactic) {} (cake);
+%\draw (ivmonitor) -- node[anchor=east,align=center] {Safety proof\strut\\PLDI \citeyear[\S4]{DBLP:conf/pldi/BohrerTMMP18}} (ivmonitorproof);
+%\draw (ivmonitor) -- node (isartactic) {} (cake);
+%\draw (ivmonitor) -- (cake) node[pos=0.2] (mid45) {};
+%\draw (cake) -- node[anchor=west,align=center] {Soundness proof\\PLDI \citeyear[\S5]{DBLP:conf/pldi/BohrerTMMP18}} (cakeproof);
+%
+%
+%\draw[decoration={brace,amplitude=1em},decorate,black,-]
+%    let \p1=($(safetyproof.south west)-(0,1ex)$), \p2=($(ivmonitorproof.south east)-(0,1ex)$) in
+%    ({\x2}, {\y2}) -- node[below=2ex] {\KeYmaeraX} ({\x1}, {\y1});
+%
+%\draw[decoration={brace,amplitude=1em},decorate,black,-]
+%    let \p1=($(ptproof.south west)-(0,1ex)$), \p2=($(ptproof.south east)-(0,1ex)$) in
+%    ({\x2}, {\y2}) -- node[below=2ex] {\Isabelle} ({\x1}, {\y1});
+%
+%\draw[decoration={brace,amplitude=1em},decorate,black,-]
+%    let \p1=($(cakeproof.south west)-(0,1ex)$), \p2=($(cakeproof.south east)-(0,1ex)$) in
+%    ({\x2}, {\y2}) -- node[below=2ex] {HOL4+CakeML} ({\x1}, {\y1});
+%\end{tikzpicture}}
+%\vspace{-0.06in}
+\caption{High assurance artifacts and steps in the \VeriPhy verification pipeline}
+\label{fig:pipelineoverview}
+\end{figure*}
 \begin{itemize}
 \item The \ModelPlex tool is invoked to synthesize a \emph{control monitor formula} and \emph{plant monitor formula}, which determine whether control decisions and physical evolutions respectively satisfy the assumptions made of them by the model
 \item The monitors are combined with a proven-safe \emph{fallback controller} (which is provided in the input model) to form a \emph{sandbox controller}.
@@ -961,11 +1098,36 @@ The \VeriPhy tool then synthesizes an \emph{executable correct-by-construction m
 \item The equivalent CakeML program is compiled to machine code in a verified compiler
 \item The machine code is linked against the users' implementation of sensors and actuators
 \end{itemize}
-Each step is provably a refinement of the step before it, culminating that any execution of the machine-code running on the actual CPS is corresponds to some execution of the source hybrid system.
+Each step is provably a refinement (\rref{fig:proofchainoverview}) of the step before it, culminating that any execution of the machine-code running on the actual CPS is corresponds to some execution of the source hybrid system.
 Because all executions of the source hybrid system were proven safe already, then the execution of the actual CPS is also known to be safe.
+
 Notably, the sensors and actuator drivers, which are provided by the users of \VeriPhy, are trusted.
-Yet requirement \label{item:open-ended} is satisfied: the sensors and actuators (correspond directly to the sensor and actuator variables in the hybrid system model) are isolated in a small foreign-function interface which has a simple specification in HOL4.
-It is not unrealistic to suggest that one day, we could verify sensors and actuators against these specifications in HOL4, at least given some weaker assumptions.
+We justify this by noting that verification of sensing and actuation is a moving target: their hardware changes frequently, and their verification would require rewriting models and their proofs every time that hardware changes.
+Because models of hardware still require assumptions on the physical behavior of the hardware's components, even this would not eliminate the trusted hardware base.
+For these reasons, \VeriPhy prioritizes providing a simple and well-specified interface for sensing and actuation, which leaves open the possibility of verifying these components in future work.
+This interface consists of a handful of CakeML foreign-functions, which have precise specifications in HOL4.
+\newcommand{\goback}{\!\!}
+\begin{figure}[htb]
+\vspace{-0.15in}
+\begin{align*}
+\iget[state]{\It} & \models \psi \\
+& \Uparrow && \goback\text{\small{by \cite[Thm.\ 4]{DBLP:conf/pldi/BohrerTMMP18}}}\\
+(\iget[state]{\I},\iget[state]{\It}) &\in \underbracket{\iaccess[\sandbox]{\I}}_{\text{\dL (\KeYmaeraX)}} && \goback\text{\parbox{4cm}{\small{Real arithmetic,\\ nondeterministic}}} \\[-2ex]
+& \Uparrow && \goback\text{\small{by \cite[Thm.\ 8]{DBLP:conf/pldi/BohrerTMMP18}}} \\
+\bigl(\iget[state]{\I}_I,\iget[state]{\It}_I\bigr) &\in \underbracket{\wsem{\sandbox}{}}_{\text{\dL (Isabelle/HOL)}} && \goback\text{\parbox{4cm}{\small{Interval word arithmetic,\\ nondeterministic}}} \\[-2ex]
+& \Uparrow && \goback\text{\small{by \cite[Thm.\ 10]{DBLP:conf/pldi/BohrerTMMP18}}}\\
+\bigl(\cmlsem{\iget[state]{\I}}{},\cmlsem{\iget[state]{\It}}{}\bigr) &\in \underbracket{\cmlsem{\cmldet{\sandbox}}{}}_{\text{CakeML (HOL4)}} && \goback\text{\small{\parbox{4cm}{Interval word arithmetic,\\ deterministic}}} \\[-2ex]
+& \Uparrow && \goback\text{\small{by CakeML compiler~\cite{DBLP:conf/icfp/TanMKFON16}}}\\
+\bigl(\machsem{\iget[state]{\I}}{},\machsem{\iget[state]{\It}}{}\bigr) &\in \underbracket{\machsem{\cmlcompile{\cmldet{\sandbox}}}{}}_{\text{ARM/x64}} && \goback\text{\parbox{4cm}{\small{Interval word arithmetic,\\ machine-executable}}}
+\vspace{-0.15in}
+\end{align*}
+\caption{End-to-end proof chain for end-to-end result}
+\label{fig:proofchainoverview}
+\end{figure}
+\rref{fig:proofchainoverview} shows the chain of formal safety properties proven for the artifacts given in \rref{fig:pipelineoverview}.
+One major challenge is that our notion of end-to-end verification demands crossing multiple levels of abstraction, from hybrid systems down to discrete arithmetic and finally machine-code.
+For this reason, we incorporated several provers: \KeYmaeraX is used for the source-model proof, Isabelle/HOL is used for the translation into discrete arithmetic, and HOL4 with its verified CakeML compiler is used for final compilation to machine-code.
+If we wish to verify sensing and actuation in the future, this could be done by proving in HOL4 that the hardware drivers implement their specifications.
 
 \subsection{Related Work}
 \paragraph{Verified Compilation.}
