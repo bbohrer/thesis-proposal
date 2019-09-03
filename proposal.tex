@@ -897,17 +897,17 @@ These works not only attest that an adequate theoretical foundation has been lai
 When we perform proofs in \dL (or likewise in \dGL), we wish to know that theorem we believe we have proved is indeed true.
 This property is called soundness, and paper proofs of soundness are provided in the papers which developed a sequent calculus~\cite{DBLP:journals/jar/Platzer08} and uniform substitution~\cite{DBLP:journals/jar/Platzer17} calculus for \dL, of which the latter is the basis for the implementation of \dL in the theorem prover \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
 However, proofs on paper are notoriously susceptible both to
-\begin{inparaenum}
-  \item errors in human logical reasoning and
-  \item even more often, errors by omission: paper proofs often focus on the simplest cases of the proof, providing no evidence that the implementation will continue to be correct in the most difficult cases, exactly when it is most in need of formal assurance.
+\begin{inparaenum}[i)]
+  \item soundness errors by human logical blunder and
+  \item even more often, completeness errors by omission: 
+    paper proofs often focus on the simplest cases of the proof, providing no evidence that the implementation will continue to be correct in the most difficult cases, exactly when it is most in need of formal assurance.
 \end{inparaenum}
 Errors of both kinds can be most robustly addressed by formalizing the entire development of the proof system in a general-purpose proof assistant such as Isabelle~\cite{ISABELLE} or Coq~\cite{COQ}, starting from syntax and semantics up to axioms and ultimately a soundness theorem for an entire proof-checking procedure.
 Errors of the first kind are the easiest to address: assuming we have not accidentally exploited a bug in the host prover, an erroneous logical step in the mechanized proof will simply be rejected by the prover.
 To totally eliminate errors of the second kind requires a more ambitious effort: once we have formalized \dL in another prover, how do we know that we have formalized every important feature and that we have not forgotten one?
 After all, if we forget to include a certain feature in our paper proof, we might very easily forget it in a mechanized proof as well, and because this is not a soundness error, we will not catch it simply by attempting to prove soundness in the prover.
 
-%TODO: Refine
-Errors of the second kind can be addressed by completing the circle, so to speak: modern theorem provers contain code generation facilities which can be used to synthesize a proof checker from an appropriately-written formal development.
+Errors of the second kind can be addressed experimentally by a change of perspective: instead of asking whether our proof matches the existing implementation, we can use a theorem prover's code generator to synthesize a proof checker from a formalization of the proof system.
 If that proof checker is willing to accept the \dL proofs that are constructed in practice, then there is little question to the exhaustiveness of the development, because no matter whether the paper proof and mechanized proof forgot to account for some feature from the implementation, the implementation itself certainly cannot forget.
 While the work involved in bringing a mechanization up to speed with the practical implementation can be significant, there is also a second payoff: the resulting proof checker is guaranteed sound by construction, and can be used as a backup for the standard \KeYmaeraX prover core, effectively removing the core from the trusted computing base.
 
