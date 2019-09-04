@@ -473,9 +473,10 @@ Works which are relevant primarily to one chapter are discussed in that chapter.
 
 
 \subsection{Verification of Theorem Provers}
-%TODO: Tighten up. Why hard, why different early on.
-The contributions of the thesis include a formalization of \dL in \Isabelle (\rref{sec:isabelle-fml}) which has been used to generate a verified proof-term checker for \dL (\rref{sec:veriphy}).
-We compare these contributions to other works on theorem prover verification.
+Because theorem-provers are used to ascertain the correctness of critical systems, their own correctness is essential.
+This thesis includes a formalization of \dL in \Isabelle (\rref{sec:isabelle-fml}) which has been used to generate a verified proof-term checker for \dL (\rref{sec:veriphy}).
+We compare our contributions to other works on theorem prover verification.
+In general, the differences among formalizations mirror the differences among the underlying logics, so the unique features of our work include real analysis proofs and an explicit treatment of substitution.
 
 Barras and Werner~\cite{Barras:1997} verified a typechecker for a fragment of Coq in Coq.
 Harrison~\cite{Harrison:2006} verified (1) a weaker version of HOL Light's kernel in HOL Light and (2) HOL Light in a stronger variant of HOL Light.
@@ -530,17 +531,18 @@ The tradeoff is that verification is undecidable, and serious case studies usual
 The \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} theorem prover implements \dL and provides significant automation to minimize the number of interactions required.
 \dL and \KeYmaeraX have been applied in a number of case studies~\cite{DBLP:conf/cade/Platzer16}.
 
-% TODO: Why case study, where does that fit into thesis
-Our case study (\rref{sec:ground-robotics}) generalizes a \dL proofs of  1D straight-line motion (with direct velocity control)~\cite{DBLP:conf/pldi/BohrerTMMP18}, of 2D obstacle avoidance, and 1D liveness~\cite{DBLP:conf/rss/MitschGP13,DBLP:journals/ijrr/MitschGVP17}.
+This thesis includes a case study which we use to assess \VeriPhy's ability to verify realistic systems.
+Our case study generalizes a \dL proofs of 1D straight-line motion (with direct velocity control)~\cite{DBLP:conf/pldi/BohrerTMMP18}, of 2D obstacle avoidance, and 1D liveness~\cite{DBLP:conf/rss/MitschGP13,DBLP:journals/ijrr/MitschGVP17}.
 A paper proof of liveness using \dL rules assumed perfect sensing and constant speed \cite{DBLP:journals/corr/abs-1709-02561}.
 Their controllers, like ours, are closely related to the classic \textsc{Dynamic-Window}~\cite{DBLP:journals/ram/FoxBT97} control algorithm.
 In contrast to the prior \dL effort, we offer stronger results, including 2D liveness, waypoint-following, and end-to-end correctness.
 
 \subsubsection{Synthesis for Planning and Control}
-%TODO: Defend why good
-The completed works on robotics verification (\rref{sec:ground-robotics}) and end-to-end verification (\rref{sec:veriphy}) do not explicitly verify the planner and controller, though they could in principle be combined with a verified planner~\cite{DBLP:conf/atva/RizaldiISA18}.
-An alternative approach is to synthesize the controller and/or planner, and we will explore controller synthesis in the proposed work (\rref{ch:proofplex})
-Others have explored synthesis of plans and controls, but none of them address correctness of low-level feedback control, and all trust the correctness of their kinematic models:
+Low-level controllers are an important part of any CPS, so their correctness is an important part of CPS correctness.
+Our approach to end-to-end verification (\rref{sec:veriphy}) uses correct-by-construction synthesis of monitors to remove low-level controllers from the trusted base for safety.
+However, correctness of controllers is still important to ensure \emph{liveness}, and our case study (\rref{sec:ground-robotics}) assumes high-level plans as an input, while correctness of high-level plans is an interesting problem in its own right~\cite{DBLP:conf/atva/RizaldiISA18}.
+In proposed work~(\rref{ch:proofplex}), we will complement our monitor synthesis with correct-by-construction low-level controller synthesis.
+Related works have explored planning and control synthesis at the high level, with correctness assumptions on the kinematic models:
 \begin{itemize}
 \item The tools LTLMoP~\cite{DBLP:conf/iros/FinucaneJK10} and TuLiP~\cite{DBLP:conf/IEEEcca/FilippidisDLOM16} can synthesize robot controls that satisfy a high-level temporal logic specification.
 However, they depend on accuracy of their kinematic models, which assume  discrete-space and discrete-time, and the guarantees are not end-to-end.
@@ -551,7 +553,6 @@ However, they depend on accuracy of their kinematic models, which assume  discre
 \item for adaptive cruise control~\cite{DBLP:journals/tcst/NilssonHBCAGOPT16}, tested in simulation and on hardware, and
 \item from safety proofs~\cite{DBLP:conf/emsoft/TalyT10} for switched systems using templates,
 \end{inparaenum}
-but those works assume model compliance and cannot ensure low-level controller correctness.
 \end{itemize}
 
 \subsubsection{Online Verification}
@@ -565,8 +566,7 @@ However, the guarantees of online verification are weaker and often lack a clear
 Since reachability tools rely on large, complicated codebases and models are challenging to get right, these assumptions present a correctness gap which stands in the way of an end-to-end argument.
 \item \ModelPlex is a tool for synthesizing monitors (for both the controller and plant) from proven-safe \dL models in \KeYmaeraX.
   However, it simply synthesizes a \dL formula describing the monitored conditions, not an executable program.
-%TODO: Careful about how we criticize
-  Its present implementation only supports special cases of \dL and often fails mysteriously when applied outside this fragment.
+  Until extensions concurrent with this thesis~\cite{DBLP:journals/corr/abs-1811-06502}, \ModelPlex was also restricted to only hybrid systems whose differential equations have polynomial solutions.
 \item High-Assurance SPIRAL~\cite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17} is a compilation toolchain for \ModelPlex-synthesized monitors for \dL, but does not provide formal end-to-end guarantees, and has not been used to develop an end-to-end system capable of free-range 2D driving.
 \item A contribution of this thesis is the \VeriPhy~\cite{DBLP:conf/pldi/BohrerTMMP18} toolchain for \dL.
   \VeriPhy extends SIMPLEX by ensuring the monitor is correct-by-construction (via \ModelPlex), formally proving the safety of the resulting system, and automatically maintaining safety down to machine code implementation.
@@ -614,8 +614,7 @@ While the already-completed thesis chapters (\rref{ch:logical-foundations}, \rre
   \item an introductory understanding of \dGL will also provide an introductory understanding of \dL.
 \end{inparaenum}
 While the syntax of \dGL and \dL are nearly identical, their semantic differences are deep: \dL is a regular modal logic whose denotational semantics can be and are given in the forward-chaining, relational Kripke style, while \dGL is a subregular logic with a backward-chaining winning-region semantics.
-%TODO: Either delete or add the axioms here
-While many basic axioms are the same in \dL and \dGL, some are necessarily different because \dGL is subregular: for example, Kripke's axiom K fails in \dGL and is in practice subsumed by a monotonicity rule.
+
 \section{Syntax}
 \label{sec:dgl-syntax}
 We introduce the syntax and informal meaning of \dGL here, then introduce the winning-region semantics formally in \rref{sec:dgl-semantics}.
@@ -642,8 +641,7 @@ We write conjunctions $\phi \land \psi,$ negations $\phi \lor \psi,$ disjunction
 The diamond modality $\ddiamond{\alpha}{\phi}$ says that the player who is actively making decisions (typically named Angel) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
 The box modality $\dbox{\alpha}{\phi}$ says that the player who is not currently making decisions (typically named Demon) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
 Because \dGL is a classical logic, it is worth noting that the formula syntax is not minimal: many constructs such as implication, equivalence, disjunction, universal quantifiers, and the box modality are all definable classically.
-%TODO: cite
-This will not be the case in the proposed logic \CdGL because these dualities do not hold constructively.
+This will not be the case in the proposed logic \CdGL (\rref{ch:cgl}) since some of the definitions are valid only classical, not constructively.
 
 \begin{definition}[Hybrid games]
 Games are defined by the following grammar:  
@@ -653,17 +651,28 @@ where $\humod{x}{\theta}$ stores the current value of term $\theta$ in program v
 In nondeterministic assignment $\prandom{x},$ Angel chooses a value $r \in \mathbb{R}$ to assign to $x$.
 Program $\pevolvein{\D{x}=\theta}{\phi}$ evolves $x$ continuously according to the differential equation (ODE) $\D{x}=\theta$ for a duration $d \geq 0$ of Angel's choosing, but Angel must ensure that $\phi$ is true throughout the evolution of $\D{x}=\theta,$ else they lose.
 In game $\pchoice{\alpha}{\beta},$ Angel chooses whether to play game $\alpha$ or game $\beta$.
-In game $\alpha;~\beta$ the players must first play $\alpha$ and then play $\beta$; this case is largely responsible for the need to employ backward-chaining semantics in \dGL, as it is most natural to first ask from what region $X$ $\beta$ is winnable, then ask from what region does Angel have a strategy to reach $X$ when playing $\alpha$.
-%TODO: Grammar
+In game $\alpha;~\beta$ the players must first play $\alpha$ and then play $\beta$; this case is largely responsible for the need to employ backward-chaining semantics in \dGL, as it is most natural to first ask from what region $X$ is there a winning strategy for $\beta$, then ask from what region does Angel have a strategy to reach $X$ when playing $\alpha$.
 In the iterated game $\prepeat{\alpha}$, Angel decides at the end of each loop iteration whether to continue playing $\alpha$ another time.
 All plays must be finite (Angel must stop eventually), but Angel need not decide a-priori \emph{when} to stop, let alone announce that decision to Demon beforehand.
 If Angel cannot reach the goal region without repeating $\alpha$ infinitely, then Angel loses.
 To play the dual game $\pdual{\alpha},$ Angel and Demon switch roles then play game $\alpha$ in their new roles.
 That is, the player previously known as Demon makes the decisions in $\alpha,$ at least until another dual operator is encountered.
 We parenthesize hybrid games $\{ \alpha \}$ for clarity and disambiguation as needed.
+We will sometimes speak of \emph{demonic} loops, choices, etc., which are derived from the angelic forms as follows:
+\begin{align*}
+\alpha^\times &\equiv \{\prepeat{\{{\alpha{}\pdual{}}\}}\}{\pdual{}}                 & \pdual{\ptest{\phi}}      &\equiv \pdual{\{\ptest{\phi}\}}\\
+\alpha \cap \beta  &\equiv \left\{\pdual{\alpha} \cup \pdual{\beta}\right\}\pdual{} & \pdual{\pevolvein{\D{x}=\theta}{\psi}} &\equiv \pdual{\{\pevolvein{\D{x}=\theta}{\psi}\}}\\
+\pdual{\humod{x}{\theta}} &\equiv \humod{x}{\theta}                                      & \pdual{\{\alpha;~\beta\}} &\equiv \pdual{\alpha};~\pdual{\beta} 
+\end{align*}
+In a Demonic test, Demon controls \emph{only} the duration of the loop, then returns control to Angel during the body.
+Likewise, Demon controls only which branch is taken in a demonic choice.
+In Demonic tests and differential equations, Demon is responsible for passing the test or satisfying the domain constraint.
+In the latter, Demon also chooses the duration.
+Deterministic assignment and sequential competition are self-dual, so their Demonic forms are identical to the Angelic.
 
 
-% TODO: Careful, change liveness+safety discussion to Angel+Demon, discuss why games better
+
+
 We now give an example hybrid game and example safety and liveness properties.
 The game in \rref{ex:driving-game} is a generalization of a standard hybrid systems model to a hybrid game.
 \begin{example}[Acceleration-Controlled 1D Driving]
@@ -677,25 +686,23 @@ The game in \rref{ex:driving-game} is a generalization of a standard hybrid syst
 \end{example}
 The first line \rref{eq:driving-init} is an initialization phase: we (Angel) call the current position $x = 0$ and are initially stopped ($v = 0$).
 The opponent then picks how far away our obstacle (\obsvar) is and how long Angel will have to wait between control decisions ($T$).
-They also pick Angel's maximum braking rate $B$ and maximum acceleration rate $B$.
+They also pick Angel's maximum braking rate $B$ and maximum acceleration rate $A$.
 One could argue on principle that neither player really picks the timestep $T,$ in practice this is determined by the speed of the robot's processors, sensors, and actuators, as well as the speed of its control program.
 However, what's important is that robot's controller (the Angel player) is \emph{not} the one who picks, so a conservative model should assume the worst, which is that their opponent (the environment) gets to pick.
 The same goes for the rates $A$ and $B$.
 It would also be eminently unreasonable if the obstacle already collided with the robot at the start of the game, and would be nonsensical if the control cycle lasted zero time or less, or if the robot could not accelerate or brake, thus the environment is responsible for picking positive $\obsvar, \Tvar, \Avar$, and  $\Bvar,$ else they lose by default and Angel wins immediately.
-The remainder of the game is a \emph{demonic loop} $\alpha^\times$ where the Demon player controls the duration, which can be derived $\alpha^\times \equiv {\prepeat{{\alpha{}\pdual{}}}}{\pdual{}}$.
-%TODO: write all the derived operators
+The remainder of the game is a demonic loop $\alpha^\times$ where the Demon player controls the duration.
 Angel's turn consists of making a control decision by setting the acceleration $a$.
 Angel has near complete freedom to set the acceleration: they may set any value ($\prandom{a}$) so long as it is within the physical limits of the car ($\ptest{-B \leq a \land a \leq A}$).
 It is Angel's responsibility to do so, and they lose the game if the acceleration is out of bounds.
 Next, the car moves according to ideal Newtonian physics: the velocity $v$ continuously changes according to acceleration $a$ while position changes continuously according to the velocity.
 Demon (the environment) controls the duration of the ODE, but is constrained to the timestep $t \leq T$: i.e., Angel's control action must be safe even if Demon chooses not to use the full time budget, but need not be safe past time $T:$ in that case Demon is responsible for breaking the rules, so Angel wins.
 The equation $\D{t}=1$ simply says that $t$ represents the time elapsed in the current ODE run.
-
-We write $\alpha_*$ for $\alpha_\times$ with an Angelic loop.
+The remainder of the game is a \emph{demonic loop} $\alpha^\times$ where the Demon player controls the duration.
+We also write $\alpha_*$ for $\alpha_\times$ with an Angelic loop.
 
 We give examples of safety and liveness theorems:
-%TODO: Check these for correctness
-\begin{example}[1D Game Safety and Liveness]
+\begin{example}[1D Driving Game Safety and Liveness]
   \begin{align*}
     \textit{safe} &\equiv \ddiamond{\alpha_\times}{\xvar \leq \obsvar}\\
     \textit{live} &\equiv \ddiamond{\alpha_*}{\left(\xvar \geq \obsvar \lor t \leq \frac{T}{2}\right)}
@@ -729,8 +736,7 @@ This is because the \emph{strategy} by which acceleration is chosen must be expl
 Why are \rref{ex:driving-game} and game models in general simpler? % $\alpha_{\textrm{Sys}}$ so much longer than 
 A typical game model has shape $\prepeat{(\pdual{\ctrl};~\plant)},$ where the turn-taking (or dual) operator $\pdual{\alpha}$ has the affect of alternating between the modalities $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$.
 Most often, we wish to show that there \emph{exists} a control choice where \emph{all} behaviors of the environment are safe and live, and so on for all iterations of the system.
-%TODO: Cite
-The ability to express this pattern is exactly what distinguishes \dGL from \dL.
+Such iterated modality alterations are precisely the one pattern expressible in \dGL but not \dL~\cite{DBLP:journals/tocl/Platzer15}.
 In vanilla \dL, safety is usually expressed in the form $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\psi}$ and liveness is approximated as
 $\phi \limply \ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}$ or $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}}$.
 \dGL models are simpler because in typical \dL usage, \emph{all} cases of a controller must be safe, whereas a safe choice need only \emph{exist} in a game.
@@ -744,24 +750,31 @@ The connections between vanilla \dL and \CdGL will be further discussed in \rref
 \label{sec:dgl-semantics}
 We give the denotational semantics for classical hybrid game logic \dGL, which is divided into a semantics for terms, formulas, and games.
 Throughout the semantics, states are written $\omega, \nu, \mu : \allstate$ where the set of states $\allstate$ is in bijection to $\mathbb{R}^n$ for $n = \abs{\allvars \cup \D{\allvars}}$ where $\allvars$ is the set of base variables and $\D{\allvars}$ the set of differential variables.
+Regions are sets of states and are ranged over by $X, Y, Z$.
 
 \begin{definition}[Classical term semantics]\label{def:dgl-sem-term}
 The semantics of a term $\tint{\theta}{\om} : \mathbb{R}$ is the value of term $\theta$ in state $\om$, and is defined inductively on $\theta$:
-%TODO: Reformat for space
+
+\begin{minipage}{0.5\textwidth}
 \begin{align*}
-  \tint{q}{\om} &= q \\
-  \tint{x}{\om} &= \om(x)\\
-  \tint{\theta + \eta}{\om} &= \tint{\theta}{\om} + \tint{\eta}{\om}\\
-  \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}\\
-  \tint{\der{\theta}}{\om} &= \sum_{x \in \allvars} \frac{\partial \tint{\theta}{\om}}{\partial x} \cdot \omega(\D{x})
+  \tint{q}{\om} &= q      & \tint{\theta + \eta}{\om}     &= \tint{\theta}{\om} + \tint{\eta}{\om}   \\
+  \tint{x}{\om} &= \om(x) & \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}
 \end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+${\tint{\der{\theta}}{\om} = \sum_{x \in \allvars} \frac{\partial \tint{\theta}{\om}}{\partial x} \cdot \omega(\D{x})}$
+\end{minipage}
+%\begin{minipage}{0.5\textwidth}
+%\begin{align*}
+%  \tint{q}{\om} &= q      & \tint{\theta + \eta}{\om}     &= \tint{\theta}{\om} + \tint{\eta}{\om}       & \tint{\der{\theta}}{\om}&= \sum_{x \in \allvars} \frac{\partial \tint{\theta}{\om}}{\partial x} \cdot \omega(\D{x})\\
+%  \tint{x}{\om} &= \om(x) & \tint{\theta \cdot \eta}{\om} &= \tint{\theta}{\om} \cdot \tint{\eta}{\om}   & &
+%\end{align*}
 \end{definition}
 That is, literals denote themselves, variables $x$ take their meaning from the state $\om,$ sums and products denote the sum and product of the denotation of their operands respectively, and the differential $\der{\theta}$ denotes the sum of every partial derivative of the denotation of $\theta,$ each scaled by the value of the corresponding differential variable $\D{x}$.
 Because every term mentions at most a finite number of variables and the partial with respect to an unmentioned variable is uniformly zero, this sum always has finite support.
 An advantage of this semantics is that it is defined in every state while agreeing with the intuitive meaning of ``time derivative of $\tint{\theta}{\om}$'' whenever a differential appears in the postcondition of an ODE.
 
 \begin{definition}[Classical formula semantics]\label{def:dgl-sem-fml}
-% TODO: Emphasize backward-chaining and why, maybe foreshadow forward-chaining games later
 The semantics of a formula $\phi$ is given by the relation $\fint{\phi}{\om},$ which is defined inductively on $\phi$
 \begin{align*}
 \fint{\theta \sim \eta}  &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\} && \text{ for }\sim \in \{\leq,<,=,\neq,>,\geq\}\\
@@ -803,13 +816,17 @@ Likewise, we define the winning regions $\dstrategyfor[\alpha]{X}$ for \emph{Dem
 \dstrategyfor[\pdual{\alpha}]{X}    &= (\dstrategyfor[\alpha]{X^C})^C
 \end{align*}
 \end{definition}
-
+Note that this winning-region semantics is backward-chaining, which corresponds to the construction of winning regions by \emph{backward induction} in game theory.
+The semantics are backward-chaining in the sense that we first commit to a goal region $X,$ from which we can construct an winning region containing the winning \emph{initial} states.
+This is in contrast to \dL~\cite{DBLP:books/sp/Platzer18} and \CGL (\rref{ch:cgl}), both of which have a forward-chaining Kripke-style presentation, where the final region is constructed for a given initial region.
 
 %\strategyfor{}{}
 %\dstrategyfor{}{}
 \section{Proof Calculus}
 We recite the proof calculus for \dGL in \rref{fig:dgl-axioms}.
 The proof calculus is given as a Hilbert system: axioms are repeatedly applied to recursively decompose hybrid games.
+While many basic axioms are the same in \dL and \dGL, some are necessarily different because \dGL is subregular: for example, Kripke's axiom K fails in \dGL and is in practice subsumed by \irref{dglMon}.
+
 \begin{figure}
   \centering
   \begin{calculuscollections}{\columnwidth}
@@ -864,26 +881,38 @@ The proof calculus is given as a Hilbert system: axioms are repeatedly applied t
 }{}
     \end{calculus}
   \end{calculuscollections}
-  \caption{Selected axioms for \dGL}
+  \caption{Selected axioms and rules for \dGL}
   \label{fig:dgl-axioms}
 \end{figure}
-%TODO: Talk more about how proofs go, how things fit together
+We first discuss the individual axioms, then discuss how the axioms are used together in proofs.
 Axiom \irref{dglbox} says that the modalities $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ are dual to each other for arbitrary games $\alpha,$ whereas the axiom \irref{dgldual} says game 
 $\pdual{\alpha}$ is dual to $\alpha$.
-In practical proofs it is often easier to say that the $\pdual{\alpha}$ operation switches players and then plays $\alpha,$ e.g. the derived axiom:
-%TODO: Label
-\[\ddiamond{\pdual{\alpha}}{\phi} \lequiv \dbox{\alpha}{\phi}\]
+In practical proofs it is often easier to say that the $\pdual{\alpha}$ operation switches players and then plays $\alpha,$ as in the derived axiom:
+\[
+\cinferenceRule[dglSwitch|${\langle\cdot\rangle}^d$]{}
+{
+\ddiamond{\pdual{\alpha}}{\phi} \lequiv \dbox{\alpha}{\phi}
+}{}\]
 Axiom \irref{dglassign} says assignments can be eliminated by substituting in the postcondition, while \irref{dglrandom} says random assignments can be converted to quantifiers.
 Axiom \irref{dglsolve} says that if there exists a function $y(t)$ which solves an ODE, then the ODE can be eliminated by substituting in $y(t)$.
 This axiom gives the case where there is no domain constraint because ODEs with domain constraints are derivable from those without them.
 The practicality of this axiom depends on the complexity of $y(t)$. 
-Especially when $y(t)$ is not a polynomial, it is preferable to reason with \emph{differential invariants}.
+Especially when $y(t)$ is not a polynomial, it is preferable to reason with \emph{differential invariants}~\cite{DBLP:books/sp/Platzer18}.
 Axiom \irref{dgltest} says a test passes when the test condition holds.
 Axiom \irref{dglchoice} says Angel chooses which game to play.
 Axiom \irref{dglcompose} says game $\alpha;\beta$ is played by playing $\alpha$ first, then $\beta$ in the resulting state.
 Axiom \irref{dgliter} says a repetition game can be played by choosing between playing zero rounds or playing some strategy for the first round followed by some strategy for the repetition.
 Axiom \irref{dglMon} says hybrid games satisfy monotonicity.
 Axiom \irref{dglfixpoint} says repetition $\prepeat{\alpha}$ is a fixpoint of $\alpha$.
+
+In practice, \dGL proofs are done in a backward-chaining style by decomposing goal formulas.
+To this end, \KeYmaeraX implements \dGL as a sequent-calculus, whose rules are interderivable with the Hilbert-style axioms in \rref{fig:dgl-axioms}.
+Many constructs, such as tests, sequential compositions, choices, and deterministic assignments, can be decomposed without any special insight because there is a single canonical introduction or elimination rule.
+Human insight is required to supply invariants for loops and differential equations, and when instantiating first-order quantifiers, or equivalently non-deterministic assignments.
+
+Once the game has been decomposed, the remaining goals are typically first-order logic over the reals.
+While this fragment of \dGL is decidable in theory, it has doubly-exponential complexity~\cite{Davenport1988}, and so human insight is necessary in practice.
+In addition to instantiating quantifiers, typical interactive methods include weakening unnecessary assumptions, simplifying away arithmetic terms whose details are not needed for the proof, or applying a valid axiom of real arithmetic.
 
 \chapter{Completed Work:  Logical Foundations}
 \label{ch:logical-foundations}
