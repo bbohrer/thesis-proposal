@@ -328,20 +328,21 @@ Of the available approaches to verification, hybrid systems theorem-proving in d
 Other notable approaches include model-checking of automata-theoretic~\cite{DBLP:conf/lics/Henzinger96} models, control synthesis, and runtime monitoring.
 
 While approaches differ, the fundamental motivation for CPS motivation is always the same: to promote the safety and correctness of real systems.
-%TODO: Cite other end-to-end approaches
 The end-to-end philosophy recognizes that hybrid systems are only an abstraction of reality, so achieving safety in practice requires bridging the abstraction gaps between models and implementations.
-%TODO: Shit on everybody else
+As discussed in \rref{sec:end-to-end-relwork}, this is the the common feature between our work and other end-to-end approaches.
+However, our work is set apart by formal proof artifacts at every step, verification to machine-level, and a productive and expressive source language for modeling and proof.
+
 In this thesis, we extend the \dL tradition to an end-to-end verification technique.
 We use \VeriPhy as a name both for the resulting software toolchain and the general approach.
 The \VeriPhy approach says that to achieve end-to-end guarantees, every stage of verification should be founded in logics and programming languages with well-defined formal semantics.
 By verifying systems \emph{constructively}, we enable automated synthesis of correct implementations in the general case.
 Because the source, implementation, and proof languages all have formal semantics, we can formally show that implementations are refinements of source models and thus are safe.
 
-%TODO: Go through and add all the dialogue
-%TODO: Discuss why all of these characters are real and important
 \paragraph{The Cast.}
 End-to-end verification is hard in large part because it must balance competing theoretical and practical needs.
 Throughout this thesis, we argue that the \VeriPhy meets these needs better than existing approaches by providing a dialogue between three characters: the Logician, the Engineer, and the Logic-User.
+These three characters are avatars for perspectives from different fields of study which overlap with CPS, namely formal logic, robotics or controls, and applied theorem proving.
+While contrived by the author, the characters serve to highlight and resolve differences of perspective between theorists and practitioners.
 We now introduce each character.
 
 The Logician follows in the formalist tradition of David Hilbert: to know something is to have a proof of it.
@@ -379,25 +380,25 @@ While verified and proof-producing code extractors exist for Coq~\cite{anand2017
 \begin{table}[tbh]
   \centering
 \begin{tabular}{l|c|c|c|r}
-Approach    & Logician & (Connection) & Engineer & Logic-User\\\hline
-GPITP    &\cellcolor{green!25}formal& \weakconnect &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline
-Automata &\cellcolor{yellow!25}paper& \weakconnect &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline
-\dL before &\cellcolor{yellow!25}paper& \weakconnect &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone, less labor-intensive\\\hline
-\dL after  &\cellcolor{green!25}formal& \strongconnect &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone, less labor-intensive\\\hline
-\CdGL    &\cellcolor{green!25}formal& \strongconnect &\cellcolor{green!25}monitors, controls &\cellcolor{green!25}least error-prone, less labor-intensive\\\hline
+Approach    & Logician                 & (Connection)   & Engineer                               & Logic-User\\\hline
+GPITP       &\cellcolor{green!25}formal& \weakconnect   &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline
+Automata    &\cellcolor{yellow!25}paper& \weakconnect   &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline
+\dL before  &\cellcolor{yellow!25}paper& \weakconnect   &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone, less labor-intensive\\\hline
+\dL after   &\cellcolor{green!25}formal& \strongconnect &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone, less labor-intensive\\\hline
+\CdGL       &\cellcolor{green!25}formal& \strongconnect &\cellcolor{green!25}monitors, controls  &\cellcolor{green!25}least error-prone, less labor-intensive\\\hline
 \end{tabular}
   \caption{Comparison of Verification Approaches}
   \label{tab:approach-comparison}
 \end{table}
-%TODO: Refine. Mention all three characters. Justify characters and definition of end-to-end
-The goal of this thesis is to satisfy the needs of all three characters at once, a goal we call ``Practical, End-to-End Verification of CPS''.
+The goal of this thesis is to satisfy the needs of all the Logician, Engineer, and Logic-User at once, a goal we call ``Practical, End-to-End Verification of CPS''.
 The terms ``practical'' and ``end-to-end'' are notoriously vague;
-to avoid ambiguity, this thesis defines verification to be end-to-end if it connects the formal end to the implementation end, meaning the real implementation of the CPS obeys some precise formal guarantee in terms of the system model, which itself rests on a bulletproof mathematical foundation.
+this thesis defines end-to-end verification as resolving the competing needs of the Logician and Engineer.
+Specifically, we define verification as end-to-end if it connects the formal end to the implementation end.
+We ensure the implementation of the CPS obeys a precise formal safety guarantee in terms of the system model, which itself rests on a bulletproof mathematical foundation.
 We say that verification is practical if it also meets the needs of the Logic-User, by simplifying models, minimizing the risk of serious modeling errors, and simplifying proofs.
+As with all verification, ours leaves some assumptions, for example on sensing and actuation.
+However, we deem it less important to eliminate every possible assumption, and more important that our approach can scale to minimize these assumptions in future work as discussed in \rref{sec:veriphy}.
 
-%\draw (5, 2)  node[circle, fill=green!20,draw] (engine) {Artifacts};
-
-%TODO: Add new sections to thesis then reference in this figure
 \begin{figure}[tbh]
   \centering
 \begin{tikzpicture}
@@ -417,6 +418,8 @@ We say that verification is practical if it also meets the needs of the Logic-Us
 \draw (-5, -0.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (cdgl) {Constructive \dGL};
 \draw node[left=0.3in of formalization] (formal-ref) {\rref{sec:isabelle-fml}};
 \draw node[left=0.3in of generalization] (gen-ref) {\rref{sec:definite-description}};
+\draw node[left=0.3in of cgl] (cgl-ref) {\rref{ch:cgl}};
+\draw node[left=0.3in of cdgl] (cdgl-ref) {\rref{ch:cdgl}};
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
 \draw (5, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.4in,text width=0.82in,text centered] (engine) {Artifacts};
@@ -426,20 +429,28 @@ We say that verification is practical if it also meets the needs of the Logic-Us
 \draw (5, -0.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (proofterm) {Proof Term};
 \draw node[right=0.3in of monitors] (monitor-ref) {\rref{sec:veriphy}};
 \draw node[right=0.3in of controllers] (controllers-ref) {\rref{ch:proofplex}};
+\draw node[right=0.3in of proofscript] (proofscript-ref) {\rref{ch:kaisar}};
+\draw node[right=0.3in of proofterm] (proofterm-ref) {\rref{sec:veriphy}};
 \draw[dashed] (monitors) -- (monitor-ref);
 \draw[dashed] (controllers) -- (controllers-ref);
+\draw[dashed] (proofscript) -- (proofscript-ref);
+\draw[dashed] (proofterm) -- (proofterm-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
 \draw (1.45,-2) -- (0,-2.7);
 \draw (0, -3.5) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.85in,text width=1.9in,text centered] (luser) {Usability};
 %\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
 \draw (-0.3, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
-\draw (0.1, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Lines of Model/Proof};
+\draw (0.1, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (lop)    {Lines of Model/Proof};
 %\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
 \draw (-1.38, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.6in] (modelmistake) {Model Mistakes};
 \draw (0.98, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.9in] (maintainable) {Maintainable?};
+\draw node[right=0.3in of maintainable] (maintain-ref) {\rref{ch:kaisar}};
+\draw node[right=0.3in of lop] (lop-ref) {\rref{ch:kaisar}};
 \draw[->,very thick] (logic) -- (CdGLcirc);
 \draw[->,very thick] (CdGLcirc) -- (engine);
 \draw[dashed] (CdGLcirc) -- (luser);
+\draw[dashed] (lop) -- (lop-ref);
+\draw[dashed] (maintainable) -- (maintain-ref);
 \end{tikzpicture}
   \caption{Goals of the thesis}
   \label{fig:goals-diagram}
@@ -575,6 +586,7 @@ Since reachability tools rely on large, complicated codebases and models are cha
 
 %Ivory \cite{DBLP:conf/haskell/ElliottPWHBSSL15} and Tower \cite{DBLP:conf/plpv/PikeHBEDL14} are used to ensure high-assurance embedded software is memory safe, but do not verify the functional correctness of cyber nor physical behavior.
 \subsubsection{End-to-End Approaches}
+\label{sec:end-to-end-relwork}
 End-to-end verification refers to any verification approach which attempts to verify CPS as they exist in reality while maintaining a rigorous foundation.
 Notably, none of these approaches show correctness unconditionally: all have a trusted base and make simplifying assumptions about reality.
 \begin{itemize}
@@ -916,14 +928,14 @@ In addition to instantiating quantifiers, typical interactive methods include we
 
 \chapter{Completed Work:  Logical Foundations}
 \label{ch:logical-foundations}
-One of the key components of \emph{foundational} end-to-end synthesis and verification is a bulletproof theoretical foundation.
+A bulletproof theoretical foundation is essential to our approach to end-to-end verification, as it allows the Logician to conclude that our models are fully understoood and our proofs sound.
 Logics for verification of hybrid systems and hybrid games are the main formal tool with which we wish to develop correct CPS's, and as such it is doubly important that the logics themselves are developed with the absolute highest degree of certainty in their correctness.
 In this chapter, we discuss two completed works by the author.
 These works not only attest that an adequate theoretical foundation has been laid for the remaining chapters of the thesis, but also that the author is adequately experienced with developing logical foundations for the proposed works to succeed.
 
 \section{Formalization of \dL in \Isabelle}
 \label{sec:isabelle-fml}
-When we perform proofs in \dL (or likewise in \dGL), we wish to know that theorem we believe we have proved is indeed true.
+When we perform proofs in \dL (or likewise in \dGL), the Logician wishes to know that the theorem we believe we have proved is indeed true.
 This property is called soundness, and paper proofs of soundness are provided in the papers which developed a sequent calculus~\cite{DBLP:journals/jar/Platzer08} and uniform substitution~\cite{DBLP:journals/jar/Platzer17} calculus for \dL, of which the latter is the basis for the implementation of \dL in the theorem prover \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
 However, proofs on paper are notoriously susceptible both to
 \begin{inparaenum}[i)]
@@ -947,6 +959,7 @@ The full formalization is $\approx$25,000 lines of Isabelle proof scripts.
 In addition, a proof checker was synthesized with the Isabelle code generation mechanism and evaluated by instrumenting \KeYmaeraX to output complete proof terms as it performs a proof.
 In \cite{DBLP:conf/pldi/BohrerTMMP18} this proof checker was evaluated on a proof that a velocity-controlled car driving in a straight line is safe under the supervision of a controller generated by \VeriPhy.
 The proof term in question is over 100,000 proof steps and is extracted directly from the actual \KeYmaeraX proof, attesting to the exhaustiveness of the formalization.
+While the proof checker was built to convince the Logician that their proof calculus is sufficiently complete, it can also be used by Logic-User to ensure that the theorem-prover did not encounter buggy behavior in practical use. 
 
 These results contribute to the overall goals of the thesis in several ways.
 Firstly, the proof checker has been used to check the correctness of \dL proofs that end-to-end verified systems as produced throughout this thesis are actually safe, which in effect has bridged the high-level, practical foundation given by \dL with the lower-level foundations of Isabelle.
@@ -960,9 +973,11 @@ A significant gap between theory presentations of \dL and its implementation in 
 \rref{sec:isabelle-fml} approached this gap with brute force: division by constants, absolute value, min, and max are added to the language of terms.
 However, the brute-force approach is brittle in multiple ways. 
 Every new construct requires significant additions to the Isabelle/HOL formalization of \dL, which hurts maintainability.
+The Logic-User would be disappointed that they must wait for the Logician to design, investigate, and implement new constructs in the theorem-prover rather than implementing new features themself.
 The extended constructs are not supported in their full generality, either, because \dL expects that all terms are total (defined everywhere) and that continuous systems contain only ($C^\infty$-smooth) continuous terms, since the soundness proofs for \dL axioms are simplest in that case.
 
 Recent work by the author~\cite{DBLP:conf/cade/BohrerFP19} develops another approach which both provides these constructs in their full generality and provides a more promising foundation for future extensions, \emph{without} increasing the size of the core when adding new constructs.
+We expect that defining new terms outside the core will simplify extension work by the Logic-User and not only the Logician.
 We introduce the logic \dLi~(\rref{fig:dli-overview}) which extends \dL with a definite description construct $\meps{x}{\phi(x)}$ meaning the unique $x$ (if a unique one exists) such that $\phi(x)$ is true.
 Definite descriptions make terms as expressive as formulas, including non-polynomial terms which can be discontinuous or partial.
 Combined with $\dLi$'s pairing construct $(\theta,\eta),$ vector terms are also supported.
@@ -1182,6 +1197,7 @@ Static analysis of arithmetic for hybrid systems has been studied~\cite{DBLP:con
 \section{Case Study: End-to-End Ground Robotics Verification}
 \label{sec:ground-robotics}
 To validate our claim that \VeriPhy enables end-to-end verification for \dL, it is crucial that we actual implement realistic, verified systems using \VeriPhy.
+In doing so, we demonstrate that the \dL models involved can be verified by a real Logic-User and that the software involved can be developed by a real Engineer.
 However, the initial research thrust only verified a simple 1D velocity-controlled car~(\rref{ex:driving-game}) and ran it on hardware.
 In this section, we develop a 2D acceleration-controlled (Dubins) waypoint-following car with speed limits.
 This is far more representative of realistic driving scenarios which require steering and speed enforcement.
@@ -2635,7 +2651,7 @@ Whenever the players alternate turns in a game, the proof alternates modalities.
 Whenever we prove a $\ddiamond{\alpha}{P}$ property, we do so by witnessing the decisions (computations) Angel performs to achieve $P$.
 In proving a $\dbox{\alpha}{P}$ property, we enumerate rules which Angel must uphold until control passes to Demon, and in doing so we enumerate the contents of a monitor.
 
-The subthesis of this chapter is that this content can and should be used to automate the synthesis of all four artifacts, and that it can do so not just in special cases but in general cases, including:
+This chapter aims to show that this content can and should be used to automate the synthesis of all four artifacts, not just in special cases but in general cases, including:
 \begin{itemize}
 \item Model-predictive controllers using differential equations
 \item Differential equations with not only differential invariants but also differential ghosts, which together suffice to prove any polynomial invariant of a polynomial ODE
@@ -2648,9 +2664,9 @@ Once a relaxation for the controller model (and controller proof) in a hybrid ga
 What remains is to supply the untrusted controller.
 Because \ProofPlex, unlike \ModelPlex, also synthesizes monitors by exploiting angelic proofs, we automatically provide an ``untrusted'' controller which in fact is trustworthy, because it simply an implementation of the (operational) angelic dynamics of the control proof in \CdGL. By the work in the previous chapter, these operational semantics refine the standard denotational semantics of both the hybrid game and of its systems relaxation, meaning they satisfy the monitor.
 
-\chapter{Conclusion} 
+\chapter{Conclusion}
 \section{Timeline}
-I plan to propose mid-Fall 2019 (October).
+The proposal will be October 25, 2019.
 If all goes according to plan, I intend to defend in early Fall 2020.
 
 Total: 12 months
