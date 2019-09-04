@@ -324,7 +324,7 @@ Many of these systems are safety-critical or even life-critical because they ope
 Formal safety verification of these systems is a key tool for attaining the strongest possible guarantees that they meet their safety objectives.
 Therefore, as the importance of CPS in society grows, so does the importance of their formal verification.
 \emph{Hybrid systems} models, in particular, have succeeded in providing a common formalism for the discrete and continuous aspects of a CPS.
-Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is notable for its strong logical foundations and successful application in a number of case studies~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:conf/rss/MitschGP13,DBLP:conf/hybrid/PlatzerQ08} using the theorem provers \KeYmaera~\cite{DBLP:conf/cade/PlatzerQ08} and \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
+Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic (\dL)~\cite{DBLP:books/sp/Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is notable for its strong logical foundations and successful application in a number of case studies~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:conf/rss/MitschGP13,DBLP:conf/hybrid/PlatzerQ08} using the theorem provers \KeYmaera~\cite{DBLP:conf/cade/PlatzerQ08} and \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
 Other notable approaches include model-checking of automata-theoretic~\cite{DBLP:conf/lics/Henzinger96} models, control synthesis, and runtime monitoring.
 
 While approaches differ, the fundamental motivation for CPS motivation is always the same: to promote the safety and correctness of real systems.
@@ -491,9 +491,9 @@ In general, the differences among formalizations mirror the differences among th
 
 Barras and Werner~\cite{Barras:1997} verified a typechecker for a fragment of Coq in Coq.
 Harrison~\cite{Harrison:2006} verified (1) a weaker version of HOL Light's kernel in HOL Light and (2) HOL Light in a stronger variant of HOL Light.
-Myreen et al.\ have extended this work, verifying HOL Light in HOL4~\cite{Myreen+Owens+Kumar:2013,Kumar+Arthan+Myreen+Owens:jar:2016} and using their verified compiler CakeML~\cite{Kumar+Myreen+Norrish+Owens:2014} to ensure these guarantees apply at the machine-code level.
+Myreen et al.\ have extended this work, verifying HOL Light in HOL4~\cite{Myreen+Owens+Kumar:2013,Kumar+Arthan+Myreen+Owens:jar:2016} and using their verified compiler CakeML~\cite{DBLP:conf/popl/KumarMNO14} to ensure these guarantees apply at the machine-code level.
 Myreen and Davis proved the soundness of the ACL2-like theorem prover Mitawa in HOL4~\cite{Myreen+Davis:itp:2014}.
-Anand, Bickford, and Rahli~\cite{Anand+Rahli:2014,Rahli+Bickford:cpp:2016}
+Anand, Bickford, and Rahli~\cite{DBLP:conf/itp/AnandR14,Rahli+Bickford:cpp:2016}
 proved the relative consistency of Nuprl's type theory~\cite{Constable+al:1986,Allen+al:2006} in Coq with the goal of generating a verified prover core.
 %
 Like the above works, the goal of \rref{sec:isabelle-fml} is to verify the correctness of a theorem prover (\KeYmaeraX).
@@ -617,7 +617,7 @@ Their use of discrete-time temporal logic also raises foundational concerns, sin
 
 
 \chapter{Background: Differential Game Logic \dGL}
-\emph{Differential dynamic logic} (\dL)~\cite{Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
+\emph{Differential dynamic logic} (\dL)~\cite{DBLP:books/sp/Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
 \emph{Differential game logic} (\dGL)~\cite{DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} extends the programs $\alpha$ of \dL with a turn-taking operator $\pdual{\alpha}$ to enable representing and verifying hybrid \emph{games} which extend hybrid systems with \emph{adversarial} dynamics.
 
 While the already-completed thesis chapters (\rref{ch:logical-foundations}, \rref{sec:veriphy}) employ \dL, we present full \dGL since 
@@ -1756,7 +1756,7 @@ Because \CGL is first-order, a constructive approach must also address the const
 The base sorts of \CGL include both natural numbers, where exact equality and case-analysis are computable, and real numbers, where exact equality is not computable.
 Throughout, we use the reals of Bishop and Bridges~\cite{bishop1967foundations,bridges2007techniques}, which contain the same uncountably-many numbers as the classical reals $\mathbb{R},$ but do not admit decidable equality.
 A realizability interpretation of Bishop's analysis has been explored~\cite{DBLP:journals/mst/Schwichtenberg08}.
-Constructive reals have been implemented efficiently in theorem provers, for example the CORN~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011} library.
+Constructive reals have been implemented efficiently in theorem provers, for example the CORN~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011} library.
 
 \paragraph{Constructivity and Dynamic Logic}
 With \CGL, we bring to fruition several past efforts to develop constructive dynamic logics.
@@ -2214,7 +2214,7 @@ The first step is to extend the language of games $\alpha,\beta$ to \emph{hybrid
 As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\phi}$ says that $x$ evolves continuously according to $\D{x}=f$ for a duration controlled by the active player, which is chosen subject to the constraint $\phi$ throughout.
 
 One of the major hurdles in this proposed work is to give an appropriate semantics and proof calculus for constructive differential equations.
-However, wee assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a differential equation, and constructive formalization of Picard iteration~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
+However, wee assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a differential equation, and constructive formalization of Picard iteration~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
 We briefly review the \dGL rules for differential equation games and suggest why a constructive interpretation should be feasible.
 \begin{figure}
   \centering
@@ -2256,14 +2256,14 @@ We briefly review the \dGL rules for differential equation games and suggest why
 Axiom \irref{Qdglsolve} is typically derived from the others and says that we can verify a differential equation by verifying its solution.
 Axiom \irref{dglconst}, which is not derived, is the special case of \irref{Qdglsolve} for constant ODEs.
 To show \irref{dglconst} constructively valid, it should suffice to show constructively that $x(t) = x_0 + ct$ is the unique solution of $\D{x}=c$.
-This is a special case of the Picard-Lindel\"{o}f theorem, which is true constructively~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011}.
+This is a special case of the Picard-Lindel\"{o}f theorem, which is true constructively~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011}.
 Picard-Lindel\"{o}f is also the basis of validity for \irref{dglghost}~\cite{DBLP:conf/lics/PlatzerT18}, which says it is sound to extend a system of differential equations with a new continuous variable, so long as the new equation is linear.
 The linearity constraint ensures the existence interval (i.e., the time before an infinite asymptote is reached, if any) of the differential equation is maintained, for soundness.
 Axiom \irref{dglghost} is mainly used in its forward direction to help prove postconditions which are invariant but not inductive, and in its converse direction to implement \irref{Qdglsolve}.
 For differential equations whose solutions are infeasibly complicated, the ``bread-and-butter'' proofs are done with \irref{dglcut}, \irref{dglind}, and \irref{dglweak}.
 \irref{dglind} says that a postcondition $\phi$ is invariant if it holds initially and if its differential (e.g., $\der{f\geq g} \equiv \der{f} \geq \der{g}$) is invariant.
 \irref{dglcut} allows one \irref{dglind} to serve as a ``lemma'' to another by adding it to the domain constraint, and \irref{dglweak} allows closing the proof by proving the postcondition from a sufficiently strengthened domain constraint.
-Validity of \irref{dglind} follows from the Mean-Value Theorem or its generalization, Rolle's Theorem, which has been proven constructively~\cite{DBLP:journals/corr/abs-1106-3448,Krebbers+Spitters:lmcs:corn:2011}.
+Validity of \irref{dglind} follows from the Mean-Value Theorem or its generalization, Rolle's Theorem, which has been proven constructively~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011}.
 The classical validity proofs of \irref{dglcut} and \irref{dglweak} are direct, and we expect the same for an appropriately-chosen semantics.
 The axioms of \label{fig:diffeq-rules} will need adaptation to the constructive setting.
 Even leaving constructivity aside, \CdGL also supports a stronger term language than \dGL, and we will need to treat continuity and differentiability carefully as was done in \rref{sec:definite-description}.
@@ -2551,7 +2551,7 @@ In \rref{ch:proofplex}, we will use the same IR as the input to synthesis.
 \label{sec:kaisar-relwork}
 Structured proof languages were introduced in Mizar~\cite{conf/mkm/BancerekBGKMNPU15,Wenzel2002}.
 Isar~\cite{DBLP:conf/mkm/Wenzel06,DBLP:conf/tphol/Wenzel99,Wenzel07isabelle/isar} is one of the best-developed systems today, and has been successfully applied to large-scale verification tasks~\cite{Nipkow2002,DBLP:journals/cacm/KleinAEHCDEEKNSTW10,DBLP:journals/afp/Lochbihler07}.
-Other examples include DECLARE~\cite{Syme1997DECLAREAP} for HOL, TLAPS for ${\rm TLA}^+$~\cite{DBLP:conf/fm/CousineauDLMRV12,DBLP:conf/hybrid/Lamport92}, SSReflect~\cite{DBLP:journals/jfrea/GonthierM10} and declarative proofs~\cite{DBLP:conf/types/Corbineau07} in Coq.
+Other examples include DECLARE~\cite{Syme1997DECLAREAP} for HOL, TLAPS for ${\rm TLA}^+$~\cite{DBLP:conf/fm/CousineauDLMRV12,Lamport:hybrid:1992}, SSReflect~\cite{DBLP:journals/jfrea/GonthierM10} and declarative proofs~\cite{DBLP:conf/types/Corbineau07} in Coq.
 Kaisar is inspired immediately by Isar, and reuses its \kwnote{}, \kwshow{}, and \kwhave{} keywords.
 Natural-language structured proof paradigms have also been developed~\cite{Lamport12,Lamport95}.
 Apt's \emph{proof outlines}~\cite{apt2010verification} are another paradigm that provides limited proof structuring.
@@ -2559,7 +2559,7 @@ Apt's \emph{proof outlines}~\cite{apt2010verification} are another paradigm that
 ``Mizar modes'' have been used to implement structured proofs for provers without extending the core.
 Mizar modes are available Cambridge HOL~\cite{DBLP:conf/tphol/Harrison96}, Isabelle~\cite{DBLP:conf/cpp/KaliszykPU16}, and HOL Light~\cite{DBLP:conf/tphol/Wiedijk01}.
 The ``mode'' approach was also used to write the Iris Proof Mode (IPM) in Coq~\cite{DBLP:conf/popl/KrebbersTB17}, which implements the Iris concurrent separation logic in Coq's \ltac language.
-Coq and \KeYmaeraX both~\cite{Barras:1997,BohrerCPP17} have small LCF-style cores, which promote implementations of structured proof outside the core.
+Coq and \KeYmaeraX both~\cite{Barras:1997,DBLP:conf/cpp/BohrerRVVP17} have small LCF-style cores, which promote implementations of structured proof outside the core.
 %IPM uses Coq's unstructured proof style and focuses (a) on embedding object logics in metalogics and (b) on the concerns of separation logic (e.g. managing of different context types, state ownership).
 %The \kwassume{},  are taken directly from Isar, and Kaisar's \kwlet{} construct is a straightforward generalization of Isar's \kwlet{} construct w
 
@@ -2567,7 +2567,7 @@ Coq and \KeYmaeraX both~\cite{Barras:1997,BohrerCPP17} have small LCF-style core
 Two classes of languages closely related to structured proofs are tactics languages (which implement reuseable automation) and unstructured proof languages (which implement concrete proofs).
 Automation can often be written in the prover's implementation language: OCaml in Coq, ML in Isabelle, or Scala in \KeYmaeraX.
 Domain-specific languages for tactics include untyped \ltac~\cite{Delahaye:2000:TLS:1765236.1765246}, reflective Rtac~\cite{malecha2015rtac-coqpl}, and dependently typed Mtac~\cite{Ziliani:2013:MMT:2544174.2500579} in Coq, Eisbach~\cite{Matichuk:2016:EPM:2904234.2904264} in Isabelle, and VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}.
-Examples of unstructured languages are the Coq~\cite{COQ} script language and the Isabelle~\cite{Nipkow:2002:IPA:1791547} apply-script language.
+Examples of unstructured languages are the Coq~\cite{COQ} script language and the Isabelle~\cite{DBLP:books/sp/NipkowPW02} apply-script language.
 \KeYmaeraX features a language named Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} for unstructured proofs and tactics.
 Bellerophon consists of regular expression-style tactic combinators (sequential composition, repetition, etc.) and a standard tactics library featuring, e.g. sequent calculus rules and general-purpose automation.
 Bellerophon's strength is in tactics that compose the significant automation provided in its library.
@@ -2593,7 +2593,7 @@ We generalize them and provide the first formal treatment of historical referenc
 
 
 We are broadly interested in exploiting other principled design ideas from the proof language literature.
-Beyond structured proof, another notable principled feature is the use of pattern-matching for formula selection, which has been investigated by Traut ~\cite{traut2014pattern} and Gonthier~\cite{DBLP:conf/itp/GonthierT12,noschinskipattern}.
+Beyond structured proof, another notable principled feature is the use of pattern-matching for formula selection, which has been investigated by Traut ~\cite{traut2014pattern} and Gonthier~\cite{DBLP:conf/itp/GonthierT12}.
 Pattern-matching was also investigated in the first proposal for Kaisar~\cite{DBLP:journals/corr/abs-1908-05535}.
 Based on this experience, we plan to leave pattern matching out of the core calculus for simplicity, but experiment with pattern-matching in the implementation.
 When proving programs in Isar, it is possible to assign custom case labels~\cite{DBLP:journals/afp/Noschinski15} to produce more readable proofs, which gives a similar flavor to proofs in the original Kaisar design~\cite{DBLP:journals/corr/abs-1908-05535}.
