@@ -624,7 +624,7 @@ While some prior works place runtime verification on a rigorous formal foundatio
 \item The basis of online verification is the SIMPLEX~\cite{Krogh1998TheSA} method, which uses a trusted monitor to decide between an untrusted controller and trusted fallback.
   SIMPLEX is most helpful when untrusted controllers are complex, but monitors and fallback controllers are simple.
   The key insight of SIMPLEX is that the controller need not be trusted because safety depends only on the control decision which it outputs, and the output is only executed if the monitor approves it, else the trusted fallback controller is executed.
-\item \ModelPlex is a tool for synthesizing monitors (for both the controller and plant) from proven-safe \dL models in \KeYmaeraX.
+\item \ModelPlex is a tool for synthesizing \dL monitor formulas (for both the controller and plant) from proven-safe \dL models in \KeYmaeraX.
   However, it simply synthesizes a \dL formula describing the monitored conditions, not an executable program.
   Thus \ModelPlex is not end-to-end when taken on its own.
   Additionally, until extensions concurrent with this thesis~\cite{DBLP:journals/corr/abs-1811-06502}, \ModelPlex could not exploit proof insights during synthesis.
@@ -1094,7 +1094,7 @@ In the context of the thesis, this section shows that the extended term language
 This section also qualifies the author for the remaining foundational tasks: whereas \rref{sec:isabelle-fml} focused on a detailed reproduction of an existing proof calculus, 
 \dLi required a wholesale revision of \dL semantics, just as extending \dGL to \CdGL will.
 The theoretical developments for \dLi culminate in soundness and equi-expressiveness proofs with respect to \dL.
-Soundness validates the basic correctness of the calculus while equi-expressiveness says that decidability results for \dL also apply to \dLe because provable \dLe formulas can be translated to provable \dL formulas.
+Soundness validates the basic correctness of the calculus while equi-expressiveness says that decidability results for \dL also apply to \dLi because provable \dLi formulas can be translated to provable \dL formulas.
 Moreover, the theoretical results were good practice because these are very much the same kind of results we aim to achieve for the \CdGL theory.
 
 \subsection{Related Work}
@@ -1136,7 +1136,8 @@ In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b
 \chapter{Completed Work:  End-to-End Robot Verification}
 %ch:logical-foundations
 \label{ch:end-to-end-v}
-This chapter describes  works by the author and collaborators which introduce a general approach that enables end-to-end verification while maintaining solid logical foundations and then apply the approach in a case study on the verification of free driving for 2D Dubins-like ground robots.
+This chapter describes  works by the author and collaborators which introduce a general approach that enables end-to-end verification while maintaining solid logical foundations and then apply the approach in a case study on the verification of 2D free-driving ground robots.
+The robots follow sequences of arcs and lines (known as Dubins~\cite{citeulike:12223454} paths) with the additional feature of enforcing speed limits.
 These works already constitute a major component of the goals of the thesis: what remains in the proposed work is to extend this beyond only verification and monitor synthesis to include controller synthesis while maintaining rigorous foundations.
 We begin by motivating end-to-end verification and defining it, then give our approach and case study results in greater detail.
 
@@ -1144,11 +1145,11 @@ We begin by motivating end-to-end verification and defining it, then give our ap
 \label{sec:veriphy}
 Recall our notion of end-to-end verification from \rref{ch:introduction}: we wish to produce formal guarantees that apply to practical implementations of a CPS by proving that the implementation refines a provably safe hybrid system model.
 We wish for the refinement process to be fully automatic for the sake of the Engineer who builds the CPS and does not want to do formal proofs.
-Granted, the Engineer will need the Logic-User's help to verify the hybrid system model, but this is done only once: it is more important that we need not redo manual proofs each time the Engineer changes their code.
+Granted, the Engineer will need the Logic-User's help to verify the hybrid system model, but this is done only once: it is more important that we need not redo manual proofs each time the Engineer changes their code slightly.
 At the same time, each refinement step should provide machine-checkable evidence, in order to satisfy the Logician that the proof is correct.
 Our approach, which we will refer to as the \VeriPhy approach (as it is implemented in our tool \VeriPhy), achieves all of the above, as we will now describe.
 
-In light of the fact that a real Engineer might use languages where formal verification is difficult, and that their code may change hundreds of times per day, the \VeriPhy approach employs runtime monitoring so that the Engineer's controller is untrusted.
+In light of the fact that a real Engineer might use languages such as Matlab where formal verification is difficult, and that their code may change hundreds of times per day, the \VeriPhy approach employs runtime monitoring so that the Engineer's controller is untrusted.
 Specifically, we monitor whether the implementation complies to the source-model.
 The Logic-User wants source-model verification to be as simple as possible and the Logician wants safety of the model to closely match an intuitive notion of real-world safety.
 For these reasons, the source-model is a hybrid program, verified in \KeYmaeraX with \dL.
@@ -1206,25 +1207,29 @@ For these reasons, the source-model is a hybrid program, verified in \KeYmaeraX 
 \label{fig:pipelineoverview}
 \end{figure*}
 \begin{itemize}
-\item The \ModelPlex tool is invoked to synthesize a \emph{control monitor formula} and \emph{plant monitor formula}, which determine whether control decisions and physical evolutions respectively satisfy the assumptions made of them by the model
+\item The \ModelPlex tool, which is implemented as a feature of \KeYmaeraX, is invoked to synthesize a \emph{control monitor formula} and \emph{plant monitor formula}, which determine whether control decisions and physical evolutions respectively satisfy the assumptions made of them by the model
 \item The monitors are combined with a proven-safe \emph{fallback controller} (which is provided in the input model) to form a \emph{sandbox controller}.
    The sandbox controller applies control decisions provided from an external source (henceforth called the \emph{external controller}) whenever those decisions satisfy the controller monitor,
-   and otherwise invokes the fallback controller
-\item The sandbox controller is automatically proven safe in \KeYmaeraX, in part by reusing the contents of the hybrid system safety proof
-\item The sandbox safety proof is optionally rechecked in the verified proof checker (\rref{sec:isabelle-fml}) to eliminate the \KeYmaeraX core from the trusted base
-\item The exact real arithmetic of hybrid systems is replaced with conservative fixed-point interval arithmetic, which is formally proven in Isabelle to be sound
-\item The resulting program is proven equivalent to a CakeML program (in HOL4)
-\item The equivalent CakeML program is compiled to machine code in a verified compiler
-\item The machine code is linked against the users' implementation of sensors and actuators
+   and otherwise invokes the fallback controller.
+\item The sandbox controller is automatically proven safe in \KeYmaeraX, in part by reusing the contents of the hybrid system safety proof.
+\item The sandbox safety proof is optionally rechecked in the verified proof checker (\rref{sec:isabelle-fml}) to eliminate the \KeYmaeraX core from the trusted base.
+As discussed in \rref{sec:isabelle-fml}, this has been used to validate the \dL formalization for exhaustiveness.
+\item The exact real arithmetic from hybrid systems semantics ($\iaccess[\cdot]{\I}$) is conservatively recast as fixed-point interval arithmetic ($\wsem{\cdot}{}$), and this recasting is formally proven in Isabelle to be sound.
+\item The resulting program is automatically proven equivalent (in HOL4) to a CakeML~\cite{DBLP:journals/jar/KumarAMO16} program.
+The heart of the proof says that sensing and actuation in the model can be modeled by a CakeML state machine~\cite{DBLP:conf/cade/HoAKMTN18}.
+\item The equivalent CakeML program ($\cmlsem{\cmldet{\sandbox}}{}$) is compiled to machine code in a verified compiler
+\item The machine code ($\machsem{\cmlcompile{\cmldet{\sandbox}}}{}$)is linked against the users' implementation of sensors and actuators
 \end{itemize}
-Each step is provably a refinement (\rref{fig:proofchainoverview}) of the step before it, culminating that any execution of the machine-code running on the actual CPS is corresponds to some execution of the source hybrid system.
+Each step is provably a refinement (\rref{fig:proofchainoverview}) of the step before it, culminating that any execution of the machine-code running on the actual CPS corresponds to some execution of the source hybrid system.
 Because all executions of the source hybrid system were proven safe already, then the execution of the actual CPS is also known to be safe.
+The differing brackets at each level represent that states at each level have differing types, e.g. reals vs.\ intervals, and these types are converted accordingly in each refinement theorem.
+The CakeML sandbox ($\cmldet{\sandbox}$) is generated by importing the monitor conditions and fallback used in the \dL $\sandbox$.
 
-Notably, the sensors and actuator drivers, which are provided by the users of \VeriPhy, are trusted.
+Note that the sensor and actuator drivers, which are provided by the users of \VeriPhy, are trusted.
 We justify this by noting that verification of sensing and actuation is a moving target: their hardware changes frequently, and their verification would require rewriting models and their proofs every time that hardware changes.
 Because models of hardware still require assumptions on the physical behavior of the hardware's components, even this would not eliminate the trusted hardware base.
 For these reasons, \VeriPhy prioritizes providing a simple and well-specified interface for sensing and actuation, which leaves open the possibility of verifying these components in future work.
-This interface consists of a handful of CakeML foreign-functions, which have precise specifications in HOL4.
+This interface consists of a handful of CakeML foreign-functions~\cite{DBLP:conf/cade/HoAKMTN18} for reading from and writing to the external world, which have precise specifications in HOL4 and can then be implemented in the \VeriPhy user's language of choice, usually C.
 \newcommand{\goback}{\!\!}
 \begin{figure}[htb]
 \vspace{-0.15in}
@@ -1233,7 +1238,7 @@ This interface consists of a handful of CakeML foreign-functions, which have pre
 & \Uparrow && \goback\text{\small{by \cite[Thm.\ 4]{DBLP:conf/pldi/BohrerTMMP18}}}\\
 (\iget[state]{\I},\iget[state]{\It}) &\in \underbracket{\iaccess[\sandbox]{\I}}_{\text{\dL (\KeYmaeraX)}} && \goback\text{\parbox{4cm}{\small{Real arithmetic,\\ nondeterministic}}} \\[-2ex]
 & \Uparrow && \goback\text{\small{by \cite[Thm.\ 8]{DBLP:conf/pldi/BohrerTMMP18}}} \\
-\bigl(\iget[state]{\I}_I,\iget[state]{\It}_I\bigr) &\in \underbracket{\wsem{\sandbox}{}}_{\text{\dL (Isabelle/HOL)}} && \goback\text{\parbox{4cm}{\small{Interval word arithmetic,\\ nondeterministic}}} \\[-2ex]
+\bigl(\iget[state]{\I}_I,\iget[state]{\It}_I\bigr) &\in \underbracket{\wsem{\sandbox}{}}_{\text{\dL (Isabelle/HOL)}} && \goback\text{\parbox{4cm}{\small{Interval word arithmetic, nondeterministic}}} \\[-2ex]
 & \Uparrow && \goback\text{\small{by \cite[Thm.\ 10]{DBLP:conf/pldi/BohrerTMMP18}}}\\
 \bigl(\cmlsem{\iget[state]{\I}}{},\cmlsem{\iget[state]{\It}}{}\bigr) &\in \underbracket{\cmlsem{\cmldet{\sandbox}}{}}_{\text{CakeML (HOL4)}} && \goback\text{\small{\parbox{4cm}{Interval word arithmetic,\\ deterministic}}} \\[-2ex]
 & \Uparrow && \goback\text{\small{by CakeML compiler~\cite{DBLP:conf/icfp/TanMKFON16}}}\\
@@ -1251,46 +1256,65 @@ If we wish to verify sensing and actuation in the future, this could be done by 
 \subsection{Related Work}
 \paragraph{Verified Compilation.}
 We use the CakeML~\cite{DBLP:conf/icfp/TanMKFON16} verified ML compiler and its associated verification tools~\cite{DBLP:conf/icfp/MyreenO12,DBLP:conf/esop/GueneauMKN17}.
-Recent work~\cite{DBLP:conf/esop/HupelN18} also provides extraction of CakeML code from \Isabelle proofs, but its present iteration does not support all features needed in this work.
-CakeML is higher-level than other languages such as Clight with verified compilers such as floating-point CompCert~\cite{DBLP:conf/arith/BoldoJLM13}.
-This makes the verification of sandbox implementation in CakeML against hybrid systems semantics painless.
-We chose this over, e.g., translation validation with unverified compilers~\cite{DBLP:conf/pldi/SewellMK13} since translation validation can be brittle.
+Recent work~\cite{DBLP:conf/esop/HupelN18} also provides extraction of CakeML code from \Isabelle proofs, but its present iteration does not support all features needed in this work, such as locales, inductively defined predicates, and the built-in set type.
+CakeML is higher-level than other languages that have verified compilers, such as CompCert~\cite{Leroy:popl:2006}  for C (for floating-point support, see \cite{DBLP:conf/arith/BoldoJLM13}).
+The smaller gap between CakeML source and Isabelle/HOL definitions makes the verification of sandbox implementation in CakeML against hybrid systems semantics painless.
+We chose CakeML compilation over, e.g., translation validation with unverified compilers~\cite{DBLP:conf/pldi/SewellMK13} since translation validation can be brittle.
 
-Lustre~\cite{DBLP:journals/tse/HalbwachsLR92} is a CPS-centric language with a verified compiler, V\'{e}lus~\cite{DBLP:conf/pldi/BourkeBDLPR17}.
-Writing and compiling a Lustre controller provides no end-to-end guarantees because physical modeling and verification are left unanswered.
-It could be used as a code generation target, but this would be a detour because the Lustre language differs greatly from hybrid programs.
+Lustre~\cite{DBLP:journals/tse/HalbwachsLR92} is a reactive, synchronous language intended for use in safety-critical CPS.
+It has static analyzers based on abstract interpretation such as NBac~\cite{DBLP:journals/fmsd/Jeannet03}, which eliminate many bugs in practice, but are fundamenteally conservative and also consider only the control code, not the plant.
+Lustre has a verified compiler, V\'{e}lus~\cite{DBLP:conf/pldi/BourkeBDLPR17}, but verified compilation \emph{alone} does not negate the fact that verification for CPS must account for physics.
+We could have chosen Lustre as an intermediate compilation target instead of CakeML, but the functional style of CakeML is a much closer match to Isabelle/HOL definitions, while Lustre's reactive model is an entirely different paradigm from both HOL and hybrid programs.
 
 \paragraph{Machine Arithmetic Verification.}
 Machine arithmetic correctness is a major \VeriPhy component.
 We verify arithmetic soundness foundationally.
 This is an active research area with libraries available in HOL Light~\cite{DBLP:conf/sfm/Harrison06}, Coq~\cite{DBLP:conf/arith/BoldoM10,DBLP:conf/tphol/DaumasRT01,DBLP:conf/mkm/BoldoFM09,DBLP:journals/iandc/Melquiond12}, \Isabelle~\cite{DBLP:journals/afp/Yu13}, etc.
-Standalone arithmetic checkers~\cite{DBLP:conf/tacas/2018-1} have also been verified in HOL and Coq~\cite{DBLP:conf/fmcad/BeckerZMDMF18}.
-Of these, only PFF in Coq~\cite{DBLP:conf/tphol/DaumasRT01} provides the qualitative rounding correctness results we need, so we prove them in \Isabelle using the seL4~\cite{DBLP:journals/cacm/KleinAEHCDEEKNSTW10} machine word library.
+The main results we need are results saying that basic arithmetic operations round in the direction specified by the rounding mode.
+While it is possible others have proved such results, only PFF in Coq~\cite{DBLP:conf/tphol/DaumasRT01} has reported such results publicly.
+For this reason, we proved rounding results ourselves in \Isabelle using the seL4~\cite{DBLP:journals/cacm/KleinAEHCDEEKNSTW10} machine word library.
 We chose \Isabelle and HOL4 over Coq because their combination of cutting-edge analysis libraries~\cite{DBLP:conf/itp/ImmlerT16}, mature formalization of $\dL$~\cite{DBLP:conf/cpp/BohrerRVVP17}, proof-producing code extraction~\cite{DBLP:conf/icfp/MyreenO12}, and classical foundations positions them well for our end-to-end pipeline.
-Static analysis of arithmetic for hybrid systems has been studied~\cite{DBLP:conf/emsoft/MartinezMST10,DBLP:conf/emsoft/MajumdarSZ12,DBLP:conf/cav/BouissouGPTV09}, but without foundational safety proofs for general dynamics.
+Standalone programs~\cite{DBLP:conf/tacas/2018-1} have also been verified in HOL and Coq~\cite{DBLP:conf/fmcad/BeckerZMDMF18} which certify error-bounds on the outputs of arithmetic expressions.
+Static analysis programs have been written~\cite{DBLP:conf/emsoft/MartinezMST10,DBLP:conf/emsoft/MajumdarSZ12,DBLP:conf/cav/BouissouGPTV09} to detect arithmetic errors in the context of hybrid systems, but these programs do not have foundational correctness guarantees and support only limited classes of ODEs.
 
 \section{Case Study: End-to-End Ground Robotics Verification}
 \label{sec:ground-robotics}
-To validate our claim that \VeriPhy enables end-to-end verification for \dL, it is crucial that we actual implement realistic, verified systems using \VeriPhy.
-In doing so, we demonstrate that the \dL models involved can be verified by a real Logic-User and that the software involved can be developed by a real Engineer.
-However, the initial research thrust only verified a simple 1D velocity-controlled car~(\rref{ex:driving-game}) and ran it on hardware.
-In this section, we develop a 2D acceleration-controlled (Dubins) waypoint-following car with speed limits.
-This is far more representative of realistic driving scenarios which require steering and speed enforcement.
-It is also far more representative of realistic proofs, as it uses more advanced techniques than those required by the first example, and has more thoroughly stress-tested our tooling.
-
-Our case study includes \dL models, proofs, a simulation which employs the sandbox controller generated by \VeriPhy, and test environments for the simulation.
+To validate our claim that \VeriPhy enables end-to-end verification for \dL, we have applied \VeriPhy to software and hardware implementations of robots.
+Some goals of this chapter are to:
+\begin{inparaenum}[i)]
+\item provide proof-of-concept that accurate simulations and hardware implementations of robots safely achieve mission objectives under \VeriPhy control,
+\item identify limitations of the present \VeriPhy implementation from the perspective of the Logician, Logic-User, and Engineer,
+\item propose steps to counter any limitations.
+\end{inparaenum}
+The initial validation work~\cite{DBLP:conf/pldi/BohrerTMMP18} considered only verified a simple 1D velocity-controlled car~(\rref{ex:driving-game}) and ran it on consumer-grade robot hardware.
+In this section, we develop a vehicle model which follows piecewise curved (i.e., Dubins~\cite{citeulike:12223454}) paths with speed limits.
+This is far more representative of realistic driving scenarios than the initial work, because speed limits and steering are fundamental to driving.
+By simple virtue of requiring a larger model and more complicated invariants, it has stress-tested the \VeriPhy implementation.
+Already, this work has helped us identify and fix a number of ``silly'' a number of bugs, e.g., where \VeriPhy made overly strict assumptions on the input model or used excessively brute-force, slow proof approaches.
+Looking forward, this work has highlighted the challenges of debugging a controller supervised by synthesized software: when a monitor fails, the Engineer needs feedback as to why and how it failed, so they may assess whether the controller implementation or the model is to blame.
+The Logic-User also needs feedback on the correctness of the model.
+In our case, the Engineer's implementation provided this feedback, but in future work simulations could be synthesized which demonstrate the model's behavior for the Logic-User.
+Our contributions in this case study include \dL models, proofs, a simulation which employs the sandbox controller generated by \VeriPhy, and test environments for the simulation.
 
 \subsection{Model}
 \label{sec:planar-driving-system}
 This section introduces our 2D robot model in \dL.
 The Dubins dynamics are bloated by a tolerance, which accounts for imperfect actuation and for discrepancies between the Dubins dynamics and real dynamics of the implementation.
-That is, because realistic robots never follow a path perfectly, we will bloat each arc to an annulus section which is more easily followed.
+That is, because realistic robots never follow a path perfectly, we will bloat each arc to an annulus section which is more easily followed, shown in \rref{fig:ode1}.
 Each waypoint is specified by coordinates $(\xgvar,\ygvar)$, a curvature $\kvar$, and a speed limit $[\vlvar,\vhvar]$ for the robot's velocity $\vvar$ which is to be met by the time the waypoint is reached.
-The curvature parameter yields circular arcs (when $\kvar \not= 0$) and lines (when $\kvar=0$) as primitives.
+The curvature parameter $\kvar \neq 0 $ yields curved arc sections while $\kvar=0$ yields line segments.
+Together, these are the primitives of Dubins paths.
 
 Our hybrid program $\alpha$ is a time-triggered \emph{control-plant} loop: $\alpha\equiv(\ctrl;\plant)^*$.
-We use \emph{relative} coordinates: the robot's position is always the origin, from which perspective the waypoint ``moves toward'' the vehicle.
+We use \emph{relative} coordinates: the robot's position is always the origin, from which perspective the waypoint ``moves toward'' the vehicle (\rref{fig:ode1}).
 This simplifies proofs (fewer variables) and implementation (real sensors and actuators are vehicle-centric).
+\begin{figure}[h!tb]
+\centering
+\includegraphics[width=0.3\textwidth]{graphics/fig-ode1.pdf}
+\caption{Trajectories of dynamics for different choices of \kvar.}
+\label{fig:ode1}
+\end{figure}
+
 The $\plant$ is an ODE describing the robot kinematics:
 \begin{align*}
 \plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
@@ -1301,6 +1325,14 @@ In the equations for $\D{\xgvar},\D{\ygvar}$: \begin{inparaenum}[\it i)]\item Th
 \end{inparaenum}
 The equations $\D{\vvar}=\avar$ and $\D{\tvar}=1$ make acceleration the derivative of velocity and $\tvar$ stand for current time.
 The domain constraint $\tvar \leq \Tvar \land \vvar \geq 0$ says that the duration of one control cycle shall never exceed a timestep parameter $\Tvar > 0$ representing the maximum delay between control cycles and that the robot never drives in reverse.
+\rref{fig:ode2} illustrates a goal of size $\varepsilon=1$ around the origin and several trajectories which pass through the goal.
+
+\begin{figure}[h!t]
+\centering
+\includegraphics[width=0.3\textwidth]{graphics/fig-ode2.pdf}
+\caption{Trajectories of \plant for choices of $\kvar < 0$ when $\varepsilon = 1$.}
+\label{fig:ode2}
+\end{figure}
 
 The controller's task is to compute an acceleration $\avar$ which slows down (or speeds up) soon enough that the speed limit $\vvar \in [\vlvar,\vhvar]$ is ensured \emph{by the time} the robot reaches the goal.
 The controller is written:
@@ -1327,8 +1359,9 @@ The controller is written:
       & (1+\abs{\kvar}\veps)^2 \Bigl(\vvar\Tvar+\frac{\avar}{2}\Tvar^2 + \frac{\vlvar^2 - (\vvar{+}\avar\Tvar)^2}{2\Avar}\Bigr) + \veps{\leq}\lnorm{(\xgvar,\ygvar)}\Bigr)\end{align*}}
 \noindent where the plan assignment $\prandom{(\xgvar,\ygvar)}$ chooses the next 2D waypoint, the assignment $\prandom{[\vlvar,\vhvar]}$ chooses the speed limit interval, and $\prandom{\kvar}$ chooses any curvature.
 The \emph{feasibility} test $\ptest{\planreq}$ determines whether or not the chosen waypoint, speed limit, and curvature are \emph{physically} attainable in the current state under the $\plant$ dynamics (e.g., it checks that there is enough remaining distance to get within the speed limit interval).
-We also simplify plans so all waypoints satisfy $\ygvar > 0,$ by subdividing any violating paths automatically.
-This simplifies the feedback controller and proofs.
+We also simplify plans so all waypoints satisfy $\ygvar > 0,$ by subdividing any violating path segments automatically.
+Bisecting the arc once always suffices because any arc is at most magnitude $2\pi,$ so the bisected arc is at most magnitude $\pi$ and thus satisfies $\ygvar > 0$.
+It is worth this effort to gain the assumption $\ygvar > 0$ because it simplifies the feedback controller and proofs.
 The abbreviation $\ctrlliv$ names just the control code responsible for deciding \emph{how} the waypoint is followed rather than \emph{which} waypoint is followed.
 
 
@@ -1352,10 +1385,10 @@ For straight line motion ($\kvar=0$), the required distance can simply be found 
 \underbrace{\vvar\Tvar+\frac{\avar}{2}\Tvar^2}_{\mathclap{\text{distance in time}~\Tvar}} + \frac{(\overbrace{\vvar{+}\avar\Tvar}^{\mathclap{\text{speed in time}~\Tvar}})^2-\vhvar^2}{2\Bvar} + \veps \leq \lnorm{(\xgvar,\ygvar)}
 \end{equation*}
 where $\avar \in [-\Bvar,\Avar]$.
-The extra factor of $(1 + \abs{k}\veps)^2$ for curved motion accounts for the fact that an arc along the inner side of the annulus is shorter than one along the outside (\rref{fig:circlestaging}).
+The extra factor of $(1 + \abs{k}\veps)^2$ in formula $\admiss$ accounts for the fact that an arc along the inner side of the annulus is shorter than one along the outside (\rref{fig:circlestaging}).
 
 \subsection{Proofs}
-In contrast to prior works~\cite{DBLP:journals/ijrr/MitschGVP17}, this work contains both safety and liveness proofs for the full 2D dynamics.\footnote{In the interest of full disclosure, the modeling and proof sections were largely performed by collaborators in this work. The present author provided simulations, writing, integration with \VeriPhy and advice on the modeling and proof tasks. In contrast, the modeling and proofs in the proposed work are to be performed by the present author}.
+In contrast to prior works~\cite{DBLP:journals/ijrr/MitschGVP17}, this work contains both safety and liveness proofs for the full 2D dynamics.\footnote{In the interest of full disclosure, the modeling and proof sections were largely performed by collaborators in this work. The present author provided simulations, writing, integration with \VeriPhy, and advice on the modeling and proof tasks. In contrast, the modeling and proofs in the proposed work are to be performed by the present author.}
 In many ways, this lays a foundation for the proposed work because a proof of winnability for a hybrid game will contain both liveness-like (strategy for our player) and safety-like components (strategy for the opponent).
 Taken at surface value, the safety theorem says that speed limits are obeyed whenever the robot reaches a waypoint
 \begin{theorem}[Safety]
@@ -1392,9 +1425,9 @@ The simplifying assumptions $\vvar{>}0\land\yvar{>}0$ say the robot is still mov
 
 The liveness theorem is invaluable because it validates the \dL model: if it were not even possible at the level of the \dL model to achieve liveness, then it would be absolutely impossible at the level of implementation to achieve liveness.
 Because it is undesirable to change the model drastically once implementation has started (i.e., delays in modeling and verification will trickle down to greater delays in implementation and testing), it is valuable to have this confidence in the model before implementation even begins.
-Moreover, the combination of safety and liveness gives us confidence that a game generalization of this proof will succeed, as the main components of a game proof are liveness and safety reasoning.
+Moreover, the combination of safety and liveness proofs prepare us for the proposed work of generalizing this case study to a hybrid game: proofs about an Angelic controller proceed like the liveness proof, while proofs about a Demonic plant proceed like the safety proof.
 
-\subsection{Simulations} 
+\subsection{Simulations}
 In order to claim that \VeriPhy has been evaluated on a realistic system implementation, it is essential that we choose a simulation platform that is reasonably faithful to the physics of actual autonomous cars.
 For this purpose we chose the AirSim~\cite{shah2018airsim} simulator, which is notable for combining top-notch visuals, reasonable physics, and an open-source code base that is particularly friendly to modification.
 While some aspects of the underlying physics engine are closed-source, many aspects are open to customization, including for example the details of wheels and suspensions, and the center of gravity.
@@ -1457,7 +1490,7 @@ The author developed several driving environments for testing, shown in \rref{fi
 The simulations showed that while it is rare to achieve zero errors, failure rates in the single digits are attainable, which suffice to complete all environments.
 Moreover, a major challenge we solved was to develop a simulation which worked seamlessly with the monitors, themselves synthesized from the model.
 The model and proof were iteratively developed using feedback from the resulting monitors.
-Our relatively low failure rates attested that our simple model is yet general enough to describe control decisions and physical dynamics that arise in practice.
+Our failure rates were as low as $0.1$\% for the control monitor and $4.0$\% for the plant monitor, which attested that our simple model was still general enough to express control decisions and physical dynamics that arise in some practical scenarios.
 Thus our formal link from \dL to CPS execution can be made to work in practice for nontrivial driving scenarios.
 %\begin{table*}
 %\caption{Average speed, Monitor failure rates, plant violation rates, for AirSim and human driver in Rectangle, Turns, and Clover for Patrol missions}
@@ -1477,10 +1510,10 @@ Thus our formal link from \dL to CPS execution can be made to work in practice f
 
 
 \subsection{Related Work}
-Related work in formal methods and robotics has applied synthesis and verification to safe control of robotic systems.
-The present work is unique among these in its use of a verified-safe sandbox controller to enforce compliance between the implementation and formal model for a realistic robot simulation with an expressive correctness guarantee.
+Synthesis and verification for robots as well as end-to-end verification have been discussed at length in the main related work section (\rref{sec:relwork}).
+This chapter is unique compared to prior works in its use of a verified-safe sandbox controller to enforce compliance between the implementation and formal model for a realistic robot simulation with an expressive correctness guarantee.
+In this section, we discuss only related works on simulation, which were not discussed in the broader section.
 
-\subsubsection{Simulation}
 Simulation is an essential part of evaluating models and designs for any robotic system.
 Multiple simulation platforms are available, of which AirSim~\cite{shah2018airsim} is a recent platform for UAVs and autonomous cars.
 Other simulators would likely have worked as well, but we chose AirSim because it is configured with high-fidelity physical and visual models out of the box, reducing the chances of introducing modeling errors.
