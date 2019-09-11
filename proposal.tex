@@ -577,7 +577,7 @@ General-purpose provers such as Coq and Isabelle have also been used to verify h
 \paragraph{Differential Dynamic Logics}
 This thesis is part of a long line of work using differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer08,DBLP:conf/lics/Platzer12a,DBLP:journals/jar/Platzer17} and logics descended from it.
 Compared to reachability analysis approaches, deductive verification in \dL is symbolic and expressive: all polynomial differential equations are supported, and discrete tests and assignments are also polynomial.
-Guarantees are typically unbounded-time, and the plant is modeled faithfully as a continuous differential equation, not a discrete difference equation.
+Guarantees are typically unbounded-time, and the plant (i.e., physics) is modeled faithfully as a continuous differential equation, not a discrete difference equation.
 The tradeoff is that verification is undecidable, and serious case studies usually require significant manual interaction from the user.
 The \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} theorem prover implements \dL and provides significant automation to minimize the number of interactions required.
 \dL and \KeYmaeraX have been applied in a number of case studies~\cite{DBLP:conf/cade/Platzer16}.
@@ -810,7 +810,7 @@ This is because the \emph{strategy} by which acceleration is chosen must be expl
 
 Why are \rref{ex:driving-game} and game models in general simpler? % $\alpha_{\textrm{Sys}}$ so much longer than 
 A typical game model has shape $\prepeat{(\pdual{\ctrl};~\plant)},$ where the turn-taking (or dual) operator $\pdual{\alpha}$ has the effect of switching players.
-Most often, we wish to show that there \emph{exists} a control choice where \emph{all} behaviors of the environment are safe and live, and so on for all iterations of the system.
+Most often, we wish to show that there \emph{exists} a control choice where \emph{all} behaviors of the plant (physical environment) are safe and live, and so on for all iterations of the system.
 Such iterated modality alterations are precisely the one pattern expressible in \dGL but not \dL~\cite{DBLP:journals/tocl/Platzer15}.
 In vanilla \dL, safety is usually expressed in the form $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\psi}$ and the only forms of liveness which can be expressed are those with finitely-many player alterations, e.g.,
 $\phi \limply \ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}$ or $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}}$.
@@ -1207,7 +1207,7 @@ For these reasons, the source-model is a hybrid program, verified in \KeYmaeraX 
 \label{fig:pipelineoverview}
 \end{figure*}
 \begin{itemize}
-\item The \ModelPlex tool, which is implemented as a feature of \KeYmaeraX, is invoked to synthesize a \emph{control monitor formula} and \emph{plant monitor formula}, which determine whether control decisions and physical evolutions respectively satisfy the assumptions made of them by the model
+\item The \ModelPlex~\cite{DBLP:journals/fmsd/MitschP16} tool, which is implemented as a feature of \KeYmaeraX, is invoked to synthesize a \emph{control monitor formula} and \emph{plant monitor formula}, which determine whether control decisions and physical evolutions respectively satisfy the assumptions made of them by the model.
 \item The monitors are combined with a proven-safe \emph{fallback controller} (which is provided in the input model) to form a \emph{sandbox controller}.
    The sandbox controller applies control decisions provided from an external source (henceforth called the \emph{external controller}) whenever those decisions satisfy the controller monitor,
    and otherwise invokes the fallback controller.
@@ -1262,7 +1262,7 @@ The smaller gap between CakeML source and Isabelle/HOL definitions makes the ver
 We chose CakeML compilation over, e.g., translation validation with unverified compilers~\cite{DBLP:conf/pldi/SewellMK13} since translation validation can be brittle.
 
 Lustre~\cite{DBLP:journals/tse/HalbwachsLR92} is a reactive, synchronous language intended for use in safety-critical CPS.
-It has static analyzers based on abstract interpretation such as NBac~\cite{DBLP:journals/fmsd/Jeannet03}, which eliminate many bugs in practice, but are fundamenteally conservative and also consider only the control code, not the plant.
+It has static analyzers based on abstract interpretation such as NBac~\cite{DBLP:journals/fmsd/Jeannet03}, which eliminate many bugs in practice, but are fundamenteally conservative and also consider only the control code, not the physics in the plant.
 Lustre has a verified compiler, V\'{e}lus~\cite{DBLP:conf/pldi/BourkeBDLPR17}, but verified compilation \emph{alone} does not negate the fact that verification for CPS must account for physics.
 We could have chosen Lustre as an intermediate compilation target instead of CakeML, but the functional style of CakeML is a much closer match to Isabelle/HOL definitions, while Lustre's reactive model is an entirely different paradigm from both HOL and hybrid programs.
 
@@ -2810,11 +2810,11 @@ Synthesizing a controller is appealing because unlike an untrusted controller, i
 Yet the downside of a synthesized controller is that it sacrifices flexibility: if our synthesized monitor guarantees correctness but was not optimized for operational efficiency, fuel efficiency etc., we might one day decide we prefer a controller which meets those criteria instead.
 In this case the flexibility given by the monitoring approach is preferred.
 On the plant side, plant monitors are perfect for deployment in production systems or during field tests: they allow us to assess whether assumptions on the environment are met in practice.
-But in early stages of development, especially if there is not a purpose built simulator for our system already, we would much prefer to synthesize code which can actually (and faithfully) simulate the plant for us, which is helpful in designing the corresponding controller.
+But in early stages of development, especially if there is not a purpose-built simulator for our system already, we would much prefer to synthesize code which can actually (and faithfully) simulate the plant for us, which is helpful in designing the corresponding controller.
 The first two are monitors which merely detect noncompliance with a model, whereas the latter two actively control the system.
-Notably, the first two are supported by the existing \ModelPlex tool while the latter two are not.
+Notably, the first two are supported by the existing \ModelPlex~\cite{DBLP:journals/fmsd/MitschP16} tool while the latter two are not.
 Moreover, we obviously wish that we could synthesize these artifacts for arbitrarily complicated systems, whereas existing implementations of \ModelPlex have limitations, for example that the controller must contain no differential equations and loops.
-Until recent advances, it was even more restrictive, with plants restricted to only nilpotent differential equations.
+Until recent advances~\cite{DBLP:journals/corr/abs-1908-05535}, it was even more restrictive, and often would not produce usable monitors for plants beyond  nilpotent differential equations.
 
 It is by looking at the advances that led to recent gains that we can then, however, discover the changes that achieve our lofty goal of synthesizing all four artifacts and doing so for arbitrary systems (and games).
 A key insight behind a recent advance in the \ModelPlex tool (which generalized plants to polynomial ODEs so long as the plant is proven safe using only chains of inductive invariants) is that even in synthesizing a monitor, \emph{the contents of a proof are essential to synthesis}.
@@ -2827,7 +2827,7 @@ In short, the following could be called the punchline of the thesis:
 
 \begin{framed}
   \begin{quote}
-A box proof witnesses monitorability and a diamond witnesses controllability, thus a \CdGL proof witnesses synthesizability
+A box game proof witnesses monitorability and a diamond game proof witnesses controllability, thus a \CdGL proof witnesses synthesizability
   \end{quote}
 \end{framed}
 
@@ -2835,18 +2835,21 @@ Whenever the players alternate turns in a game, the proof alternates modalities.
 Whenever we prove a $\ddiamond{\alpha}{P}$ property, we do so by witnessing the decisions (computations) Angel performs to achieve $P$.
 In proving a $\dbox{\alpha}{P}$ property, we enumerate rules which Angel must uphold until control passes to Demon, and in doing so we enumerate the contents of a monitor.
 
-This chapter aims to show that this content can and should be used to automate the synthesis of all four artifacts, not just in special cases but in general cases, including:
+This chapter aims to show that this content's computational interpretation can and should be used to automate the synthesis of all four artifacts, not just in special cases but in general cases, including:
 \begin{itemize}
 \item Model-predictive controllers using differential equations
-\item Differential equations with not only differential invariants but also differential ghosts, which together suffice to prove any polynomial invariant of a polynomial ODE
+\item Differential equations with not only differential invariants but also differential ghosts, which together suffice~\cite{DBLP:conf/lics/PlatzerT18} to prove any polynomial invariant of a polynomial ODE
 \item Controllers containing loops
-\item Nonatomic plants which for example employ different ODEs in different cases, or may employ sequences of ODEs to model different stages of a system
+\item Sophisticated plants beyond the single ODE systems supported by prior work.
+For example, an \emph{event-triggered model}, where the controller can respond immediately to some physical event, usually has a nondeterministic choice of ODEs as its plant.
+Sometimes systems which pass through multiple stages, such as in spaceflight, also find it useful to employ a separate ODE for each stage.
 \end{itemize}
 
 The implementation of \ProofPlex contains an implementation of the relaxation theorems of the previous section, which first characterize which classical proofs also work as constructive proofs, then compute a hybrid system relaxation of the game.
 Once a relaxation for the controller model (and controller proof) in a hybrid game has been computed, verification can be made end-to-end by hooking it in to the existing \VeriPhy pipeline.
 What remains is to supply the untrusted controller.
-Because \ProofPlex, unlike \ModelPlex, also synthesizes monitors by exploiting angelic proofs, we automatically provide an ``untrusted'' controller which in fact is trustworthy, because it simply an implementation of the (operational) angelic dynamics of the control proof in \CdGL. By the work in the previous chapter, these operational semantics refine the standard denotational semantics of both the hybrid game and of its systems relaxation, meaning they satisfy the monitor.
+Because \ProofPlex, unlike \ModelPlex, also synthesizes controllers by exploiting Angelic proofs, it will produce an ``untrusted'' controller which in fact is trustworthy, because it is simply an implementation of the Angelic dynamics of the control proof in \CdGL.
+By \rref{ch:cdgl} the semantics of the synthesized controller refines the denotational semantics of both the hybrid game controller and of its systems relaxation, meaning it satisfies the controller monitor.
 
 \chapter{Conclusion}
 \section{Timeline}
