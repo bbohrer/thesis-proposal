@@ -1766,7 +1766,13 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \newcommand{\kwthen}{\textbf{then}}
 %\newcommand{\kwcase}{\textbf{case}}
 \newcommand{\kwfocus}{\textbf{focus}}
+\newcommand{\semiset}[2]{\{#1~|~#2\}} 
+\newcommand{\pvl}{\ell}
+\newcommand{\pvr}{r}
 
+\newcommand{\sshow}[3]{\text{show}~{#1}:{#2}~{#3}}
+\newcommand{\shave}[4]{\text{have}~{#1}:{#2}~{#3}~{#4}}
+\newcommand{\snote}[4]{\text{note}~{#1}:{#2}~{#3}~{#4}}
 
 Throughout this thesis, the glue that unified the Logician's high-level abstract models with the Engineer's low-level implementations has been \dL for \emph{classical} hybrid \emph{systems}.
 While \rref{ch:end-to-end-v} showed that the connection between \dL models and implementations holds even in realistic case studies, it has also revealed the room that \dL leaves for improvement as such a glue.
@@ -1828,7 +1834,6 @@ We treat the discrete fragment first in large part because there is such a signi
 
 \section{Related Work}
 \label{sec:cgl-relwork}
-\newcommand{\semiset}[2]{\{#1~|~#2\}} 
 This work is at the intersection of game logic and constructive modal logics.
 Individually, they have a rich literature, but little work has been done at their intersection.
 Of these, we are the first for \GL and the first with a proofs-as-programs interpretation for a full first-order program logic.
@@ -1965,7 +1970,7 @@ As usual in constructive logics, negation $\neg \phi$ is defined $\phi \limply \
 Likewise, we define $\theta \geq \eta \equiv \neg(\eta > \theta)$.
 We will use the derived constructs freely but present semantics and proof rules only for the core constructs to minimize duplication.
 Indeed, it will aid in understanding of the proof term language to keep the definitions above in mind, because the proof terms for many first-order programs follow those from first-order constructive logic.
-Note that in \CGL, classical duality axioms such as $\phi \lor \psi \equiv \neg(\neg \phi \land \neg psi)$ do not hold.
+Note that in \CGL, classical duality axioms such as $\phi \lor \psi \equiv \neg(\neg \phi \land \neg \psi)$ do not hold.
 
 For convenience, we also write derived operators where the dormant player is given control of a single choice before returning control to the active player.
 The \emph{dormant choice} $\dchoice{\alpha}{\beta},$ defined $\pdual{({\pchoice{\pdual{\alpha}}{\pdual{\beta}}})},$ says the dormant player chooses which branch to take, but the active player controls the subgames.
@@ -2218,8 +2223,6 @@ $(\rzApp{\ab}{\aa},\om) \in \fintR{\phi},$ where $\bigwedge \G$ is the conjuncti
 The realizer $\ab$ is a product of realizers for all components of $\cintR{\G},$ a conjunction which can be taken under any fixed ordering on $\G,$ e.g., lexicographic ordering on variable names.
 We also write $\aa \models (\bigwedge \G \limply \phi)$ to say $\aa$ is the witness of $\G \vdash \phi$.
 
-\newcommand{\pvl}{\ell}
-\newcommand{\pvr}{r}
 \paragraph{Proof Calculus}
 For practical use, \CGL requires a syntactic proof method.
 For this purpose, \CGL has a constructive natural deduction calculus equipped with proof terms.
@@ -2325,6 +2328,8 @@ The work presented in this chapter is under submission to POPL'20~\cite{poplcgl}
 All theorems listed here have been proven.
 Several other theorems are also of interest.
 In particular, we wish to explore a G\"{o}del-Gentzen translation and compare the closure ordinals for repetition games in \CGL with those for \GL.
+We are also interested in exploring completeness of the \CGL calculus with respect to the realizability semantics.
+The technical details of such a completeness proof would differ significantly from completeness proofs for \dGL~\cite{DBLP:journals/tocl/Platzer17} in that we would now be treating a realizability semantics, not a winning-region semantics.
 However, these studies can be undertaken equally well in the context of \CdGL, so we plan to do so in the proposed work (\rref{ch:cdgl}).
 
 \chapter{Proposed Work: \CdGL}
@@ -2549,11 +2554,12 @@ This is actually non-trivial for program logics, because a fact about the state 
 This is one reason that Bellerophon does not have named contexts, only references by position and value, which are far more fragile and/or verbose.
 Even traditional proof languages, such as Coq scripts, struggle with this: while Coq script does have named facts, those facts are scoped dynamically.
 Our first contribution is that Kaisar has lexical scope, unlike Coq script and Bellerophon.
+We discuss other proof languages in full detail in \rref{sec:kaisar-relwork}.
 
 The second main contribution solves an issue identified during the design and implementation of the first iteration of Kaisar~\cite{DBLP:journals/corr/abs-1908-05535}.
 In practice, most Logic-Users are not satisfied to maintain both the source code/model for a verified system \emph{and} a separate proof artifact.
-Many of the proof steps in a \CdGL proof are determined automatically by the structure of the program, because most of the common program constructs have a single canonical introduction rule.
-If we completely separate the proof from the model, we end up duplicating ``canonical'' steps between the model and proof, with an unacceptable 50\% proof-writing overhead for the Logic-User.
+While dynamic logic proofs need not follow the structure of a program in perfect lockstep, many program constructs do have a single canonical introduction rule, meaning many proof steps can be uniquely determined from the program structure.
+If we completely separate the proof from the model, we end up duplicating these ``canonical'' steps between the model and proof, which roughly doubles the amount of proof boilerplate written by the Logic-User.
 
 Prior approaches which do not have this overhead are not structured, i.e., they do not have lexical scope, but rather work by verification-condition generation (see \rref{sec:kaisar-relwork}).
 Thus the contribution of Kaisar is not just to achieve lexical scope but to do so while avoiding proof-vs.-model duplication.
@@ -2572,13 +2578,13 @@ In doing so, we dodge the scalability and transparency issues that come with pas
 Fusing Dafny-like ease-of-use with Isar-like generality is technically challenging.
 The core challenge behind Kaisar is to manage the proof context in the face of program dynamics.
 From a birds-eye perspective, the context-management challenges in Kaisar are much like those faced when we developed the operational semantics of \CGL proofs in \rref{ch:cgl}.
-We will also show that (in the systems case) this context can be understood in the context of differential-dynamic hybrid logic (\dHL) developed by the author, where program states can be assigned names and then referenced via \emph{nominals}.
+We will also show that (in the systems case) this context can be understood in the context of differential-dynamic hybrid logic (\dHL)~\cite{DBLP:conf/lics/BohrerP18} developed by the author, where program states can be assigned names and then referenced via \emph{nominals}.
 We equip Kaisar with several constructs for nominal reasoning, and give examples of when nominal reasoning in program proof and modeling may be useful.
 
 
 \section{Proposed Design}
 We start by defining the language of proven-programs $\alpha$:
-\[\alpha ::= x{:=}\theta\ |\ x{:=}*\ |\ ?x:\phi\ |\ \alpha;\beta\ |\ \alpha\cup\beta\ |\ (\alpha)^*@\{B\}\ |\ \{B\}\ |\ L: \alpha\]
+\[\alpha ::= x{:=}\theta\ |\ x{:=}*\ |\ ?x:\phi\ |\ \alpha;\beta\ |\ \alpha\cup\beta\ |\ (\alpha)^*@\{B\}\ |\ \{B\}\ |\ L{:}\ \alpha\]
 where $B$ is a structured proof block and $L$ is a label.
 In the loop case, the annotated block $\{B\}$ proves that the loop invariant follows from the current context.
 The invariant need not be explicitly annotated because (it is a metatheorem that) the conclusion of a proof can be inferred from the proof automatically.
@@ -2586,12 +2592,13 @@ The proof of the inductive step is embedded in the annotated loop body $\alpha$.
 
 There is a general-purpose generalization construct $\{B\}$ which embeds a structured proof $B$ in a program: the proof $B$ starts with the program's current proof context, and imports the conclusion of $B$ back into the broader proof.
 While we may choose to employ other constructs in structured proofs $B,$ I give some of the natural choices here:
-\[B ::= \text{show}~x:\phi~U\ |\ \text{have}~x:\phi~U~B\ |\ \text{note}~x'\phi~F~B\]
+\[B ::= \sshow{x}{\phi}{U}\ |\ \shave{x}{\phi}{U}{B}\ |\ \snote{x}{\phi}{F}{B}\]
 where $U$ is an unstructured proof according to the native language of the host prover and $F$ is a forward-style explicit proof term.
-In this simple base language, every proof block ends with a single ``show'' statement and the shown statement is considered to be its conclusion, though any facts proven with ``have'' can also be exported to the proof context without hurting anyone.
-Before the ``show'' may be any series of ``haves'' (which cut in structured proofs) and ``notes'' (which cut in forward proofs).
+Every proof ends with $\sshow{x}{\phi}{U}$ where the proof's conclusion $\phi$ is proven by $U$ and given name $x$.
+Proof $\shave{x}{\phi}{U}{B}$ cuts in fact $x:\phi,$ proves it with $U,$ then continues proving $B$.
+Proof $\snote{x}{\phi}{F}{B}$ also cuts in $x:\phi,$ with the distinction that the cut formula $\phi$ is proven with a \emph{forward} proof term $F$.
 
-The program construct $?(x:\phi)$ can also function like the Isar ``assume'' keyword for introducing assumptions since  the implication $\phi \rightarrow \psi$ and box test $[?\phi]\psi$ are equivalent.
+The program construct $?(x:\phi)$ can also function like the Isar ``assume'' keyword for introducing assumptions since  the implication $\phi \rightarrow \psi$ and box test $[?\phi]\psi$ are equivalent by axiom \irref{dgltest}.
 More generally, we can implement what Martin Davis called ``Obvious Logical Inferences~\cite{DBLP:conf/ijcai/Davis81} ,''
  that is proof-checking can identify formulas up to trivial syntactic identities, which Isar and Mizar do.
 
@@ -2605,29 +2612,30 @@ This can be done following the translation in \cite{DBLP:conf/lics/BohrerP18} an
 
 \newcommand{\eafter}[1]{\geq(#1)}
 Formulas contain at least comparisons, propositional connectives, and nominals:
-\[\phi ::=  \theta \sim \eta\ |\ \phi \land \psi\ |\ \neg \phi\ |\ \lforall{x}{\phi}\|\ @_L(\phi)\ |\ \eafter{L}\]
+\[\phi ::=  \theta \sim \eta\ |\ \phi \land \psi\ |\ \neg \phi\ |\ \lforall{x}{\phi}\ |\ @_L(\phi)\ |\ \eafter{L}\]
 where $\sim$ stands for any comparison operator $\sim \in \{<,\leq,=,\neq,\geq,>\}$.
 The nominal $@_L(\phi)$ gives the truth value of $\phi$ as of label $L,$ and can be elaborated into $\phi$ where are terms $\theta$ become the nominal $@_L(\theta),$ which is it turn elaborated into ghost variables and/or substitutions.
 The proposition $\eafter{L}$ if the current program counter is ``after'' $L$, and is implemented as a binary ghost variable.
-This is a natural variation on the proposition $L$ of hybrid logic which holds true exactly \emph{at} state $L,$ and is useful for example in Owicki-Gries reasoning, where it is known~\cite{DBLP:journals/tse/Lamport77} to be the \emph{only} kind of ghosting necessary for completeness.
+This is a natural variation on the proposition $L$ of hybrid logic which holds true exactly \emph{at} state $L,$ and is useful for example in Owicki-Gries~\cite{Owicki1976} reasoning, where it is known~\cite{DBLP:journals/tse/Lamport77} to be the \emph{only} kind of ghosting necessary for completeness.
 
 
 \section{Proposed Theory}
 Soundness is a sine qua non for any proof language.
 Beyond soundness, a key property that makes the Kaisar design work is the fact that in the proof-checking judgement, the formula proved has the output modality, i.e., we can syntactically compute the model proved as a function of its proof.
 Rather than write the checking judgement explicitly and proving its mode, we give a strongest-postcondition semantics for Kaisar proofs, then the desired modality follows directly from the fact that strongest-postcondition is a function.
-
-I just write $\G_\alpha$ to mean ``whatever context contains everything from $\G$, but renamed for $\alpha$, also any facts exported from checking $\alpha$.''
-In particular, this means that when checking $?(x:\phi);\alpha,$ assumption $x:\phi$ will be added into the context in checking $\alpha$.
+We write $\spost{S}{\G}$ for the strongest postcondition of proven-program $S$ starting in context $\G$.
+We also write $\G_\alpha$ for the \emph{context} which results from checking $\spost{S}{\G}$.
+That is, if $\vec{x} = \boundvars{\alpha}$ and $\vec{y}$ is fresh with $|\vec{x}| = |\vec{y}|,$, and $\vec{z}:\vec{\psi}$ are the auxiliary facts proved during $S$,
+then $\G_\alpha = (\eren{\G}{\vec{x}}{\vec{y}}),\vec{z}:\vec{\psi}$ where $\eren{\G}{\vec{x}}{\vec{y}}$ is the fresh renaming of each $x_i$ to corresponding $y_i$.
 \begin{align*}
-\spost{\{\text{show} \phi UP\}}{\G}       &= \phi                                               &&\text{if UP proves }\phi\\
-\spost{\{\text{have} x:\phi~UP~SP\}}{\G} &= \spost{SP}{\G,x:\phi}                           &&\text{if UP proves }\phi\\
-\spost{\alpha;\beta}{\G}                       &= \spost{\beta}{\G_\alpha,\spost{\G}{\beta}} &&\\
-\spost{\alpha\cup\beta}{\G}                  &= \spost{\alpha}{\G} \vee \spost{\beta}{\G}    &&\\
+\spost{\{\sshow{x}{\phi}{U}\}}{\G}             &= \phi                                        &&\text{if U proves }\phi\\
+\spost{\{\shave{x}{\phi}{U}{S}\}}{\G}          &= \spost{S}{(\G,x:\phi)}                      &&\text{if U proves }\phi\\
+\spost{\alpha;\beta}{\G}                       &= \spost{\beta}{(\G_\alpha,\spost{\alpha}{\G})} &&\\
+\spost{\alpha\cup\beta}{\G}                    &= \spost{\alpha}{\G} \vee \spost{\beta}{\G}   &&\\
 \spost{?(x:\phi)}{\G} &= \phi &&\\
 \spost{\humod{x}{\theta}}{\G} &=(x=\theta) &&\\
-\spost{(\alpha)^*@\{B\}}{\G} &= \spost{\{B\}}{G} &&\text{if }\spost{\alpha}{{\G_\alpha}_{\{B\}}}=\spost{\{B\}}{\G}\\
-\spost{L: \alpha}{\G} &= \spost{\alpha}{\G,L} 
+  \spost{(\alpha)^*@\{B\}}{\G} &= \spost{\{B\}}{G} &&\text{if }\spost{\alpha}{{\G_\alpha}_{\{B\}}}=\spost{\{B\}}{\G}\\
+\spost{L{:}\ \alpha}{\G} &= \spost{\alpha}{(\G,L)} 
 \end{align*}
 That is, ``show'' must prove its declared goal, and ``have'' must prove the lemma before proceeding to SP.
 In $\alpha;\beta,$ the conclusion is given by $\beta,$ but the proof of $\beta$ has access to all results proven in $\alpha$.
@@ -2666,22 +2674,42 @@ x:=2;
 Labels do not modify the postcondition, they just add themselves to the context.
 
 We wish to provide a formal guarantee regarding the modularity provided by Kaisar's lexical scope.
-We take inspiration from the \emph{adaptation completeness}~\cite{DBLP:journals/fac/Kleymann99} theorem for VDM, which says any Hoare specification which is equi-true for all programs is interderivable for all programs.
-However, we are less concerned with adapting a program to new specifications than with adapting proofs when only one part of the program changes.
-We propose a \emph{modularity completeness} which says every provable property has a modular proof.
+We take inspiration from the \emph{adaptation completeness}~\cite{DBLP:journals/fac/Kleymann99} theorem for VDM, which says when a Hoare triple $\{P\}\alpha\{Q\}$ holds of \emph{every} $\alpha,$ then a proof of any $\{P\}\alpha\{Q\}$ can be adapted to a proof of $\{P\}\beta\{Q\}$ for any $\beta.$
+That is, $\{P\}\beta\{Q\}$ will have a proof whenever any $\{P\}\alpha\{Q\}$ has a proof.
+
+However, we are more concerned with adapting a proof when only one part of the program changes.
+We propose to define a notion of \emph{modular proofs} which are amenable to such adaptations and a \emph{modularity completeness} saying that every provable property has a modular proof.
 Informally, a modular proof is one where a change to a subprogram requires changes only to the subproof for that program.
-\begin{theorem}[Modularity completeness]
-  Here $C,D$ stand for contexts $\mathsf{Prog} \to \mathsf{Prog}$ and $\mathsf{Prog} \to \mathsf{Formula},$ respectively.
-  For any $\proves{\G}{M}{\ddiamond{\alpha}}{\phi}$ and $C(\beta) = \alpha,$ there exists $D$ such that:
+%\begin{theorem}[Modularity completeness]
+%  For any $\proves{\G}{M}{\ddiamond{\alpha}}{\phi}$ and $C(\beta) = \alpha,$ there exists $D$ such that:
+%\begin{enumerate}
+%\item there exists $A$ such that $\proves{\G}{A}{D(\beta)}$
+%\item there exists natural $F$ such that for every program $\gamma,$ $\proves{\G}{F(\gamma)}{(D(\gamma) \limply \ddiamond{C(\gamma)}{\phi})}$.
+%\end{enumerate}
+%\end{theorem}
+\begin{definition}[Modular proof]
+Let $C,D$ stand for contexts $\mathsf{Prog} \to \mathsf{Prog}$ and $\mathsf{Prog} \to \mathsf{Formula},$ respectively.
+Consider any $\alpha,\beta,\G$ such that $C(\beta) = \alpha$.
+Then we say the pair $(A,F)$ is a \emph{modular proof} of $\ddiamond{C(\beta)}{\phi}$ in context $\G$ if:
 \begin{enumerate}
-\item there exists $A$ such that $\proves{\G}{A}{D(\beta)}$
-\item there exists natural $F$ such that for every program $\gamma,$ $\proves{\G}{F(\gamma)}{D(\gamma) \limply \ddiamond{C(\gamma)}{\phi}}$.
+\item $\proves{\G}{A}{D(\beta)}$
+\item $F$ is a natural transformation  from programs to proofs where for every program $\gamma$ we have $\proves{\G}{F(\gamma)}{(D(\gamma) \limply \ddiamond{C(\gamma)}{\phi})}$.
 \end{enumerate}
-\end{theorem}
-That is, we decompose the proven program $\alpha$ as a subprogram $\beta$ in a context $C$.
-The \emph{modular proof} uses an \emph{interface} $D(\beta)$ which specifies all the properties of $\beta$ needed in the rest of the proof.
-Then the modular proof consists of a proof $A$ that $\beta$ satisfies interface $D$ and a proof $F$ that \emph{any} program $\gamma$ which satisfies interface $D$ can be substituted for $\beta$ in context $C$ and maintain the postcondition $\phi$.
-We also propose to prove completeness w.r.t.\ the \CdGL calculus.
+\end{definition}
+While this definition is subtle, the basic idea is to decompose the proven-program $\alpha$ as a subprogram $\beta$ in a context $C$.
+A \emph{modular proof} uses an \emph{interface} $D(\beta)$ which specifies all the properties of $\beta$ that are needed in the rest of the proof.
+Then the modular proof consists of a proof $A$ that $\beta$ satisfies interface $D$ and a family of proofs $F$ that \emph{any} program $\gamma$ which satisfies interface $D$ can be substituted for $\beta$ in context $C$ and maintain the postcondition $\phi$.
+
+Given this definition of modular proof, a first cut at a modular completeness theorem might show that for every $\proves{\G}{M}{\ddiamond{\alpha}{\phi}}$ there is a modular proof $(A,F)$
+However, there always exist \emph{trivial modular proofs}: if we define $\beta = \alpha, C(\cdot)=\cdot,$ and $D(\cdot) = \ddiamond{\gamma}{\phi}$ then the pair $(M,(\_ \mapsto \text{id}))$ is a modular proof, where $\text{id}$ is the identity proof $P \limply P$.
+From a high level, a modular proof is only interesting if the interface $D$ is somehow simpler than the theorem $\ddiamond{\alpha}{\phi}$ and if proofs can be adapted with respect to non-trivial contexts $C$.
+
+A \emph{strong modular completeness} theorem would say that a proof can be modularized for \emph{every} context $C$ which program $\alpha$ matches.
+This would mean that no matter which part of the program we choose to modify during maintenance, only the corresponding proofs would be affected.
+However, it is possible that strong modular completeness does not hold: first-order verification conditions can depend intimately on, e.g. the values of preceeding assignments,
+and Dynamic Logic-style proofs for sequential composition $\alpha;\beta$ are less modular than the restrictive Hoare rule for compositions.
+For this reason, we propose to identify the strongest modular completeness theorem that can be proven, thus answering the question of ``When exactly do small program changes lead to small proof changes``?
+We also propose to prove completeness w.r.t.\ the \CdGL calculus, so that Kaisar can inherit the proposed \CdGL completeness results.
 
 This chapter has a significant implementation component, through which we will also implement \CdGL proof checking.
 The Kaisar parser will produce an abstract syntax tree which is then elaborated to the intermediate representation (IR), a natural-deduction calculus based on the calculus from \rref{ch:cdgl}.
@@ -2693,38 +2721,46 @@ In \rref{ch:proofplex}, we will use the same IR as the input to synthesis.
 
 \section{Related Work}
 \label{sec:kaisar-relwork}
-Structured proof languages were introduced in Mizar~\cite{conf/mkm/BancerekBGKMNPU15,Wenzel2002}.
-Isar~\cite{DBLP:conf/mkm/Wenzel06,DBLP:conf/tphol/Wenzel99,Wenzel07isabelle/isar} is one of the best-developed systems today, and has been successfully applied to large-scale verification tasks~\cite{Nipkow2002,DBLP:journals/cacm/KleinAEHCDEEKNSTW10,DBLP:journals/afp/Lochbihler07}.
+Structured proofs were introduced over 40 years ago in Mizar, which has seen continued use in the years since~\cite{conf/mkm/BancerekBGKMNPU15,Wenzel2002}.
+Isar~\cite{DBLP:conf/mkm/Wenzel06,DBLP:conf/tphol/Wenzel99,Wenzel07isabelle/isar} is one of the most mature structured proof languages today, and has been successfully applied to large-scale verification tasks~\cite{Nipkow2002,DBLP:journals/cacm/KleinAEHCDEEKNSTW10,DBLP:journals/afp/Lochbihler07}.
+In Mizar, the ``unstructured'' fragment consists of simple one-line commands so that the structured proof steps are the majority, whereas Isar allows arbitrarily-complex unstructured proofs using Isabelle's ``apply-script'' language.
+One of the major questions remaining in the Kaisar design is whether to employ a simplistic unstructured language as in Mizar, or whether to incorporate a full-powered unstructured language such as Bellerophon.
 Other examples include DECLARE~\cite{Syme1997DECLAREAP} for HOL, TLAPS for ${\rm TLA}^+$~\cite{DBLP:conf/fm/CousineauDLMRV12,Lamport:hybrid:1992}, SSReflect~\cite{DBLP:journals/jfrea/GonthierM10} and declarative proofs~\cite{DBLP:conf/types/Corbineau07} in Coq.
 Kaisar is inspired immediately by Isar, and reuses its \kwnote{}, \kwshow{}, and \kwhave{} keywords.
 Natural-language structured proof paradigms have also been developed~\cite{Lamport12,Lamport95}.
+While their main goal is to ensure that paper proofs are done correctly, they can also inspire the design of formal languages.
 Apt's \emph{proof outlines}~\cite{apt2010verification} are another paradigm that provides limited proof structuring.
+Proof outlines consist of a sequence of proof states, and are more compact than full proof-trees, but we hope for Kaisar to be even more compact.
 
 ``Mizar modes'' have been used to implement structured proofs for provers without extending the core.
 Mizar modes are available Cambridge HOL~\cite{DBLP:conf/tphol/Harrison96}, Isabelle~\cite{DBLP:conf/cpp/KaliszykPU16}, and HOL Light~\cite{DBLP:conf/tphol/Wiedijk01}.
 The ``mode'' approach was also used to write the Iris Proof Mode (IPM) in Coq~\cite{DBLP:conf/popl/KrebbersTB17}, which implements the Iris concurrent separation logic in Coq's \ltac language.
-Coq and \KeYmaeraX both~\cite{Barras:1997,DBLP:conf/cpp/BohrerRVVP17} have small LCF-style cores, which promote implementations of structured proof outside the core.
+The ``Mizar mode'' approach works well in provers with small LCF-style cores, where the Mizar mode can employ the core as a ``library''.
+Coq and \KeYmaeraX both~\cite{Barras:1997,DBLP:conf/cpp/BohrerRVVP17} have small LCF-style cores.
 %IPM uses Coq's unstructured proof style and focuses (a) on embedding object logics in metalogics and (b) on the concerns of separation logic (e.g. managing of different context types, state ownership).
 %The \kwassume{},  are taken directly from Isar, and Kaisar's \kwlet{} construct is a straightforward generalization of Isar's \kwlet{} construct w
 
 
 Two classes of languages closely related to structured proofs are tactics languages (which implement reuseable automation) and unstructured proof languages (which implement concrete proofs).
 Automation can often be written in the prover's implementation language: OCaml in Coq, ML in Isabelle, or Scala in \KeYmaeraX.
-Domain-specific languages for tactics include untyped \ltac~\cite{Delahaye:2000:TLS:1765236.1765246}, reflective Rtac~\cite{malecha2015rtac-coqpl}, and dependently typed Mtac~\cite{Ziliani:2013:MMT:2544174.2500579} in Coq, Eisbach~\cite{Matichuk:2016:EPM:2904234.2904264} in Isabelle, and VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}.
-The KeY prover~\cite{DBLP:series/lncs/10001} features a soundness-critical ``tactlet''~\cite{habermalz2000interactiv} language with limited expressivity, which can be understood as specifying new inference rules.
+Domain-specific languages for tactics include untyped \ltac~\cite{Delahaye:2000:TLS:1765236.1765246}, reflective Rtac~\cite{malecha2015rtac-coqpl}, and dependently typed Mtac~\cite{Ziliani:2013:MMT:2544174.2500579} in Coq, Eisbach~\cite{Matichuk:2016:EPM:2904234.2904264} in Isabelle, and VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12} in a standalone proof-checker.
+The KeY prover~\cite{DBLP:series/lncs/10001} features a soundness-critical ``tactlet''~\cite{habermalz2000interactiv} language with limited expressivity, which can be understood as allowing user-specified inference rules.
 Examples of unstructured languages are the Coq~\cite{COQ} script language and the Isabelle~\cite{DBLP:books/sp/NipkowPW02} apply-script language.
 \KeYmaeraX features a language named Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} for unstructured proofs and tactics.
 Bellerophon consists of regular expression-style tactic combinators (sequential composition, repetition, etc.) and a standard tactics library featuring, e.g. sequent calculus rules and general-purpose automation.
 Bellerophon's strength is in tactics that compose the significant automation provided in its library.
 Its weakness is in performing large-scale concrete proofs.
-It lacks both the nominals unique to Kaisar and structuring.
-For example, assumptions in Bellerophon are unnamed and referred to by their index or by search, which can become unreadable or brittle at scale.
+For example, assumptions in Bellerophon are unnamed and referred to by their index or by search, which can become unreadable or brittle at scalea.
+It lacks both the nominals unique to Kaisar and structuring: the Bellerophon combinators in common use are a strict subset of the combinators in apply-script.
+Over time, the Bellerophon implementation has gained new features such as auxiliary tactic, function, and program definitions, which have partially offset scalability challenges.
+However, these features have not been studied in detail, let alone published.
+Thus, one of the auxiliary goals in designing Kaisar is to revisit features from recent releases of Bellerophon, develop a formal description when appropriate, and propose any improvements.
 
 
-Kaisar is distinguished from the above by its metatheory, especially for nominals.
+Kaisar is distinguished from prior languages by its metatheory, especially for nominals.
 While Isar and Coq's declarative language have formally defined semantics, we know of only one interactive proof language besides Kaisar with significant metatheoretic results:  VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}, which is implemented as a standalone proof checker.
 We share with VeriML the goal of solving practical interactive proof problems via principled proof languages with metatheoretic guarantees.
-We differ in that VeriML's theory addresses staged computation while ours addresses stateful context management.
+We differ in that VeriML's theory addresses staged computation with an eye toward fast proof-checking  while ours addresses stateful context management with an eye toward understandable, maintainable proofs.
 
 The theory of Kaisar explains state change with nominals, a la hybrid differential dynamic logic \dHL~\cite{DBLP:conf/lics/BohrerP18}, first proposed as \dLN~\cite{DBLP:journals/entcs/Platzer07}.
 In \dHL, nominal formulas enable stating and proving theorems about named states.
