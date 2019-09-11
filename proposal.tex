@@ -2852,15 +2852,39 @@ Because \ProofPlex, unlike \ModelPlex, also synthesizes controllers by exploitin
 By \rref{ch:cdgl} the semantics of the synthesized controller refines the denotational semantics of both the hybrid game controller and of its systems relaxation, meaning it satisfies the controller monitor.
 
 \chapter{Conclusion}
+The proposed thesis provides a comprehensive approach to end-to-end verification:
+\begin{inparaenum}[i)]
+\item Cyber-physical systems are modeled as hybrid games
+\item The hybrid game is verified in a structured, high-level, constructive proof language
+\item Correct controllers and monitors are synthesized from the proof and correctly compiled to machine code
+\item The controller is linked with trusted hardware drivers for execution
+\item Formal foundations of \CdGL are developed.
+In the special case of classical \dL, the soundness proof has been formalized in a theorem-prover.
+\end{inparaenum}
+The proposed thesis validates this approach by applying it to a classic ground robotics control problem.
+
+The proposed thesis intentionally casts a wide net in defining end-to-end verification.
+Each researcher may prioritize different objectives within the broader mission of bringing CPS verification to practice.
+For this reason, we approach end-to-end verification dialectically by comparing the perspectives of a Logician, Logic-User, and Engineer.
+We show that the proposed approach exceeds the state-of-the-art in meeting the competing needs of our three characters.
+Our chain of formal proof artifacts provides a strong foundation for the Logician, our Kaisar proof language helps the Logic-User, and our synthesis tools help the Engineer.
+While end-to-end verification is the overarching theme which connects the proposed thesis chapters, many chapters are also of broader interest.
+
 \section{Timeline}
-The proposal will be October 25, 2019.
+The proposal will be October 25, 2019 at 9:00am Pittsburgh time.
 If all goes according to plan, I intend to defend in early Fall 2020.
+I intend to finish the \CdGL theory first, since the theory will inform the implementation.
+The implementation work will be informed by \VeriPhy and the Kaisar prototype, but I still expect this to take the most time.
+
+Many of the most appropriate conferences have early 2020 deadlines.
+Since it is unlikely that all components will be finished by then, and because timelines are only estimates, I have listed several conference options for each work.
+I intend to defend approximately August 2020.
 
 Total: 12 months
 \begin{itemize}
 \item 3 months (Sep-Nov) Extend \CGL theory to \CdGL theory (Submit to IJCAR around February 2020, or Fossacs in Oct 2019 if done early)
 \item 3 months (Dec-Feb) Implement Kaisar with \CdGL proof checking (Submit to ITP or FM late March 2020)
-\item 2 months: (Mar-Apr) Develop \ProofPlex implementation (Submit to CAV in February 2020 or RV, May 2020) 
+\item 2 months: (Mar-Apr) Develop \ProofPlex implementation (Submit to  RV, May 2020, or if finished early, CAV in February 2020)
 \item 1 month: (May) Generalize ground robotics case study to \CdGL
 \item 3 months: (June-August) Write thesis document, defend
 \end{itemize}
