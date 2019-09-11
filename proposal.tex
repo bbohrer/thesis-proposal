@@ -67,7 +67,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\stepsto}{\mapsto}
 \newcommand{\bebecomes}{\mathrel{::=}}
 \newcommand{\alternative}{~|~}
-\newcommand{\ivr}{\psi}
+\newcommand{\ivr}{Q}
 \newcommand{\meps}[2]{\iota{#1}~{#2}}
 \newcommand{\xgivar}{\textsf{xi}}
 \newcommand{\ygivar}{\textsf{yi}}
@@ -1740,8 +1740,8 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \newcommand{\isnorm}[1]{#1\textsf{ normal}}
 \newcommand{\allpt}{\mathbf{Pt}}
 \newcommand{\alltrace}[1]{\mathbf{Tr}(#1)}
-\newcommand{\dinline}[2]{\sigma_{\dbox{#1}{}}{(#2)}}
-\newcommand{\ainline}[2]{\sigma_{\ddiamond{#1}{}}{(#2)}}
+\newcommand{\dinline}[2]{\textsf{inline}_{\dbox{#1}{}}{(#2)}}
+\newcommand{\ainline}[2]{\textsf{inline}_{\ddiamond{#1}{}}{(#2)}}
 \newcommand{\case}{\textbf{Case}\xspace}
 \newcommand{\spost}[2]{\mathsf{sp}(#1,#2)}
 \newcommand{\kwassume}{\textbf{assume}}
@@ -2340,11 +2340,11 @@ We propose developing the theory of \CdGL, then evaluating \CdGL by using the 2D
 \section{\CdGL Theory}
 We propose to generalize the results of \rref{ch:cgl} for \CdGL and also provide several results which were not given in past publications.
 The first step is to extend the language of games $\alpha,\beta$ to \emph{hybrid} games by adding differential equations:
-\[\alpha,\beta ::= \cdots\ |\ \pevolvein{\D{x}=f}{\phi}\]
-As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\phi}$ says that $x$ evolves continuously according to $\D{x}=f$ for a duration controlled by the active player, which is chosen subject to the constraint $\phi$ throughout.
+\[\alpha,\beta ::= \cdots\ |\ \pevolvein{\D{x}=f}{\ivr}\]
+As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\ivr}$ says that $x$ evolves continuously according to $\D{x}=f$ for a duration controlled by the active player, which is chosen subject to the constraint $\phi$ throughout.
 
 One of the major hurdles in this proposed work is to give an appropriate semantics and proof calculus for constructive differential equations.
-However, wee assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a differential equation, and constructive formalization of Picard iteration~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
+However, we assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a (locally Lipschitz) differential equation, and constructive formalization of Picard iteration~\cite{Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
 We briefly review the \dGL rules for differential equation games and suggest why a constructive interpretation should be feasible.
 \begin{figure}
   \centering
@@ -2352,15 +2352,15 @@ We briefly review the \dGL rules for differential equation games and suggest why
     \begin{calculus}
 \cinferenceRule[Qdglsolve|{$\langle'\rangle$}]{$\D{y}(t)=f$}
 {
-\linferenceRule[equiv]{\ddiamond{\pevolve{\D{x}=f}{\phi}}}{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}
+\linferenceRule[equiv]{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}{\ddiamond{\pevolvein{\D{x}=f}{\phi}}}
 }{}
 \cinferenceRule[dglweak|DW]{}
 {
-\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\phi}}{\psi}}{\dbox{\pevolvein{\D{x}=f}{\phi}}{\phi\limply\psi}}
+\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\phi}}{\psi}}{\dbox{\pevolvein{\D{x}=f}{\phi}}{(\phi\limply\psi)}}
 }{}
 \cinferenceRule[dglcut|DC]{}
 {
-\linferenceRule[lpmi]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}\lequiv \dbox{\pevolvein{\D{x}=f}{\psi \land \rho}}{\phi}}{\dbox{\pevolvein{\D{x}=f}{\psi}}{\rho}}
+\linferenceRule[lpmi]{(\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}\lequiv \dbox{\pevolvein{\D{x}=f}{\psi \land \rho}}{\phi})}{\dbox{\pevolvein{\D{x}=f}{\psi}}{\rho}}
 }{}
 \cinferenceRule[dglind|DI]{}
 {
@@ -2372,10 +2372,10 @@ We briefly review the \dGL rules for differential equation games and suggest why
 }{}
 \cinferenceRule[dglconst|DS]{}
 {
-\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=c}{\psi}}{\phi}}{\lforall{t}{(\lforall{0{\leq}s{\leq}t}{\dbox{\humod{x}{x+cs}}{\psi}}) \limply \dbox{\humod{x}{x+ct}}{\phi}}}
+\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=c}{\psi}}{\phi}}{(\lforall{t}{(\lforall{0{\leq}s{\leq}t}{\dbox{\humod{x}{x+cs}}{\psi}}) \limply \dbox{\humod{x}{x+ct}}{\phi}})}
 }{}
 \cinferenceRule[dglvariant|DV]{}
-{\linferenceRule[lpmi]{\ddiamond{\pevolve{\D{x}=f(x)}}{f \geq g}}{\lexists{\veps>0}{(\dbox{\pevolve{\D{x}=f(x)}}{(f \leq g \limply \D{f} \geq \D{g}+\veps)})}}
+{\linferenceRule[lpmi]{\ddiamond{\pevolve{\D{x}=h}}{f \geq g}}{\lexists{\veps>0}{(\dbox{\pevolve{\D{x}=h}}{(f \leq g \limply \D{f} \geq \D{g}+\veps)})}}
 }{}
 \end{calculus}
 \end{calculuscollections}
@@ -2393,9 +2393,9 @@ Axiom \irref{dglghost} is mainly used in its forward direction to help prove pos
 For differential equations whose solutions are infeasibly complicated, the ``bread-and-butter'' proofs are done with \irref{dglcut}, \irref{dglind}, and \irref{dglweak}.
 \irref{dglind} says that a postcondition $\phi$ is invariant if it holds initially and if its differential (e.g., $\der{f\geq g} \equiv \der{f} \geq \der{g}$) is invariant.
 \irref{dglcut} allows one \irref{dglind} to serve as a ``lemma'' to another by adding it to the domain constraint, and \irref{dglweak} allows closing the proof by proving the postcondition from a sufficiently strengthened domain constraint.
-Validity of \irref{dglind} follows from the Mean-Value Theorem or its generalization, Rolle's Theorem, which has been proven constructively~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011}.
-The classical validity proofs of \irref{dglcut} and \irref{dglweak} are direct, and we expect the same for an appropriately-chosen semantics.
-The axioms of \label{fig:diffeq-rules} will need adaptation to the constructive setting.
+Validity of \irref{dglind} follows from the Mean-Value Theorem (a special case of Rolle's Theorem), which has been proven constructively~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011}.
+The classical soundness proofs of \irref{dglcut} and \irref{dglweak} are direct, and we expect the same for an appropriately-chosen semantics.
+The axioms of \rref{fig:diffeq-rules} will need adaptation to the constructive setting.
 Even leaving constructivity aside, \CdGL also supports a stronger term language than \dGL, and we will need to treat continuity and differentiability carefully as was done in \rref{sec:definite-description}.
 
 \section{Example System}
@@ -2424,23 +2424,26 @@ In the games setting, the acceleration is existentially quantified in the model,
 Recall that in \rref{sec:ground-robotics} we proved \emph{safety} (the robot never leaves the path) and \emph{liveness} (the robot eventually reaches its goal).
 We wish to show the same high-level properties here, but in the context of games we express them as Angel's ability to win a game against Demon.
 The following winnability theorem says the robot can always control its way to the goal region within its speed limits (liveness):
-\begin{theorem}[Angel Winnability]
+\begin{theorem}[Angel Robot Winnability]
 \label{thm:angel-wins}
-The following \dL formula is valid:
+The following \CdGL formula is valid:
 \begin{align*}
 &\Avar{>}0 \land \Bvar{>}0 \land \Tvar{>}0 \land \veps{>}0 \land \linv \limply \\
-&\ddiamond{\prepeat{(\ctrl;\pdual{\plant})}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \land \vvar \in [\vlvar,\vhvar]\big)}
+&\ddiamond{\prepeat{(\ctrl;\pdual{(\plant)})}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \land \vvar \in [\vlvar,\vhvar]\big)}
 \end{align*}
 where $J$ is the loop invariant as defined in \rref{sec:ground-robotics}.
 \end{theorem}
+Winnability subsumes liveness because it says there exist control decisions which reach the goal, given arbitrary Demonic control of the plant duration.
+We propose to generalize \rref{thm:angel-wins} slightly, yielding a single theorem which subsumes both \rref{thm:liveness} (liveness) and \rref{thm:safe} (safety) in one go.
+
+
 %In this form, \rref{thm:angel-wins} corresponds to liveness, \rref{thm:liveness}.
-However, we propose also to generalize \rref{thm:angel-wins} slightly, thus proving \rref{thm:liveness} and \rref{thm:safe} (safety) in one go.
-\begin{theorem}[Generalized Angel Winnability]
+\begin{theorem}[Generalized Angel Robot Winnability]
 \label{thm:angel-wins-gen}
-The following \dL formula is valid:
+The following \CdGL formula is valid:
 \begin{align*}
 &\Avar{>}0 \land \Bvar{>}0 \land \Tvar{>}0 \land \veps{>}0 \land \linv \limply \\
-&\ddiamond{\prepeat{(\ctrl;\pdual{\plant};\ptest{J})}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \land \vvar \in [\vlvar,\vhvar]\big)}
+&\ddiamond{\prepeat{(\ctrl;\pdual{(\plant)};\ptest{J})}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \land \vvar \in [\vlvar,\vhvar]\big)}
 \end{align*}
 where $J$ is the loop invariant as defined in \rref{sec:ground-robotics}.
 \end{theorem}
@@ -2457,7 +2460,7 @@ The Angel player must follow an arbitrary waypoint, i.e., one chosen by Demon.
 In order to make victory for Angel even possible, the responsibility is Demon's to choose a waypoint that is feasible.
 Expressing this turn-taking in \rref{thm:liveness} is cumbersome, while in \rref{thm:angel-wins-gen}, it falls naturally out of the fact that acceleration is controlled by Angel while all else is up to Demon.
 Lastly, we have the advantage that safety and liveness need not be proved separately, but can be combined as a single winnability theorem.
-This obviously saves time and energy, but there is a conceptual advantage as well: in the systems setting, we must prove \emph{all} options are safe and that \emph{one} is live.
+This clearly saves us the fuss of repeating the dynamics in each theorem statement, but there is a conceptual advantage as well: in the systems setting, we must prove \emph{all} options are safe and that \emph{one} is live.
 In the games setting, we can simply prove that \emph{one} strategy is safe-and-live, so for states our strategy will never enter, we need not even consider safety.
 
 The winnability approach ought to apply to any \emph{reach-avoid} problem for a control-plant loop, i.e., any theorem of form:
@@ -2483,7 +2486,9 @@ If $\proves{\Gamma}{M}{\phi}$ in \CdGL then $\phi$ is provable in \dGL.
 \label{thm:conv-embed}
 \end{theorem}
 Such an embedding theorem, when true, typically has a simple proof by induction on $M$.
-While not technically deep, this theorem is helpful as an additional check on the design of \CdGL.
+Nonetheless, this result is worth knowing because it complements the constructivity tests of \rref{ch:cgl} by saying \CdGL is the constructive counterpart \emph{of \dGL specifically}.
+For any pair of classical and constructive logics, we generally expect that constructive truth implies classical truth: if not, we would have to be careful when applying our intuitions about \dGL to \CdGL.
+Lastly, embedding suggests a way to connect \CdGL implementation efforts to the existing \dGL implementation: A \CdGL proof can be expressed as a \dGL proof which happens to use only constructive rules.
 
 \subsection{Relaxing (Constructive) Games to (Constructive) Systems}
 We provide another new theoretical result in order to solidify the connection between \CdGL and plain \dL, which is used for the input of the \VeriPhy tool.
@@ -2507,10 +2512,10 @@ When liveness proofs are inlined, they expand the set of behaviors, which preser
 %  If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then let $\beta = \dinline{\alpha}{M}$.
 %  Then $\beta \geq \alpha$ and $\phi$ is $\beta$-monitorable in $\Gamma$.
 \begin{theorem}[Angelic relaxation]
-  If $\aa \models \ddiamond{\alpha}{\phi}$ then $\ainline{\alpha}{\aa} \leq \alpha$ and $\aa' \models \ddiamond{\ainline{\alpha}{\aa}}{\phi}$ for some $\aa'$.
+  If $\aa \models \ddiamond{\alpha}{\phi}$ then $\ainline{\alpha}{\aa} \leq \alpha$ and $\ab \models \ddiamond{\ainline{\alpha}{\aa}}{\phi}$ for some $\ab$.
 \end{theorem}
 \begin{theorem}[Demonic relaxation]
-  If $\da \models \dbox{\alpha}{\phi}$ then $\dinline{\alpha}{\da} \geq \alpha$ and $\da' \models \dbox{\dinline{\alpha}{\da}}{\phi}$ for some $\da'$.
+  If $\da \models \dbox{\alpha}{\phi}$ then $\dinline{\alpha}{\da} \geq \alpha$ and $\db \models \dbox{\dinline{\alpha}{\da}}{\phi}$ for some $\db$.
 \end{theorem}
 
 The Demonic relaxation of a safe system can then be fed to \VeriPhy as we already know it is safe too.
