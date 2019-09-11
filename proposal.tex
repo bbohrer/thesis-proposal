@@ -219,7 +219,7 @@ pdfpagemode=UseOutlines]{hyperref}
 \newcommand{\pconst}[1]{#1}
 \newcommand{\om}{\omega}
 \newcommand{\tom}{\tilde{\omega}}
-\newcommand{\dLN}{\ensuremath{\dL_N}}
+\newcommand{\dLN}{\ensuremath{\dL_H}}
 \newcommand{\dHL}{\textsf{dHL}\xspace}
 \newcommand{\DL}{\textsf{DL}\xspace}
 \newcommand{\CGL}{\textsf{CGL}\xspace}
@@ -2525,18 +2525,27 @@ The Demonic relaxation of a safe system can then be fed to \VeriPhy as we alread
 \label{ch:kaisar}
 At this point we have identified the logic \CdGL as the backbone of our verification toolchain.
 However, \CdGL will need to be implemented for practical use.
-Experience shows that Bellerophon, the existing proof scripting language for \dGL, poses unnecessary barriers or the Logic-User.
+Experience shows that Bellerophon~\cite{DBLP:conf/itp/FultonMBP17}, the existing proof scripting language for \dGL, poses unnecessary barriers for the Logic-User, e.g.:
+\begin{itemize}
+\item Bellerophon's reliance on search-based and especially position-based formula selection leads to unmaintainable proof scripts.
+\item The main automated proof methods in Bellerophon are not easily \emph{traceable}, i.e., they result in proof goals whose correspondence with the source model is not clear from inspection.
+In practice this makes it difficult to comprehend proof states, let alone a finished proof during maintenance.
+The best alternative presently is to write manual proof steps for each connective in the model, but this results in excessive duplication between the model and proof.
+\item Bellerophon takes an ad-hoc to proving the first-order verification conditions which arise at the leaves of proofs.
+The complexity of first-order logic over reals demands that these goals can not always be discharged automatically in practice,
+but the Logic-User needs a clear toolbox with which to address these subgoals.
+\end{itemize}
 Moreover, there is surprisingly little extant research on principled designs for proof languages, so we take this opportunity to investigate the design of proof languages for dynamic logics (incl.\ Hoare logics) generally.
 We will then specialize the design to \CdGL and implement it, which will provide a tool to check \CdGL proofs.
 
-The first inspiration for the Kaisar language is the Isar proof language from Isabelle/HOL, with its notion of \emph{structured proof}.
+The first inspiration for the Kaisar language is the Isar~\cite{Wenzel07isabelle/isar} proof language from Isabelle/HOL~\cite{DBLP:books/sp/NipkowPW02}, with its notion of \emph{structured proof}.
 The defining feature of Isar is its use of block-structured statements for reasoning steps such as making an assumption, cutting in a fact, or proving a subgoal.
 When facts are introduced to the context, they may be assigned names, by which they are later referenced.
 
 While the simple act of naming facts seems trivial from the perspective of a programming language, it is both deep from the perspective of dynamic logic proofs and impactful in the context of the \dL family.
 Any well-behaved programming (or proof) language requires well-behaved scoping rules.
 Preferably, the scope of a variable should always be determined lexically by the construct that introduces it.
-This is actually non-trivial for program logics, because a fact about the state can be invalidated by executing a program, e.g., the fact $x=0$ will cease to hold upon assigning $\humod{x}{1}$.
+This is actually non-trivial for program logics, because a fact about the state can be invalidated by executing a program, e.g., the equation $x=0$ will cease to hold upon assigning $\humod{x}{1}$.
 This is one reason that Bellerophon does not have named contexts, only references by position and value, which are far more fragile and/or verbose.
 Even traditional proof languages, such as Coq scripts, struggle with this: while Coq script does have named facts, those facts are scoped dynamically.
 Our first contribution is that Kaisar has lexical scope, unlike Coq script and Bellerophon.
@@ -2702,6 +2711,7 @@ Coq and \KeYmaeraX both~\cite{Barras:1997,DBLP:conf/cpp/BohrerRVVP17} have small
 Two classes of languages closely related to structured proofs are tactics languages (which implement reuseable automation) and unstructured proof languages (which implement concrete proofs).
 Automation can often be written in the prover's implementation language: OCaml in Coq, ML in Isabelle, or Scala in \KeYmaeraX.
 Domain-specific languages for tactics include untyped \ltac~\cite{Delahaye:2000:TLS:1765236.1765246}, reflective Rtac~\cite{malecha2015rtac-coqpl}, and dependently typed Mtac~\cite{Ziliani:2013:MMT:2544174.2500579} in Coq, Eisbach~\cite{Matichuk:2016:EPM:2904234.2904264} in Isabelle, and VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}.
+The KeY prover~\cite{DBLP:series/lncs/10001} features a soundness-critical ``tactlet''~\cite{habermalz2000interactiv} language with limited expressivity, which can be understood as specifying new inference rules.
 Examples of unstructured languages are the Coq~\cite{COQ} script language and the Isabelle~\cite{DBLP:books/sp/NipkowPW02} apply-script language.
 \KeYmaeraX features a language named Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} for unstructured proofs and tactics.
 Bellerophon consists of regular expression-style tactic combinators (sequential composition, repetition, etc.) and a standard tactics library featuring, e.g. sequent calculus rules and general-purpose automation.
@@ -2712,7 +2722,7 @@ For example, assumptions in Bellerophon are unnamed and referred to by their ind
 
 
 Kaisar is distinguished from the above by its metatheory, especially for nominals.
-While Isar and Coq's declarative language have formally defined semantics, we know of only one interactive proof language besides Kaisar with significant metatheoretic results:  VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}.
+While Isar and Coq's declarative language have formally defined semantics, we know of only one interactive proof language besides Kaisar with significant metatheoretic results:  VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12}, which is implemented as a standalone proof checker.
 We share with VeriML the goal of solving practical interactive proof problems via principled proof languages with metatheoretic guarantees.
 We differ in that VeriML's theory addresses staged computation while ours addresses stateful context management.
 
@@ -2725,6 +2735,7 @@ It has long been known that historical reference, implementable with ghost state
 It has been known equally long~\cite{DBLP:journals/acta/Clarke80} that manual ghost arguments can make proofs clumsy.
 A number of verification tools ~\cite{KeYBook,DBLP:conf/cade/FultonMQVP15,DBLP:conf/lpar/Leino10,this-is-boogie-2-2,Barnett2005,DBLP:conf/fosad/LeinoMS09,DBLP:books/daglib/p/LeavensBR99,DBLP:journals/fac/Kleymann99} offer ad-hoc historical reference constructs without theoretical justification which can reference only the initial program state.
 We generalize them and provide the first formal treatment of historical reference.
+In the hybrid systems setting specifically, \emph{differential} ghosts are also essential~\cite{DBLP:conf/lics/PlatzerT18} for reasoning about differential equations.
 
 
 We are broadly interested in exploiting other principled design ideas from the proof language literature.
@@ -2736,13 +2747,15 @@ When proving programs in Isar, it is possible to assign custom case labels~\cite
 Kaisar's structuring paradigm can be contrasted with proof by verification-condition generation~\cite{DBLP:conf/ifip/King71}: Many approaches to program verification work by generating a first-order logic formula (the verification condition) which, if true, implies correctness of the program.
 The VC is then fed to either an automatic prover or an interactive prover.
 A major limitation of VCG's is that in many cases it is undecidable whether the VC is valid, so any automation used is incomplete.
+Even when VC's fall within a decidable logic, they are often infeasible in practice.
+This is the case, for example, with real first-order VC's in \dL, which are decidable~\cite{Tarski}, but often infeasible~\cite{Davenport1988,DBLP:journals/aaecc/Weispfenning97}.
 Approaches which rely solely on automated backends then fail to scale to large proofs, and approaches that use interactive provers face their own scalability issues because there is a lack of \emph{traceability}: the resulting verification condition appears cryptic and disconnected from the program text.
 The first-order goals the user proves in Kaisar are the same as they would prove in VCG with interactive proof, but the contribution of Kaisar is that the first-order proofs are written in context, and the present place in the program can easily be traced by reading the proof.
 
 Dafny~\cite{DBLP:conf/lpar/Leino10} is an example of a prominent system which uses VCG with SMT-solving as an incomplete backend.
 Dafny allows using assertions and equational reasoning to assist automation, but even then incompleteness makes debugging a failed proof attempt challenging.
 Ivy~\cite{DBLP:conf/pldi/PadonMPSS16} is one system which sidesteps the opacity of backend solvers by using a decidable specification logic, so that its backend solver is complete.
-However, this approach does not apply to \CdGL, which inherits decidability from \dGL.
+However, this approach does not apply to \CdGL, which inherits undecidability from \dGL.
 
 \chapter{Proposed Work: \ProofPlex, Proof-Directed Game Synthesis}
 % \label{ch:cdgl}
