@@ -1777,6 +1777,9 @@ The completed sections of the thesis have revealed several weaknesses from the p
 \item
 \VeriPhy synthesizes only monitors, not controllers.
 The Logician and Engineer would prefer to synthesize both, because the synthesized controller is guaranteed to satisfy the controller monitor, while a hand-written controller is not.
+Constructivity is important for synthesis because classical instances of the law of excluded middle allow uncomputable case analyses, for which synthesizing an implementation is a non-starter.
+In practice, such case analyses arise in almost every diamond proof for almost every controller: when a controller has multiple cases, a case analysis is performed to select a case.
+Thus the distinction between classical and constructive is not a mere curiosity, but arises in almost every control synthesis application.
 \item
 Experience suggests \VeriPhy is not robust to complex models, and that the key to providing robustness is to make the key insights from the hybrid \emph{proof} available to the synthesizer.
 The classical Hilbert calculus of \dL complicates this because interpretations of classical logics and Hilbert calculi as computation are complex and indirect.
@@ -1786,11 +1789,15 @@ We show that proofs for \emph{games} (systems + adversarial dynamics) elegantly 
 \VeriPhy uses fixed-point intervals to implement arithmetic computations.
 In the present implementation, limited arithmetic precision has proven to be a significant hurdle for users.
 Of the many arithmetic options available, constructive logic provides a conclusive solution: implement arithmetic with computable reals.
+The cost of this decision is that computable reals have a higher space and time complexity than interval arithmetic, and the payoff is the elimination of mysterious monitor failures at runtime caused by insufficient arithmetic precision.
 \item
 Games allow several model simplifications over systems, which help the Logic-User.
-Games allow existentially-quantified ($\ddiamond{\alpha}{\phi}$) controllers in safety proofs, where a system model would have to give the full control logic explicitly because controllers are universally quantified ($\dbox{\alpha}{\phi}$) in systems safety proofs.
-In complicated models such as \rref{ch:end-to-end-v}, this control logic accounts for most model complexity.
-Furthermore, practical experience shows that even experts often make modeling mistakes involving \emph{totality}: it is easy to write a controller with no transitions, making universal safety theorems \emph{vacuous}.
+Game logic internalizes modality alternation into the language of games.
+This promotes a proof style where controller proofs are Angelic ($\ddiamond{\alpha}{\phi}$) controllers while plant proofs are Demonic ($\dbox{\alpha}{\phi}$).
+In contrast, a systems safety proof treats both the controller and plant as Demonic.
+If we recall the contrast between \rref{ex:driving-system} and \rref{ex:driving-game}, we see that Demonic controller models are typically much more complicated than their Angelic counterparts, because they explicitly give an envelope of safe control choices, which is left implicit in the Angelic model.
+In non-trivial models such as \rref{ch:end-to-end-v}, this control envelope is a significant contributor to overall model complexity.
+Furthermore, practical experience shows that modeling mistakes involving \emph{totality} are common: it is easy to write a controller with no transitions, making universal safety theorems \emph{vacuous}.
 Existential controllers obviate this issue, because safety will \emph{fail to prove} if an existential controller were not total.
 \end{itemize}
 
@@ -1802,7 +1809,7 @@ Many users find formal proof more intimidating to learn than code.
 A computational interpretation opens the possibility of writing \CGL proofs in a familiar programming syntax, by writing code that implements a strategy.
 We suggest that this could ease adoption of game proofs.
 \item
-As discussed in related work, constructive program logics are nearly unexplored.
+As discussed in \rref{sec:cgl-relwork}, constructive program logics are nearly unexplored.
 This is surprising because the Curry-Howard correspondence, wherein propositions are interpreted types and proofs are interpreted as programs, has for many years been the backbone of cross-pollination between programming languages and logic research.
 \CGL gives the first Curry-Howard interpretation of Game Logic, and the most exhaustive for any dynamic logic.
 Proofs of $\ddiamond{\alpha}{\phi}$ and $\dbox{\alpha}{\phi}$ are understood computationally as winning strategies for a computational player who moves first or second, respectively.
@@ -1813,13 +1820,14 @@ This substantiates the claim that such proofs suffice for synthesis, and we posi
 Thus \CGL includes the first serious Curry-Howard treatment for all the above logics as well.
 
 Specifically, we give the first to feature a full proof-theoretic treatment based on proof terms and their normalization.
-We then prove meta-theoretical properties such as the Existential Property which attest to \CGL's constructivity.
+We then prove meta-theoretical properties such as the Existence Property (\rref{lem:term-ep}) which attest to \CGL's constructivity by showing all provable existential formulas have computable witnesses.
 \end{itemize}
 
 This chapter covers the discrete first-order \CGL~\cite{poplcgl}, which will be extended to \emph{hybrid} games (\CdGL) in \rref{ch:cdgl}.
 We treat the discrete fragment first in large part because there is such a significant gap in the literature, and the discrete result is a contribution of broader interest to the constructive logic community, which stands on its own.
 
 \section{Related Work}
+\label{sec:cgl-relwork}
 \newcommand{\semiset}[2]{\{#1~|~#2\}} 
 This work is at the intersection of game logic and constructive modal logics.
 Individually, they have a rich literature, but little work has been done at their intersection.
@@ -1864,7 +1872,7 @@ Because \CGL is first-order, a constructive approach must also address the const
 The base sorts of \CGL include both natural numbers, where exact equality and case-analysis are computable, and real numbers, where exact equality is not computable.
 Throughout, we use the reals of Bishop and Bridges~\cite{bishop1967foundations,bridges2007techniques}, which contain the same uncountably-many numbers as the classical reals $\mathbb{R},$ but do not admit decidable equality.
 A realizability interpretation of Bishop's analysis has been explored~\cite{DBLP:journals/mst/Schwichtenberg08}.
-Constructive reals have been implemented efficiently in theorem provers, for example the CORN~\cite{Krebbers+Spitters:lmcs:corn:2011,Krebbers+Spitters:lmcs:corn:2011} library.
+Constructive reals have been implemented efficiently in theorem provers, for example the CORN~\cite{Krebbers+Spitters:lmcs:corn:2011} library.
 
 \paragraph{Constructivity and Dynamic Logic}
 With \CGL, we bring to fruition several past efforts to develop constructive dynamic logics.
@@ -1888,13 +1896,15 @@ Intutionistic Kripke semantics have also been applied to multimodal System K wit
 \section{Syntax}
 We define the language of \CGL, consisting of terms, games, and formulas.
 Terms include global, mutable \emph{program variables} $x, y \in \allvars$ where $\allvars$ is the set of variable identifiers.
-We assume a signature $\kwsig$ assigning a fixed base sort $\sig{x} = \tau$ to each $x,$ and we assume the base sorts consist of at least the integers $\mathbb{Z},$ the Bishop reals $\mathbb{R},$ and Booleans $\mathbb{B},$ which we use in our examples and semantics.
+We assume a signature $\kwsig$ assigning a fixed base sort $\sig{x} = \tau$ to each $x,$ and we assume the base sorts consist of at least the integers $\mathbb{Z},$ the constructive (Bishop) reals $\mathbb{R},$ and Booleans $\mathbb{B},$ which we use in our examples and semantics.
+The Bishop reals are equinumerous with classical reals, but admit only computable operations.
 \begin{definition}[Terms]
 A \emph{term} $f, g$ is an arbitrary Type-2~\cite{DBLP:series/txtcs/Weihrauch00} computable function over the game state.
 That is, in the case that $f$ and $g$ are real-valued, they must be computable when the program variables are represented as streams of bits.
 This is in contrast to \dGL, which is restricted to polynomial terms.
 We support arbitrary computable terms both because many non-polynomial terms have proven useful in practice and because for \CGL we want terms to serve as witnesses to existentials.
-Even the theory of polynomial terms gives rise to existentials whose witnesses are non-polynomial, whereas the theory of computable terms has computable terms as witnesses.
+The theory of polynomial terms gives rise to existentials whose witnesses are non-polynomial, whereas the theory of computable terms has computable terms as witnesses.
+Thus arbitrary computable terms can serve as witnesses to existentials, while polynomial terms cannot.
 
 We give a nonexhaustive grammar of terms, specifically those used in our examples:
 \[f,g ~\bebecomes~  \cdots \alternative q \alternative x \alternative f + g \alternative f \cdot g \alternative \ediv{f}{g} \alternative \emod{f}{g}\]
@@ -2243,20 +2253,21 @@ If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M
 \end{lemma}
 \section{Theory Results}
 We prove standard theoretical results.
-We list the results here.% and remark how they inform the design of the proof term language.
-
+Progress and preservation show that \CGL is sound when interpreted as a \emph{type system}.
+All non-normal proofs reduce to proofs of the same sequent.
+This is a fundamental step in establishing a Curry-Howard correspondence for games.
 \begin{lemma}[Progress]
 If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
 \end{lemma}
-
 \begin{lemma}[Preservation]
 If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
 \end{lemma}
 
+The following properties justify the claim that \CGL is constructive by showing that every provable existential (resp.\ disjunctive, modal) formula has a computable witness.
+Not only are these properties frequently used as a test of constructivity, but they are directly tied to our motivation of using constructivity for synthesis: because provable games have computable strategies, we can also hope to synthesize those strategies.
 \begin{lemma}[Existence Property]
 If $\proves{\Gamma}{M}{\exists{x:\tau}{\phi}}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
-we have 
-$(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
+we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
 \label{lem:term-ep}
 \end{lemma}
 \begin{lemma}[Disjunction Property]
@@ -2267,12 +2278,12 @@ If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $
 then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
 \end{lemma}
 \begin{lemma}[Dormant Strategy Property]
-If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then there exists a realizer $\ab$ such thta for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$ 
+If $\proves{\Gamma}{M}{\dbox{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$ 
 then $\dstrategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
 \end{lemma}
 While these properties have short proofs, the deeper point is that they fall out naturally from design choices which were far-reaching, such as our use of realizability.
 
-\subsection{Arithmetic Proofs}
+\paragraph*{Arithmetic Proofs}
 \label{sec:arith-proof}
 \CdGL accepts constructive analysis as its foundation instead of the classical analysis used in \dGL.
 One challenge is ensuring that such proofs are no more complex than strictly necessary, yet still sound by constructive principles.
@@ -2287,6 +2298,8 @@ Whether the full theory is decidable is a major open question~\cite{constructive
 However, we propose to identify simple decideable fragments.
 
 \section{Soundness Theorem}
+The soundness theorem says that \CGL is sound when interpreted as a \emph{proof calculus}.
+We first list standard renaming and substitution lemmas which are required for the soundness theorem.
 \begin{lemma}[Renaming]
   If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
 \end{lemma}
@@ -2296,6 +2309,8 @@ However, we propose to identify simple decideable fragments.
 \begin{lemma}[Variable substitution]
   If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
 \end{lemma}
+Given these lemmas, we can prove soundness: all provable formulas are true according to the denotational semantics which we have taken as our ground truth.
+This is a sine qua non for any proof calculus and justifies our use of the calculus to prove \CGL theorems.
 \begin{theorem}[Soundness of Proof Calculus]
   If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
 \end{theorem}
@@ -2304,6 +2319,13 @@ However, we propose to identify simple decideable fragments.
 %\end{theorem}
 The proof follows by structural induction on the derivation.
 Proofs can be assumed to be normal.
+
+\section{Status}
+The work presented in this chapter is under submission to POPL'20~\cite{poplcgl}.
+All theorems listed here have been proven.
+Several other theorems are also of interest.
+In particular, we wish to explore a G\"{o}del-Gentzen translation and compare the closure ordinals for repetition games in \CGL with those for \GL.
+However, these studies can be undertaken equally well in the context of \CdGL, so we plan to do so in the proposed work (\rref{ch:cdgl}).
 
 \chapter{Proposed Work: \CdGL}
 \label{ch:cdgl}
