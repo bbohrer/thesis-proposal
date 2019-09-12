@@ -257,7 +257,8 @@ pdfpagemode=UseOutlines]{hyperref}
 Andr\'e Platzer, Chair \\
 Stefan Mitsch \\
 Frank Pfenning \\
-Tobias Nipkow, TU Munich
+Tobias Nipkow, TU Munich \\
+Fifth Member
 }
 
 \support{}
@@ -295,8 +296,8 @@ The same approach even facilitates the proof author's connection to their proof,
 
 The first step of the toolchain we propose is a proof language Kaisar for constructive proofs about hybrid systems (or games, since adversarial dynamics are supported).
 We then propose the \CdGL, its constructive logical foundation.
-Unlike its classical predecessors \dGL and \dL, a \CdGL proof contains, in the general case, enough information to synthesis both monitors and controllers, which respectively check that the external world meets modeling assumptions and compute model-compliant (thus safe) control choices for the CPS implementation.
-The push-button synthesis process itself is proven correct down to machine-code level, with an end-to-end formal guarantee in a theorem prover that the implementation code is safe.
+Unlike its classical predecessors \dGL and \dL, a \CdGL proof contains, in the general case, enough information to synthesize both monitors and controllers, which respectively check that the external world meets modeling assumptions and compute model-compliant (thus safe) control choices for the CPS implementation.
+The push-button-synthesized monitor itself is proven correct down to machine-code level, with an end-to-end formal guarantee in a theorem prover that the implementation code is safe.
 To connect proofs to their foundations, we also contribute a formalization of the \KeYmaeraX prover core's soundness in \Isabelle, so that proofs can be automatically cross-checked in \Isabelle, in the common special case of hybrid systems proofs.
 We evaluate our toolchain on ground robotics models, culminating in a model capable of general 2D driving with acceleration on arc-shaped paths.
 Modeling and implementation mutually inform each other: if the implementation is unsafe or physical assumptions are unrealistic, monitors ensure we notice during testing.
@@ -323,7 +324,7 @@ Cyber-physical systems (CPSs) combining discrete control and continuous physical
 Many of these systems are safety-critical or even life-critical because they operate in close proximity to humans and in some cases perform life-sustaining functions.
 Formal safety verification of these systems is a key tool for attaining the strongest possible guarantees that they meet their safety objectives.
 Therefore, as the importance of CPS in society grows, so does the importance of their formal verification.
-\emph{Hybrid systems} models, in particular, have succeeded in providing a common formalism for the discrete and continuous aspects of a CPS.
+\emph{Hybrid systems} models combining discrete transitions with continuous differential equations (ODEs), in particular, have succeeded in providing a common formalism for the discrete and continuous aspects of a CPS.
 Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic (\dL)~\cite{DBLP:books/sp/Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b:TR} is notable for its strong logical foundations and successful application in a number of case studies~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:conf/rss/MitschGP13,DBLP:conf/hybrid/PlatzerQ08} using the theorem provers \KeYmaera~\cite{DBLP:conf/cade/PlatzerQ08} and \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
 Other notable approaches include model-checking of automata-theoretic~\cite{DBLP:conf/lics/Henzinger96} models, control synthesis, and runtime monitoring.
 
@@ -376,8 +377,8 @@ Of the available choices, the Logic-User prefers domain-specific logics like \dL
 This comes at cost to the Engineer because state-of-the-art synthesis tools for \dL~\cite{DBLP:journals/fmsd/MitschP16} only synthesize monitors, and sometimes fail to synthesize monitors for complicated models in practice.
 Prior to this thesis, the Logician also paid the price that \dL's foundations were developed only informally on paper.
 
-Nor is the Logician truly satisfied with any existing approach: while GPITP's have rigorous foundations and support extraction of controllers or monitors, the extraction facilities are not provably correct, nor can the Logician convince themself that they modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs.
-While verified and proof-producing code extractors exist for Coq's Gallina~\cite{DBLP:conf/cpp/MullenPWTG18,anand2017certicoq,DBLP:conf/nfm/IoannidisKZ19} and \Isabelle~\cite{DBLP:conf/esop/HupelN18}, the latter supports a limited feature set and neither addresses the question whether systems are modeled correctly.
+Nor is the Logician truly satisfied with any existing approach: the Logician may have trouble convincing themself that they modeled the system correctly, as the models of CPS in GPITP are ad-hoc by comparison to automata and \dL's hybrid programs. Merely generating code from the model does not resolve the issue of validating the model, either.
+Moreover, while GPITP's  support code extraction,  the extracted code in practice is not provably correct. Despite recent work on proof-producing code extraction for Coq's Gallina~\cite{DBLP:conf/cpp/MullenPWTG18,anand2017certicoq,DBLP:conf/nfm/IoannidisKZ19} and for \Isabelle~\cite{DBLP:conf/esop/HupelN18}, these works are not sufficient in practice because they support limited feature sets.
 
 % Connection column? weak weak weak strong strong
 \begin{table}[tbh]
@@ -464,6 +465,7 @@ The already-completed works in this thesis connect implementation artifacts to f
 the monitor synthesis tool \VeriPhy (\rref{sec:veriphy}) connects an implementation (for example, of a robot: \rref{sec:ground-robotics}) to a formal model in \dL.
 \rref{ch:logical-foundations} then satisfies the Logician by putting \dL (as implemented in \KeYmaeraX) on firm footing in \Isabelle (\rref{sec:isabelle-fml}).
 \rref{sec:definite-description} generalizes the foundations of \dL to survive future development.
+\rref{ch:cgl} develops a constructive game logic for discrete games.
 The proposed work extends our logical foundation by developing \CdGL (Constructive \dGL) and Kaisar, a principled language for \CdGL proofs.
 We show that this foundation promotes simpler models (\rref{ch:cdgl}) and supports synthesis of both controllers and monitors in the general case.
 These additions meet the practical needs of the Engineer and Logic-User while providing a higher-level input language for the \VeriPhy pipeline and generating an additional output: verified controllers.
@@ -483,6 +485,7 @@ The Logic-User must be able to perform their proofs in a high-level, productive 
 Viewed through this lens, \rref{tab:approach-comparison} shows that the \VeriPhy approach, with its strong foundation in logic, marries practical end-to-end verification foundation with rigorous foundations on a level far beyond the state-of-the-art.
 
 \section{Related Work}
+% TODO: Revise all related works for Frank, tobias, etc
 \label{sec:relwork}
 Here, we discuss works that are broadly related to the thesis as a whole.
 Works which are relevant primarily to one chapter are discussed in that chapter.
@@ -492,14 +495,17 @@ Works which are relevant primarily to one chapter are discussed in that chapter.
 Because theorem-provers are used to ascertain the correctness of critical systems, their own correctness is essential.
 This thesis includes a formalization of \dL in \Isabelle (\rref{sec:isabelle-fml}) which has been used to generate a verified proof-term checker for \dL (\rref{sec:veriphy}).
 We compare our contributions to other works on theorem prover verification.
-In general, the differences among formalizations mirror the differences among the underlying logics, so the unique features of our work include real analysis proofs, ODEs, and an explicit treatment of substitution.
+In general, the differences among formalizations mirror the differences among the underlying logics, so the unique features of our work include real analysis proofs, ordinary differential equations (ODEs), and an explicit treatment of substitution.
 
 Barras and Werner~\cite{Barras:1997} verified a typechecker for a fragment of Coq in Coq.
 Harrison~\cite{Harrison:2006} verified (1) a weaker version of HOL Light's kernel in HOL Light and (2) HOL Light in a stronger variant of HOL Light.
-Myreen et al.\ have extended this work, verifying HOL Light in HOL4~\cite{Myreen+Owens+Kumar:2013,Kumar+Arthan+Myreen+Owens:jar:2016} and using their verified compiler CakeML~\cite{DBLP:conf/popl/KumarMNO14} to ensure these guarantees apply at the machine-code level.
+Myreen et al.\ have extended this work, verifying HOL Light in HOL4~\cite{Myreen+Owens+Kumar:2013,DBLP:journals/jar/KumarAMO16} and using their verified compiler CakeML~\cite{DBLP:conf/popl/KumarMNO14} to ensure these guarantees apply at the machine-code level.
+%A recent work~\cite{DBLP:conf/itp/ImmlerRW19} takes the novel approach of running 
 Myreen and Davis proved the soundness of the ACL2-like theorem prover Mitawa in HOL4~\cite{Myreen+Davis:itp:2014}.
 Anand, Bickford, and Rahli~\cite{DBLP:conf/itp/AnandR14,Rahli+Bickford:cpp:2016}
 proved the relative consistency of Nuprl's type theory~\cite{Constable+al:1986,Allen+al:2006} in Coq with the goal of generating a verified prover core.
+Twelf~\cite{DBLP:conf/cade/PfenningS99} was used to formalize the LF~\cite{DBLP:journals/jacm/HarperHP93} logical framework on which it is based~\cite{martens2012lf}.
+
 %
 Like the above works, the goal of \rref{sec:isabelle-fml} is to verify the correctness of a theorem prover (\KeYmaeraX).
 This goal is one part of the thesis' broader goal of bulletproof foundations: formal proofs are only as trustworthy as their foundations.
@@ -544,14 +550,15 @@ A deterministic counterpart to hybrid programs has been used to investigate hybr
 \textsc{While}$^{\texttt{dt}}$~\cite{DBLP:conf/icalp/SuenagaH11} also represents hybrid systems as programs, but uses infinitesimals from non-standard-analysis to express differential equations as loops.
 Automata-theoretic representations~\cite{DBLP:conf/lics/Henzinger96} are most widely-used for model-checking.
 Process-calculi such as Hybrid CSP~\cite{DBLP:conf/hybrid/ChaochenJR95,DBLP:conf/aplas/LiuLQZZZZ10}, HyPA~\cite{DBLP:journals/jlp/CuijpersR05}, and Hybrid $\chi$~\cite{DBLP:conf/formats/SchiffelersBMRR03} have been used for model-checking and theorem-proving.
+IPL~\cite{DBLP:conf/fm/RuchkinSISG18} was introduced to promote interoperation between heterogeneous modeling languages such as these, especially those which target different levels of abstraction.
 % information flow: DBLP:conf/hicons/PrabhakarK13
 
 \subsubsection{Reachability Analysis}
 %Compared to deductive verification in \dL, the strength of model-checkers is that support a higher degree of automation.
 Model-checking for hybrid systems by reachability analysis is thoroughly studied.
-Well-known model-checkers include SpaceEx~\cite{DBLP:conf/cav/FrehseGDCRLRGDM11}, Flow*~\cite{DBLP:conf/cav/ChenAS13}, and C2E2~\cite{DBLP:conf/tacas/DuggiralaMVP15}.
+Well-known model-checkers include SpaceEx~\cite{DBLP:conf/cav/FrehseGDCRLRGDM11} and Flow*~\cite{DBLP:conf/cav/ChenAS13}, as well as C2E2~\cite{DBLP:conf/tacas/DuggiralaMVP15}.
 Compared to theorem-provers, their trusted bases can be large (${\approx}$100,000 SLOC for SpaceEx).
-No model-checker is as expressive as the theorem-provers: often, model-checkers are restricted to compact state spaces and bounded-time safety, any only a few support non-linear differential equations.
+No model-checker is as expressive as the theorem-provers: often, model-checkers are restricted to compact state spaces and bounded-time safety, and only a few support non-linear differential equations.
 
 The primary use of reachability analysis today is offline verification of safety properties of hybrid systems.
 Reachability has been applied to models from many application domains, including ground robotics~\cite{chen2015benchmark}, which is an application area of focus for this thesis.
@@ -560,30 +567,31 @@ However, other uses have received some attention as well:
 \begin{itemize}
 \item
 Runtime reachability analysis has been performed in real time on cars~\cite{DBLP:journals/trob/AlthoffD14}, which serves as the basis of a fail-safe control method~\cite{DBLP:conf/icra/PereiraA15}.
-We share the basic fail-safe approach with this work, but our approach has formal proof artifacts, enforces model compliance, and does not require trusting a reachability analysis algorithm.
+Our work shares the basic fail-safe approach, but our work has formal proof artifacts, enforces model compliance, and does not require trusting a reachability analysis algorithm.
 Thus, prior reachability-based runtime verification approaches do not amount to end-to-end verification in our sense of the term.
 \item While safety analysis is the most widely-implemented, some solvers~\cite{DBLP:conf/tacas/CimattiGMT15} implement liveness analysis~\cite{DBLP:conf/cav/CimattiGMT14} for hybrid systems as well.
 \end{itemize}
-In response to the use of reachability analysis algorithm in trusted contexts, \cite{DBLP:conf/tacas/Immler15} verified a set-based reachability analysis for ODEs in Isabelle, based on the Isabelle differential equations library~\cite{DBLP:conf/itp/ImmlerT16}.
-While it is an important first step, it supports only numerical solution to ODEs, not hybrid systems.
+In response to the use of reachability analysis algorithm in trusted contexts, \cite{DBLP:conf/tacas/Immler15} verified a set-based reachability analysis for ODEs in Isabelle, using the Isabelle differential equations library~\cite{DBLP:conf/itp/ImmlerT16}.
+While it is an important first step, it supports only numerical solutions of ODEs, not hybrid systems.
 
 
 \subsubsection{Theorem-provers}
 Interactive theorem-proving is one of the main approaches to hybrid systems verification, and is characterized by high expressivity, which can come at the cost of increased verification effort.
-Domain-specific logics such as \dL and Hybrid Hoare Logic are implemented in special-purpose theorem provers such as \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} and Hybrid Hoare Prover~\cite{DBLP:conf/aplas/LiuLQZZZZ10}.
+Domain-specific logics such as \dGL and Hybrid Hoare Logic are implemented in special-purpose theorem provers such as \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} and Hybrid Hoare Prover~\cite{DBLP:conf/aplas/LiuLQZZZZ10}.
 Special-purpose provers enable a tailored experience for the Logic-User, but cannot verify systems outside their chosen logic.
-General-purpose provers such as Coq and Isabelle have also been used to verify hybrid systems~\cite{DBLP:conf/cpp/Rouhling18}, related models of CPS's~\cite{DBLP:conf/atva/RizaldiISA18,DBLP:conf/ifm/RizaldiKHFIAHN17,chan2016formal}, and related topics such as geometry~\cite{DBLP:conf/cpp/AffeldtC17} and dynamical systems~\cite{DBLP:conf/itp/CohenR17}.
+GPITP's such as Coq and Isabelle have also been used to verify hybrid systems~\cite{DBLP:conf/cpp/Rouhling18}, related models of CPS's~\cite{DBLP:conf/atva/RizaldiISA18,DBLP:conf/ifm/RizaldiKHFIAHN17,chan2016formal}, and related topics such as geometry~\cite{DBLP:conf/cpp/AffeldtC17} and dynamical systems~\cite{DBLP:conf/itp/CohenR17}.
+GPITP's provide access to large libraries of general-purpose mathematics, but do not provide a tailored experience.
 
 \paragraph{Differential Dynamic Logics}
 This thesis is part of a long line of work using differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer08,DBLP:conf/lics/Platzer12a,DBLP:journals/jar/Platzer17} and logics descended from it.
 Compared to reachability analysis approaches, deductive verification in \dL is symbolic and expressive: all polynomial differential equations are supported, and discrete tests and assignments are also polynomial.
 Guarantees are typically unbounded-time, and the plant (i.e., physics) is modeled faithfully as a continuous differential equation, not a discrete difference equation.
 The tradeoff is that verification is undecidable, and serious case studies usually require significant manual interaction from the user.
-The \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} theorem prover implements \dL and provides significant automation to minimize the number of interactions required.
+The \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} theorem prover implements \dGL and provides significant automation to minimize the number of interactions required.
 \dL and \KeYmaeraX have been applied in a number of case studies~\cite{DBLP:conf/cade/Platzer16}.
 
 This thesis includes a case study which we use to assess \VeriPhy's ability to verify realistic systems.
-Our case study generalizes a \dL proofs of 1D straight-line motion (with direct velocity control)~\cite{DBLP:conf/pldi/BohrerTMMP18}, of 2D obstacle avoidance, and 1D liveness~\cite{DBLP:conf/rss/MitschGP13,DBLP:journals/ijrr/MitschGVP17}.
+Our case study generalizes \dL proofs of 1D straight-line motion (with direct velocity control)~\cite{DBLP:conf/pldi/BohrerTMMP18}, of 2D obstacle avoidance, and 1D liveness~\cite{DBLP:conf/rss/MitschGP13,DBLP:journals/ijrr/MitschGVP17}.
 A paper proof of liveness using \dL rules assumed perfect sensing and constant speed \cite{DBLP:journals/corr/abs-1709-02561}.
 Their controllers, like ours, are closely related to the classic \textsc{Dynamic-Window}~\cite{DBLP:journals/ram/FoxBT97} control algorithm.
 In contrast to the prior \dL effort, we offer stronger results, including 2D liveness, waypoint-following, and end-to-end correctness.
@@ -603,7 +611,7 @@ Their strength is that they provide easy-to-learn user interfaces for modeling a
 Their weaknesses are that their models discretize space and time, and there is not a chain of formal artifacts for each step of synthesis.
 Thus, even though they share our goal of end-to-end verification, their work does not satisfy our conception of end-to-end.
 \item  High-level plans have been synthesized~\cite{DBLP:conf/cdc/BhatiaKV10,DBLP:journals/automatica/FainekosGKP09} which satisfy specifications over a hybrid-dynamical system.
-Bisimulation arguments were used~\cite{871304} to show that the implementation refined the specification.
+Bisimulation arguments have been used~\cite{871304} to show that the implementation refined the specification.
 However, these works are not end-to-end because the hybrid models are entirely trusted and low-level control is not considered.
 \item Controllers have been synthesized:
 \begin{inparaenum}[\it i)]
@@ -615,10 +623,10 @@ However, these works are not end-to-end because the hybrid models are entirely t
 However, the above techniques are limited to simplistic ODEs and do not provide an end-to-end chain of formal evidence.
 
 \subsubsection{Online Verification}
-The approaches above are \emph{offline}: i.e., they are used before-the-fact to ascertain the correctness of a hybrid model of a CPS.
+The approaches above are \emph{offline}: i.e., they are used before-the-fact to ascertain the correctness of a model of a CPS.
 In contrast, \emph{online verification} (or runtime verification) uses checks at runtime to enforce correctness.
 Online verification excels at treating systems that are not fully understood before runtime (such as sensors and actuators) and systems which we simply prefer not to model (such as complex untrusted control systems).
-However, because behaviors are checked only at runtime, any approach which uses runtime verification \emph{alone} cannot ensure correctness of the untrusted control.
+However, because behaviors are checked only at runtime, any approach which uses runtime verification \emph{alone} cannot ensure correctness of the untrusted control, nor the ability of the monitored system to achieve its mission objectives in practice (liveness).
 While some prior works place runtime verification on a rigorous formal foundation, no work until this thesis has connected the foundations end-to-end.
 \begin{itemize}
 \item The basis of online verification is the SIMPLEX~\cite{Krogh1998TheSA} method, which uses a trusted monitor to decide between an untrusted controller and trusted fallback.
@@ -627,8 +635,8 @@ While some prior works place runtime verification on a rigorous formal foundatio
 \item \ModelPlex is a tool for synthesizing \dL monitor formulas (for both the controller and plant) from proven-safe \dL models in \KeYmaeraX.
   However, it simply synthesizes a \dL formula describing the monitored conditions, not an executable program.
   Thus \ModelPlex is not end-to-end when taken on its own.
-  Additionally, until extensions concurrent with this thesis~\cite{DBLP:journals/corr/abs-1811-06502}, \ModelPlex could not exploit proof insights during synthesis.
-  Thus, prior releases of \ModelPlex struggled to produce monitors which ever passed when executed in practice, or which admit safety proofs at all for many hybrid systems which do not have (polynomial) solutions.
+  Additionally, until extensions concurrent with this thesis~\cite{DBLP:conf/pldi/BohrerTMMP18}, \ModelPlex could not exploit proof insights during synthesis.
+  Thus, prior releases of \ModelPlex struggled to produce plant monitors which ever passed when executed in practice, or any meaningful plant monitor for most differential equations whose solutions are non-polynomial.
   One motivation for the proposed works is elaborate the recent advance of exploiting proof information in synthesis.
 \item A contribution of this thesis is the \VeriPhy~\cite{DBLP:conf/pldi/BohrerTMMP18} toolchain for \dL.
   \VeriPhy extends SIMPLEX by ensuring the monitor is correct-by-construction (via \ModelPlex), formally proving the safety of the resulting system, and automatically maintaining safety down to machine code implementation using CakeML~\cite{DBLP:conf/popl/KumarMNO14}.
@@ -656,13 +664,13 @@ Notably, none of these approaches show correctness unconditionally: all have a t
   Moreover, \VeriPhy adopts a deeper understanding of hybrid systems: several stages of \VeriPhy exploit language-level semantic proofs that link the initial hybrid system model to a low-level executable semantics.
   High-Assurance SPIRAL, in contrast, discards the semantic understanding of hybrid system, which then precludes the clear connection between the system model and compiled code as provided by \VeriPhy.
 \item
-Anand and Knepper~\cite{DBLP:conf/itp/AnandK15} developed the framework ROSCoq based on the Logic of Events for reasoning about distributed CPS in Coq with constructive reals and generating verified controllers.
+ROSCoq~\cite{DBLP:conf/itp/AnandK15} is a framework based on the Logic of Events for reasoning about distributed CPS in Coq with constructive reals and generating verified controllers.
 Their use of constructive reals is prescient, and inspires the design choices in \rref{ch:proofplex}.
 Their model does provide ODEs for the physics of the robot, but because they provide limited support for reasoning about derivatives, extensive manual proofs are required by the user.
 They use Coq's default, unverified code extraction for synthesis of controllers (but not monitors).
 It is not clear whether their formalization is in the fragment of Coq supported by verified code extraction efforts.
 \item
-VeriDrone by Ricketts et al.~\cite{Ricketts:memcode:2015} is a framework for verifying hybrid systems in Coq that relies on a discrete-time temporal logic called RTLA, inspired by TLA~\cite{Lamport:hybrid:1992}.
+VeriDrone~\cite{Ricketts:memcode:2015} is a framework for verifying hybrid systems in Coq that relies on a discrete-time temporal logic called RTLA, inspired by TLA~\cite{Lamport:hybrid:1992}.
 They prove an analog of DI, but not the other ODE axioms, thus other ODE proofs, as well as arithmetic proofs, are likely laborious.
 They do not automatically verify monitors, nor is their machine code verified.
 Their model uses discrete time, which is a significant gap between model and reality, complicating any end-to-end effort.
@@ -679,11 +687,12 @@ In short, while all of the above are motivated by an end-to-end philosophy, none
 
 
 \chapter{Background: Differential Game Logic \dGL}
-\emph{Differential dynamic logic} (\dL)~\cite{DBLP:books/sp/Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations to model CPSs.
+\emph{Differential dynamic logic} (\dL)~\cite{DBLP:books/sp/Platzer18,DBLP:journals/jar/Platzer08,DBLP:journals/jar/Platzer17,DBLP:conf/lics/Platzer12b} is a dynamic logic for the formal verification of hybrid systems, which combine discrete transitions with differential equations (ODE's) to model CPS's.
 \emph{Differential game logic} (\dGL)~\cite{DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} extends the programs $\alpha$ of \dL with a turn-taking operator $\pdual{\alpha}$ to enable representing and verifying hybrid \emph{games} which extend hybrid systems with \emph{adversarial} dynamics.
 
-While the already-completed thesis chapters (\rref{ch:logical-foundations}, \rref{sec:veriphy}) employ \dL, we present full \dGL since 
+While some thesis chapters (\rref{ch:logical-foundations}, \rref{sec:veriphy}) employ \dL, we present full \dGL since 
 \begin{inparaenum}[i)]
+  \item \rref{ch:cgl} (completed) relies on games,
   \item the proposed works (\rref{ch:cdgl},\rref{ch:proofplex}) will require an understanding of full \dGL, and
   \item an introductory understanding of \dGL will also provide an introductory understanding of \dL.
 \end{inparaenum}
@@ -710,7 +719,7 @@ In \rref{sec:definite-description}, we show how to remove these simplifying assu
   Formulas are defined by the following grammar:
 \[\phi,\psi \bebecomes \theta \sim \eta \alternative \phi \land \psi \alternative \phi \lor \psi \alternative \neg \phi \alternative \phi \limply \psi \alternative \phi \lequiv \psi \alternative \lforall{x}{\phi} \alternative \lexists{x}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \ddiamond{\alpha}{\phi}\]
 \end{definition}
-where $\sim$ stands for any comparison operator $\sim \in \{\leq, <, =, \neq, >, \geq\}$.
+where $\sim$ stands for any comparison operator $\sim~\in \{\leq, <, =, \neq, >, \geq\}$.
 We write conjunctions $\phi \land \psi,$ negations $\phi \lor \psi,$ disjunctions $\phi \lor \psi,$ implications $\phi \limply \psi,$ biimplications $\phi \lequiv \psi$, and quantifiers over real numbers $\lexists{x}{\phi}$ and $\lforall{x}{\phi}$.
 The diamond modality $\ddiamond{\alpha}{\phi}$ says that the player who is actively making decisions (typically named Angel) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
 The box modality $\dbox{\alpha}{\phi}$ says that the player who is not currently making decisions (typically named Demon) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
@@ -724,7 +733,7 @@ Games are defined by the following grammar:
 \end{definition} 
 where $\humod{x}{\theta}$ stores the current value of term $\theta$ in program variable $x$  and test $\ptest{\phi}$ makes Angel lose if formula $\phi$ does not hold in the current state.
 In nondeterministic assignment $\prandom{x},$ Angel chooses a value $r \in \mathbb{R}$ to assign to $x$.
-Program $\pevolvein{\D{x}=\theta}{\phi}$ evolves $x$ continuously according to the differential equation (ODE) $\D{x}=\theta$ for a duration $d \geq 0$ of Angel's choosing, but Angel must ensure that $\phi$ is true throughout the evolution of $\D{x}=\theta,$ else they lose.
+Program $\pevolvein{\D{x}=\theta}{\ivr}$ evolves $x$ continuously according to the differential equation (ODE) $\D{x}=\theta$ for a duration $d \geq 0$ of Angel's choosing, but Angel must ensure that $\ivr$ is true throughout the evolution of $\D{x}=\theta,$ else they lose.
 In game $\pchoice{\alpha}{\beta},$ Angel chooses whether to play game $\alpha$ or game $\beta$.
 In game $\alpha;~\beta$ the players must first play $\alpha$ and then play $\beta$; this case is largely responsible for the need to employ backward-chaining semantics in \dGL, as it is most natural to first ask from what region $X$ is there a winning strategy for $\beta$, then ask from what region does Angel have a strategy to reach $X$ when playing $\alpha$.
 In the iterated game $\prepeat{\alpha}$, Angel decides at the end of each loop iteration whether to continue playing $\alpha$ another time.
@@ -736,10 +745,10 @@ We parenthesize hybrid games $\{ \alpha \}$ for clarity and disambiguation as ne
 We will sometimes speak of \emph{demonic} loops, choices, etc., which are derived from the angelic forms as follows:
 \begin{align*}
 \alpha^\times &\equiv \{\prepeat{\{{\alpha{}\pdual{}}\}}\}{\pdual{}}                 & \pdual{\ptest{\phi}}      &\equiv \pdual{\{\ptest{\phi}\}}\\
-\alpha \cap \beta  &\equiv \left\{\pdual{\alpha} \cup \pdual{\beta}\right\}\pdual{} & \pdual{\pevolvein{\D{x}=\theta}{\psi}} &\equiv \pdual{\{\pevolvein{\D{x}=\theta}{\psi}\}}\\
+\alpha \cap \beta  &\equiv \left\{\pdual{\alpha} \cup \pdual{\beta}\right\}\pdual{} & \pdual{\pevolvein{\D{x}=\theta}{\ivr}} &\equiv \pdual{\{\pevolvein{\D{x}=\theta}{\ivr}\}}\\
 \pdual{\humod{x}{\theta}} &\equiv \humod{x}{\theta}                                      & \pdual{\{\alpha;~\beta\}} &\equiv \pdual{\alpha};~\pdual{\beta} 
 \end{align*}
-In a Demonic test, Demon controls \emph{only} the duration of the loop, then returns control to Angel during the body.
+In a Demonic loop, Demon controls \emph{only} the duration of the loop, then returns control to Angel during the body.
 Likewise, Demon controls only which branch is taken in a demonic choice.
 In Demonic tests and differential equations, Demon is responsible for passing the test or satisfying the domain constraint.
 In the latter, Demon also chooses the duration.
@@ -749,11 +758,13 @@ Deterministic assignment and sequential competition are self-dual, so their Demo
 
 
 We now give an example hybrid game and example safety and liveness properties.
-The game in \rref{ex:driving-game} is a generalization of a standard hybrid systems model to a hybrid game.
+The game in \rref{ex:driving-game} is a hybrid game generalization of a standard hybrid systems model.
+The game $\alpha_s$ is a model of adversarial driving where the opponent Demon controls the duration (${}^\times$).
+We will write $\alpha_l$ to denote the counterpart where Angel controls the duration.
 \begin{example}[Acceleration-Controlled 1D Driving]
 \label{ex:driving-game}
 \begin{align}
-\alpha_\times\equiv&\\
+\alpha_s\equiv&\\
 \label{eq:driving-init}\humod{v}{0};~&\humod{x}{0};\pdual{(\prandom{\obsvar};\prandom{T};\prandom{A};\prandom{B}; \ptest{\obsvar > 0 \land T > 0 \land A > 0 \land B > 0})};\\
 \label{eq:driving-angel}\big\{ &\prandom{a};~\ptest{-B \leq a \land a \leq A};\\ 
 \label{eq:driving-demon}       &\pdual{\humod{t}{0};~\{\pevolvein{\D{x}=v, \D{v}=a, \D{t}=1}{t \leq T \land v \geq 0}\}}\big\}^\times
@@ -766,14 +777,13 @@ One could argue on principle that neither player really picks the timestep $T,$ 
 However, what's important is that robot's controller (the Angel player) is \emph{not} the one who picks, so a conservative model should assume the worst, which is that their opponent (the environment) gets to pick.
 The same goes for the rates $A$ and $B$.
 It would also be eminently unreasonable if the obstacle already collided with the robot at the start of the game, and would be nonsensical if the control cycle lasted zero time or less, or if the robot could not accelerate or brake, thus the environment is responsible for picking positive $\obsvar, \Tvar, \Avar$, and  $\Bvar,$ else they lose by default and Angel wins immediately.
-The remainder of the game is a demonic loop $\alpha^\times$ where the Demon player controls the duration.
+The remainder of the game is a \emph{demonic loop} $\cdot^\times$ where the Demon player controls the duration.
 Angel's turn consists of making a control decision by setting the acceleration $a$.
 Angel has near complete freedom to set the acceleration: they may set any value ($\prandom{a}$) so long as it is within the physical limits of the car ($\ptest{-B \leq a \land a \leq A}$).
 It is Angel's responsibility to do so, and they lose the game if the acceleration is out of bounds.
 Next, the car moves according to ideal Newtonian physics: the velocity $v$ continuously changes according to acceleration $a$ while position changes continuously according to the velocity.
-Demon (the environment) controls the duration of the ODE, but is constrained to the timestep $t \leq T$: i.e., Angel's control action must be safe even if Demon chooses not to use the full time budget, but need not be safe past time $T:$ in that case Demon is responsible for breaking the rules, so Angel wins.
+Demon (the environment) controls the duration of the ODE, but is constrained to the timestep $t \leq T$: i.e., Angel's control action must be safe even if Demon chooses not to use the full time budget, but need not be safe past time $T$. In that case, Demon is responsible for breaking the rules, so Angel wins.
 The equation $\D{t}=1$ simply says that $t$ represents the time elapsed in the current ODE run.
-The remainder of the game is a \emph{demonic loop} $\alpha^\times$ where the Demon player controls the duration.
 We also write $\alpha_l$ for $\alpha_s$ with an Angelic loop.
 
 We give examples of safety and liveness theorems:
@@ -787,7 +797,7 @@ The safety theorem \emph{safe} says that Angel (the robot) has a strategy to ens
 The liveness theorem \emph{live} says that Angel (the robot) has a strategy to reach the obstacle, \emph{so long as} Demon always runs the ODE long enough ($t \geq \frac{T}{2}$).
 The requirement on running the ODE long enough is to rule out \emph{Zeno} behaviors by Demon: without this restriction, Demon can run the ODE for shorter and shorter durations, with infinitely many iterations in finite time, which is not physically realizable but would falsify the liveness theorem.
 
-It is worth noting that prior case studies ~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:journals/ijrr/MitschGVP17,DBLP:conf/hybrid/PlatzerQ08} used vanilla \dL for hybrid \emph{systems} in \KeYmaeraX (\rref{sec:veriphy},\rref{sec:ground-robotics}).
+It is worth noting that with the exception of \cite{DBLP:conf/cade/QueselP12}, prior case studies ~\cite{DBLP:conf/emsoft/JeanninGKGSZP15,DBLP:conf/fm/LoosPN11,DBLP:journals/ijrr/MitschGVP17,DBLP:conf/hybrid/PlatzerQ08} used vanilla \dL for hybrid \emph{systems} in \KeYmaeraX (\rref{sec:veriphy},\rref{sec:ground-robotics}).
 In \rref{ch:cdgl} of this thesis, we will advocate for making (constructive) games proofs the standard.
 We foreshadow the motivations of \rref{ch:cdgl} here.
 
@@ -811,15 +821,15 @@ This is because the \emph{strategy} by which acceleration is chosen must be expl
 Why are \rref{ex:driving-game} and game models in general simpler? % $\alpha_{\textrm{Sys}}$ so much longer than 
 A typical game model has shape $\prepeat{(\pdual{\ctrl};~\plant)},$ where the turn-taking (or dual) operator $\pdual{\alpha}$ has the effect of switching players.
 Most often, we wish to show that there \emph{exists} a control choice where \emph{all} behaviors of the plant (physical environment) are safe and live, and so on for all iterations of the system.
-Such iterated modality alterations are precisely the one pattern expressible in \dGL but not \dL~\cite{DBLP:journals/tocl/Platzer15}.
-In vanilla \dL, safety is usually expressed in the form $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\psi}$ and the only forms of liveness which can be expressed are those with finitely-many player alterations, e.g.,
+Such iterated modality alternations are precisely the one pattern expressible in \dGL but not \dL~\cite{DBLP:journals/tocl/Platzer15}.
+In vanilla \dL, safety is usually expressed in the form $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\psi}$ and the only forms of liveness which can be expressed are those with finitely-many player alternations, e.g.,
 $\phi \limply \ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}$ or $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}}$.
 \dGL models are simpler because in typical \dL usage, \emph{all} cases of a controller must be safe, whereas a safe choice need only \emph{exist} in a game.
 As a result, operational information (what control decision is made in which circumstances) is present in \dL models, whereas it need only appear in \emph{proofs} in \dGL.
 
 As discussed further in \rref{ch:cdgl}, relegating control choices to the proof has advantages for synthesis in \CdGL as well as simplicity advantages.
 That being said, the maturity of \KeYmaeraX and the many available case studies show the utility of the thesis chapters which target vanilla \dL as well.
-The connections between vanilla \dL and \CdGL will be further discussed in \rref{ch:cdgl}.
+The connections between vanilla \dL and \CdGL will be further investigated in \rref{ch:cdgl}.
 
 \section{Semantics}
 \label{sec:dgl-semantics}
@@ -852,11 +862,11 @@ An advantage of this semantics is that it is defined in every state while agreei
 \begin{definition}[Classical formula semantics]\label{def:dgl-sem-fml}
 The semantics of a formula $\phi$ is given by the relation $\fint{\phi}{\om},$ which is defined inductively on $\phi$
 \begin{align*}
-\fint{\theta \sim \eta}  &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\}  \ \ \ \text{ for }\sim \in \{\leq,<,=,\neq,>,\geq\}\\
-\fint{\neg \phi}         &= \fint{\phi}^C  \\
-\fint{\phi \land \psi}   &= \fint{\phi}{\om} \cap \fint{\psi}{\om}\\
-\fint{\phi \limply \psi} &= \{\om~|~ \om \in \fint{\phi}{\om} \text{ implies } \om \in \fint{\psi}\}\\
-\fint{\phi \lequiv \psi} &= \{\om~|~ \om \in \fint{\phi}{\om} \text{ iff } \om \in \fint{\psi}\}\\
+\fint{\theta \sim \eta}  &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\}  \ \ \ \text{ for }\sim~\in \{\leq,<,=,\neq,>,\geq\}\\
+\fint{\neg \phi}         &= \fint{\phi}^\complement  \\
+\fint{\phi \land \psi}   &= \fint{\phi} \cap \fint{\psi}\\
+\fint{\phi \limply \psi} &= \{\om~|~ \om \in \fint{\phi} \text{ implies } \om \in \fint{\psi}\}\\
+\fint{\phi \lequiv \psi} &= \{\om~|~ \om \in \fint{\phi} \text{ iff } \om \in \fint{\psi}\}\\
 \fint{\lexists{x}{\phi}} &= \{\om~|~ \subst[\om]{x}{r} \in \fint{\phi}\}  \ \ \ \text{ for some }x \in \mathbb{R}\\
 \fint{\lforall{x}{\phi}} &= \{\om~|~ \subst[\om]{x}{r} \in \fint{\phi}\}  \ \ \ \text{ for all }x \in \mathbb{R}\\
 \fint{\ddiamond{\alpha}{\phi}} &=  \strategyfor[\alpha]{\fint{\phi}}\\
@@ -868,27 +878,27 @@ where $\strategyfor[\alpha]{X}$ and $\dstrategyfor[\alpha]{X}$ are the regions f
 \begin{definition}[Classical game semantics]\label{def:dgl-sem-game}
 For any game $\alpha$ and goal region $X \subseteq \allstate$, we inductively define the \emph{winning region} $\strategyfor[\alpha]{X}$ for Angel, i.e., the region from which they have a strategy to enter region $X$ after playing game $\alpha$:
 \begin{align*}
-\strategyfor[\humod{x}{\theta}]{X} &= \{ \om \in \allstate~|~\subst[\om]{x}{\tint{\theta}{\om}}\} \\
-\strategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{r}{\tint{\theta}{\om}}\text{ for some }r \in \mathbb{R}\} \\
+\strategyfor[\humod{x}{\theta}]{X} &= \{ \om \in \allstate~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\} \\
+\strategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{r}{\tint{\theta}{\om}} \in X\text{ for some }r \in \mathbb{R}\} \\
 \strategyfor[\pevolvein{\D{x}=\theta}{\ivr}]{X} &= \{\varphi(0) \in \allstate~|~\varphi(r) \in X\text{ for some }r \in \mathbb{R}_{\geq0}\text{ and (differentiable) }\varphi:[0,r]\to \allstate\\
 &\text{ such that }\varphi(\zeta) \in \fint{\ivr}\text{ and } \frac{\partial \varphi(t)(x)}{\partial t}(\zeta) = \tint{\theta}{\varphi(\zeta)}\text{ for all }0 \leq \zeta \leq r \}\\
 \strategyfor[\ptest{\phi}]{X}      &= \fint{\phi} \cap X \\
 \strategyfor[\alpha \cup \beta]{X} &= \strategyfor[\alpha]{X} \cup \strategyfor[\beta]{X}\\
 \strategyfor[\alpha;\beta]{X}      &= \strategyfor[\alpha]{\strategyfor[\beta]{X}}\\
 \strategyfor[\prepeat{\alpha}]{X}  &= \bigcap\{Z \subseteq \allstate~|~ X \cup \strategyfor[\alpha]{Z} \subseteq Z\}\\
-\strategyfor[\pdual{\alpha}]{X}    &= (\strategyfor[\alpha]{X^C})^C
+\strategyfor[\pdual{\alpha}]{X}    &= (\strategyfor[\alpha]{X^\complement})^\complement
 \end{align*}
 Likewise, we define the winning regions $\dstrategyfor[\alpha]{X}$ for \emph{Demon}, which are dual to those for Angel:
 \begin{align*}
-\dstrategyfor[\humod{x}{\theta}]{X} &= \{ \om \in \allstate~|~\subst[\om]{x}{\tint{\theta}{\om}}\}\\
-\dstrategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{r}{\tint{\theta}{\om}}\text{ for all }r \in \mathbb{R}\} \\
+\dstrategyfor[\humod{x}{\theta}]{X} &= \{ \om \in \allstate~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
+\dstrategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{r}{\tint{\theta}{\om}}\text{ for all }r \in \mathbb{R} \in X\} \\
 \dstrategyfor[\pevolvein{\D{x}=\theta}{\ivr}]{X} &= \{\varphi(0) \in \allstate~|~\varphi(r) \in X\text{ for all }r \in \mathbb{R}_{\geq0}\text{ and (differentiable) }\varphi:[0,r]\to\allstate\\
 &\text{ such that }\varphi(\zeta) \in \fint{\ivr}\text{ and }\frac{\partial\varphi(t)(x)}{\partial t}(\zeta) = \tint{\theta}{\varphi(\zeta)\text{ for all }0 \leq \zeta \leq r}\}\\
-\dstrategyfor[\ptest{\phi}]{X}         &= (\fint{\phi})^C \cup X\\
+\dstrategyfor[\ptest{\phi}]{X}         &= (\fint{\phi})^\complement \cup X\\
 \dstrategyfor[\alpha\cup\beta]{X}   &= \dstrategyfor[\alpha]{X} \cap \dstrategyfor[\beta]{X}\\
 \dstrategyfor[\alpha;\beta]{X}      &=  \dstrategyfor[\alpha]{\dstrategyfor[\beta]{X}}\\
 \dstrategyfor[\prepeat{\alpha}]{X}  &= \bigcup\{Z \subseteq \allstate~|~ Z \subseteq X \cap \dstrategyfor[\alpha]{Z}\}\\
-\dstrategyfor[\pdual{\alpha}]{X}    &= (\dstrategyfor[\alpha]{X^C})^C
+\dstrategyfor[\pdual{\alpha}]{X}    &= (\dstrategyfor[\alpha]{X^\complement})^\complement
 \end{align*}
 \end{definition}
 Note that this winning-region semantics is backward-chaining, which corresponds to the construction of winning regions by \emph{backward induction} in game theory.
@@ -898,7 +908,7 @@ This is in contrast to \dL~\cite{DBLP:books/sp/Platzer18} and \CGL (\rref{ch:cgl
 %\strategyfor{}{}
 %\dstrategyfor{}{}
 \section{Proof Calculus}
-We recall the proof calculus for \dGL in \rref{fig:dgl-axioms}.
+We recall a representative fragment of the proof calculus for \dGL in \rref{fig:dgl-axioms}.
 The proof calculus is given as a Hilbert system: axioms are repeatedly applied to recursively decompose hybrid games.
 While many basic axioms are the same in \dL and \dGL, some are necessarily different because \dGL is subregular: for example, Kripke's axiom K fails in \dGL and is in practice subsumed by rule \irref{dglMon}.
 
@@ -978,7 +988,7 @@ Axiom \irref{dglchoice} says Angel chooses which game to play.
 Axiom \irref{dglcompose} says game $\alpha;\beta$ is played by playing $\alpha$ first, then $\beta$ in the resulting state.
 Axiom \irref{dgliter} says a repetition game can be played by choosing between playing zero rounds or playing some strategy for the first round followed by some strategy for the repetition.
 Axiom \irref{dglMon} says hybrid games satisfy monotonicity.
-Axiom \irref{dglfixpoint} says repetition $\prepeat{\alpha}$ is a fixpoint of $\alpha$.
+Axiom \irref{dglfixpoint} says repetition $\prepeat{\alpha}$ is a fixed point of $\alpha$.
 
 In practice, \dGL proofs are done in a backward-chaining style by decomposing goal formulas.
 To this end, \KeYmaeraX implements \dGL as a mix of Hilbert axioms and sequent-calculus, which is interderivable with a pure Hilbert-style system as in \rref{fig:dgl-axioms}.
@@ -986,20 +996,20 @@ Many constructs, such as tests, sequential compositions, choices, and determinis
 Human insight is required to supply invariants for loops and differential equations, and when instantiating first-order quantifiers, or equivalently non-deterministic assignments.
 
 Once the game has been decomposed, the remaining goals are typically first-order logic over the reals.
-While this fragment of \dGL is decidable in theory, it has doubly-exponential complexity~\cite{Davenport1988,DBLP:journals/aaecc/Weispfenning97}, and so human insight is necessary in practice.
+While this fragment of \dGL is decidable in theory~\cite{Tarski}, it has doubly-exponential complexity~\cite{Davenport1988,DBLP:journals/aaecc/Weispfenning97}, and so human insight is necessary in practice.
 In addition to instantiating quantifiers, typical interactive methods include weakening unnecessary assumptions, simplifying away arithmetic terms whose details are not needed for the proof, or applying a valid axiom of real arithmetic.
 
 \chapter{Completed Work:  Logical Foundations}
 \label{ch:logical-foundations}
-A bulletproof theoretical foundation is essential to our approach to end-to-end verification, as it allows the Logician to conclude that our models are fully understoood and our proofs sound.
+A bulletproof theoretical foundation is essential to our approach to end-to-end verification, as it allows the Logician to conclude that our models are fully understood and our proofs sound.
 Logics for verification of hybrid systems and hybrid games are the main formal tool with which we wish to develop correct CPS's, and as such it is doubly important that the logics themselves are developed with the absolute highest degree of certainty in their correctness.
 In this chapter, we discuss two completed works by the author.
 These works not only attest that an adequate theoretical foundation has been laid for the remaining chapters of the thesis, but also that the author is adequately experienced with developing logical foundations for the proposed works to succeed.
 
 \section{Formalization of \dL in \Isabelle}
 \label{sec:isabelle-fml}
-When we perform proofs in \dL (or likewise in \dGL), the Logician wishes to know that the theorem we believe we have proved is indeed true.
-This property is called soundness, and paper proofs of soundness are provided in the papers which developed a sequent calculus~\cite{DBLP:journals/jar/Platzer08} and uniform substitution~\cite{DBLP:journals/jar/Platzer17} calculus for \dL, of which the latter is the basis for the implementation of \dL in the theorem prover \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
+When we perform proofs in \dL (or likewise in \dGL), the Logician wishes to know that the theorem we believe we have proved is indeed true with respect to the denotational semantics of \dL, which are considered ground truth.
+This property is called soundness, and paper proofs of soundness are provided in the papers which developed a sequent calculus~\cite{DBLP:journals/jar/Platzer08} and uniform substitution~\cite{DBLP:journals/jar/Platzer17} calculus for \dL, of which the latter is the basis for the implementation of \dGL in the theorem prover \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15}.
 However, proofs on paper are notoriously susceptible both to
 \begin{inparaenum}[i)]
   \item soundness errors by human logical blunder and
@@ -1024,6 +1034,7 @@ In \cite{DBLP:conf/pldi/BohrerTMMP18} this proof checker was evaluated on a proo
 The proof term in question is non-trivial: $\approx$100,000 proof steps, which directly match the \KeYmaeraX proof.
 While the proof checker was built primarily to validate the \dL formalization, it can also be used by Logic-User to ensure that the theorem-prover did not encounter buggy behavior in practical use.
 
+
 These results contribute to the overall goals of the thesis in several ways.
 Firstly, the proof checker has been used to check the correctness of \dL proofs, and \dL proofs are used in this thesis to show that end-to-end verified systems are actually safe.
 In effect, this helped bridged the high-level, practical foundation given by \dL with the lower-level foundations of Isabelle.
@@ -1036,9 +1047,11 @@ Validation with the synthesized proof checker ensured that the formalization was
 For example, this revealed the need to formalize operations like division, absolute value, and min and max, which are not covered in previous presentations.
 For these reasons, this chapter has prepared the author for the foundational work that remains in the proposed thesis chapters.
 
+Note that we considered formalizing \dL in a proof system with built-in support for higher-order abstract syntax~\cite{DBLP:conf/pldi/PfenningE88} (HOAS) such as Twelf~\cite{DBLP:conf/cade/PfenningS99}, but decided against this because HOAS alone would only provide a free implementation of syntactic operations such as renaming and substitution, and would not solve our main challenge of showing that those operations are sound with respect to our denotational semantics. Our denotational semantics then requires a formalization of real analysis. Moreover, the uniform substitution operation of \dL allows substituting for an arbitrary free rigid symbol of an expression, whereas HOAS systems typically apply substitutions to some designated ``argument'' symbol.
+
 \section{Definite Descriptions in dL}
 \label{sec:definite-description}
-A significant gap between theory presentations of \dL and its implementation in \KeYmaeraX is that theory presentations of \dL assume all terms are polynomial, while \KeYmaeraX allows extended terms featuring division, exponents, and interpreted functions.
+A significant gap between theory presentations of \dL and its implementation in \KeYmaeraX is that theory presentations of \dL assume polynomial or (some) rational terms, while \KeYmaeraX allows extended terms featuring arbitrary division, exponents, and certain interpreted functions.
 The formalization summarized in \rref{sec:isabelle-fml} approached this gap with brute force: division by constants, absolute value, min, and were are added to the language of terms.
 However, the brute-force approach is brittle in multiple ways.
 Because every new construct comes with its own cases in the substitution algorithm and its own axioms, each new construct requires non-trivial changes to the Isabelle/HOL formalization of \dL.
@@ -1047,7 +1060,7 @@ The Logic-User would be disappointed that they must wait for the Logician to des
 The extended constructs are not supported in their full generality, either, because \dL expects that all terms are total (defined everywhere) and that continuous systems contain only ($C^1$-smooth) continuous terms, since the soundness proofs for \dL axioms are simplest in that case.
 
 Recent work by the author~\cite{DBLP:conf/cade/BohrerFP19} develops another approach which both provides these constructs in their full generality and provides a more promising foundation for future extensions, \emph{without} increasing the size of the core when adding new constructs.
-We expect that defining new terms outside the core will simplify extension work by the Logic-User and not only the Logician.
+We expect that defining new terms outside the core will enable extension work by the Logic-User and not only the Logician.
 We introduce the logic \dLi~(\rref{fig:dli-overview}) which extends \dL with a definite description construct $\meps{x}{\phi(x)}$ meaning the unique $x$ (if a unique one exists) such that $\phi(x)$ is true.
 Term $\meps{x}{\phi(x)}$ takes on a special undefined denotation (written $\bot$) if no (or multiple) such $x$ exists.
 Definite descriptions make terms as expressive as formulas, including non-polynomial terms which can be discontinuous or partial.
@@ -1092,22 +1105,22 @@ This shows a clear path forward for any future implementation effort.
 
 In the context of the thesis, this section shows that the extended term language used in practice is amenable to a foundational treatment like those provided by theory.
 This section also qualifies the author for the remaining foundational tasks: whereas \rref{sec:isabelle-fml} focused on a detailed reproduction of an existing proof calculus, 
-\dLi required a wholesale revision of \dL semantics, just as extending \dGL to \CdGL will.
+\dLi required a wholesale revision of \dL semantics, just as combining \CGL and \dGL into \CdGL will.
 The theoretical developments for \dLi culminate in soundness and equi-expressiveness proofs with respect to \dL.
 Soundness validates the basic correctness of the calculus while equi-expressiveness says that decidability results for \dL also apply to \dLi because provable \dLi formulas can be translated to provable \dL formulas.
 Moreover, the theoretical results were good practice because these are very much the same kind of results we aim to achieve for the \CdGL theory.
 
 \subsection{Related Work}
-As shown in \rref{fig:prover-formalizations}, there are formalizations of \KeYmaeraX~\cite{DBLP:conf/pldi/BohrerTMMP18}, Coq~\cite{DBLP:journals/jfrea/Barras10}, NuPRL~\cite{DBLP:conf/itp/AnandR14}, and HOL4~\cite{DBLP:journals/jar/KumarAMO16}, connecting each to its logical foundation.
-With the possible exception of HOL4, each formalization omits features which are theoretically challenging for their specific logic: discontinuous and partial terms in \KeYmaeraX, termination-checking in Coq, or context management in NuPRL.
+As shown in \rref{fig:prover-formalizations}, there are formalizations of \KeYmaeraX~\cite{DBLP:conf/pldi/BohrerTMMP18}, Coq~\cite{DBLP:journals/jfrea/Barras10}, Nuprl~\cite{DBLP:conf/itp/AnandR14}, and HOL4~\cite{DBLP:journals/jar/KumarAMO16}, connecting each to its logical foundation.
+With the possible exception of HOL4, each formalization omits features which are theoretically challenging for their specific logic: discontinuous and partial terms in \KeYmaeraX, termination-checking in Coq, or context management in Nuprl.
 Thus only a subset of the implementation is guaranteed sound.
 When formalizations of theorem provers \emph{do} succeed in reflecting the implementation~\cite{DBLP:journals/jar/KumarAMO16}, they owe a credit to the generality of the underlying theory: it is much more feasible to formalize a general base theory than to formalize ad-hoc extensions as they arise.
 Our calculus, as with modern implementations~\cite{DBLP:conf/cade/FultonMQVP15} and machine-checked correctness proofs~\cite{DBLP:conf/cpp/BohrerRVVP17} for \dL, is based on uniform substitution~\cite[\S35,\S40]{Church:1956}: symbols ranging over predicates, programs, etc. are explicitly represented in the syntax.
 This improves the ease with which \dLi can be implemented and its soundness proof checked mechanically in future work.
 We show that in contrast to \dL, \dLi can directly represent a hybrid system featuring non-Lipschitz ODEs.
-The full paper studies an example based on Hubbard's leaky bucket~\cite[\S4.2]{Hubbard}, a textbook non-Lipschitz ODE.s
-Then the water drains out the cooler at a rate proportional to the square root of the current volume  by Torricelli's Law~\cite{driver1998torricelli}, or rate 0 if the valve is closed.
-In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b}, our nonscalar terms are equipped with an induction operator, making it easier to write sophisticated computations.
+The full paper studies an example based on Hubbard's leaky bucket~\cite[\S4.2]{Hubbard}, a textbook example of a non-Lipschitz ODE.
+%Then the water drains out the cooler at a rate proportional to the square root of the current volume  by Torricelli's Law~\cite{driver1998torricelli}, or rate 0 if the valve is closed.
+In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b}, our non-scalar terms are equipped with an induction operator, making it easier to write sophisticated computations.
 %
 \newcommand{\circsize}{0.3in}
   \begin{figure}
@@ -1137,7 +1150,7 @@ In contrast to the indexed variables of \QdL~\cite{DBLP:journals/lmcs/Platzer12b
 %ch:logical-foundations
 \label{ch:end-to-end-v}
 This chapter describes  works by the author and collaborators which introduce a general approach that enables end-to-end verification while maintaining solid logical foundations and then apply the approach in a case study on the verification of 2D free-driving ground robots.
-The robots follow sequences of arcs and lines (known as Dubins~\cite{citeulike:12223454} paths) with the additional feature of enforcing speed limits.
+The robots follow sequences of arcs and lines (known as Dubins paths~\cite{citeulike:12223454}) with the additional feature of enforcing speed limits.
 These works already constitute a major component of the goals of the thesis: what remains in the proposed work is to extend this beyond only verification and monitor synthesis to include controller synthesis while maintaining rigorous foundations.
 We begin by motivating end-to-end verification and defining it, then give our approach and case study results in greater detail.
 
@@ -1209,18 +1222,18 @@ For these reasons, the source-model is a hybrid program, verified in \KeYmaeraX 
 \begin{itemize}
 \item The \ModelPlex~\cite{DBLP:journals/fmsd/MitschP16} tool, which is implemented as a feature of \KeYmaeraX, is invoked to synthesize a \emph{control monitor formula} and \emph{plant monitor formula}, which determine whether control decisions and physical evolutions respectively satisfy the assumptions made of them by the model.
 \item The monitors are combined with a proven-safe \emph{fallback controller} (which is provided in the input model) to form a \emph{sandbox controller}.
-   The sandbox controller applies control decisions provided from an external source (henceforth called the \emph{external controller}) whenever those decisions satisfy the controller monitor,
+   The sandbox controller applies control decisions provided from an untrusted source (henceforth called the \emph{external controller}) whenever those decisions satisfy the controller monitor,
    and otherwise invokes the fallback controller.
 \item The sandbox controller is automatically proven safe in \KeYmaeraX, in part by reusing the contents of the hybrid system safety proof.
 \item The sandbox safety proof is optionally rechecked in the verified proof checker (\rref{sec:isabelle-fml}) to eliminate the \KeYmaeraX core from the trusted base.
-As discussed in \rref{sec:isabelle-fml}, this has been used to validate the \dL formalization for exhaustiveness.
+As discussed in \rref{sec:isabelle-fml}, this has also been used to validate the \dL formalization for exhaustiveness.
 \item The exact real arithmetic from hybrid systems semantics ($\iaccess[\cdot]{\I}$) is conservatively recast as fixed-point interval arithmetic ($\wsem{\cdot}{}$), and this recasting is formally proven in Isabelle to be sound.
 \item The resulting program is automatically proven equivalent (in HOL4) to a CakeML~\cite{DBLP:journals/jar/KumarAMO16} program.
 The heart of the proof says that sensing and actuation in the model can be modeled by a CakeML state machine~\cite{DBLP:conf/cade/HoAKMTN18}.
-\item The equivalent CakeML program ($\cmlsem{\cmldet{\sandbox}}{}$) is compiled to machine code in a verified compiler
-\item The machine code ($\machsem{\cmlcompile{\cmldet{\sandbox}}}{}$)is linked against the users' implementation of sensors and actuators
+\item The equivalent CakeML program ($\cmlsem{\cmldet{\sandbox}}{}$) is compiled to machine code in the CakeML verified compiler
+\item The machine code ($\machsem{\cmlcompile{\cmldet{\sandbox}}}{}$) is linked against the user's trusted implementation of sensors and actuators
 \end{itemize}
-Each step is provably a refinement (\rref{fig:proofchainoverview}) of the step before it, culminating that any execution of the machine-code running on the actual CPS corresponds to some execution of the source hybrid system.
+Each step is provably a refinement (\rref{fig:proofchainoverview}) of the step before it, culminating in the fact that any execution of the machine-code running on the actual CPS corresponds to some execution of the source hybrid system.
 Because all executions of the source hybrid system were proven safe already, then the execution of the actual CPS is also known to be safe.
 The differing brackets at each level represent that states at each level have differing types, e.g. reals vs.\ intervals, and these types are converted accordingly in each refinement theorem.
 The CakeML sandbox ($\cmldet{\sandbox}$) is generated by importing the monitor conditions and fallback used in the \dL $\sandbox$.
@@ -1256,13 +1269,13 @@ If we wish to verify sensing and actuation in the future, this could be done by 
 \subsection{Related Work}
 \paragraph{Verified Compilation.}
 We use the CakeML~\cite{DBLP:conf/icfp/TanMKFON16} verified ML compiler and its associated verification tools~\cite{DBLP:conf/icfp/MyreenO12,DBLP:conf/esop/GueneauMKN17}.
-Recent work~\cite{DBLP:conf/esop/HupelN18} also provides extraction of CakeML code from \Isabelle proofs, but its present iteration does not support all features needed in this work, such as locales, inductively defined predicates, and the built-in set type.
-CakeML is higher-level than other languages that have verified compilers, such as CompCert~\cite{Leroy:popl:2006}  for C (for floating-point support, see \cite{DBLP:conf/arith/BoldoJLM13}).
+Recent work~\cite{DBLP:conf/esop/HupelN18} also provides verified extraction of CakeML code from \Isabelle proofs, but its present iteration does not support all features needed in this work, such as locales, inductively defined predicates, and the built-in set type.
+CakeML is higher-level than other languages that have verified compilers, such as CompCert~\cite{Leroy:popl:2006}  for C (for floating-point support, see \cite{DBLP:conf/arith/BoldoJLM13}) or Jinja~\cite{DBLP:journals/toplas/KleinN06} for a Java-like language.
 The smaller gap between CakeML source and Isabelle/HOL definitions makes the verification of sandbox implementation in CakeML against hybrid systems semantics painless.
 We chose CakeML compilation over, e.g., translation validation with unverified compilers~\cite{DBLP:conf/pldi/SewellMK13} since translation validation can be brittle.
 
 Lustre~\cite{DBLP:journals/tse/HalbwachsLR92} is a reactive, synchronous language intended for use in safety-critical CPS.
-It has static analyzers based on abstract interpretation such as NBac~\cite{DBLP:journals/fmsd/Jeannet03}, which eliminate many bugs in practice, but are fundamenteally conservative and also consider only the control code, not the physics in the plant.
+It has static analyzers based on abstract interpretation such as NBac~\cite{DBLP:journals/fmsd/Jeannet03}, which eliminate many bugs in practice, but are fundamentally conservative and also consider only the control code, not the physics in the plant.
 Lustre has a verified compiler, V\'{e}lus~\cite{DBLP:conf/pldi/BourkeBDLPR17}, but verified compilation \emph{alone} does not negate the fact that verification for CPS must account for physics.
 We could have chosen Lustre as an intermediate compilation target instead of CakeML, but the functional style of CakeML is a much closer match to Isabelle/HOL definitions, while Lustre's reactive model is an entirely different paradigm from both HOL and hybrid programs.
 
@@ -1271,7 +1284,7 @@ Machine arithmetic correctness is a major \VeriPhy component.
 We verify arithmetic soundness foundationally.
 This is an active research area with libraries available in HOL Light~\cite{DBLP:conf/sfm/Harrison06}, Coq~\cite{DBLP:conf/arith/BoldoM10,DBLP:conf/tphol/DaumasRT01,DBLP:conf/mkm/BoldoFM09,DBLP:journals/iandc/Melquiond12}, \Isabelle~\cite{DBLP:journals/afp/Yu13}, etc.
 The main results we need are results saying that basic arithmetic operations round in the direction specified by the rounding mode.
-While it is possible others have proved such results, only PFF in Coq~\cite{DBLP:conf/tphol/DaumasRT01} has reported such results publicly.
+While it is possible others have proved such results, only PFF in Coq~\cite{DBLP:conf/tphol/DaumasRT01} has documented such results explicitly.
 For this reason, we proved rounding results ourselves in \Isabelle using the seL4~\cite{DBLP:journals/cacm/KleinAEHCDEEKNSTW10} machine word library.
 We chose \Isabelle and HOL4 over Coq because their combination of cutting-edge analysis libraries~\cite{DBLP:conf/itp/ImmlerT16}, mature formalization of $\dL$~\cite{DBLP:conf/cpp/BohrerRVVP17}, proof-producing code extraction~\cite{DBLP:conf/icfp/MyreenO12}, and classical foundations positions them well for our end-to-end pipeline.
 Standalone programs~\cite{DBLP:conf/tacas/2018-1} have also been verified in HOL and Coq~\cite{DBLP:conf/fmcad/BeckerZMDMF18} which certify error-bounds on the outputs of arithmetic expressions.
@@ -1279,30 +1292,31 @@ Static analysis programs have been written~\cite{DBLP:conf/emsoft/MartinezMST10,
 
 \section{Case Study: End-to-End Ground Robotics Verification}
 \label{sec:ground-robotics}
-To validate our claim that \VeriPhy enables end-to-end verification for \dL, we have applied \VeriPhy to software and hardware implementations of robots.
+To validate our claim that \VeriPhy enables end-to-end verification for \dL, we have applied \VeriPhy to software and hardware implementations of robots~\cite{DBLP:journals/ral/BohrerTMSP19}.
 Some goals of this chapter are to:
 \begin{inparaenum}[i)]
 \item provide proof-of-concept that accurate simulations and hardware implementations of robots safely achieve mission objectives under \VeriPhy control,
-\item identify limitations of the present \VeriPhy implementation from the perspective of the Logician, Logic-User, and Engineer,
+\item identify limitations of the present \VeriPhy implementation from the perspective of the Logician, Logic-User, and Engineer, and
 \item propose steps to counter any limitations.
 \end{inparaenum}
-The initial validation work~\cite{DBLP:conf/pldi/BohrerTMMP18} considered only verified a simple 1D velocity-controlled car~(\rref{ex:driving-game}) and ran it on consumer-grade robot hardware.
+The initial validation work~\cite{DBLP:conf/pldi/BohrerTMMP18} considered only verified a simple 1D velocity-controlled car~(\rref{ex:driving-game}), which we ran on consumer-grade robot hardware.
 In this section, we develop a vehicle model which follows piecewise curved (i.e., Dubins~\cite{citeulike:12223454}) paths with speed limits.
 This is far more representative of realistic driving scenarios than the initial work, because speed limits and steering are fundamental to driving.
 By simple virtue of requiring a larger model and more complicated invariants, it has stress-tested the \VeriPhy implementation.
-Already, this work has helped us identify and fix a number of ``silly'' a number of bugs, e.g., where \VeriPhy made overly strict assumptions on the input model or used excessively brute-force, slow proof approaches.
+Already, this work has helped us identify and fix a number of ``silly'' bugs, e.g., where \VeriPhy made overly strict assumptions on the input model or used excessively brute-force, slow proof approaches.
 Looking forward, this work has highlighted the challenges of debugging a controller supervised by synthesized software: when a monitor fails, the Engineer needs feedback as to why and how it failed, so they may assess whether the controller implementation or the model is to blame.
 The Logic-User also needs feedback on the correctness of the model.
 In our case, the Engineer's implementation provided this feedback, but in future work simulations could be synthesized which demonstrate the model's behavior for the Logic-User.
 Our contributions in this case study include \dL models, proofs, a simulation which employs the sandbox controller generated by \VeriPhy, and test environments for the simulation.
+One possible extension for the thesis would be to evaluate this case study on a full-size MRZR~\cite{MRZR} vehicle owned by collaborators.
 
 \subsection{Model}
 \label{sec:planar-driving-system}
 This section introduces our 2D robot model in \dL.
-The Dubins dynamics are bloated by a tolerance, which accounts for imperfect actuation and for discrepancies between the Dubins dynamics and real dynamics of the implementation.
+The circular Dubins dynamics are bloated by a tolerance, which accounts for imperfect actuation and for discrepancies between the Dubins dynamics and real dynamics of the implementation.
 That is, because realistic robots never follow a path perfectly, we will bloat each arc to an annulus section which is more easily followed, shown in \rref{fig:ode1}.
 Each waypoint is specified by coordinates $(\xgvar,\ygvar)$, a curvature $\kvar$, and a speed limit $[\vlvar,\vhvar]$ for the robot's velocity $\vvar$ which is to be met by the time the waypoint is reached.
-The curvature parameter $\kvar \neq 0 $ yields curved arc sections while $\kvar=0$ yields line segments.
+Curvature parameter $\kvar \neq 0 $ yields curved arc sections while $\kvar=0$ yields line segments.
 Together, these are the primitives of Dubins paths.
 
 Our hybrid program $\alpha$ is a time-triggered \emph{control-plant} loop: $\alpha\equiv(\ctrl;\plant)^*$.
@@ -1361,7 +1375,7 @@ The controller is written:
 The \emph{feasibility} test $\ptest{\planreq}$ determines whether or not the chosen waypoint, speed limit, and curvature are \emph{physically} attainable in the current state under the $\plant$ dynamics (e.g., it checks that there is enough remaining distance to get within the speed limit interval).
 We also simplify plans so all waypoints satisfy $\ygvar > 0,$ by subdividing any violating path segments automatically.
 Bisecting the arc once always suffices because any arc is at most magnitude $2\pi,$ so the bisected arc is at most magnitude $\pi$ and thus satisfies $\ygvar > 0$.
-It is worth this effort to gain the assumption $\ygvar > 0$ because it simplifies the feedback controller and proofs.
+It is worth this effort to gain the assumption $\ygvar > 0$ because it simplifies the external controller and proofs.
 The abbreviation $\ctrlliv$ names just the control code responsible for deciding \emph{how} the waypoint is followed rather than \emph{which} waypoint is followed.
 
 
@@ -1429,7 +1443,7 @@ Moreover, the combination of safety and liveness proofs prepare us for the propo
 
 \subsection{Simulations}
 In order to claim that \VeriPhy has been evaluated on a realistic system implementation, it is essential that we choose a simulation platform that is reasonably faithful to the physics of actual autonomous cars.
-For this purpose we chose the AirSim~\cite{shah2018airsim} simulator, which is notable for combining top-notch visuals, reasonable physics, and an open-source code base that is particularly friendly to modification.
+For this purpose we chose the autonomous driving simulation feature of the AirSim~\cite{shah2018airsim} simulator, which is notable for combining top-notch visuals, reasonable physics, and an open-source code base that is particularly friendly to modification.
 While some aspects of the underlying physics engine are closed-source, many aspects are open to customization, including for example the details of wheels and suspensions, and the center of gravity.
 For this reason and because AirSim has been successfully applied in dozens of projects, we have good reason to believe its physics model is more faithful than any purpose-built one-off simulation would be.
 
@@ -1475,6 +1489,7 @@ The author developed several driving environments for testing, shown in \rref{fi
 %\includegraphics[width=1.95in]{graphics/robot.jpg}
 %\subcaption{RC car}\label{fig:rccar}
 %\end{minipage}
+\\
 \begin{minipage}[b]{0.15\textwidth}\centering
 \includegraphics[width=1in]{graphics/screen1.png}
 \subcaption{Rectangle}\label{fig:rect}\end{minipage}
@@ -1517,6 +1532,7 @@ In this section, we discuss only related works on simulation, which were not dis
 Simulation is an essential part of evaluating models and designs for any robotic system.
 Multiple simulation platforms are available, of which AirSim~\cite{shah2018airsim} is a recent platform for UAVs and autonomous cars.
 Other simulators would likely have worked as well, but we chose AirSim because it is configured with high-fidelity physical and visual models out of the box, reducing the chances of introducing modeling errors.
+An additional benefit of using an established simulation platform is that reduces the risk of ``overfitting'' the simulation to our model or code in any way that might yield more positive results than an independent evaluation would warrant.
 
 \chapter{Completed Work: \CGL: Constructive Game Logic}
 \label{ch:cgl}
@@ -1594,11 +1610,11 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \renewcommand{\sb}{\nu}
 \newcommand{\Sc}{\mu}
 \renewcommand{\aa}{a}
-\newcommand{\ab}{A}
-\newcommand{\ac}{\aleph}
+\newcommand{\ab}{b}
+\newcommand{\ac}{c}
 \newcommand{\da}{d}
 \newcommand{\db}{D}
-\newcommand{\dc}{\delta}
+\newcommand{\dc}{\DJ}
 \newcommand{\allRz}{\mathcal{R}\mathbf{z}}
 \newcommand{\rzfor}[1]{#1\,\allRz}
 
@@ -1770,24 +1786,23 @@ Other simulators would likely have worked as well, but we chose AirSim because i
 \newcommand{\pvl}{\ell}
 \newcommand{\pvr}{r}
 
-\newcommand{\sshow}[3]{\text{show}~{#1}:{#2}~{#3}}
-\newcommand{\shave}[4]{\text{have}~{#1}:{#2}~{#3}~{#4}}
-\newcommand{\snote}[4]{\text{note}~{#1}:{#2}~{#3}~{#4}}
+\newcommand{\sshow}[3]{\textsf{show}~{#1}:{#2}~{#3}}
+\newcommand{\shave}[4]{\textsf{have}~{#1}:{#2}~{#3}~{#4}}
+\newcommand{\snote}[4]{\textsf{note}~{#1}:{#2}~{#3}~{#4}}
 
-Throughout this thesis, the glue that unified the Logician's high-level abstract models with the Engineer's low-level implementations has been \dL for \emph{classical} hybrid \emph{systems}.
+Throughout the previous chapters, the glue that unified the Logician's high-level abstract models with the Engineer's low-level implementations has been \dL for \emph{classical} hybrid \emph{systems}.
 While \rref{ch:end-to-end-v} showed that the connection between \dL models and implementations holds even in realistic case studies, it has also revealed the room that \dL leaves for improvement as such a glue.
-We argue that the restrictions to \emph{systems} and \emph{classical} reasoning pose limitations for the Engineer and Logic-User.
-
-The completed sections of the thesis have revealed several weaknesses from the practitioner's perspective:
+We argue that the restrictions to \emph{systems} and to \emph{classical} reasoning pose limitations for the Engineer and Logic-User.
+The previous sections of the thesis have revealed several weaknesses from the practitioner's perspective:
 \begin{itemize}
 \item
 \VeriPhy synthesizes only monitors, not controllers.
-The Logician and Engineer would prefer to synthesize both, because the synthesized controller is guaranteed to satisfy the controller monitor, while a hand-written controller is not.
+The Logician and some Engineers would prefer to synthesize both, because the synthesized controller is guaranteed to satisfy the controller monitor, while a hand-written controller is not.
 Constructivity is important for synthesis because classical instances of the law of excluded middle allow uncomputable case analyses, for which synthesizing an implementation is a non-starter.
 In practice, such case analyses arise in almost every diamond proof for almost every controller: when a controller has multiple cases, a case analysis is performed to select a case.
 Thus the distinction between classical and constructive is not a mere curiosity, but arises in almost every control synthesis application.
 \item
-Experience suggests \VeriPhy is not robust to complex models, and that the key to providing robustness is to make the key insights from the hybrid \emph{proof} available to the synthesizer.
+Experience suggests the current implementation of \VeriPhy is not robust to complex models, and that the key to providing robustness is to make the key insights from the hybrid \emph{proof} available to the synthesizer.
 The classical Hilbert calculus of \dL complicates this because interpretations of classical logics and Hilbert calculi as computation are complex and indirect.
 We wish to provide a constructive logic with a natural-deduction calculus, so that proofs can be understood as programs that \emph{implement} monitoring and control, so that the synthesizer simply compiles proofs to executable form.
 We show that proofs for \emph{games} (systems + adversarial dynamics) elegantly allow a single model and proof to provide both the monitor and the control.
@@ -1799,16 +1814,16 @@ The cost of this decision is that computable reals have a higher space and time 
 \item
 Games allow several model simplifications over systems, which help the Logic-User.
 Game logic internalizes modality alternation into the language of games.
-This promotes a proof style where controller proofs are Angelic ($\ddiamond{\alpha}{\phi}$) controllers while plant proofs are Demonic ($\dbox{\alpha}{\phi}$).
+This promotes a proof style where controller proofs are Angelic ($\ddiamond{\alpha}{\phi}$)  while plant proofs are Demonic ($\dbox{\alpha}{\phi}$).
 In contrast, a systems safety proof treats both the controller and plant as Demonic.
 If we recall the contrast between \rref{ex:driving-system} and \rref{ex:driving-game}, we see that Demonic controller models are typically much more complicated than their Angelic counterparts, because they explicitly give an envelope of safe control choices, which is left implicit in the Angelic model.
 In non-trivial models such as \rref{ch:end-to-end-v}, this control envelope is a significant contributor to overall model complexity.
-Furthermore, practical experience shows that modeling mistakes involving \emph{totality} are common: it is easy to write a controller with no transitions, making universal safety theorems \emph{vacuous}.
+Furthermore, practical experience shows that modeling mistakes involving \emph{totality} are common: it is easy to write a controller which has nonexhaustive case analyses, making universal safety theorems \emph{vacuous}.
 Existential controllers obviate this issue, because safety will \emph{fail to prove} if an existential controller were not total.
 \end{itemize}
 
-Looking beyond the core theme of end-to-end verification, the Logician and Logic-User both have additional reasons to pursue constructive proof:
-All these concerns are addressed by the combination of games and constructivity:
+Looking beyond the core theme of end-to-end verification, the Logician and Logic-User both have additional reasons to pursue constructive proof.
+All the following concerns are addressed by the combination of games and constructivity:
 \begin{itemize}
 \item
 Many users find formal proof more intimidating to learn than code.
@@ -1825,7 +1840,7 @@ This substantiates the claim that such proofs suffice for synthesis, and we posi
 \CGL generalizes  First-order Dynamic Logic and (Parikh's) Game Logic, which itself generalizes (Pratt's) PDL and (Peleg's) Concurrent Dynamic Logic.
 Thus \CGL includes the first serious Curry-Howard treatment for all the above logics as well.
 
-Specifically, we give the first to feature a full proof-theoretic treatment based on proof terms and their normalization.
+Specifically, we are the first to feature a full proof-theoretic treatment based on proof terms and their normalization.
 We then prove meta-theoretical properties such as the Existence Property (\rref{lem:term-ep}) which attest to \CGL's constructivity by showing all provable existential formulas have computable witnesses.
 \end{itemize}
 
@@ -1849,7 +1864,7 @@ We argue the simple \GL-style formula language promotes practical proving, while
 Prior logical explorations of \emph{hybrid} games~\cite{DBLP:conf/cade/QueselP12,DBLP:journals/tocl/Platzer15,DBLP:journals/tocl/Platzer17,DBLP:conf/cade/Platzer18} are classical.
 
 \paragraph{Constructive Modal Logics}
-A major contribution of \CGL is our constructive semantics for games, not to be confused with game semantics~\cite{DBLP:journals/iandc/AbramskyJM00}, which are used to give programs semantics \emph{in terms of} games.
+A major contribution of \CGL is our constructive semantics for games, not to be confused with game semantics~\cite{DBLP:journals/iandc/AbramskyJM00}, which are used to give programs a semantics \emph{in terms of} games.
 We draw on work in semantics for constructive modal logics, of which two main approaches are intuitionistic Kripke semantics and realizability semantics.
 
 An overview of Intuitionistic Kripke semantics is given by~\cite{DBLP:journals/apal/Wijesekera90}.
@@ -2245,11 +2260,11 @@ For practical use, a sequent calculus could be implemented ``as a library'' on t
 \paragraph{Operational Semantics}
 Proof terms can be understood as pure functional programs in the sense that they reduce to normal forms. We write $\isnorm{M}$ to say $M$ is normal, or $M \stepsto M'$ to say $M$ reduces to $M'$ in one step.
 The normal forms are as follows:
-\begin{lemma}[Alternative Normal Form Characterization]
+\begin{lemma}[Normal Form Characterization]
 \label{lem:normal-forms-alt}
 If $\proves{\Gamma}{M}{\phi}$ and $M$ is normal, then the final step of proof $M$ is either:
 \begin{itemize}
-\item A case-redex that inspects the state, e.g. case on $\esplit{\theta}{\theta+\epsilon}{M},$ or
+\item A case-redex that inspects the state, e.g. case on $(\esplit{\theta}{\theta+\epsilon}{M}),$ or
 \item An introduction rule for the outermost connective of $\phi$.
        In the case that $\phi$ is a program modality, it is specifically an introduction rule for the outermost program construct.
 \end{itemize}
@@ -2269,7 +2284,7 @@ If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\ph
 The following properties justify the claim that \CGL is constructive by showing that every provable existential (resp.\ disjunctive, modal) formula has a computable witness.
 Not only are these properties frequently used as a test of constructivity, but they are directly tied to our motivation of using constructivity for synthesis: because provable games have computable strategies, we can also hope to synthesize those strategies.
 \begin{lemma}[Existence Property]
-If $\proves{\Gamma}{M}{\exists{x:\tau}{\phi}}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
+If $\proves{\Gamma}{M}{(\lexists{x:\tau}{\phi})}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
 we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
 \label{lem:term-ep}
 \end{lemma}
@@ -2292,13 +2307,15 @@ While these properties have short proofs, the deeper point is that they fall out
 One challenge is ensuring that such proofs are no more complex than strictly necessary, yet still sound by constructive principles.
 
 In lieu of the law of excluded middle, the case analysis principle in constructive analysis is the Approximate Splitting Principle:
-\[\infer{\Gamma \vdash \theta > \eta \lor \theta < \eta + \epsilon}{\Gamma \vdash \epsilon > 0}\]
+\[\infer
+  {\proves{\G}{\esplit{\theta}{\eta}{M}}{(\theta > \eta \lor \theta < \eta + \epsilon)}}
+  {\proves{\G}{M}{\epsilon > 0}}\]
 That is, we can freely compare two terms, so long as we allow an overlap of some $\epsilon > 0$.
 We allow arbitrary proofs of $\epsilon > 0$ for generality, but in practice $\epsilon$ will usually be a rational literal, for which the premiss is trivially decidable.
 
 The constructive theory of first-order arithmetic differs from the classical theory precisely because exact comparisons are not decidable.
 Whether the full theory is decidable is a major open question~\cite{constructiveRealAlgebra} beyond the scope of this thesis.
-However, we propose to identify simple decideable fragments.
+However, we propose to identify simple decidable fragments.
 
 \section{Soundness Theorem}
 The soundness theorem says that \CGL is sound when interpreted as a \emph{proof calculus}.
@@ -2346,7 +2363,7 @@ We propose developing the theory of \CdGL, then evaluating \CdGL by using the 2D
 We propose to generalize the results of \rref{ch:cgl} for \CdGL and also provide several results which were not given in past publications.
 The first step is to extend the language of games $\alpha,\beta$ to \emph{hybrid} games by adding differential equations:
 \[\alpha,\beta ::= \cdots\ |\ \pevolvein{\D{x}=f}{\ivr}\]
-As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\ivr}$ says that $x$ evolves continuously according to $\D{x}=f$ for a duration controlled by the active player, which is chosen subject to the constraint $\phi$ throughout.
+As in \dGL, the differential equation $\pevolvein{\D{x}=f}{\ivr}$ says that $x$ evolves continuously according to $\D{x}=f$ for a duration controlled by the active player, which is chosen subject to the constraint $\ivr$ throughout.
 
 One of the major hurdles in this proposed work is to give an appropriate semantics and proof calculus for constructive differential equations.
 However, we assert that a constructive semantics for differential equations can be given because Picard iteration gives a constructive definition of the solution of a (locally Lipschitz) differential equation, and constructive formalization of Picard iteration~\cite{Krebbers+Spitters:lmcs:corn:2011} show that the solution of a (locally Lipschitz) differential equation is a computable function.
@@ -2361,7 +2378,7 @@ We briefly review the \dGL rules for differential equation games and suggest why
 }{}
 \cinferenceRule[dglweak|DW]{}
 {
-\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\phi}}{\psi}}{\dbox{\pevolvein{\D{x}=f}{\phi}}{(\phi\limply\psi)}}
+\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\ivr}}{\phi}}{\dbox{\pevolvein{\D{x}=f}{\ivr}}{(\ivr\limply\phi)}}
 }{}
 \cinferenceRule[dglcut|DC]{}
 {
@@ -2480,7 +2497,7 @@ Typically, constructive logics support a ``G\"{o}del-Gentzen'' (GG) translation,
 We propose to develop a GG translation for \CdGL for the dual reasons that a GG translation increases our confidence that we have the ``right'' definition of \CdGL, and that it is of independent interest to know that every classical \dGL property can be proved using \CdGL technology.
 We let $T$ stand for the translation.
 \begin{theorem}[GG embedding]
-  If $\phi$ is provable in \dGL, then $\proves{\Gemp}{M}{T(\phi)}$ in \CdGL for some $M$.
+  If (and only if) $\phi$ is provable in \dGL, then $\proves{\Gemp}{M}{T(\phi)}$ in \CdGL for some $M$.
 \end{theorem}
 This result is useful because it allows us to embed classical statements in a constructive proof, much as if $T$ were a ``modality''.
 Because $\dGL$ is (relatively) complete, this also yields a limited completeness theorem in \CdGL.
@@ -2497,7 +2514,7 @@ Lastly, embedding suggests a way to connect \CdGL implementation efforts to the 
 
 \subsection{Relaxing (Constructive) Games to (Constructive) Systems}
 We provide another new theoretical result in order to solidify the connection between \CdGL and plain \dL, which is used for the input of the \VeriPhy tool.
-\rref{thm:conv-embed} already says every \CdGL theorem is a theorem of \dGL, and a close reading holds true if \CdGL and \dGL are each restricted to systems.
+\rref{thm:conv-embed} already says every \CdGL theorem is a theorem of \dGL, and on a close reading the theorem holds true if \CdGL and \dGL are each restricted to systems.
 To complete the connection between \CdGL and \dL, it suffices to show that every proven game in \CdGL can be refined to a system by inlining the strategy from the proof.
 This has long been a folk theorem for \dGL, which we now make rigorous.
 In doing so, we show how we could automatically process \CdGL models and proofs to generate systems models and proofs which are adequate as an input to the existing \VeriPhy tool.
@@ -2530,13 +2547,13 @@ The Demonic relaxation of a safe system can then be fed to \VeriPhy as we alread
 \label{ch:kaisar}
 At this point we have identified the logic \CdGL as the backbone of our verification toolchain.
 However, \CdGL will need to be implemented for practical use.
-Experience shows that Bellerophon~\cite{DBLP:conf/itp/FultonMBP17}, the existing proof scripting language for \dGL, poses unnecessary barriers for the Logic-User, e.g.:
+Experience shows that the existing Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} proof scripting language for \dGL poses unnecessary barriers for the Logic-User, e.g.:
 \begin{itemize}
 \item Bellerophon's reliance on search-based and especially position-based formula selection leads to unmaintainable proof scripts.
 \item The main automated proof methods in Bellerophon are not easily \emph{traceable}, i.e., they result in proof goals whose correspondence with the source model is not clear from inspection.
 In practice this makes it difficult to comprehend proof states, let alone a finished proof during maintenance.
 The best alternative presently is to write manual proof steps for each connective in the model, but this results in excessive duplication between the model and proof.
-\item Bellerophon takes an ad-hoc to proving the first-order verification conditions which arise at the leaves of proofs.
+\item Bellerophon takes an ad-hoc approach to proving the first-order verification conditions which arise at the leaves of proofs.
 The complexity of first-order logic over reals demands that these goals can not always be discharged automatically in practice,
 but the Logic-User needs a clear toolbox with which to address these subgoals.
 \end{itemize}
@@ -2579,7 +2596,8 @@ Fusing Dafny-like ease-of-use with Isar-like generality is technically challengi
 The core challenge behind Kaisar is to manage the proof context in the face of program dynamics.
 From a birds-eye perspective, the context-management challenges in Kaisar are much like those faced when we developed the operational semantics of \CGL proofs in \rref{ch:cgl}.
 We will also show that (in the systems case) this context can be understood in the context of differential-dynamic hybrid logic (\dHL)~\cite{DBLP:conf/lics/BohrerP18} developed by the author, where program states can be assigned names and then referenced via \emph{nominals}.
-We equip Kaisar with several constructs for nominal reasoning, and give examples of when nominal reasoning in program proof and modeling may be useful.
+We equip Kaisar with several constructs for nominal reasoning.
+%, and give examples of when nominal reasoning in program proof and modeling may be useful.
 
 
 \section{Proposed Design}
@@ -2594,9 +2612,11 @@ There is a general-purpose generalization construct $\{B\}$ which embeds a struc
 While we may choose to employ other constructs in structured proofs $B,$ I give some of the natural choices here:
 \[B ::= \sshow{x}{\phi}{U}\ |\ \shave{x}{\phi}{U}{B}\ |\ \snote{x}{\phi}{F}{B}\]
 where $U$ is an unstructured proof according to the native language of the host prover and $F$ is a forward-style explicit proof term.
-Every proof ends with $\sshow{x}{\phi}{U}$ where the proof's conclusion $\phi$ is proven by $U$ and given name $x$.
-Proof $\shave{x}{\phi}{U}{B}$ cuts in fact $x:\phi,$ proves it with $U,$ then continues proving $B$.
-Proof $\snote{x}{\phi}{F}{B}$ also cuts in $x:\phi,$ with the distinction that the cut formula $\phi$ is proven with a \emph{forward} proof term $F$.
+Depending on the host prover, unstructured proofs could be written in Bellerophon, Coq script, and Isabelle apply-script.
+Forward style proof terms correspond loosely to the keywords \texttt{of} and \texttt{OF} in Isar, or to a minimal proof term language with modens ponens in logic or type theory.
+Every proof ends with $(\sshow{x}{\phi}{U})$ where the proof's conclusion $\phi$ is proven by $U$ and given name $x$.
+Proof $(\shave{x}{\phi}{U}{B})$ cuts in fact $x:\phi,$ proves it with $U,$ then continues proving $B$.
+Proof $(\snote{x}{\phi}{F}{B})$ also cuts in $x:\phi,$ with the distinction that the cut formula $\phi$ is proven with a \emph{forward} proof term $F$.
 
 The program construct $?(x:\phi)$ can also function like the Isar ``assume'' keyword for introducing assumptions since  the implication $\phi \rightarrow \psi$ and box test $[?\phi]\psi$ are equivalent by axiom \irref{dgltest}.
 More generally, we can implement what Martin Davis called ``Obvious Logical Inferences~\cite{DBLP:conf/ijcai/Davis81} ,''
@@ -2610,7 +2630,7 @@ The nominal term $@_L(\theta)$ refers to the old value of $\theta$ in state $L$.
 One of the major technical contributions in the Kaisar implementation will be an elaboration pass that implements $@_L(\theta)$ using ghost variables to remember the state $L$.
 This can be done following the translation in \cite{DBLP:conf/lics/BohrerP18} and means that the Logic-User does not have to write out hybrid-logic proofs manually to handle nominals.
 
-\newcommand{\eafter}[1]{\geq(#1)}
+\newcommand{\eafter}[1]{{\geq}(#1)}
 Formulas contain at least comparisons, propositional connectives, and nominals:
 \[\phi ::=  \theta \sim \eta\ |\ \phi \land \psi\ |\ \neg \phi\ |\ \lforall{x}{\phi}\ |\ @_L(\phi)\ |\ \eafter{L}\]
 where $\sim$ stands for any comparison operator $\sim \in \{<,\leq,=,\neq,\geq,>\}$.
@@ -2637,7 +2657,7 @@ then $\G_\alpha = (\eren{\G}{\vec{x}}{\vec{y}}),\vec{z}:\vec{\psi}$ where $\eren
   \spost{(\alpha)^*@\{B\}}{\G} &= \spost{\{B\}}{G} &&\text{if }\spost{\alpha}{{\G_\alpha}_{\{B\}}}=\spost{\{B\}}{\G}\\
 \spost{L{:}\ \alpha}{\G} &= \spost{\alpha}{(\G,L)} 
 \end{align*}
-That is, ``show'' must prove its declared goal, and ``have'' must prove the lemma before proceeding to SP.
+That is, ``show'' must prove its declared goal, and ``have'' must prove the lemma before proceeding to S.
 In $\alpha;\beta,$ the conclusion is given by $\beta,$ but the proof of $\beta$ has access to all results proven in $\alpha$.
 In $\alpha\cup\beta,$ the postcondition is the disjunction of those for $\alpha$ and $\beta$ because either branch might be taken.
 Tests assume $\phi,$ which they also conclude by default.
@@ -2701,7 +2721,7 @@ A \emph{modular proof} uses an \emph{interface} $D(\beta)$ which specifies all t
 Then the modular proof consists of a proof $A$ that $\beta$ satisfies interface $D$ and a family of proofs $F$ that \emph{any} program $\gamma$ which satisfies interface $D$ can be substituted for $\beta$ in context $C$ and maintain the postcondition $\phi$.
 
 Given this definition of modular proof, a first cut at a modular completeness theorem might show that for every $\proves{\G}{M}{\ddiamond{\alpha}{\phi}}$ there is a modular proof $(A,F)$
-However, there always exist \emph{trivial modular proofs}: if we define $\beta = \alpha, C(\cdot)=\cdot,$ and $D(\cdot) = \ddiamond{\gamma}{\phi}$ then the pair $(M,(\_ \mapsto \text{id}))$ is a modular proof, where $\text{id}$ is the identity proof $P \limply P$.
+However, there always exist \emph{trivial modular proofs}: if we define $\beta = \alpha, C(\cdot)=\cdot,$ and $D(\cdot) = \ddiamond{\gamma}{\phi}$ then the pair $(M,(\_ \mapsto \text{id}))$ is a modular proof, where $\text{id}$ is the identity proof of $P \limply P$.
 From a high level, a modular proof is only interesting if the interface $D$ is somehow simpler than the theorem $\ddiamond{\alpha}{\phi}$ and if proofs can be adapted with respect to non-trivial contexts $C$.
 
 A \emph{strong modular completeness} theorem would say that a proof can be modularized for \emph{every} context $C$ which program $\alpha$ matches.
@@ -2741,7 +2761,7 @@ Coq and \KeYmaeraX both~\cite{Barras:1997,DBLP:conf/cpp/BohrerRVVP17} have small
 %The \kwassume{},  are taken directly from Isar, and Kaisar's \kwlet{} construct is a straightforward generalization of Isar's \kwlet{} construct w
 
 
-Two classes of languages closely related to structured proofs are tactics languages (which implement reuseable automation) and unstructured proof languages (which implement concrete proofs).
+Two classes of languages closely related to structured proofs are tactics languages (which implement reusable automation) and unstructured proof languages (which implement concrete proofs).
 Automation can often be written in the prover's implementation language: OCaml in Coq, ML in Isabelle, or Scala in \KeYmaeraX.
 Domain-specific languages for tactics include untyped \ltac~\cite{Delahaye:2000:TLS:1765236.1765246}, reflective Rtac~\cite{malecha2015rtac-coqpl}, and dependently typed Mtac~\cite{Ziliani:2013:MMT:2544174.2500579} in Coq, Eisbach~\cite{Matichuk:2016:EPM:2904234.2904264} in Isabelle, and VeriML~\cite{DBLP:conf/icfp/StampoulisS10,DBLP:conf/popl/StampoulisS12} in a standalone proof-checker.
 The KeY prover~\cite{DBLP:series/lncs/10001} features a soundness-critical ``tactlet''~\cite{habermalz2000interactiv} language with limited expressivity, which can be understood as allowing user-specified inference rules.
@@ -2750,7 +2770,7 @@ Examples of unstructured languages are the Coq~\cite{COQ} script language and th
 Bellerophon consists of regular expression-style tactic combinators (sequential composition, repetition, etc.) and a standard tactics library featuring, e.g. sequent calculus rules and general-purpose automation.
 Bellerophon's strength is in tactics that compose the significant automation provided in its library.
 Its weakness is in performing large-scale concrete proofs.
-For example, assumptions in Bellerophon are unnamed and referred to by their index or by search, which can become unreadable or brittle at scalea.
+For example, assumptions in Bellerophon are unnamed and referred to by their index or by search, which can become unreadable or brittle at scale.
 It lacks both the nominals unique to Kaisar and structuring: the Bellerophon combinators in common use are a strict subset of the combinators in apply-script.
 Over time, the Bellerophon implementation has gained new features such as auxiliary tactic, function, and program definitions, which have partially offset scalability challenges.
 However, these features have not been studied in detail, let alone published.
@@ -2769,7 +2789,7 @@ Our goal differs: we apply named states to simplify proofs of theorems, but nomi
 While we provide the most general treatment of historical state and its theory via nominals, there is a rich tradition of historical reference in program proofs.
 It has long been known that historical reference, implementable with ghost state, is an essential component of proof in many domains~\cite{DBLP:journals/tcs/AptBM79,Owicki1976,DBLP:books/garland/Owicki75,apt2010verification,DBLP:journals/acta/Clint73}.
 It has been known equally long~\cite{DBLP:journals/acta/Clarke80} that manual ghost arguments can make proofs clumsy.
-A number of verification tools ~\cite{KeYBook,DBLP:conf/cade/FultonMQVP15,DBLP:conf/lpar/Leino10,this-is-boogie-2-2,Barnett2005,DBLP:conf/fosad/LeinoMS09,DBLP:books/daglib/p/LeavensBR99,DBLP:journals/fac/Kleymann99} offer ad-hoc historical reference constructs without theoretical justification which can reference only the initial program state.
+A number of verification tools ~\cite{DBLP:series/lncs/10001,DBLP:conf/cade/FultonMQVP15,DBLP:conf/lpar/Leino10,this-is-boogie-2-2,Barnett2005,DBLP:conf/fosad/LeinoMS09,DBLP:books/daglib/p/LeavensBR99,DBLP:journals/fac/Kleymann99} offer ad-hoc historical reference constructs without theoretical justification which can reference only the initial program state.
 We generalize them and provide the first formal treatment of historical reference.
 In the hybrid systems setting specifically, \emph{differential} ghosts are also essential~\cite{DBLP:conf/lics/PlatzerT18} for reasoning about differential equations.
 
@@ -2814,7 +2834,7 @@ But in early stages of development, especially if there is not a purpose-built s
 The first two are monitors which merely detect noncompliance with a model, whereas the latter two actively control the system.
 Notably, the first two are supported by the existing \ModelPlex~\cite{DBLP:journals/fmsd/MitschP16} tool while the latter two are not.
 Moreover, we obviously wish that we could synthesize these artifacts for arbitrarily complicated systems, whereas existing implementations of \ModelPlex have limitations, for example that the controller must contain no differential equations and loops.
-Until recent advances~\cite{DBLP:journals/corr/abs-1908-05535}, it was even more restrictive, and often would not produce usable monitors for plants beyond  nilpotent differential equations.
+Until recent advances concurrent with~\cite{DBLP:conf/pldi/BohrerTMMP18} ModelPlex could not exploit information from proofs, which prevented synthesizing nontrivial plant monitors beyond nilpotent differential equations.
 
 It is by looking at the advances that led to recent gains that we can then, however, discover the changes that achieve our lofty goal of synthesizing all four artifacts and doing so for arbitrary systems (and games).
 A key insight behind a recent advance in the \ModelPlex tool (which generalized plants to polynomial ODEs so long as the plant is proven safe using only chains of inductive invariants) is that even in synthesizing a monitor, \emph{the contents of a proof are essential to synthesis}.
@@ -2882,7 +2902,7 @@ I intend to defend approximately August 2020.
 
 Total: 12 months
 \begin{itemize}
-\item 3 months (Sep-Nov) Extend \CGL theory to \CdGL theory (Submit to IJCAR around February 2020, or Fossacs in Oct 2019 if done early)
+\item 3 months (Sep-Nov) Extend \CGL theory to \CdGL theory (Submit to IJCAR around February 2020, or FOSSACS in Oct 2019 if done early)
 \item 3 months (Dec-Feb) Implement Kaisar with \CdGL proof checking (Submit to ITP or FM late March 2020)
 \item 2 months: (Mar-Apr) Develop \ProofPlex implementation (Submit to  RV, May 2020, or if finished early, CAV in February 2020)
 \item 1 month: (May) Generalize ground robotics case study to \CdGL
@@ -2890,7 +2910,6 @@ Total: 12 months
 \end{itemize}
 
 \appendix
-
 
 \backmatter
 

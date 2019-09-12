@@ -1,0 +1,6988 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Abramsky%
+, Jagadeesan%
+\BCBL {}\ \BBA {} Malacaria%
+}{%
+Abramsky%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2000}}%
+}]{%
+DBLP:journals/iandc/AbramskyJM00}
+\APACinsertmetastar {%
+DBLP:journals/iandc/AbramskyJM00}%
+\begin{APACrefauthors}%
+Abramsky, S.%
+, Jagadeesan, R.%
+\BCBL {}\ \BBA {} Malacaria, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2000}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Full Abstraction for {PCF}} {Full abstraction for
+  {PCF}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Inf. Comput.}{163}{2}{409--470}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1006/inco.2000.2930}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1006/inco.2000.2930} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Aczel%
+\ \BBA {} Gambino%
+}{%
+Aczel%
+\ \BBA {} Gambino%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+DBLP:journals/jsyml/AczelG06}
+\APACinsertmetastar {%
+DBLP:journals/jsyml/AczelG06}%
+\begin{APACrefauthors}%
+Aczel, P.%
+\BCBT {}\ \BBA {} Gambino, N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The generalised type-theoretic interpretation of
+  constructive set theory} {The generalised type-theoretic interpretation of
+  constructive set theory}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Symb. Log.}{71}{1}{67--103}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.2178/jsl/1140641163}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.2178/jsl/1140641163} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Affeldt%
+\ \BBA {} Cohen%
+}{%
+Affeldt%
+\ \BBA {} Cohen%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/cpp/AffeldtC17}
+\APACinsertmetastar {%
+DBLP:conf/cpp/AffeldtC17}%
+\begin{APACrefauthors}%
+Affeldt, R.%
+\BCBT {}\ \BBA {} Cohen, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formal foundations of 3{D} geometry to model robot
+  manipulators} {Formal foundations of 3{D} geometry to model robot
+  manipulators}.{\BBCQ}
+\newblock
+\BIn{} Y.~Bertot\ \BBA {} V.~Vafeiadis\ (\BEDS), \APACrefbtitle {Proceedings of
+  the 6th {ACM} {SIGPLAN} Conference on Certified Programs and Proofs, {CPP}
+  2017, {P}aris, {F}rance, {J}anuary 16-17, 2017} {Proceedings of the 6th {ACM}
+  {SIGPLAN} conference on certified programs and proofs, {CPP} 2017, {P}aris,
+  {F}rance, {J}anuary 16-17, 2017}\ (\BPGS\ 30--42).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/3018610.3018629}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3018610.3018629} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ahrendt%
+\ \protect \BOthers {.}}{%
+Ahrendt%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:series/lncs/10001}
+\APACinsertmetastar {%
+DBLP:series/lncs/10001}%
+\begin{APACrefauthors}%
+Ahrendt, W.%
+, Beckert, B.%
+, Bubel, R.%
+, H{\"{a}}hnle, R.%
+, Schmitt, P\BPBI H.%
+\BCBL {}\ \BBA {} Ulbrich, M.%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYear{2016}.
+\newblock
+\APACrefbtitle {Deductive Software Verification - The KeY {Book} - From Theory
+  to Practice} {Deductive software verification - the key {Book} - from theory
+  to practice}\ (\BVOL\ 10001).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-49812-6}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-49812-6} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Alechina%
+, Mendler%
+, de Paiva%
+\BCBL {}\ \BBA {} Ritter%
+}{%
+Alechina%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2001}}%
+}]{%
+DBLP:conf/csl/AlechinaMPR01}
+\APACinsertmetastar {%
+DBLP:conf/csl/AlechinaMPR01}%
+\begin{APACrefauthors}%
+Alechina, N.%
+, Mendler, M.%
+, de Paiva, V.%
+\BCBL {}\ \BBA {} Ritter, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Categorical and {Kripke} Semantics for Constructive {S4}
+  Modal Logic} {Categorical and {Kripke} semantics for constructive {S4} modal
+  logic}.{\BBCQ}
+\newblock
+\BIn{} L.~Fribourg\ (\BED), \APACrefbtitle {Computer Science Logic, 15th
+  International Workshop, {CSL} 2001} {Computer science logic, 15th
+  international workshop, {CSL} 2001}\ (\BVOL\ 2142, \BPGS\ 292--307).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/3-540-44802-0\_21}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-44802-0_21} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Allen%
+\ \protect \BOthers {.}}{%
+Allen%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2006}}%
+}]{%
+Allen+al:2006}
+\APACinsertmetastar {%
+Allen+al:2006}%
+\begin{APACrefauthors}%
+Allen, S\BPBI F.%
+, Bickford, M.%
+, Constable, R\BPBI L.%
+, Eaton, R.%
+, Kreitz, C.%
+, Lorigo, L.%
+\BCBL {}\ \BBA {} Moran, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Innovations in computational type theory using {N}uprl}
+  {Innovations in computational type theory using {N}uprl}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Applied Logic}{4}{4}{428-469}.
+\newblock
+\APACrefnote{\url{http://www.nuprl.org/}}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Althoff%
+\ \BBA {} Dolan%
+}{%
+Althoff%
+\ \BBA {} Dolan%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+DBLP:journals/trob/AlthoffD14}
+\APACinsertmetastar {%
+DBLP:journals/trob/AlthoffD14}%
+\begin{APACrefauthors}%
+Althoff, M.%
+\BCBT {}\ \BBA {} Dolan, J\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Online Verification of Automated Road Vehicles Using
+  Reachability Analysis} {Online verification of automated road vehicles using
+  reachability analysis}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{IEEE} Trans. Robotics}{30}{4}{903--918}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/TRO.2014.2312453}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Alur%
+, Henzinger%
+\BCBL {}\ \BBA {} Kupferman%
+}{%
+Alur%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2002}}%
+}]{%
+DBLP:journals/jacm/AlurHK02}
+\APACinsertmetastar {%
+DBLP:journals/jacm/AlurHK02}%
+\begin{APACrefauthors}%
+Alur, R.%
+, Henzinger, T\BPBI A.%
+\BCBL {}\ \BBA {} Kupferman, O.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Alternating-time temporal logic} {Alternating-time
+  temporal logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. {ACM}}{49}{5}{672--713}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/585265.585270} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/585265.585270} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Alur%
+, Henzinger%
+, Lafferriere%
+\BCBL {}\ \BBA {} Pappas%
+}{%
+Alur%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2000}}%
+}]{%
+871304}
+\APACinsertmetastar {%
+871304}%
+\begin{APACrefauthors}%
+Alur, R.%
+, Henzinger, T\BPBI A.%
+, Lafferriere, G.%
+\BCBL {}\ \BBA {} Pappas, G\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2000}{July}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Discrete abstractions of hybrid systems} {Discrete
+  abstractions of hybrid systems}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of the IEEE}{88}{7}{971-984}.
+\newblock
+\begin{APACrefDOI} \doi{10.1109/5.871304} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Anand%
+\ \protect \BOthers {.}}{%
+Anand%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+anand2017certicoq}
+\APACinsertmetastar {%
+anand2017certicoq}%
+\begin{APACrefauthors}%
+Anand, A.%
+, Appel, A.%
+, Morrisett, G.%
+, Paraskevopoulou, Z.%
+, Pollack, R.%
+, Belanger, O\BPBI S.%
+\BDBL {}Weaver, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{CertiCoq}: A verified compiler for {Coq}} {{CertiCoq}:
+  A verified compiler for {Coq}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {The Third International Workshop on {Coq} for
+  Programming Languages {(CoqPL)}.} {The third international workshop on {Coq}
+  for programming languages {(CoqPL)}.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Anand%
+\ \BBA {} Knepper%
+}{%
+Anand%
+\ \BBA {} Knepper%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/itp/AnandK15}
+\APACinsertmetastar {%
+DBLP:conf/itp/AnandK15}%
+\begin{APACrefauthors}%
+Anand, A.%
+\BCBT {}\ \BBA {} Knepper, R\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{ROSCoq}: Robots powered by constructive reals}
+  {{ROSCoq}: Robots powered by constructive reals}.{\BBCQ}
+\newblock
+\BIn{} C.~Urban\ \BBA {} X.~Zhang\ (\BEDS), \APACrefbtitle {{ITP}} {{ITP}}\
+  (\BVOL\ 9236, \BPGS\ 34--50).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-22102-1\_3}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-22102-1_3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Anand%
+\ \BBA {} Rahli%
+}{%
+Anand%
+\ \BBA {} Rahli%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+DBLP:conf/itp/AnandR14}
+\APACinsertmetastar {%
+DBLP:conf/itp/AnandR14}%
+\begin{APACrefauthors}%
+Anand, A.%
+\BCBT {}\ \BBA {} Rahli, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards a Formally Verified Proof Assistant} {Towards a
+  formally verified proof assistant}.{\BBCQ}
+\newblock
+\BIn{} G.~Klein\ \BBA {} R.~Gamboa\ (\BEDS), \APACrefbtitle {{ITP}} {{ITP}}\
+  (\BVOL\ 8558, \BPGS\ 27--44).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-08970-6_3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Andronick%
+\ \BBA {} Felty%
+}{%
+Andronick%
+\ \BBA {} Felty%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/cpp/2018}
+\APACinsertmetastar {%
+DBLP:conf/cpp/2018}%
+\begin{APACrefauthors}%
+Andronick, J.%
+\BCBT {}\ \BBA {} Felty, A\BPBI P.%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+\APACrefbtitle {Proceedings of the 7th {ACM} {SIGPLAN} International Conference
+  on Certified Programs and Proofs, {CPP} 2018, {L}os {Angeles, CA, USA,
+  January} 8-9, 2018.} {Proceedings of the 7th {ACM} {SIGPLAN} international
+  conference on certified programs and proofs, {CPP} 2018, {L}os {Angeles, CA,
+  USA, January} 8-9, 2018.}
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://dl.acm.org/citation.cfm?id=3176245}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+K.~Apt%
+, De~Boer%
+\BCBL {}\ \BBA {} Olderog%
+}{%
+K.~Apt%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+apt2010verification}
+\APACinsertmetastar {%
+apt2010verification}%
+\begin{APACrefauthors}%
+Apt, K.%
+, De~Boer, F\BPBI S.%
+\BCBL {}\ \BBA {} Olderog, E\BHBI R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+\APACrefbtitle {Verification of sequential and concurrent programs.}
+  {Verification of sequential and concurrent programs.}
+\newblock
+\APACaddressPublisher{}{Springer Science \& Business Media}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+K\BPBI R.~Apt%
+, Bergstra%
+\BCBL {}\ \BBA {} Meertens%
+}{%
+K\BPBI R.~Apt%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1979}}%
+}]{%
+DBLP:journals/tcs/AptBM79}
+\APACinsertmetastar {%
+DBLP:journals/tcs/AptBM79}%
+\begin{APACrefauthors}%
+Apt, K\BPBI R.%
+, Bergstra, J\BPBI A.%
+\BCBL {}\ \BBA {} Meertens, L\BPBI G\BPBI L\BPBI T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1979}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Recursive Assertions are not enough - or are they?}
+  {Recursive assertions are not enough - or are they?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Theor. Comput. Sci.}{8}{}{73--87}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1016/0304-3975(79)90058-6}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/0304-3975(79)90058-6} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Art{\"{e}}mov%
+, Davoren%
+\BCBL {}\ \BBA {} Nerode%
+}{%
+Art{\"{e}}mov%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1997}}%
+}]{%
+DBLP:conf/lfcs/ArtemovDN97}
+\APACinsertmetastar {%
+DBLP:conf/lfcs/ArtemovDN97}%
+\begin{APACrefauthors}%
+Art{\"{e}}mov, S\BPBI N.%
+, Davoren, J\BPBI M.%
+\BCBL {}\ \BBA {} Nerode, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Topological Semantics for Hybrid Systems} {Topological
+  semantics for hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} S\BPBI I.~Adian\ \BBA {} A.~Nerode\ (\BEDS), \APACrefbtitle {Logical
+  Foundations of Computer Science, 4th International Symposium, {LFCS},
+  {Yaroslavl, Russia, July} 6-12, 1997, Proceedings} {Logical foundations of
+  computer science, 4th international symposium, {LFCS}, {Yaroslavl, Russia,
+  July} 6-12, 1997, proceedings}\ (\BVOL\ 1234, \BPGS\ 1--8).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/3-540-63045-7\_1}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-63045-7_1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Avigad%
+\ \BBA {} Chlipala%
+}{%
+Avigad%
+\ \BBA {} Chlipala%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/cpp/2016}
+\APACinsertmetastar {%
+DBLP:conf/cpp/2016}%
+\begin{APACrefauthors}%
+Avigad, J.%
+\BCBT {}\ \BBA {} Chlipala, A.%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+\APACrefbtitle {{CPP2016}.} {{CPP2016}.}
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://dl.acm.org/citation.cfm?id=2854065}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Baier%
+\ \BBA {} Tinelli%
+}{%
+Baier%
+\ \BBA {} Tinelli%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/tacas/2015}
+\APACinsertmetastar {%
+DBLP:conf/tacas/2015}%
+\begin{APACrefauthors}%
+Baier, C.%
+\BCBT {}\ \BBA {} Tinelli, C.%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+\APACrefbtitle {Tools and Algorithms for the Construction and Analysis of
+  Systems - 21st International Conference, {TACAS} 2015, Held as Part of the
+  {E}uropean Joint Conferences on Theory and Practice of Software, {ETAPS}
+  2015, {L}ondon, {UK, A}pril 11-18, 2015. Proceedings} {Tools and algorithms
+  for the construction and analysis of systems - 21st international conference,
+  {TACAS} 2015, held as part of the {E}uropean joint conferences on theory and
+  practice of software, {ETAPS} 2015, {L}ondon, {UK, A}pril 11-18, 2015.
+  proceedings}\ (\BVOL\ 9035).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-662-46681-0}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-662-46681-0} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bancerek%
+\ \protect \BOthers {.}}{%
+Bancerek%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+conf/mkm/BancerekBGKMNPU15}
+\APACinsertmetastar {%
+conf/mkm/BancerekBGKMNPU15}%
+\begin{APACrefauthors}%
+Bancerek, G.%
+, Bylinski, C.%
+, Grabowski, A.%
+, Kornilowicz, A.%
+, Matuszewski, R.%
+, Naumowicz, A.%
+\BDBL {}Urban, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mizar: State-of-the-art and Beyond.} {Mizar:
+  State-of-the-art and beyond.}{\BBCQ}
+\newblock
+\BIn{} M.~Kerber, J.~Carette, C.~Kaliszyk, F.~Rabe\BCBL {}\ \BBA {} V.~Sorge\
+  (\BEDS), \APACrefbtitle {{CICM}} {{CICM}}\ (\BVOL\ 9150, \BPG~261-279).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL}
+  \url{http://dblp.uni-trier.de/db/conf/mkm/cicm2015.html#BancerekBGKMNPU15}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-20615-8} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Barnett%
+, Leino%
+\BCBL {}\ \BBA {} Schulte%
+}{%
+Barnett%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2005}}%
+}]{%
+Barnett2005}
+\APACinsertmetastar {%
+Barnett2005}%
+\begin{APACrefauthors}%
+Barnett, M.%
+, Leino, K\BPBI R\BPBI M.%
+\BCBL {}\ \BBA {} Schulte, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The Spec{\#} Programming System: An Overview}} {{The
+  Spec{\#} Programming System: An Overview}}.{\BBCQ}
+\newblock
+\BIn{} G.~Barthe, L.~Burdy, M.~Huisman, J\BHBI L.~Lanet\BCBL {}\ \BBA {}
+  T.~Muntean\ (\BEDS), \APACrefbtitle {Construction and Analysis of Safe,
+  Secure, and Interoperable Smart Devices: International Workshop, {CASSIS
+  2004, Marseille, France, March} 10-14, 2004, Revised Selected Papers}
+  {Construction and analysis of safe, secure, and interoperable smart devices:
+  International workshop, {CASSIS 2004, Marseille, France, March} 10-14, 2004,
+  revised selected papers}\ (\BPGS\ 49--69).
+\newblock
+\APACaddressPublisher{Berlin, Heidelberg}{Springer Berlin Heidelberg}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1007/978-3-540-30569-9\_3}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-540-30569-9_3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Barras%
+}{%
+Barras%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:journals/jfrea/Barras10}
+\APACinsertmetastar {%
+DBLP:journals/jfrea/Barras10}%
+\begin{APACrefauthors}%
+Barras, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Sets in {Coq}, {Coq} in Sets} {Sets in {Coq}, {Coq} in
+  sets}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Formalized Reasoning}{3}{1}{29--48}.
+\newblock
+\begin{APACrefDOI} \doi{10.6092/issn.1972-5787/1695} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Barras%
+\ \BBA {} Werner%
+}{%
+Barras%
+\ \BBA {} Werner%
+}{%
+{\protect \APACyear {1997}}%
+}]{%
+Barras:1997}
+\APACinsertmetastar {%
+Barras:1997}%
+\begin{APACrefauthors}%
+Barras, B.%
+\BCBT {}\ \BBA {} Werner, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{}{}.
+\newblock
+\APACrefbtitle {{C}oq in {C}oq} {{C}oq in {C}oq}\ \APACbVolEdTR{}{\BTR{}}.
+\newblock
+\APACaddressInstitution{}{INRIA Rocquencourt}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bauer%
+}{%
+Bauer%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+DBLP:conf/cca/Bauer05}
+\APACinsertmetastar {%
+DBLP:conf/cca/Bauer05}%
+\begin{APACrefauthors}%
+Bauer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Realizability as Connection between Constructive and
+  Computable Mathematics} {Realizability as connection between constructive and
+  computable mathematics}.{\BBCQ}
+\newblock
+\BIn{} T.~Grubba, P.~Hertling, H.~Tsuiki\BCBL {}\ \BBA {} K.~Weihrauch\
+  (\BEDS), \APACrefbtitle {{CCA} 2005 - Second International Conference on
+  Computability and Complexity in Analysis, {August 25-29, 2005, Kyoto, Japan}}
+  {{CCA} 2005 - second international conference on computability and complexity
+  in analysis, {August 25-29, 2005, Kyoto, Japan}}\ (\BVOL\ 326-7/2005, \BPGS\
+  378--379).
+\newblock
+\APACaddressPublisher{}{{FernUniversit{\"{a}}t Hagen, Germany}}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Becker%
+\ \protect \BOthers {.}}{%
+Becker%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/fmcad/BeckerZMDMF18}
+\APACinsertmetastar {%
+DBLP:conf/fmcad/BeckerZMDMF18}%
+\begin{APACrefauthors}%
+Becker, H.%
+, Zyuzin, N.%
+, Monat, R.%
+, Darulova, E.%
+, Myreen, M\BPBI O.%
+\BCBL {}\ \BBA {} Fox, A\BPBI C\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Verified Certificate Checker for Finite-Precision
+  Error Bounds in {Coq} and {HOL4}} {A verified certificate checker for
+  finite-precision error bounds in {Coq} and {HOL4}}.{\BBCQ}
+\newblock
+\BIn{} N.~Bj{\o}rner\ \BBA {} A.~Gurfinkel\ (\BEDS), \APACrefbtitle {2018
+  Formal Methods in Computer Aided Design, {FMCAD} 2018, {Austin,} {TX, USA,
+  October 30 - November} 2, 2018} {2018 formal methods in computer aided
+  design, {FMCAD} 2018, {Austin,} {TX, USA, October 30 - November} 2, 2018}\
+  (\BPGS\ 1--10).
+\newblock
+\APACaddressPublisher{}{{IEEE}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.23919/FMCAD.2018.8603019}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.23919/FMCAD.2018.8603019} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Beyer%
+\ \BBA {} Huisman%
+}{%
+Beyer%
+\ \BBA {} Huisman%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/tacas/2018-1}
+\APACinsertmetastar {%
+DBLP:conf/tacas/2018-1}%
+\begin{APACrefauthors}%
+Beyer, D.%
+\BCBT {}\ \BBA {} Huisman, M.%
+\end{APACrefauthors}%
+\ (\BEDS).
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+\APACrefbtitle {Tools and Algorithms for the Construction and Analysis of
+  Systems - 24th International Conference, {TACAS} 2018, Held as Part of the
+  European Joint Conferences on Theory and Practice of Software, {ETAPS} 2018,
+  {Thessaloniki, Greece, April} 14-20, 2018, Proceedings, Part {I}} {Tools and
+  algorithms for the construction and analysis of systems - 24th international
+  conference, {TACAS} 2018, held as part of the european joint conferences on
+  theory and practice of software, {ETAPS} 2018, {Thessaloniki, Greece, April}
+  14-20, 2018, proceedings, part {I}}\ (\BVOL\ 10805).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-89960-2}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-89960-2} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bhatia%
+, Kavraki%
+\BCBL {}\ \BBA {} Vardi%
+}{%
+Bhatia%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:conf/cdc/BhatiaKV10}
+\APACinsertmetastar {%
+DBLP:conf/cdc/BhatiaKV10}%
+\begin{APACrefauthors}%
+Bhatia, A.%
+, Kavraki, L\BPBI E.%
+\BCBL {}\ \BBA {} Vardi, M\BPBI Y.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Motion planning with hybrid dynamics and temporal goals}
+  {Motion planning with hybrid dynamics and temporal goals}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{CDC}} {{CDC}}\ (\BPGS\ 1108--1115).
+\newblock
+\APACaddressPublisher{}{{IEEE}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/CDC.2010.5717440}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bishop%
+}{%
+Bishop%
+}{%
+{\protect \APACyear {1967}}%
+}]{%
+bishop1967foundations}
+\APACinsertmetastar {%
+bishop1967foundations}%
+\begin{APACrefauthors}%
+Bishop, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1967}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Foundations of constructive analysis} {Foundations of
+  constructive analysis}.{\BBCQ}
+\newblock
+
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bohrer%
+, Fern{\'{a}}ndez%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Bohrer%
+, Fern{\'{a}}ndez%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+DBLP:conf/cade/BohrerFP19}
+\APACinsertmetastar {%
+DBLP:conf/cade/BohrerFP19}%
+\begin{APACrefauthors}%
+Bohrer, B.%
+, Fern{\'{a}}ndez, M.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{dL}\(_\iota\): Definite Descriptions in Differential
+  Dynamic Logic} {{dL}\(_\iota\): Definite descriptions in differential dynamic
+  logic}.{\BBCQ}
+\newblock
+\BIn{} P.~Fontaine\ (\BED), \APACrefbtitle {Automated Deduction - {CADE} 27 -
+  27th International Conference on Automated Deduction, {Natal, Brazil, August
+  27-30, 2019}, Proceedings} {Automated deduction - {CADE} 27 - 27th
+  international conference on automated deduction, {Natal, Brazil, August
+  27-30, 2019}, proceedings}\ (\BVOL\ 11716, \BPGS\ 94--110).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-030-29436-6\_6}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-030-29436-6_6} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bohrer%
+\ \BBA {} Platzer%
+}{%
+Bohrer%
+\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/lics/BohrerP18}
+\APACinsertmetastar {%
+DBLP:conf/lics/BohrerP18}%
+\begin{APACrefauthors}%
+Bohrer, B.%
+\BCBT {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Hybrid, Dynamic Logic for Hybrid-Dynamic Information
+  Flow} {A hybrid, dynamic logic for hybrid-dynamic information flow}.{\BBCQ}
+\newblock
+\BIn{} A.~Dawar\ \BBA {} E.~Gr{\"{a}}del\ (\BEDS), \APACrefbtitle {{LICS}}
+  {{LICS}}\ (\BPG~115-124).
+\newblock
+\APACaddressPublisher{New York}{ACM}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3209108.3209151} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bohrer%
+\ \BBA {} Platzer%
+}{%
+Bohrer%
+\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+DBLP:journals/corr/abs-1908-05535}
+\APACinsertmetastar {%
+DBLP:journals/corr/abs-1908-05535}%
+\begin{APACrefauthors}%
+Bohrer, B.%
+\BCBT {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Toward Structured Proofs for Dynamic Logics} {Toward
+  structured proofs for dynamic logics}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{CoRR}{abs/1908.05535}{}{}.
+\newblock
+\begin{APACrefURL} \url{http://arxiv.org/abs/1908.05535} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bohrer%
+\ \BBA {} Platzer%
+}{%
+Bohrer%
+\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2020}}%
+}]{%
+poplcgl}
+\APACinsertmetastar {%
+poplcgl}%
+\begin{APACrefauthors}%
+Bohrer, B.%
+\BCBT {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Constructive Game Logic} {Constructive game
+  logic}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{POPL}.} {{POPL}.}
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\APACrefnote{Under review}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bohrer%
+, Rahli%
+, Vukotic%
+, V{\"o}lp%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Bohrer%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/cpp/BohrerRVVP17}
+\APACinsertmetastar {%
+DBLP:conf/cpp/BohrerRVVP17}%
+\begin{APACrefauthors}%
+Bohrer, B.%
+, Rahli, V.%
+, Vukotic, I.%
+, V{\"o}lp, M.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formally Verified Differential Dynamic Logic} {Formally
+  verified differential dynamic logic}.{\BBCQ}
+\newblock
+\BIn{} Y.~Bertot\ \BBA {} V.~Vafeiadis\ (\BEDS), \APACrefbtitle {{CPP}}
+  {{CPP}}\ (\BPG~208-221).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3018610.3018616} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bohrer%
+, Tan%
+, Mitsch%
+, Myreen%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Bohrer%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/pldi/BohrerTMMP18}
+\APACinsertmetastar {%
+DBLP:conf/pldi/BohrerTMMP18}%
+\begin{APACrefauthors}%
+Bohrer, B.%
+, Tan, Y\BPBI K.%
+, Mitsch, S.%
+, Myreen, M\BPBI O.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{VeriPhy}: Verified Controller Executables from Verified
+  Cyber-Physical System Models} {{VeriPhy}: Verified controller executables
+  from verified cyber-physical system models}.{\BBCQ}
+\newblock
+\BIn{} D.~Grossman\ (\BED), \APACrefbtitle {{PLDI}} {{PLDI}}\ (\BPG~617-630).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3192366.3192406} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bohrer%
+, Tan%
+, Mitsch%
+, Sogokon%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Bohrer%
+, Tan%
+\BCBL {}\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+DBLP:journals/ral/BohrerTMSP19}
+\APACinsertmetastar {%
+DBLP:journals/ral/BohrerTMSP19}%
+\begin{APACrefauthors}%
+Bohrer, B.%
+, Tan, Y\BPBI K.%
+, Mitsch, S.%
+, Sogokon, A.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Formal Safety Net for Waypoint Following in Ground
+  Robots} {A formal safety net for waypoint following in ground robots}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{IEEE} Robotics and Automation
+  Letters}{4}{3}{2910-2917}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Boldo%
+, Filli{\^{a}}tre%
+\BCBL {}\ \BBA {} Melquiond%
+}{%
+Boldo%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+DBLP:conf/mkm/BoldoFM09}
+\APACinsertmetastar {%
+DBLP:conf/mkm/BoldoFM09}%
+\begin{APACrefauthors}%
+Boldo, S.%
+, Filli{\^{a}}tre, J.%
+\BCBL {}\ \BBA {} Melquiond, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Combining {Coq} and {Gappa} for certifying
+  floating-point programs} {Combining {Coq} and {Gappa} for certifying
+  floating-point programs}.{\BBCQ}
+\newblock
+\BIn{} J.~Carette, L.~Dixon, C\BPBI S.~Coen\BCBL {}\ \BBA {} S\BPBI M.~Watt\
+  (\BEDS), \APACrefbtitle {{MKM}, Held as Part of {CICM}} {{MKM}, held as part
+  of {CICM}}\ (\BVOL\ 5625, \BPGS\ 59--74).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-02614-0\_10}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-02614-0_10} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Boldo%
+, Jourdan%
+, Leroy%
+\BCBL {}\ \BBA {} Melquiond%
+}{%
+Boldo%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+DBLP:conf/arith/BoldoJLM13}
+\APACinsertmetastar {%
+DBLP:conf/arith/BoldoJLM13}%
+\begin{APACrefauthors}%
+Boldo, S.%
+, Jourdan, J.%
+, Leroy, X.%
+\BCBL {}\ \BBA {} Melquiond, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A formally-verified {C} compiler supporting
+  floating-point arithmetic} {A formally-verified {C} compiler supporting
+  floating-point arithmetic}.{\BBCQ}
+\newblock
+\BIn{} A.~Nannarelli, P.~Seidel\BCBL {}\ \BBA {} P\BPBI T\BPBI P.~Tang\
+  (\BEDS), \APACrefbtitle {ARITH} {Arith}\ (\BPGS\ 107--115).
+\newblock
+\APACaddressPublisher{}{{IEEE} Comp. Soc.}
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/ARITH.2013.30} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/ARITH.2013.30} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Boldo%
+\ \BBA {} Melquiond%
+}{%
+Boldo%
+\ \BBA {} Melquiond%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:conf/arith/BoldoM10}
+\APACinsertmetastar {%
+DBLP:conf/arith/BoldoM10}%
+\begin{APACrefauthors}%
+Boldo, S.%
+\BCBT {}\ \BBA {} Melquiond, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Flocq}: {A} unified library for proving floating-point
+  algorithms in {Coq}} {{Flocq}: {A} unified library for proving floating-point
+  algorithms in {Coq}}.{\BBCQ}
+\newblock
+\BIn{} E.~Antelo, D.~Hough\BCBL {}\ \BBA {} P.~Ienne\ (\BEDS), \APACrefbtitle
+  {{ARITH}} {{ARITH}}\ (\BPGS\ 243--252).
+\newblock
+\APACaddressPublisher{}{{IEEE} Comp. Soc.}
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/ARITH.2011.40} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/ARITH.2011.40} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bouissou%
+, Goubault%
+, Putot%
+, Tekkal%
+\BCBL {}\ \BBA {} V{\'{e}}drine%
+}{%
+Bouissou%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+DBLP:conf/cav/BouissouGPTV09}
+\APACinsertmetastar {%
+DBLP:conf/cav/BouissouGPTV09}%
+\begin{APACrefauthors}%
+Bouissou, O.%
+, Goubault, E.%
+, Putot, S.%
+, Tekkal, K.%
+\BCBL {}\ \BBA {} V{\'{e}}drine, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{HybridFluctuat}: {A} static analyzer of numerical
+  programs within a continuous environment} {{HybridFluctuat}: {A} static
+  analyzer of numerical programs within a continuous environment}.{\BBCQ}
+\newblock
+\BIn{} A.~Bouajjani\ \BBA {} O.~Maler\ (\BEDS), (\BVOL\ 5643, \BPGS\ 620--626).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-02658-4\_46}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-02658-4_46} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bourke%
+\ \protect \BOthers {.}}{%
+Bourke%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/pldi/BourkeBDLPR17}
+\APACinsertmetastar {%
+DBLP:conf/pldi/BourkeBDLPR17}%
+\begin{APACrefauthors}%
+Bourke, T.%
+, Brun, L.%
+, Dagand, P.%
+, Leroy, X.%
+, Pouzet, M.%
+\BCBL {}\ \BBA {} Rieg, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A formally verified compiler for {Lustre}} {A formally
+  verified compiler for {Lustre}}.{\BBCQ}
+\newblock
+\BIn{} A.~Cohen\ \BBA {} M\BPBI T.~Vechev\ (\BEDS), \APACrefbtitle {{PLDI}}
+  {{PLDI}}\ (\BPGS\ 586--601).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/3062341.3062358}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3062341.3062358} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bridges%
+\ \BBA {} Vita%
+}{%
+Bridges%
+\ \BBA {} Vita%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+bridges2007techniques}
+\APACinsertmetastar {%
+bridges2007techniques}%
+\begin{APACrefauthors}%
+Bridges, D\BPBI S.%
+\BCBT {}\ \BBA {} Vita, L\BPBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2007}.
+\newblock
+\APACrefbtitle {Techniques of constructive analysis} {Techniques of
+  constructive analysis}.
+\newblock
+\APACaddressPublisher{}{Springer Science \& Business Media}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Celani%
+}{%
+Celani%
+}{%
+{\protect \APACyear {2001}}%
+}]{%
+DBLP:journals/fuin/Celani01}
+\APACinsertmetastar {%
+DBLP:journals/fuin/Celani01}%
+\begin{APACrefauthors}%
+Celani, S\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Fragment of Intuitionistic Dynamic Logic} {A fragment
+  of intuitionistic dynamic logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Fundam. Inform.}{46}{3}{187--197}.
+\newblock
+\begin{APACrefURL}
+  \url{http://content.iospress.com/articles/fundamenta-informaticae/fi46-3-01}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chan%
+, Ricketts%
+, Lerner%
+\BCBL {}\ \BBA {} Malecha%
+}{%
+Chan%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+chan2016formal}
+\APACinsertmetastar {%
+chan2016formal}%
+\begin{APACrefauthors}%
+Chan, M.%
+, Ricketts, D.%
+, Lerner, S.%
+\BCBL {}\ \BBA {} Malecha, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formal verification of stability properties of
+  cyber-physical systems} {Formal verification of stability properties of
+  cyber-physical systems}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{Proc. CoqPL}.} {{Proc. CoqPL}.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chatterjee%
+, Henzinger%
+\BCBL {}\ \BBA {} Piterman%
+}{%
+Chatterjee%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+DBLP:conf/concur/ChatterjeeHP07}
+\APACinsertmetastar {%
+DBLP:conf/concur/ChatterjeeHP07}%
+\begin{APACrefauthors}%
+Chatterjee, K.%
+, Henzinger, T\BPBI A.%
+\BCBL {}\ \BBA {} Piterman, N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Strategy Logic} {Strategy logic}.{\BBCQ}
+\newblock
+\BIn{} L.~Caires\ \BBA {} V\BPBI T.~Vasconcelos\ (\BEDS), \APACrefbtitle
+  {{CONCUR} 2007 - Concurrency Theory, 18th International Conference, {CONCUR}
+  2007, {Lisbon, Portugal, September} 3-8, 2007, Proceedings} {{CONCUR} 2007 -
+  concurrency theory, 18th international conference, {CONCUR} 2007, {Lisbon,
+  Portugal, September} 3-8, 2007, proceedings}\ (\BVOL\ 4703, \BPGS\ 59--73).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-540-74407-8\_5}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-540-74407-8_5} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+F.~Chen%
+\ \BBA {} Rosu%
+}{%
+F.~Chen%
+\ \BBA {} Rosu%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+DBLP:conf/oopsla/ChenR07}
+\APACinsertmetastar {%
+DBLP:conf/oopsla/ChenR07}%
+\begin{APACrefauthors}%
+Chen, F.%
+\BCBT {}\ \BBA {} Rosu, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{MOP}: an efficient and generic runtime verification
+  framework} {{MOP}: an efficient and generic runtime verification
+  framework}.{\BBCQ}
+\newblock
+\BIn{} R\BPBI P.~Gabriel, D\BPBI F.~Bacon, C\BPBI V.~Lopes\BCBL {}\ \BBA {}
+  G\BPBI L\BPBI S.~Jr.\ (\BEDS), \APACrefbtitle {Proceedings of the 22nd Annual
+  {ACM} {SIGPLAN} Conference on Object-Oriented Programming, Systems,
+  Languages, and Applications, {OOPSLA} 2007, {October 21-25, 2007, Montreal,
+  Quebec, Canada}} {Proceedings of the 22nd annual {ACM} {SIGPLAN} conference
+  on object-oriented programming, systems, languages, and applications,
+  {OOPSLA} 2007, {October 21-25, 2007, Montreal, Quebec, Canada}}\ (\BPGS\
+  569--588).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/1297027.1297069}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/1297027.1297069} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+X.~Chen%
+, {\'{A}}brah{\'{a}}m%
+\BCBL {}\ \BBA {} Sankaranarayanan%
+}{%
+X.~Chen%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+DBLP:conf/cav/ChenAS13}
+\APACinsertmetastar {%
+DBLP:conf/cav/ChenAS13}%
+\begin{APACrefauthors}%
+Chen, X.%
+, {\'{A}}brah{\'{a}}m, E.%
+\BCBL {}\ \BBA {} Sankaranarayanan, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Flow*}: An analyzer for non-linear hybrid systems}
+  {{Flow*}: An analyzer for non-linear hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} N.~Sharygina\ \BBA {} H.~Veith\ (\BEDS), \APACrefbtitle {{CAV}} {{CAV}}\
+  (\BVOL\ 8044, \BPGS\ 258--263).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-39799-8\_18}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-39799-8_18} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+X.~Chen%
+\ \protect \BOthers {.}}{%
+X.~Chen%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+chen2015benchmark}
+\APACinsertmetastar {%
+chen2015benchmark}%
+\begin{APACrefauthors}%
+Chen, X.%
+, Schupp, S.%
+, Makhlouf, I\BPBI B.%
+, {\'A}brah{\'a}m, E.%
+, Frehse, G.%
+\BCBL {}\ \BBA {} Kowalewski, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A benchmark suite for hybrid systems reachability
+  analysis} {A benchmark suite for hybrid systems reachability
+  analysis}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{NFM}} {{NFM}}\ (\BVOL\ 9058).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Church%
+}{%
+Church%
+}{%
+{\protect \APACyear {1956}}%
+}]{%
+Church:1956}
+\APACinsertmetastar {%
+Church:1956}%
+\begin{APACrefauthors}%
+Church, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1956}.
+\newblock
+\APACrefbtitle {Introduction to Mathematical Logic} {Introduction to
+  mathematical logic}.
+\newblock
+\APACaddressPublisher{}{Princeton University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cimatti%
+, Griggio%
+, Mover%
+\BCBL {}\ \BBA {} Tonetta%
+}{%
+Cimatti%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+DBLP:conf/cav/CimattiGMT14}
+\APACinsertmetastar {%
+DBLP:conf/cav/CimattiGMT14}%
+\begin{APACrefauthors}%
+Cimatti, A.%
+, Griggio, A.%
+, Mover, S.%
+\BCBL {}\ \BBA {} Tonetta, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Verifying {LTL} Properties of Hybrid Systems with
+  K-Liveness} {Verifying {LTL} properties of hybrid systems with
+  k-liveness}.{\BBCQ}
+\newblock
+\BIn{} A.~Biere\ \BBA {} R.~Bloem\ (\BEDS), \APACrefbtitle {Computer Aided
+  Verification - 26th International Conference, {CAV} 2014, Held as Part of the
+  {V}ienna Summer of Logic, {VSL} 2014, {Vienna}, {Austria, July} 18-22, 2014.
+  Proceedings} {Computer aided verification - 26th international conference,
+  {CAV} 2014, held as part of the {V}ienna summer of logic, {VSL} 2014,
+  {Vienna}, {Austria, July} 18-22, 2014. proceedings}\ (\BVOL\ 8559, \BPGS\
+  424--440).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-08867-9_28}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-08867-9_28} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cimatti%
+, Griggio%
+, Mover%
+\BCBL {}\ \BBA {} Tonetta%
+}{%
+Cimatti%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/tacas/CimattiGMT15}
+\APACinsertmetastar {%
+DBLP:conf/tacas/CimattiGMT15}%
+\begin{APACrefauthors}%
+Cimatti, A.%
+, Griggio, A.%
+, Mover, S.%
+\BCBL {}\ \BBA {} Tonetta, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{HyComp}: An {SMT}-Based Model Checker for Hybrid
+  Systems} {{HyComp}: An {SMT}-based model checker for hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} C.~Baier\ \BBA {} C.~Tinelli\ (\BEDS), \APACrefbtitle {Tools and
+  Algorithms for the Construction and Analysis of Systems - 21st International
+  Conference, {TACAS} 2015, Held as Part of the {E}uropean Joint Conferences on
+  Theory and Practice of Software, {ETAPS} 2015, {London, UK, April} 11-18,
+  2015. Proceedings} {Tools and algorithms for the construction and analysis of
+  systems - 21st international conference, {TACAS} 2015, held as part of the
+  {E}uropean joint conferences on theory and practice of software, {ETAPS}
+  2015, {London, UK, April} 11-18, 2015. proceedings}\ (\BVOL\ 9035, \BPGS\
+  52--67).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-662-46681-0_4}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-662-46681-0_4} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Clarke%
+}{%
+Clarke%
+}{%
+{\protect \APACyear {1980}}%
+}]{%
+DBLP:journals/acta/Clarke80}
+\APACinsertmetastar {%
+DBLP:journals/acta/Clarke80}%
+\begin{APACrefauthors}%
+Clarke, E\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1980}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Proving Correctness of Coroutines Without History
+  Variables} {Proving correctness of coroutines without history
+  variables}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Acta Inf.}{13}{}{169--188}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/BF00263992} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/BF00263992} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Clint%
+}{%
+Clint%
+}{%
+{\protect \APACyear {1973}}%
+}]{%
+DBLP:journals/acta/Clint73}
+\APACinsertmetastar {%
+DBLP:journals/acta/Clint73}%
+\begin{APACrefauthors}%
+Clint, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1973}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Program Proving: Coroutines} {Program proving:
+  Coroutines}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Acta Inf.}{2}{}{50--63}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/BF00571463} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/BF00571463} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cohen%
+\ \BBA {} Rouhling%
+}{%
+Cohen%
+\ \BBA {} Rouhling%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/itp/CohenR17}
+\APACinsertmetastar {%
+DBLP:conf/itp/CohenR17}%
+\begin{APACrefauthors}%
+Cohen, C.%
+\BCBT {}\ \BBA {} Rouhling, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Formal Proof in {Coq} of {LaSalle's} Invariance
+  Principle} {A formal proof in {Coq} of {LaSalle's} invariance
+  principle}.{\BBCQ}
+\newblock
+\BIn{} M.~Ayala{-}Rinc{\'{o}}n\ \BBA {} C\BPBI A.~Mu{\~{n}}oz\ (\BEDS),
+  \APACrefbtitle {Interactive Theorem Proving - 8th International Conference,
+  {ITP} 2017, {B}ras{\'{\i}}lia, {B}razil, {S}eptember 26-29, 2017,
+  {P}roceedings} {Interactive theorem proving - 8th international conference,
+  {ITP} 2017, {B}ras{\'{\i}}lia, {B}razil, {S}eptember 26-29, 2017,
+  {P}roceedings}\ (\BVOL\ 10499, \BPGS\ 148--163).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-66107-0\_10}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-66107-0_10} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Constable%
+\ \protect \BOthers {.}}{%
+Constable%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1986}}%
+}]{%
+Constable+al:1986}
+\APACinsertmetastar {%
+Constable+al:1986}%
+\begin{APACrefauthors}%
+Constable, R.%
+, Allen, S.%
+, Bromley, H.%
+, Cleaveland, W.%
+, Cremer, J.%
+, Harper, R.%
+\BDBL {}Smith, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1986}.
+\newblock
+\APACrefbtitle {Implementing mathematics with the {N}uprl proof development
+  system} {Implementing mathematics with the {N}uprl proof development system}.
+\newblock
+\APACaddressPublisher{Upper Saddle River, NJ, USA}{Prentice-Hall, Inc.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+\APACcitebtitle {{C}oq {P}roof {A}ssistant}}{%
+\APACcitebtitle {{C}oq {P}roof {A}ssistant}}{%
+{\protect \APACyear {1989}}%
+}]{%
+COQ}
+\APACinsertmetastar {%
+COQ}%
+\APACrefbtitle {{C}oq {P}roof {A}ssistant.} {{C}oq {P}roof {A}ssistant.}
+\newblock
+\APACrefYearMonthDay{1989}{}{}.
+\newblock
+\begin{APACrefURL} \url{http://coq.inria.fr/} \end{APACrefURL}
+\newblock
+\APACrefnote{Accessed: 2016-11-28}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Corbineau%
+}{%
+Corbineau%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+DBLP:conf/types/Corbineau07}
+\APACinsertmetastar {%
+DBLP:conf/types/Corbineau07}%
+\begin{APACrefauthors}%
+Corbineau, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Declarative Language for the {Coq} Proof Assistant} {A
+  declarative language for the {Coq} proof assistant}.{\BBCQ}
+\newblock
+\BIn{} M.~Miculan, I.~Scagnetto\BCBL {}\ \BBA {} F.~Honsell\ (\BEDS),
+  \APACrefbtitle {Types for Proofs and Programs, International Conference,
+  {TYPES} 2007, {Cividale del Friuli, Italy, May 2-5}, 2007, Revised Selected
+  Papers} {Types for proofs and programs, international conference, {TYPES}
+  2007, {Cividale del Friuli, Italy, May 2-5}, 2007, revised selected papers}\
+  (\BVOL\ 4941, \BPGS\ 69--84).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-540-68103-8_5}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-540-68103-8_5} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cousineau%
+\ \protect \BOthers {.}}{%
+Cousineau%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+DBLP:conf/fm/CousineauDLMRV12}
+\APACinsertmetastar {%
+DBLP:conf/fm/CousineauDLMRV12}%
+\begin{APACrefauthors}%
+Cousineau, D.%
+, Doligez, D.%
+, Lamport, L.%
+, Merz, S.%
+, Ricketts, D.%
+\BCBL {}\ \BBA {} Vanzetto, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{TLA}\({}^{\mbox{+}}\) Proofs} {{TLA}\({}^{\mbox{+}}\)
+  proofs}.{\BBCQ}
+\newblock
+\BIn{} D.~Giannakopoulou\ \BBA {} D.~M{\'{e}}ry\ (\BEDS), \APACrefbtitle {{FM}
+  2012: Formal Methods - 18th International Symposium, {Paris, France,}
+  {August} 27-31, 2012. Proceedings} {{FM} 2012: Formal methods - 18th
+  international symposium, {Paris, France,} {August} 27-31, 2012. proceedings}\
+  (\BVOL\ 7436, \BPGS\ 147--154).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-32759-9_14}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-32759-9_14} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cuijpers%
+\ \BBA {} Reniers%
+}{%
+Cuijpers%
+\ \BBA {} Reniers%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+DBLP:journals/jlp/CuijpersR05}
+\APACinsertmetastar {%
+DBLP:journals/jlp/CuijpersR05}%
+\begin{APACrefauthors}%
+Cuijpers, P\BPBI J\BPBI L.%
+\BCBT {}\ \BBA {} Reniers, M\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Hybrid process algebra} {Hybrid process algebra}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Log. Algebr. Program.}{62}{2}{191--245}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1016/j.jlap.2004.02.001}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.jlap.2004.02.001} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Daumas%
+, Rideau%
+\BCBL {}\ \BBA {} Th{\'{e}}ry%
+}{%
+Daumas%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2001}}%
+}]{%
+DBLP:conf/tphol/DaumasRT01}
+\APACinsertmetastar {%
+DBLP:conf/tphol/DaumasRT01}%
+\begin{APACrefauthors}%
+Daumas, M.%
+, Rideau, L.%
+\BCBL {}\ \BBA {} Th{\'{e}}ry, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A generic library for floating-point numbers and its
+  application to exact computing} {A generic library for floating-point numbers
+  and its application to exact computing}.{\BBCQ}
+\newblock
+\BIn{} R\BPBI J.~Boulton\ \BBA {} P\BPBI B.~Jackson\ (\BEDS), \APACrefbtitle
+  {{TPHOLs}} {{TPHOLs}}\ (\BVOL\ 2152, \BPGS\ 169--184).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/3-540-44755-5\_13}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-44755-5_13} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Davenport%
+\ \BBA {} Heintz%
+}{%
+Davenport%
+\ \BBA {} Heintz%
+}{%
+{\protect \APACyear {1988}}%
+}]{%
+Davenport1988}
+\APACinsertmetastar {%
+Davenport1988}%
+\begin{APACrefauthors}%
+Davenport, J\BPBI H.%
+\BCBT {}\ \BBA {} Heintz, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Real quantifier elimination is doubly exponential}}
+  {{Real quantifier elimination is doubly exponential}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Symbolic Computation}{5}{1-2}{29--35}.
+\newblock
+\begin{APACrefURL}
+  \url{http://ac.els-cdn.com/S074771718880004X/1-s2.0-S074771718880004X-main.pdf?\_tid=277cf174-6392-11e5-8c77-00000aacb35e{\&}acdnat=1443191688\_bbe0878b71d55d3e156e2fdc77b58ce7}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/S0747-7171(88)80004-X} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Davis%
+}{%
+Davis%
+}{%
+{\protect \APACyear {1981}}%
+}]{%
+DBLP:conf/ijcai/Davis81}
+\APACinsertmetastar {%
+DBLP:conf/ijcai/Davis81}%
+\begin{APACrefauthors}%
+Davis, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1981}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Obvious Logical Inferences} {Obvious logical
+  inferences}.{\BBCQ}
+\newblock
+\BIn{} P\BPBI J.~Hayes\ (\BED), \APACrefbtitle {Proceedings of the 7th
+  International Joint Conference on Artificial Intelligence, {IJCAI} '81,
+  {Vancouver, BC, Canada, August} 24-28, 1981} {Proceedings of the 7th
+  international joint conference on artificial intelligence, {IJCAI} '81,
+  {Vancouver, BC, Canada, August} 24-28, 1981}\ (\BPGS\ 530--531).
+\newblock
+\APACaddressPublisher{}{William Kaufmann}.
+\newblock
+\begin{APACrefURL} \url{http://ijcai.org/Proceedings/81-1/Papers/095.pdf}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Degen%
+\ \BBA {} Werner%
+}{%
+Degen%
+\ \BBA {} Werner%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+degen2006towards}
+\APACinsertmetastar {%
+degen2006towards}%
+\begin{APACrefauthors}%
+Degen, J.%
+\BCBT {}\ \BBA {} Werner, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards intuitionistic dynamic logic} {Towards
+  intuitionistic dynamic logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Logic and Logical Philosophy}{15}{4}{305--324}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Delahaye%
+}{%
+Delahaye%
+}{%
+{\protect \APACyear {2000}}%
+}]{%
+Delahaye:2000:TLS:1765236.1765246}
+\APACinsertmetastar {%
+Delahaye:2000:TLS:1765236.1765246}%
+\begin{APACrefauthors}%
+Delahaye, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2000}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Tactic Language for the System {Coq}} {A tactic
+  language for the system {Coq}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the 7th International Conference on Logic
+  for Programming and Automated Reasoning} {Proceedings of the 7th
+  international conference on logic for programming and automated reasoning}\
+  (\BPGS\ 85--95).
+\newblock
+\APACaddressPublisher{Berlin, Heidelberg}{Springer-Verlag}.
+\newblock
+\begin{APACrefURL} \url{http://dl.acm.org/citation.cfm?id=1765236.1765246}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Doberkat%
+}{%
+Doberkat%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:journals/corr/abs-1109-3685}
+\APACinsertmetastar {%
+DBLP:journals/corr/abs-1109-3685}%
+\begin{APACrefauthors}%
+Doberkat, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards a Coalgebraic Interpretation of Propositional
+  Dynamic Logic} {Towards a coalgebraic interpretation of propositional dynamic
+  logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{CoRR}{abs/1109.3685}{}{}.
+\newblock
+\begin{APACrefURL} \url{http://arxiv.org/abs/1109.3685} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Dubins%
+}{%
+Dubins%
+}{%
+{\protect \APACyear {1957}}%
+}]{%
+citeulike:12223454}
+\APACinsertmetastar {%
+citeulike:12223454}%
+\begin{APACrefauthors}%
+Dubins, L\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1957}{{\APACmonth{07}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {On Curves of Minimal Length with a Constraint on Average
+  Curvature, and with Prescribed Initial and Terminal Positions and Tangents}
+  {On curves of minimal length with a constraint on average curvature, and with
+  prescribed initial and terminal positions and tangents}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Amer. J. Math.}{79}{3}{497+}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.2307/2372560} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Duggirala%
+, Mitra%
+, Viswanathan%
+\BCBL {}\ \BBA {} Potok%
+}{%
+Duggirala%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/tacas/DuggiralaMVP15}
+\APACinsertmetastar {%
+DBLP:conf/tacas/DuggiralaMVP15}%
+\begin{APACrefauthors}%
+Duggirala, P\BPBI S.%
+, Mitra, S.%
+, Viswanathan, M.%
+\BCBL {}\ \BBA {} Potok, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{C2E2:} {A} verification tool for stateflow models}
+  {{C2E2:} {A} verification tool for stateflow models}.{\BBCQ}
+\newblock
+\BIn{} C.~Baier\ \BBA {} C.~Tinelli\ (\BEDS), \APACrefbtitle {{TACAS}}
+  {{TACAS}}\ (\BVOL\ 9035, \BPGS\ 68--82).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-662-46681-0_5}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-662-46681-0_5} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fainekos%
+, Girard%
+, Kress{-}Gazit%
+\BCBL {}\ \BBA {} Pappas%
+}{%
+Fainekos%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+DBLP:journals/automatica/FainekosGKP09}
+\APACinsertmetastar {%
+DBLP:journals/automatica/FainekosGKP09}%
+\begin{APACrefauthors}%
+Fainekos, G\BPBI E.%
+, Girard, A.%
+, Kress{-}Gazit, H.%
+\BCBL {}\ \BBA {} Pappas, G\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Temporal logic motion planning for dynamic robots}
+  {Temporal logic motion planning for dynamic robots}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Automatica}{45}{2}{}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1016/j.automatica.2008.08.008}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fern{\'{a}}ndez{-}Duque%
+}{%
+Fern{\'{a}}ndez{-}Duque%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:journals/lmcs/Fernandez-Duque18}
+\APACinsertmetastar {%
+DBLP:journals/lmcs/Fernandez-Duque18}%
+\begin{APACrefauthors}%
+Fern{\'{a}}ndez{-}Duque, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The intuitionistic temporal logic of dynamical systems}
+  {The intuitionistic temporal logic of dynamical systems}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Logical Methods in Computer Science}{14}{3}{}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.23638/LMCS-14(3:3)2018}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.23638/LMCS-14(3:3)2018} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Filippidis%
+, Dathathri%
+, Livingston%
+, Ozay%
+\BCBL {}\ \BBA {} Murray%
+}{%
+Filippidis%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/IEEEcca/FilippidisDLOM16}
+\APACinsertmetastar {%
+DBLP:conf/IEEEcca/FilippidisDLOM16}%
+\begin{APACrefauthors}%
+Filippidis, I.%
+, Dathathri, S.%
+, Livingston, S\BPBI C.%
+, Ozay, N.%
+\BCBL {}\ \BBA {} Murray, R\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Control design for hybrid systems with {TuLiP}: The
+  Temporal Logic Planning toolbox} {Control design for hybrid systems with
+  {TuLiP}: The temporal logic planning toolbox}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{CCA}.} {{CCA}.}
+\newblock
+\APACaddressPublisher{}{{IEEE}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/CCA.2016.7587949}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Finucane%
+, Jing%
+\BCBL {}\ \BBA {} Kress{-}Gazit%
+}{%
+Finucane%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:conf/iros/FinucaneJK10}
+\APACinsertmetastar {%
+DBLP:conf/iros/FinucaneJK10}%
+\begin{APACrefauthors}%
+Finucane, C.%
+, Jing, G.%
+\BCBL {}\ \BBA {} Kress{-}Gazit, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{LTLMoP}: Experimenting with language, Temporal Logic
+  and robot control} {{LTLMoP}: Experimenting with language, temporal logic and
+  robot control}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{IROS}.} {{IROS}.}
+\newblock
+\APACaddressPublisher{}{{IEEE}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/IROS.2010.5650371}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fox%
+, Burgard%
+\BCBL {}\ \BBA {} Thrun%
+}{%
+Fox%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1997}}%
+}]{%
+DBLP:journals/ram/FoxBT97}
+\APACinsertmetastar {%
+DBLP:journals/ram/FoxBT97}%
+\begin{APACrefauthors}%
+Fox, D.%
+, Burgard, W.%
+\BCBL {}\ \BBA {} Thrun, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The dynamic window approach to collision avoidance} {The
+  dynamic window approach to collision avoidance}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{IEEE} Robot. Automat. Mag.}{4}{1}{}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/100.580977} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Franchetti%
+\ \protect \BOthers {.}}{%
+Franchetti%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:journals/csm/FranchettiLMMGPPKMFJPV17}
+\APACinsertmetastar {%
+DBLP:journals/csm/FranchettiLMMGPPKMFJPV17}%
+\begin{APACrefauthors}%
+Franchetti, F.%
+, Low, T\BPBI M.%
+, Mitsch, S.%
+, Mendoza, J\BPBI P.%
+, Gui, L.%
+, Phaosawasdi, A.%
+\BDBL {}Veloso, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {High-Assurance {SPIRAL}: End-to-End Guarantees for Robot
+  and Car Control} {High-assurance {SPIRAL}: End-to-end guarantees for robot
+  and car control}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{IEEE Control Systems}{37}{2}{82-103}.
+\newblock
+\begin{APACrefDOI} \doi{10.1109/MCS.2016.2643244} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Frehse%
+\ \protect \BOthers {.}}{%
+Frehse%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:conf/cav/FrehseGDCRLRGDM11}
+\APACinsertmetastar {%
+DBLP:conf/cav/FrehseGDCRLRGDM11}%
+\begin{APACrefauthors}%
+Frehse, G.%
+, Guernic, C\BPBI L.%
+, Donz{\'{e}}, A.%
+, Cotton, S.%
+, Ray, R.%
+, Lebeltel, O.%
+\BDBL {}Maler, O.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{SpaceEx}: Scalable verification of hybrid systems}
+  {{SpaceEx}: Scalable verification of hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} G.~Gopalakrishnan\ \BBA {} S.~Qadeer\ (\BEDS), \APACrefbtitle {{CAV}}
+  {{CAV}}\ (\BVOL\ 6806, \BPGS\ 379--395).
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-22110-1_30} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Frittella%
+, Greco%
+, Kurz%
+, Palmigiano%
+\BCBL {}\ \BBA {} Sikimic%
+}{%
+Frittella%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:journals/logcom/FrittellaGKPS16}
+\APACinsertmetastar {%
+DBLP:journals/logcom/FrittellaGKPS16}%
+\begin{APACrefauthors}%
+Frittella, S.%
+, Greco, G.%
+, Kurz, A.%
+, Palmigiano, A.%
+\BCBL {}\ \BBA {} Sikimic, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A proof-theoretic semantic analysis of dynamic epistemic
+  logic} {A proof-theoretic semantic analysis of dynamic epistemic
+  logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Log. Comput.}{26}{6}{1961--2015}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1093/logcom/exu063} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1093/logcom/exu063} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fulton%
+, Mitsch%
+, Bohrer%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Fulton%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/itp/FultonMBP17}
+\APACinsertmetastar {%
+DBLP:conf/itp/FultonMBP17}%
+\begin{APACrefauthors}%
+Fulton, N.%
+, Mitsch, S.%
+, Bohrer, B.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Bellerophon: Tactical Theorem Proving for Hybrid
+  Systems} {Bellerophon: Tactical theorem proving for hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} M.~Ayala-Rinc{\'o}n\ \BBA {} C\BPBI A.~Mu{\~n}oz\ (\BEDS),
+  \APACrefbtitle {{ITP}} {{ITP}}\ (\BVOL\ 10499, \BPG~207-224).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-66107-0_14} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fulton%
+, Mitsch%
+, Quesel%
+, V{\"o}lp%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Fulton%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/cade/FultonMQVP15}
+\APACinsertmetastar {%
+DBLP:conf/cade/FultonMQVP15}%
+\begin{APACrefauthors}%
+Fulton, N.%
+, Mitsch, S.%
+, Quesel, J\BHBI D.%
+, V{\"o}lp, M.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{KeYmaera X}: An Axiomatic Tactical Theorem Prover for
+  Hybrid Systems} {{KeYmaera X}: An axiomatic tactical theorem prover for
+  hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} A\BPBI P.~Felty\ \BBA {} A.~Middeldorp\ (\BEDS), \APACrefbtitle {{CADE}}
+  {{CADE}}\ (\BVOL\ 9195, \BPGS\ 527--538).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-21401-6_36} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fulton%
+\ \BBA {} Platzer%
+}{%
+Fulton%
+\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/cpp/FultonP16}
+\APACinsertmetastar {%
+DBLP:conf/cpp/FultonP16}%
+\begin{APACrefauthors}%
+Fulton, N.%
+\BCBT {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Logic of Proofs for Differential Dynamic Logic: Toward
+  Independently Checkable Proof Certificates for Dynamic Logics} {A logic of
+  proofs for differential dynamic logic: Toward independently checkable proof
+  certificates for dynamic logics}.{\BBCQ}
+\newblock
+\BIn{} J.~Avigad\ \BBA {} A.~Chlipala\ (\BEDS), \APACrefbtitle {Proceedings of
+  the 2016 Conference on Certified Programs and Proofs, {CPP} 2016, {St.
+  Petersburg, FL, USA}, {January} 18-19, 2016} {Proceedings of the 2016
+  conference on certified programs and proofs, {CPP} 2016, {St. Petersburg, FL,
+  USA}, {January} 18-19, 2016}\ (\BPG~110-121).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2854065.2854078} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ghilardi%
+}{%
+Ghilardi%
+}{%
+{\protect \APACyear {1989}}%
+}]{%
+DBLP:journals/aml/Ghilardi89}
+\APACinsertmetastar {%
+DBLP:journals/aml/Ghilardi89}%
+\begin{APACrefauthors}%
+Ghilardi, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1989}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Presheaf semantics and independence results for some
+  non-classical first-order logics} {Presheaf semantics and independence
+  results for some non-classical first-order logics}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Arch. Math. Log.}{29}{2}{125--136}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/BF01620621} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/BF01620621} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ghosh%
+}{%
+Ghosh%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+ghosh2008strategies}
+\APACinsertmetastar {%
+ghosh2008strategies}%
+\begin{APACrefauthors}%
+Ghosh, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Strategies made explicit in dynamic game logic}
+  {Strategies made explicit in dynamic game logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Logic and the foundations of game and decision
+  theory}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gonthier%
+\ \BBA {} Mahboubi%
+}{%
+Gonthier%
+\ \BBA {} Mahboubi%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:journals/jfrea/GonthierM10}
+\APACinsertmetastar {%
+DBLP:journals/jfrea/GonthierM10}%
+\begin{APACrefauthors}%
+Gonthier, G.%
+\BCBT {}\ \BBA {} Mahboubi, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {An introduction to small scale reflection in {Coq}} {An
+  introduction to small scale reflection in {Coq}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Formalized Reasoning}{3}{2}{95--152}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.6092/issn.1972-5787/1979}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.6092/issn.1972-5787/1979} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gonthier%
+\ \BBA {} Tassi%
+}{%
+Gonthier%
+\ \BBA {} Tassi%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+DBLP:conf/itp/GonthierT12}
+\APACinsertmetastar {%
+DBLP:conf/itp/GonthierT12}%
+\begin{APACrefauthors}%
+Gonthier, G.%
+\BCBT {}\ \BBA {} Tassi, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Language of Patterns for Subterm Selection} {A
+  language of patterns for subterm selection}.{\BBCQ}
+\newblock
+\BIn{} L.~Beringer\ \BBA {} A\BPBI P.~Felty\ (\BEDS), \APACrefbtitle
+  {Interactive Theorem Proving - Third International Conference, {ITP} 2012,
+  {Princeton, NJ, USA, August} 13-15, 2012. Proceedings} {Interactive theorem
+  proving - third international conference, {ITP} 2012, {Princeton, NJ, USA,
+  August} 13-15, 2012. proceedings}\ (\BVOL\ 7406, \BPGS\ 361--376).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-32347-8_25}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-32347-8_25} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Goranko%
+}{%
+Goranko%
+}{%
+{\protect \APACyear {2003}}%
+}]{%
+DBLP:journals/sLogica/Goranko03}
+\APACinsertmetastar {%
+DBLP:journals/sLogica/Goranko03}%
+\begin{APACrefauthors}%
+Goranko, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The Basic Algebra of Game Equivalences} {The basic
+  algebra of game equivalences}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Studia Logica}{75}{2}{221--238}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1023/A:1027311011342}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1023/A:1027311011342} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Griffin%
+}{%
+Griffin%
+}{%
+{\protect \APACyear {1990}}%
+}]{%
+DBLP:conf/popl/Griffin90}
+\APACinsertmetastar {%
+DBLP:conf/popl/Griffin90}%
+\begin{APACrefauthors}%
+Griffin, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1990}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Formulae-as-Types Notion of Control} {A
+  formulae-as-types notion of control}.{\BBCQ}
+\newblock
+\BIn{} F\BPBI E.~Allen\ (\BED), \APACrefbtitle {Conference Record of the
+  Seventeenth Annual {ACM} Symposium on Principles of Programming Languages,
+  {San Francisco, California, USA, January} 1990} {Conference record of the
+  seventeenth annual {ACM} symposium on principles of programming languages,
+  {San Francisco, California, USA, January} 1990}\ (\BPGS\ 47--58).
+\newblock
+\APACaddressPublisher{}{{ACM} Press}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/96709.96714} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/96709.96714} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gu{\'{e}}neau%
+, Myreen%
+, Kumar%
+\BCBL {}\ \BBA {} Norrish%
+}{%
+Gu{\'{e}}neau%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/esop/GueneauMKN17}
+\APACinsertmetastar {%
+DBLP:conf/esop/GueneauMKN17}%
+\begin{APACrefauthors}%
+Gu{\'{e}}neau, A.%
+, Myreen, M\BPBI O.%
+, Kumar, R.%
+\BCBL {}\ \BBA {} Norrish, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Verified characteristic formulae for {CakeML}} {Verified
+  characteristic formulae for {CakeML}}.{\BBCQ}
+\newblock
+\BIn{} H.~Yang\ (\BED), \APACrefbtitle {{ESOP}} {{ESOP}}\ (\BVOL\ 10201, \BPGS\
+  584--610).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-662-54434-1\_22}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-662-54434-1_22} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Habermalz%
+}{%
+Habermalz%
+}{%
+{\protect \APACyear {2000}}%
+}]{%
+habermalz2000interactiv}
+\APACinsertmetastar {%
+habermalz2000interactiv}%
+\begin{APACrefauthors}%
+Habermalz, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2000}.
+\newblock
+\APACrefbtitle {Interactive Theorem Proving with Schematic Theory Specific
+  Rules} {Interactive theorem proving with schematic theory specific rules}.
+\newblock
+\APACaddressPublisher{}{Univ., Fak. f{\"u}r Informatik, Bibliothek}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Halbwachs%
+, Lagnier%
+\BCBL {}\ \BBA {} Ratel%
+}{%
+Halbwachs%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1992}}%
+}]{%
+DBLP:journals/tse/HalbwachsLR92}
+\APACinsertmetastar {%
+DBLP:journals/tse/HalbwachsLR92}%
+\begin{APACrefauthors}%
+Halbwachs, N.%
+, Lagnier, F.%
+\BCBL {}\ \BBA {} Ratel, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1992}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Programming and verifying real-time systems by means of
+  the synchronous data-flow language {LUSTRE}} {Programming and verifying
+  real-time systems by means of the synchronous data-flow language
+  {LUSTRE}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{IEEE} Trans. Software Eng.}{18}{9}{785--793}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/32.159839} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/32.159839} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Harper%
+, Honsell%
+\BCBL {}\ \BBA {} Plotkin%
+}{%
+Harper%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1993}}%
+}]{%
+DBLP:journals/jacm/HarperHP93}
+\APACinsertmetastar {%
+DBLP:journals/jacm/HarperHP93}%
+\begin{APACrefauthors}%
+Harper, R.%
+, Honsell, F.%
+\BCBL {}\ \BBA {} Plotkin, G\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1993}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Framework for Defining Logics} {A framework for
+  defining logics}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. {ACM}}{40}{1}{143--184}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/138027.138060} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/138027.138060} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Harrison%
+}{%
+Harrison%
+}{%
+{\protect \APACyear {1996}}%
+}]{%
+DBLP:conf/tphol/Harrison96}
+\APACinsertmetastar {%
+DBLP:conf/tphol/Harrison96}%
+\begin{APACrefauthors}%
+Harrison, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1996}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A {Mizar} Mode for {HOL}} {A {Mizar} mode for
+  {HOL}}.{\BBCQ}
+\newblock
+\BIn{} J.~von Wright, J.~Grundy\BCBL {}\ \BBA {} J.~Harrison\ (\BEDS),
+  \APACrefbtitle {Theorem Proving in Higher Order Logics, 9th International
+  Conference, {TPHOLs'96, Turku, Finland, August} 26-30, 1996, Proceedings}
+  {Theorem proving in higher order logics, 9th international conference,
+  {TPHOLs'96, Turku, Finland, August} 26-30, 1996, proceedings}\ (\BVOL\ 1125,
+  \BPGS\ 203--220).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/BFb0105406} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/BFb0105406} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Harrison%
+}{%
+Harrison%
+}{%
+{\protect \APACyear {2006}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+DBLP:conf/sfm/Harrison06}
+\APACinsertmetastar {%
+DBLP:conf/sfm/Harrison06}%
+\begin{APACrefauthors}%
+Harrison, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Floating-point verification using theorem proving}
+  {Floating-point verification using theorem proving}.{\BBCQ}
+\newblock
+\BIn{} M.~Bernardo\ \BBA {} A.~Cimatti\ (\BEDS), \APACrefbtitle {Formal Methods
+  for Hardware Verification, {SFM}} {Formal methods for hardware verification,
+  {SFM}}\ (\BVOL\ 3965, \BPGS\ 211--242).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/11757283\_8} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/11757283_8} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Harrison%
+}{%
+Harrison%
+}{%
+{\protect \APACyear {2006}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+Harrison:2006}
+\APACinsertmetastar {%
+Harrison:2006}%
+\begin{APACrefauthors}%
+Harrison, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards Self-verification of {HOL Light}} {Towards
+  self-verification of {HOL Light}}.{\BBCQ}
+\newblock
+\BIn{} U.~Furbach\ \BBA {} N.~Shankar\ (\BEDS), \APACrefbtitle {{IJCAR2006}}
+  {{IJCAR2006}}\ (\BVOL\ 4130, \BPG~177-191).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Henzinger%
+}{%
+Henzinger%
+}{%
+{\protect \APACyear {1996}}%
+}]{%
+DBLP:conf/lics/Henzinger96}
+\APACinsertmetastar {%
+DBLP:conf/lics/Henzinger96}%
+\begin{APACrefauthors}%
+Henzinger, T\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1996}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The Theory of Hybrid Automata} {The theory of hybrid
+  automata}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings, 11th Annual {IEEE} Symposium on Logic in
+  Computer Science, {New Brunswick, New Jersey, USA, July} 27-30, 1996}
+  {Proceedings, 11th annual {IEEE} symposium on logic in computer science, {New
+  Brunswick, New Jersey, USA, July} 27-30, 1996}\ (\BPGS\ 278--292).
+\newblock
+\APACaddressPublisher{}{{IEEE} Comp. Soc.}
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/LICS.1996.561342}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/LICS.1996.561342} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hilken%
+\ \BBA {} Rydeheard%
+}{%
+Hilken%
+\ \BBA {} Rydeheard%
+}{%
+{\protect \APACyear {2001}}%
+}]{%
+Hilken_afirst}
+\APACinsertmetastar {%
+Hilken_afirst}%
+\begin{APACrefauthors}%
+Hilken, B\BPBI P.%
+\BCBT {}\ \BBA {} Rydeheard, D\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+\APACrefbtitle {A First Order Modal Logic and its Sheaf Models.} {A first order
+  modal logic and its sheaf models.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ho%
+\ \protect \BOthers {.}}{%
+Ho%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/cade/HoAKMTN18}
+\APACinsertmetastar {%
+DBLP:conf/cade/HoAKMTN18}%
+\begin{APACrefauthors}%
+Ho, S.%
+, Abrahamsson, O.%
+, Kumar, R.%
+, Myreen, M\BPBI O.%
+, Tan, Y\BPBI K.%
+\BCBL {}\ \BBA {} Norrish, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Proof-Producing Synthesis of {CakeML} with {I/O} and
+  Local State from Monadic {HOL} Functions} {Proof-producing synthesis of
+  {CakeML} with {I/O} and local state from monadic {HOL} functions}.{\BBCQ}
+\newblock
+\BIn{} D.~Galmiche, S.~Schulz\BCBL {}\ \BBA {} R.~Sebastiani\ (\BEDS),
+  \APACrefbtitle {Automated Reasoning - 9th International Joint Conference,
+  {IJCAR} 2018, Held as Part of the Federated Logic Conference, {FloC 2018,
+  Oxford}, {UK, July} 14-17, 2018, Proceedings} {Automated reasoning - 9th
+  international joint conference, {IJCAR} 2018, held as part of the federated
+  logic conference, {FloC 2018, Oxford}, {UK, July} 14-17, 2018, proceedings}\
+  (\BVOL\ 10900, \BPGS\ 646--662).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-94205-6\_42}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-94205-6_42} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Huang%
+\ \protect \BOthers {.}}{%
+Huang%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+DBLP:conf/rv/HuangEZMLSR14}
+\APACinsertmetastar {%
+DBLP:conf/rv/HuangEZMLSR14}%
+\begin{APACrefauthors}%
+Huang, J.%
+, Erdogan, C.%
+, Zhang, Y.%
+, Moore, B\BPBI M.%
+, Luo, Q.%
+, Sundaresan, A.%
+\BCBL {}\ \BBA {} Rosu, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{ROSRV:} Runtime Verification for Robots} {{ROSRV:}
+  runtime verification for robots}.{\BBCQ}
+\newblock
+\BIn{} B.~Bonakdarpour\ \BBA {} S\BPBI A.~Smolka\ (\BEDS), \APACrefbtitle
+  {Runtime Verification - 5th International Conference, {RV} 2014, {Toronto},
+  {ON, Canada, September 22-25, 2014. Proceedings}} {Runtime verification - 5th
+  international conference, {RV} 2014, {Toronto}, {ON, Canada, September 22-25,
+  2014. Proceedings}}\ (\BVOL\ 8734, \BPGS\ 247--254).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-11164-3\_20}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-11164-3_20} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hubbard%
+\ \BBA {} West%
+}{%
+Hubbard%
+\ \BBA {} West%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+Hubbard}
+\APACinsertmetastar {%
+Hubbard}%
+\begin{APACrefauthors}%
+Hubbard, J\BPBI H.%
+\BCBT {}\ \BBA {} West, B\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2012}.
+\newblock
+\APACrefbtitle {Differential Equations: A Dynamical Systems Approach}
+  {Differential equations: A dynamical systems approach}\ (\BVOL~18).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-1-4612-4192-8} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hupel%
+\ \BBA {} Nipkow%
+}{%
+Hupel%
+\ \BBA {} Nipkow%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/esop/HupelN18}
+\APACinsertmetastar {%
+DBLP:conf/esop/HupelN18}%
+\begin{APACrefauthors}%
+Hupel, L.%
+\BCBT {}\ \BBA {} Nipkow, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Verified Compiler from {Isabelle/HOL} to {CakeML}} {A
+  verified compiler from {Isabelle/HOL} to {CakeML}}.{\BBCQ}
+\newblock
+\BIn{} A.~Ahmed\ (\BED), \APACrefbtitle {{ESOP}.} {{ESOP}.}
+\newblock
+\APACaddressPublisher{}{Springer}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Immler%
+}{%
+Immler%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/tacas/Immler15}
+\APACinsertmetastar {%
+DBLP:conf/tacas/Immler15}%
+\begin{APACrefauthors}%
+Immler, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Verified Reachability Analysis of Continuous Systems}
+  {Verified reachability analysis of continuous systems}.{\BBCQ}
+\newblock
+\BIn{} (\BPGS\ 37--51).
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1007/978-3-662-46681-0_3}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-662-46681-0_3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Immler%
+\ \BBA {} Traut%
+}{%
+Immler%
+\ \BBA {} Traut%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/itp/ImmlerT16}
+\APACinsertmetastar {%
+DBLP:conf/itp/ImmlerT16}%
+\begin{APACrefauthors}%
+Immler, F.%
+\BCBT {}\ \BBA {} Traut, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The flow of {ODE}s} {The flow of {ODE}s}.{\BBCQ}
+\newblock
+\BIn{} J\BPBI C.~Blanchette\ \BBA {} S.~Merz\ (\BEDS), \APACrefbtitle {{ITP}}
+  {{ITP}}\ (\BVOL\ 9807, \BPGS\ 184--199).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-43144-4_12}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-43144-4_12} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ioannidis%
+, Kaashoek%
+\BCBL {}\ \BBA {} Zeldovich%
+}{%
+Ioannidis%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+DBLP:conf/nfm/IoannidisKZ19}
+\APACinsertmetastar {%
+DBLP:conf/nfm/IoannidisKZ19}%
+\begin{APACrefauthors}%
+Ioannidis, E.%
+, Kaashoek, M\BPBI F.%
+\BCBL {}\ \BBA {} Zeldovich, N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Extracting and Optimizing Formally Verified Code for
+  Systems Programming} {Extracting and optimizing formally verified code for
+  systems programming}.{\BBCQ}
+\newblock
+\BIn{} J\BPBI M.~Badger\ \BBA {} K\BPBI Y.~Rozier\ (\BEDS), \APACrefbtitle
+  {{NASA} Formal Methods - 11th International Symposium, {NFM} 2019, {Houston,
+  TX, USA, M}ay 7-9, 2019, Proceedings} {{NASA} formal methods - 11th
+  international symposium, {NFM} 2019, {Houston, TX, USA, M}ay 7-9, 2019,
+  proceedings}\ (\BVOL\ 11460, \BPGS\ 228--236).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-030-20652-9_15}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-030-20652-9_15} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Jeannet%
+}{%
+Jeannet%
+}{%
+{\protect \APACyear {2003}}%
+}]{%
+DBLP:journals/fmsd/Jeannet03}
+\APACinsertmetastar {%
+DBLP:journals/fmsd/Jeannet03}%
+\begin{APACrefauthors}%
+Jeannet, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Dynamic Partitioning in Linear Relation Analysis:
+  Application to the Verification of Reactive Systems} {Dynamic partitioning in
+  linear relation analysis: Application to the verification of reactive
+  systems}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Formal Methods in System Design}{23}{1}{5--37}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1023/A:1024480913162}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1023/A:1024480913162} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Jeannin%
+\ \protect \BOthers {.}}{%
+Jeannin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/emsoft/JeanninGKGSZP15}
+\APACinsertmetastar {%
+DBLP:conf/emsoft/JeanninGKGSZP15}%
+\begin{APACrefauthors}%
+Jeannin, J.%
+, Ghorbal, K.%
+, Kouskoulas, Y.%
+, Gardner, R.%
+, Schmidt, A.%
+, Zawadzki, E.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formal Verification of {ACAS X}, an Industrial Airborne
+  Collision Avoidance System} {Formal verification of {ACAS X}, an industrial
+  airborne collision avoidance system}.{\BBCQ}
+\newblock
+\BIn{} A.~Girault\ \BBA {} N.~Guan\ (\BEDS), \APACrefbtitle {{EMSOFT}}
+  {{EMSOFT}}\ (\BPG~127-136).
+\newblock
+\APACaddressPublisher{}{IEEE Press}.
+\newblock
+\begin{APACrefDOI} \doi{10.1109/EMSOFT.2015.7318268} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kaliszyk%
+, Pak%
+\BCBL {}\ \BBA {} Urban%
+}{%
+Kaliszyk%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/cpp/KaliszykPU16}
+\APACinsertmetastar {%
+DBLP:conf/cpp/KaliszykPU16}%
+\begin{APACrefauthors}%
+Kaliszyk, C.%
+, Pak, K.%
+\BCBL {}\ \BBA {} Urban, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards a {Mizar} environment for {Isabelle}:
+  foundations and language} {Towards a {Mizar} environment for {Isabelle}:
+  foundations and language}.{\BBCQ}
+\newblock
+\BIn{} J.~Avigad\ \BBA {} A.~Chlipala\ (\BEDS), \APACrefbtitle {Proceedings of
+  the 5th {ACM} {SIGPLAN} Conference on Certified Programs and Proofs, {Saint
+  Petersburg, FL, USA, January} 20-22, 2016} {Proceedings of the 5th {ACM}
+  {SIGPLAN} conference on certified programs and proofs, {Saint Petersburg, FL,
+  USA, January} 20-22, 2016}\ (\BPGS\ 58--65).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2854065.2854070}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2854065.2854070} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kamide%
+}{%
+Kamide%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+kamide2010strong}
+\APACinsertmetastar {%
+kamide2010strong}%
+\begin{APACrefauthors}%
+Kamide, N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Strong normalization of program-indexed lambda calculus}
+  {Strong normalization of program-indexed lambda calculus}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Bull. Sect. Logic Univ. \L
+  \'{o}d\'{z}}{39}{1-2}{65--78}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kamide%
+\ \BBA {} Wansing%
+}{%
+Kamide%
+\ \BBA {} Wansing%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:journals/japll/KamideW10}
+\APACinsertmetastar {%
+DBLP:journals/japll/KamideW10}%
+\begin{APACrefauthors}%
+Kamide, N.%
+\BCBT {}\ \BBA {} Wansing, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Combining linear-time temporal logic with
+  constructiveness and paraconsistency} {Combining linear-time temporal logic
+  with constructiveness and paraconsistency}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Applied Logic}{8}{1}{33--61}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1016/j.jal.2009.06.001}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.jal.2009.06.001} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+King%
+}{%
+King%
+}{%
+{\protect \APACyear {1971}}%
+}]{%
+DBLP:conf/ifip/King71}
+\APACinsertmetastar {%
+DBLP:conf/ifip/King71}%
+\begin{APACrefauthors}%
+King, J\BPBI C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1971}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Program Verifier} {A program verifier}.{\BBCQ}
+\newblock
+\BIn{} C\BPBI V.~Freiman, J\BPBI E.~Griffith\BCBL {}\ \BBA {} J\BPBI
+  L.~Rosenfeld\ (\BEDS), \APACrefbtitle {Information Processing, Proceedings of
+  {IFIP} Congress 1971, Volume 1 - Foundations and Systems, {Ljubljana,
+  Yugoslavia, August} 23-28, 1971.} {Information processing, proceedings of
+  {IFIP} congress 1971, volume 1 - foundations and systems, {Ljubljana,
+  Yugoslavia, August} 23-28, 1971.}\ (\BPGS\ 234--249).
+\newblock
+\APACaddressPublisher{}{North-Holland}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Klein%
+\ \protect \BOthers {.}}{%
+Klein%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:journals/cacm/KleinAEHCDEEKNSTW10}
+\APACinsertmetastar {%
+DBLP:journals/cacm/KleinAEHCDEEKNSTW10}%
+\begin{APACrefauthors}%
+Klein, G.%
+, Andronick, J.%
+, Elphinstone, K.%
+, Heiser, G.%
+, Cock, D.%
+, Derrin, P.%
+\BDBL {}Winwood, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{seL4}: Formal verification of an operating-system
+  kernel} {{seL4}: Formal verification of an operating-system kernel}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Commun. {ACM}}{53}{6}{107--115}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/1743546.1743574} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Klein%
+\ \BBA {} Nipkow%
+}{%
+Klein%
+\ \BBA {} Nipkow%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+DBLP:journals/toplas/KleinN06}
+\APACinsertmetastar {%
+DBLP:journals/toplas/KleinN06}%
+\begin{APACrefauthors}%
+Klein, G.%
+\BCBT {}\ \BBA {} Nipkow, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A machine-checked model for a Java-like language,
+  virtual machine, and compiler} {A machine-checked model for a java-like
+  language, virtual machine, and compiler}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{ACM} Trans. Program. Lang. Syst.}{28}{4}{619--695}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/1146811} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/1146811} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kleymann%
+}{%
+Kleymann%
+}{%
+{\protect \APACyear {1999}}%
+}]{%
+DBLP:journals/fac/Kleymann99}
+\APACinsertmetastar {%
+DBLP:journals/fac/Kleymann99}%
+\begin{APACrefauthors}%
+Kleymann, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Hoare Logic and Auxiliary Variables} {Hoare logic and
+  auxiliary variables}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Formal Asp. Comput.}{11}{5}{541--566}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/s001650050057} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s001650050057} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kloetzer%
+\ \BBA {} Belta%
+}{%
+Kloetzer%
+\ \BBA {} Belta%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+DBLP:journals/tac/KloetzerB08}
+\APACinsertmetastar {%
+DBLP:journals/tac/KloetzerB08}%
+\begin{APACrefauthors}%
+Kloetzer, M.%
+\BCBT {}\ \BBA {} Belta, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Fully Automated Framework for Control of Linear
+  Systems from Temporal Logic Specifications} {A fully automated framework for
+  control of linear systems from temporal logic specifications}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{IEEE} Trans. Automat. Contr.}{53}{1}{287--297}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/TAC.2007.914952}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Krebbers%
+\ \BBA {} Spitters%
+}{%
+Krebbers%
+\ \BBA {} Spitters%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+Krebbers+Spitters:lmcs:corn:2011}
+\APACinsertmetastar {%
+Krebbers+Spitters:lmcs:corn:2011}%
+\begin{APACrefauthors}%
+Krebbers, R.%
+\BCBT {}\ \BBA {} Spitters, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Type classes for efficient exact real arithmetic in
+  {C}oq} {Type classes for efficient exact real arithmetic in {C}oq}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{Logical Methods in Computer Science}}{9}{1}{}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.2168/LMCS-9(1:01)2013}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.2168/LMCS-9(1:01)2013} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Krebbers%
+, Timany%
+\BCBL {}\ \BBA {} Birkedal%
+}{%
+Krebbers%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/popl/KrebbersTB17}
+\APACinsertmetastar {%
+DBLP:conf/popl/KrebbersTB17}%
+\begin{APACrefauthors}%
+Krebbers, R.%
+, Timany, A.%
+\BCBL {}\ \BBA {} Birkedal, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Interactive proofs in higher-order concurrent separation
+  logic} {Interactive proofs in higher-order concurrent separation
+  logic}.{\BBCQ}
+\newblock
+\BIn{} G.~Castagna\ \BBA {} A\BPBI D.~Gordon\ (\BEDS), \APACrefbtitle
+  {Proceedings of the 44th {ACM} {SIGPLAN} Symposium on Principles of
+  Programming Languages, {POPL} 2017, {Paris, France, January} 18-20, 2017}
+  {Proceedings of the 44th {ACM} {SIGPLAN} symposium on principles of
+  programming languages, {POPL} 2017, {Paris, France, January} 18-20, 2017}\
+  (\BPGS\ 205--217).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://dl.acm.org/citation.cfm?id=3009855}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3009837} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kumar%
+, Arthan%
+, Myreen%
+\BCBL {}\ \BBA {} Owens%
+}{%
+Kumar%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:journals/jar/KumarAMO16}
+\APACinsertmetastar {%
+DBLP:journals/jar/KumarAMO16}%
+\begin{APACrefauthors}%
+Kumar, R.%
+, Arthan, R.%
+, Myreen, M\BPBI O.%
+\BCBL {}\ \BBA {} Owens, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Self-Formalisation of Higher-Order Logic: {Semantics},
+  Soundness, and a Verified Implementation} {Self-formalisation of higher-order
+  logic: {Semantics}, soundness, and a verified implementation}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Autom. Reasoning}{56}{3}{221--259}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s10817-015-9357-x} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kumar%
+, Myreen%
+, Norrish%
+\BCBL {}\ \BBA {} Owens%
+}{%
+Kumar%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+DBLP:conf/popl/KumarMNO14}
+\APACinsertmetastar {%
+DBLP:conf/popl/KumarMNO14}%
+\begin{APACrefauthors}%
+Kumar, R.%
+, Myreen, M\BPBI O.%
+, Norrish, M.%
+\BCBL {}\ \BBA {} Owens, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{CakeML}: A verified implementation of {ML}} {{CakeML}:
+  A verified implementation of {ML}}.{\BBCQ}
+\newblock
+\BIn{} S.~Jagannathan\ \BBA {} P.~Sewell\ (\BEDS), \APACrefbtitle {{POPL}}
+  {{POPL}}\ (\BPGS\ 179--192).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2535838.2535841}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2535838.2535841} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lamport%
+}{%
+Lamport%
+}{%
+{\protect \APACyear {1977}}%
+}]{%
+DBLP:journals/tse/Lamport77}
+\APACinsertmetastar {%
+DBLP:journals/tse/Lamport77}%
+\begin{APACrefauthors}%
+Lamport, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1977}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Proving the Correctness of Multiprocess Programs}
+  {Proving the correctness of multiprocess programs}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{IEEE} Trans. Software Eng.}{3}{2}{125--143}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/TSE.1977.229904}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/TSE.1977.229904} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lamport%
+}{%
+Lamport%
+}{%
+{\protect \APACyear {1992}}%
+}]{%
+Lamport:hybrid:1992}
+\APACinsertmetastar {%
+Lamport:hybrid:1992}%
+\begin{APACrefauthors}%
+Lamport, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1992}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Hybrid Systems in {TLA}\({}^{\mbox{+}}\)} {Hybrid
+  systems in {TLA}\({}^{\mbox{+}}\)}.{\BBCQ}
+\newblock
+\BIn{} R\BPBI L.~Grossman, A.~Nerode, A\BPBI P.~Ravn\BCBL {}\ \BBA {}
+  H.~Rischel\ (\BEDS), \APACrefbtitle {Hybrid Systems} {Hybrid systems}\
+  (\BVOL~736, \BPGS\ 77--102).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1007/3-540-57318-6_25}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-57318-6_25} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lamport%
+}{%
+Lamport%
+}{%
+{\protect \APACyear {1995}}%
+}]{%
+Lamport95}
+\APACinsertmetastar {%
+Lamport95}%
+\begin{APACrefauthors}%
+Lamport, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {How to Write a Proof} {How to write a proof}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{American Mathematical Monthly}{102}{7}{600--608}.
+\newblock
+\begin{APACrefURL}
+  \url{http://lamport.azurewebsites.net/pubs/lamport-how-to-write.pdf}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lamport%
+}{%
+Lamport%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+Lamport12}
+\APACinsertmetastar {%
+Lamport12}%
+\begin{APACrefauthors}%
+Lamport, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {How to Write a 21st Century Proof} {How to write a 21st
+  century proof}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Fixed Point Theory and Applications}{}{}{}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s11784-012-0071-6} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Leavens%
+, Baker%
+\BCBL {}\ \BBA {} Ruby%
+}{%
+Leavens%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1999}}%
+}]{%
+DBLP:books/daglib/p/LeavensBR99}
+\APACinsertmetastar {%
+DBLP:books/daglib/p/LeavensBR99}%
+\begin{APACrefauthors}%
+Leavens, G\BPBI T.%
+, Baker, A\BPBI L.%
+\BCBL {}\ \BBA {} Ruby, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{JML:} {A} Notation for Detailed Design} {{JML:} {A}
+  notation for detailed design}.{\BBCQ}
+\newblock
+\BIn{} H.~Kilov, B.~Rumpe\BCBL {}\ \BBA {} I.~Simmonds\ (\BEDS), \APACrefbtitle
+  {Behavioral Specifications of Businesses and Systems} {Behavioral
+  specifications of businesses and systems}\ (\BVOL~523, \BPGS\ 175--188).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-1-4615-5229-1_12}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-1-4615-5229-1_12} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Leino%
+}{%
+Leino%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+this-is-boogie-2-2}
+\APACinsertmetastar {%
+this-is-boogie-2-2}%
+\begin{APACrefauthors}%
+Leino, K\BPBI R\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{jun}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{This is Boogie 2}} {{This is Boogie 2}}.{\BBCQ}
+\newblock
+\APACaddressPublisher{}{Microsoft Research}.
+\newblock
+\begin{APACrefURL}
+  \url{https://www.microsoft.com/en-us/research/publication/this-is-boogie-2-2/}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Leino%
+}{%
+Leino%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:conf/lpar/Leino10}
+\APACinsertmetastar {%
+DBLP:conf/lpar/Leino10}%
+\begin{APACrefauthors}%
+Leino, K\BPBI R\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Dafny: An Automatic Program Verifier for Functional
+  Correctness} {Dafny: An automatic program verifier for functional
+  correctness}.{\BBCQ}
+\newblock
+\BIn{} E\BPBI M.~Clarke\ \BBA {} A.~Voronkov\ (\BEDS), \APACrefbtitle {Logic
+  for Programming, Artificial Intelligence, and Reasoning - 16th International
+  Conference, {LPAR-16, Dakar, Senegal, April 25-May 1}, 2010, Revised Selected
+  Papers} {Logic for programming, artificial intelligence, and reasoning - 16th
+  international conference, {LPAR-16, Dakar, Senegal, April 25-May 1}, 2010,
+  revised selected papers}\ (\BVOL\ 6355, \BPGS\ 348--370).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-17511-4\_20}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-17511-4_20} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Leino%
+, M{\"{u}}ller%
+\BCBL {}\ \BBA {} Smans%
+}{%
+Leino%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+DBLP:conf/fosad/LeinoMS09}
+\APACinsertmetastar {%
+DBLP:conf/fosad/LeinoMS09}%
+\begin{APACrefauthors}%
+Leino, K\BPBI R\BPBI M.%
+, M{\"{u}}ller, P.%
+\BCBL {}\ \BBA {} Smans, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Verification of Concurrent Programs with Chalice}
+  {Verification of concurrent programs with chalice}.{\BBCQ}
+\newblock
+\BIn{} A.~Aldini, G.~Barthe\BCBL {}\ \BBA {} R.~Gorrieri\ (\BEDS),
+  \APACrefbtitle {Foundations of Security Analysis and Design V, {FOSAD}
+  2007/2008/2009 Tutorial Lectures} {Foundations of security analysis and
+  design v, {FOSAD} 2007/2008/2009 tutorial lectures}\ (\BVOL\ 5705, \BPGS\
+  195--222).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-03829-7_7}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-03829-7_7} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Leroy%
+}{%
+Leroy%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+Leroy:popl:2006}
+\APACinsertmetastar {%
+Leroy:popl:2006}%
+\begin{APACrefauthors}%
+Leroy, X.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formal certification of a compiler back-end or:
+  programming a compiler with a proof assistant} {Formal certification of a
+  compiler back-end or: programming a compiler with a proof assistant}.{\BBCQ}
+\newblock
+\BIn{} J\BPBI G.~Morrisett\ \BBA {} S\BPBI L\BPBI P.~Jones\ (\BEDS),
+  \APACrefbtitle {{POPL} 2006} {{POPL} 2006}\ (\BPGS\ 42--54).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/1111037.1111042}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/1111037.1111042} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lipton%
+}{%
+Lipton%
+}{%
+{\protect \APACyear {1992}}%
+}]{%
+lipton1992constructive}
+\APACinsertmetastar {%
+lipton1992constructive}%
+\begin{APACrefauthors}%
+Lipton, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1992}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Constructive {Kripke} semantics and realizability}
+  {Constructive {Kripke} semantics and realizability}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Logic from Computer Science} {Logic from computer
+  science}\ (\BPGS\ 319--357).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Liu%
+\ \protect \BOthers {.}}{%
+Liu%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:conf/aplas/LiuLQZZZZ10}
+\APACinsertmetastar {%
+DBLP:conf/aplas/LiuLQZZZZ10}%
+\begin{APACrefauthors}%
+Liu, J.%
+, Lv, J.%
+, Quan, Z.%
+, Zhan, N.%
+, Zhao, H.%
+, Zhou, C.%
+\BCBL {}\ \BBA {} Zou, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Calculus for Hybrid {CSP}} {A calculus for hybrid
+  {CSP}}.{\BBCQ}
+\newblock
+\BIn{} K.~Ueda\ (\BED), \APACrefbtitle {Programming Languages and Systems - 8th
+  {A}sian Symposium, {APLAS} 2010, {Shanghai, China, N}ovember 28 - {D}ecember
+  1, 2010. Proceedings} {Programming languages and systems - 8th {A}sian
+  symposium, {APLAS} 2010, {Shanghai, China, N}ovember 28 - {D}ecember 1, 2010.
+  proceedings}\ (\BVOL\ 6461, \BPGS\ 1--15).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-17164-2\_1}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-17164-2_1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lochbihler%
+}{%
+Lochbihler%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+DBLP:journals/afp/Lochbihler07}
+\APACinsertmetastar {%
+DBLP:journals/afp/Lochbihler07}%
+\begin{APACrefauthors}%
+Lochbihler, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Jinja with Threads} {Jinja with threads}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Archive of Formal Proofs}{2007}{}{}.
+\newblock
+\begin{APACrefURL} \url{https://www.isa-afp.org/entries/JinjaThreads.shtml}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lombardi%
+}{%
+Lombardi%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+constructiveRealAlgebra}
+\APACinsertmetastar {%
+constructiveRealAlgebra}%
+\begin{APACrefauthors}%
+Lombardi, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Th\'{e}ories g\'{e}om\'{e}triques pour l’alg\'{e}bre
+  des nombres r\'{e}els sans test de signe ni axiome de choix d\'{e}pendant}
+  {Th\'{e}ories g\'{e}om\'{e}triques pour l’alg\'{e}bre des nombres r\'{e}els
+  sans test de signe ni axiome de choix d\'{e}pendant}.{\BBCQ}
+\newblock
+
+\newblock
+\APACrefnote{Accessed: 2019-07-10. Unpublished draft (in French)}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Loos%
+\ \BBA {} Platzer%
+}{%
+Loos%
+\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/lics/LoosP16}
+\APACinsertmetastar {%
+DBLP:conf/lics/LoosP16}%
+\begin{APACrefauthors}%
+Loos, S\BPBI M.%
+\BCBT {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Differential Refinement Logic} {Differential refinement
+  logic}.{\BBCQ}
+\newblock
+\BIn{} M.~Grohe, E.~Koskinen\BCBL {}\ \BBA {} N.~Shankar\ (\BEDS),
+  \APACrefbtitle {{LICS}} {{LICS}}\ (\BPG~505-514).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2933575.2934555} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Loos%
+, Platzer%
+\BCBL {}\ \BBA {} Nistor%
+}{%
+Loos%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:conf/fm/LoosPN11}
+\APACinsertmetastar {%
+DBLP:conf/fm/LoosPN11}%
+\begin{APACrefauthors}%
+Loos, S\BPBI M.%
+, Platzer, A.%
+\BCBL {}\ \BBA {} Nistor, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Adaptive Cruise Control: Hybrid, Distributed, and Now
+  Formally Verified} {Adaptive cruise control: Hybrid, distributed, and now
+  formally verified}.{\BBCQ}
+\newblock
+\BIn{} M.~Butler\ \BBA {} W.~Schulte\ (\BEDS), \APACrefbtitle {{FM}} {{FM}}\
+  (\BVOL\ 6664, \BPG~42-56).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-21437-0_6} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Low%
+\ \BBA {} Franchetti%
+}{%
+Low%
+\ \BBA {} Franchetti%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/hase/LowF17}
+\APACinsertmetastar {%
+DBLP:conf/hase/LowF17}%
+\begin{APACrefauthors}%
+Low, T\BPBI M.%
+\BCBT {}\ \BBA {} Franchetti, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {High Assurance Code Generation for Cyber-Physical
+  Systems} {High assurance code generation for cyber-physical systems}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {18th {IEEE} International Symposium on High Assurance
+  Systems Engineering, {HASE} 2017, {S}ingapore, {J}anuary 12-14, 2017} {18th
+  {IEEE} international symposium on high assurance systems engineering, {HASE}
+  2017, {S}ingapore, {J}anuary 12-14, 2017}\ (\BPGS\ 104--111).
+\newblock
+\APACaddressPublisher{}{{IEEE} Comp. Soc.}
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/HASE.2017.28} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/HASE.2017.28} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Majumdar%
+, Saha%
+\BCBL {}\ \BBA {} Zamani%
+}{%
+Majumdar%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+DBLP:conf/emsoft/MajumdarSZ12}
+\APACinsertmetastar {%
+DBLP:conf/emsoft/MajumdarSZ12}%
+\begin{APACrefauthors}%
+Majumdar, R.%
+, Saha, I.%
+\BCBL {}\ \BBA {} Zamani, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Synthesis of minimal-error control software} {Synthesis
+  of minimal-error control software}.{\BBCQ}
+\newblock
+\BIn{} A.~Jerraya, L\BPBI P.~Carloni, F.~Maraninchi\BCBL {}\ \BBA {} J.~Regehr\
+  (\BEDS), \APACrefbtitle {{EMSOFT}} {{EMSOFT}}\ (\BPGS\ 123--132).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2380356.2380380}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2380356.2380380} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Malecha%
+\ \BBA {} Bengtson%
+}{%
+Malecha%
+\ \BBA {} Bengtson%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+malecha2015rtac-coqpl}
+\APACinsertmetastar {%
+malecha2015rtac-coqpl}%
+\begin{APACrefauthors}%
+Malecha, G.%
+\BCBT {}\ \BBA {} Bengtson, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{January}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Rtac}: A Fully Reflective Tactic Language} {{Rtac}: A
+  fully reflective tactic language}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{CoqPL'15}.} {{CoqPL'15}.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mamouras%
+}{%
+Mamouras%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:journals/corr/Mamouras16}
+\APACinsertmetastar {%
+DBLP:journals/corr/Mamouras16}%
+\begin{APACrefauthors}%
+Mamouras, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Synthesis of Strategies Using the {Hoare} Logic of
+  Angelic and Demonic Nondeterminism} {Synthesis of strategies using the
+  {Hoare} logic of angelic and demonic nondeterminism}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Logical Methods in Computer Science}{12}{3}{}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.2168/LMCS-12(3:6)2016}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.2168/LMCS-12(3:6)2016} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Martens%
+\ \BBA {} Crary%
+}{%
+Martens%
+\ \BBA {} Crary%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+martens2012lf}
+\APACinsertmetastar {%
+martens2012lf}%
+\begin{APACrefauthors}%
+Martens, C.%
+\BCBT {}\ \BBA {} Crary, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{LF} in {LF}: Mechanizing the metatheories of {LF} in
+  {Twelf}} {{LF} in {LF}: Mechanizing the metatheories of {LF} in
+  {Twelf}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the seventh international workshop on
+  Logical frameworks and meta-languages, theory and practice} {Proceedings of
+  the seventh international workshop on logical frameworks and meta-languages,
+  theory and practice}\ (\BPGS\ 23--32).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Martin%
+, Ghorbal%
+, Goubault%
+\BCBL {}\ \BBA {} Putot%
+}{%
+Martin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:journals/corr/abs-1709-02561}
+\APACinsertmetastar {%
+DBLP:journals/corr/abs-1709-02561}%
+\begin{APACrefauthors}%
+Martin, B.%
+, Ghorbal, K.%
+, Goubault, E.%
+\BCBL {}\ \BBA {} Putot, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formal Verification of Station Keeping Maneuvers for a
+  Planar Autonomous Hybrid System} {Formal verification of station keeping
+  maneuvers for a planar autonomous hybrid system}.{\BBCQ}
+\newblock
+\BIn{} L.~Bulwahn, M.~Kamali\BCBL {}\ \BBA {} S.~Linker\ (\BEDS),
+  \APACrefbtitle {{FVAV@iFM}} {{FVAV@iFM}}\ (\BVOL~257, \BPGS\ 91--104).
+\newblock
+\begin{APACrefDOI} \doi{10.4204/EPTCS.257.9} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Martinez%
+, Majumdar%
+, Saha%
+\BCBL {}\ \BBA {} Tabuada%
+}{%
+Martinez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:conf/emsoft/MartinezMST10}
+\APACinsertmetastar {%
+DBLP:conf/emsoft/MartinezMST10}%
+\begin{APACrefauthors}%
+Martinez, A\BPBI A.%
+, Majumdar, R.%
+, Saha, I.%
+\BCBL {}\ \BBA {} Tabuada, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Automatic verification of control system
+  implementations} {Automatic verification of control system
+  implementations}.{\BBCQ}
+\newblock
+\BIn{} L\BPBI P.~Carloni\ \BBA {} S.~Tripakis\ (\BEDS), \APACrefbtitle
+  {{EMSOFT}} {{EMSOFT}}\ (\BPGS\ 9--18).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/1879021.1879024}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/1879021.1879024} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Matichuk%
+, Murray%
+\BCBL {}\ \BBA {} Wenzel%
+}{%
+Matichuk%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+Matichuk:2016:EPM:2904234.2904264}
+\APACinsertmetastar {%
+Matichuk:2016:EPM:2904234.2904264}%
+\begin{APACrefauthors}%
+Matichuk, D.%
+, Murray, T.%
+\BCBL {}\ \BBA {} Wenzel, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{{\APACmonth{03}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Eisbach: A Proof Method Language for {Isabelle}}
+  {Eisbach: A proof method language for {Isabelle}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Autom. Reason.}{56}{3}{261--282}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1007/s10817-015-9360-2}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s10817-015-9360-2} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Melquiond%
+}{%
+Melquiond%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+DBLP:journals/iandc/Melquiond12}
+\APACinsertmetastar {%
+DBLP:journals/iandc/Melquiond12}%
+\begin{APACrefauthors}%
+Melquiond, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Floating-point arithmetic in the {Coq} system}
+  {Floating-point arithmetic in the {Coq} system}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Inf. Comput.}{216}{}{14--23}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1016/j.ic.2011.09.005}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.ic.2011.09.005} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mitsch%
+, Ghorbal%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Mitsch%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+DBLP:conf/rss/MitschGP13}
+\APACinsertmetastar {%
+DBLP:conf/rss/MitschGP13}%
+\begin{APACrefauthors}%
+Mitsch, S.%
+, Ghorbal, K.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {On Provably Safe Obstacle Avoidance for Autonomous
+  Robotic Ground Vehicles} {On provably safe obstacle avoidance for autonomous
+  robotic ground vehicles}.{\BBCQ}
+\newblock
+\BIn{} P.~Newman, D.~Fox\BCBL {}\ \BBA {} D.~Hsu\ (\BEDS), \APACrefbtitle
+  {Robotics: Science and Systems.} {Robotics: Science and systems.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mitsch%
+, Ghorbal%
+, Vogelbacher%
+\BCBL {}\ \BBA {} Platzer%
+}{%
+Mitsch%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:journals/ijrr/MitschGVP17}
+\APACinsertmetastar {%
+DBLP:journals/ijrr/MitschGVP17}%
+\begin{APACrefauthors}%
+Mitsch, S.%
+, Ghorbal, K.%
+, Vogelbacher, D.%
+\BCBL {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formal Verification of Obstacle Avoidance and Navigation
+  of Ground Robots} {Formal verification of obstacle avoidance and navigation
+  of ground robots}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{I. J. Robotics Res.}{36}{12}{1312-1340}.
+\newblock
+\begin{APACrefDOI} \doi{10.1177/0278364917733549} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mitsch%
+\ \BBA {} Platzer%
+}{%
+Mitsch%
+\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:journals/fmsd/MitschP16}
+\APACinsertmetastar {%
+DBLP:journals/fmsd/MitschP16}%
+\begin{APACrefauthors}%
+Mitsch, S.%
+\BCBT {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{ModelPlex}: Verified Runtime Validation of Verified
+  Cyber-Physical System Models} {{ModelPlex}: Verified runtime validation of
+  verified cyber-physical system models}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Form. Methods Syst. Des.}{49}{1}{33-74}.
+\newblock
+\APACrefnote{Special issue of selected papers from RV'14}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s10703-016-0241-z} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mullen%
+, Pernsteiner%
+, Wilcox%
+, Tatlock%
+\BCBL {}\ \BBA {} Grossman%
+}{%
+Mullen%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/cpp/MullenPWTG18}
+\APACinsertmetastar {%
+DBLP:conf/cpp/MullenPWTG18}%
+\begin{APACrefauthors}%
+Mullen, E.%
+, Pernsteiner, S.%
+, Wilcox, J\BPBI R.%
+, Tatlock, Z.%
+\BCBL {}\ \BBA {} Grossman, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{\OE}uf: minimizing the {Coq} extraction {TCB}}
+  {{\OE}uf: minimizing the {Coq} extraction {TCB}}.{\BBCQ}
+\newblock
+\BIn{} J.~Andronick\ \BBA {} A\BPBI P.~Felty\ (\BEDS), \APACrefbtitle
+  {Proceedings of the 7th {ACM} {SIGPLAN} International Conference on Certified
+  Programs and Proofs, {CPP} 2018, {Los Angeles, CA, USA, J}anuary 8-9, 2018}
+  {Proceedings of the 7th {ACM} {SIGPLAN} international conference on certified
+  programs and proofs, {CPP} 2018, {Los Angeles, CA, USA, J}anuary 8-9, 2018}\
+  (\BPGS\ 172--185).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/3167089} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3167089} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Myreen%
+\ \BBA {} Davis%
+}{%
+Myreen%
+\ \BBA {} Davis%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+Myreen+Davis:itp:2014}
+\APACinsertmetastar {%
+Myreen+Davis:itp:2014}%
+\begin{APACrefauthors}%
+Myreen, M\BPBI O.%
+\BCBT {}\ \BBA {} Davis, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The Reflective {Milawa} Theorem Prover Is Sound - (Down
+  to the Machine Code That Runs It)} {The reflective {Milawa} theorem prover is
+  sound - (down to the machine code that runs it)}.{\BBCQ}
+\newblock
+\BIn{} (\BPGS\ 421--436).
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1007/978-3-319-08970-6_27}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-08970-6_27} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Myreen%
+\ \BBA {} Owens%
+}{%
+Myreen%
+\ \BBA {} Owens%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+DBLP:conf/icfp/MyreenO12}
+\APACinsertmetastar {%
+DBLP:conf/icfp/MyreenO12}%
+\begin{APACrefauthors}%
+Myreen, M\BPBI O.%
+\BCBT {}\ \BBA {} Owens, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Proof-producing synthesis of {ML} from higher-order
+  logic} {Proof-producing synthesis of {ML} from higher-order logic}.{\BBCQ}
+\newblock
+\BIn{} P.~Thiemann\ \BBA {} R\BPBI B.~Findler\ (\BEDS), \APACrefbtitle {{ICFP}}
+  {{ICFP}}\ (\BPGS\ 115--126).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2364527.2364545}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2364527.2364545} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Myreen%
+, Owens%
+\BCBL {}\ \BBA {} Kumar%
+}{%
+Myreen%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+Myreen+Owens+Kumar:2013}
+\APACinsertmetastar {%
+Myreen+Owens+Kumar:2013}%
+\begin{APACrefauthors}%
+Myreen, M\BPBI O.%
+, Owens, S.%
+\BCBL {}\ \BBA {} Kumar, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Steps towards Verified Implementations of {HOL Light}}
+  {Steps towards verified implementations of {HOL Light}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{ITP}} {{ITP}}\ (\BPGS\ 490--495).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Nilsson%
+\ \protect \BOthers {.}}{%
+Nilsson%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:journals/tcst/NilssonHBCAGOPT16}
+\APACinsertmetastar {%
+DBLP:journals/tcst/NilssonHBCAGOPT16}%
+\begin{APACrefauthors}%
+Nilsson, P.%
+, Hussien, O.%
+, Balkan, A.%
+, Chen, Y.%
+, Ames, A\BPBI D.%
+, Grizzle, J\BPBI W.%
+\BDBL {}Tabuada, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Correct-by-Construction Adaptive Cruise Control: Two
+  Approaches} {Correct-by-construction adaptive cruise control: Two
+  approaches}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{IEEE} Trans. Contr. Sys. Techn.}{24}{4}{}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/TCST.2015.2501351}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Nipkow%
+}{%
+Nipkow%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+Nipkow2002}
+\APACinsertmetastar {%
+Nipkow2002}%
+\begin{APACrefauthors}%
+Nipkow, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Hoare Logics in Isabelle/HOL}} {{Hoare Logics in
+  Isabelle/HOL}}.{\BBCQ}
+\newblock
+\BIn{} H.~Schwichtenberg\ \BBA {} R.~Steinbr{\"{u}}ggen\ (\BEDS),
+  \APACrefbtitle {Proof and System-Reliability} {Proof and system-reliability}\
+  (\BPGS\ 341--367).
+\newblock
+\APACaddressPublisher{Dordrecht}{Springer Netherlands}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1007/978-94-010-0413-8{\_}11}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-94-010-0413-8_11} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Nipkow%
+, Paulson%
+\BCBL {}\ \BBA {} Wenzel%
+}{%
+Nipkow%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2002}}%
+}]{%
+DBLP:books/sp/NipkowPW02}
+\APACinsertmetastar {%
+DBLP:books/sp/NipkowPW02}%
+\begin{APACrefauthors}%
+Nipkow, T.%
+, Paulson, L\BPBI C.%
+\BCBL {}\ \BBA {} Wenzel, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2002}.
+\newblock
+\APACrefbtitle {{Isabelle/HOL}: {A} Proof Assistant for Higher-Order Logic}
+  {{Isabelle/HOL}: {A} proof assistant for higher-order logic}\ (\BVOL\ 2283).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/3-540-45949-9} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-45949-9} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Noschinski%
+}{%
+Noschinski%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:journals/afp/Noschinski15}
+\APACinsertmetastar {%
+DBLP:journals/afp/Noschinski15}%
+\begin{APACrefauthors}%
+Noschinski, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Generating Cases from Labeled Subgoals} {Generating
+  cases from labeled subgoals}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Archive of Formal Proofs}{2015}{}{}.
+\newblock
+\begin{APACrefURL} \url{https://www.isa-afp.org/entries/Case\_Labeling.shtml}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+S.~Owicki%
+\ \BBA {} Gries%
+}{%
+S.~Owicki%
+\ \BBA {} Gries%
+}{%
+{\protect \APACyear {1976}}%
+}]{%
+Owicki1976}
+\APACinsertmetastar {%
+Owicki1976}%
+\begin{APACrefauthors}%
+Owicki, S.%
+\BCBT {}\ \BBA {} Gries, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1976}{dec}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{An axiomatic proof technique for parallel programs I}}
+  {{An axiomatic proof technique for parallel programs I}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Acta Informatica}{6}{4}{319--340}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1007/BF00268134} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/BF00268134} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+S\BPBI S.~Owicki%
+}{%
+S\BPBI S.~Owicki%
+}{%
+{\protect \APACyear {1975}}%
+}]{%
+DBLP:books/garland/Owicki75}
+\APACinsertmetastar {%
+DBLP:books/garland/Owicki75}%
+\begin{APACrefauthors}%
+Owicki, S\BPBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1975}.
+\newblock
+\APACrefbtitle {Axiomatic Proof Techniques for Parallel Programs} {Axiomatic
+  proof techniques for parallel programs}.
+\newblock
+\APACaddressPublisher{}{Garland Publishing, New York}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Padon%
+, McMillan%
+, Panda%
+, Sagiv%
+\BCBL {}\ \BBA {} Shoham%
+}{%
+Padon%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/pldi/PadonMPSS16}
+\APACinsertmetastar {%
+DBLP:conf/pldi/PadonMPSS16}%
+\begin{APACrefauthors}%
+Padon, O.%
+, McMillan, K\BPBI L.%
+, Panda, A.%
+, Sagiv, M.%
+\BCBL {}\ \BBA {} Shoham, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Ivy: safety verification by interactive generalization}
+  {Ivy: safety verification by interactive generalization}.{\BBCQ}
+\newblock
+\BIn{} C.~Krintz\ \BBA {} E.~Berger\ (\BEDS), \APACrefbtitle {Proceedings of
+  the 37th {ACM} {SIGPLAN} Conference on Programming Language Design and
+  Implementation, {PLDI} 2016, {Santa Barbara, CA, USA, June 13-17}, 2016}
+  {Proceedings of the 37th {ACM} {SIGPLAN} conference on programming language
+  design and implementation, {PLDI} 2016, {Santa Barbara, CA, USA, June 13-17},
+  2016}\ (\BPGS\ 614--630).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/2908080.2908118}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2908080.2908118} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Parikh%
+}{%
+Parikh%
+}{%
+{\protect \APACyear {1983}}%
+}]{%
+DBLP:conf/focs/Parikh83}
+\APACinsertmetastar {%
+DBLP:conf/focs/Parikh83}%
+\begin{APACrefauthors}%
+Parikh, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1983}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Propositional Game Logic} {Propositional game
+  logic}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {24th Annual Symposium on Foundations of Computer
+  Science, {Tucson, Arizona, USA, 7-9 November} 1983} {24th annual symposium on
+  foundations of computer science, {Tucson, Arizona, USA, 7-9 November} 1983}\
+  (\BPGS\ 195--200).
+\newblock
+\APACaddressPublisher{}{{IEEE} Comp. Soc.}
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/SFCS.1983.47} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/SFCS.1983.47} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pauly%
+}{%
+Pauly%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+DBLP:journals/logcom/Pauly02}
+\APACinsertmetastar {%
+DBLP:journals/logcom/Pauly02}%
+\begin{APACrefauthors}%
+Pauly, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Modal Logic for Coalitional Power in Games} {A modal
+  logic for coalitional power in games}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Log. Comput.}{12}{1}{149--166}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1093/logcom/12.1.149}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1093/logcom/12.1.149} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pauly%
+\ \BBA {} Parikh%
+}{%
+Pauly%
+\ \BBA {} Parikh%
+}{%
+{\protect \APACyear {2003}}%
+}]{%
+DBLP:journals/sLogica/PaulyP03a}
+\APACinsertmetastar {%
+DBLP:journals/sLogica/PaulyP03a}%
+\begin{APACrefauthors}%
+Pauly, M.%
+\BCBT {}\ \BBA {} Parikh, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Game Logic - An Overview} {Game logic - an
+  overview}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Studia Logica}{75}{2}{165--182}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1023/A:1027354826364}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1023/A:1027354826364} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Peleg%
+}{%
+Peleg%
+}{%
+{\protect \APACyear {1987}}%
+}]{%
+DBLP:journals/jacm/Peleg87}
+\APACinsertmetastar {%
+DBLP:journals/jacm/Peleg87}%
+\begin{APACrefauthors}%
+Peleg, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1987}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Concurrent dynamic logic} {Concurrent dynamic
+  logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. {ACM}}{34}{2}{450--479}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/23005.23008} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/23005.23008} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pereira%
+\ \BBA {} Althoff%
+}{%
+Pereira%
+\ \BBA {} Althoff%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/icra/PereiraA15}
+\APACinsertmetastar {%
+DBLP:conf/icra/PereiraA15}%
+\begin{APACrefauthors}%
+Pereira, A.%
+\BCBT {}\ \BBA {} Althoff, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Safety control of robots under Computed Torque control
+  using reachable sets} {Safety control of robots under computed torque control
+  using reachable sets}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{IEEE} International Conference on Robotics and
+  Automation, {ICRA} 2015, {S}eattle, {WA, USA, 26-30 M}ay, 2015} {{IEEE}
+  international conference on robotics and automation, {ICRA} 2015, {S}eattle,
+  {WA, USA, 26-30 M}ay, 2015}\ (\BPGS\ 331--338).
+\newblock
+\APACaddressPublisher{}{{IEEE}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/ICRA.2015.7139020}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/ICRA.2015.7139020} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pfenning%
+\ \BBA {} Elliott%
+}{%
+Pfenning%
+\ \BBA {} Elliott%
+}{%
+{\protect \APACyear {1988}}%
+}]{%
+DBLP:conf/pldi/PfenningE88}
+\APACinsertmetastar {%
+DBLP:conf/pldi/PfenningE88}%
+\begin{APACrefauthors}%
+Pfenning, F.%
+\BCBT {}\ \BBA {} Elliott, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Higher-Order Abstract Syntax} {Higher-order abstract
+  syntax}.{\BBCQ}
+\newblock
+\BIn{} R\BPBI L.~Wexelblat\ (\BED), \APACrefbtitle {Proceedings of the {ACM}
+  SIGPLAN'88 Conference on Programming Language Design and Implementation
+  ({PLDI}), {Atlanta, Georgia, USA}, {J}une 22-24, 1988} {Proceedings of the
+  {ACM} sigplan'88 conference on programming language design and implementation
+  ({PLDI}), {Atlanta, Georgia, USA}, {J}une 22-24, 1988}\ (\BPGS\ 199--208).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/53990.54010} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/53990.54010} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pfenning%
+\ \BBA {} Sch{\"{u}}rmann%
+}{%
+Pfenning%
+\ \BBA {} Sch{\"{u}}rmann%
+}{%
+{\protect \APACyear {1999}}%
+}]{%
+DBLP:conf/cade/PfenningS99}
+\APACinsertmetastar {%
+DBLP:conf/cade/PfenningS99}%
+\begin{APACrefauthors}%
+Pfenning, F.%
+\BCBT {}\ \BBA {} Sch{\"{u}}rmann, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {System Description: {Twelf} - {A} Meta-Logical Framework
+  for Deductive Systems} {System description: {Twelf} - {A} meta-logical
+  framework for deductive systems}.{\BBCQ}
+\newblock
+\BIn{} H.~Ganzinger\ (\BED), \APACrefbtitle {Automated Deduction - {CADE}-16,
+  16th International Conference on Automated Deduction, {Trento, Italy, J}uly
+  7-10, 1999, Proceedings} {Automated deduction - {CADE}-16, 16th international
+  conference on automated deduction, {Trento, Italy, J}uly 7-10, 1999,
+  proceedings}\ (\BVOL\ 1632, \BPGS\ 202--206).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/3-540-48660-7\_14}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-48660-7_14} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+DBLP:journals/entcs/Platzer07}
+\APACinsertmetastar {%
+DBLP:journals/entcs/Platzer07}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{Jun}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards a Hybrid Dynamic Logic for Hybrid Dynamic
+  Systems} {Towards a hybrid dynamic logic for hybrid dynamic systems}.{\BBCQ}
+\newblock
+\BIn{} P.~Blackburn, T.~Bolander, T.~Bra\"{u}ner, V.~de Paiva\BCBL {}\ \BBA {}
+  J.~Villadsen\ (\BEDS), \APACrefbtitle {International Workshop on Hybrid
+  Logic, {HyLo'06, Seattle, USA}, Proceedings} {International workshop on
+  hybrid logic, {HyLo'06, Seattle, USA}, proceedings}\ (\BVOL~174, \BPG~63-77).
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.entcs.2006.11.026} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+DBLP:journals/jar/Platzer08}
+\APACinsertmetastar {%
+DBLP:journals/jar/Platzer08}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Differential Dynamic Logic for Hybrid Systems.}
+  {Differential dynamic logic for hybrid systems.}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Autom. Reas.}{41}{2}{143-189}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s10817-008-9103-8} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:conf/lics/Platzer12b:TR}
+\APACinsertmetastar {%
+DBLP:conf/lics/Platzer12b:TR}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{November}{}.
+\newblock
+\APACrefbtitle {The Complete Proof Theory of Hybrid Systems} {The complete
+  proof theory of hybrid systems}\ \APACbVolEdTR{}{\BTR{}\ \BNUM\
+  CMU-CS-11-144}.
+\newblock
+\APACaddressInstitution{Pittsburgh, PA}{School of Computer Science, Carnegie
+  Mellon University}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2012}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+DBLP:journals/lmcs/Platzer12b}
+\APACinsertmetastar {%
+DBLP:journals/lmcs/Platzer12b}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Complete Axiomatization of Quantified Differential
+  Dynamic Logic for Distributed Hybrid Systems} {A complete axiomatization of
+  quantified differential dynamic logic for distributed hybrid systems}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Logical Methods in Computer Science}{8}{4}{1-44}.
+\newblock
+\APACrefnote{Special issue for selected papers from CSL'10}
+\newblock
+\begin{APACrefDOI} \doi{10.2168/LMCS-8(4:17)2012} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2012}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+DBLP:conf/lics/Platzer12b}
+\APACinsertmetastar {%
+DBLP:conf/lics/Platzer12b}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The Complete Proof Theory of Hybrid Systems} {The
+  complete proof theory of hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{LICS}} {{LICS}}\ (\BPG~541-550).
+\newblock
+\APACaddressPublisher{}{IEEE}.
+\newblock
+\begin{APACrefDOI} \doi{10.1109/LICS.2012.64} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2012}}%
+{\protect \APACexlab {{\protect \BCnt {3}}}}}]{%
+DBLP:conf/lics/Platzer12a}
+\APACinsertmetastar {%
+DBLP:conf/lics/Platzer12a}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012{\protect \BCnt {3}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Logics of Dynamical Systems} {Logics of dynamical
+  systems}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{LICS}} {{LICS}}\ (\BPG~13-24).
+\newblock
+\APACaddressPublisher{}{IEEE}.
+\newblock
+\begin{APACrefDOI} \doi{10.1109/LICS.2012.13} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:journals/tocl/Platzer15}
+\APACinsertmetastar {%
+DBLP:journals/tocl/Platzer15}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Differential Game Logic} {Differential game
+  logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{ACM} Trans. Comput. Log.}{17}{1}{1:1--1:51}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2817824} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/cade/Platzer16}
+\APACinsertmetastar {%
+DBLP:conf/cade/Platzer16}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Logic \& Proofs for Cyber-Physical Systems} {Logic \&
+  proofs for cyber-physical systems}.{\BBCQ}
+\newblock
+\BIn{} N.~Olivetti\ \BBA {} A.~Tiwari\ (\BEDS), \APACrefbtitle {IJCAR} {Ijcar}\
+  (\BVOL\ 9706, \BPG~15-21).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-40229-1_3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2017}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+DBLP:journals/jar/Platzer17}
+\APACinsertmetastar {%
+DBLP:journals/jar/Platzer17}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Complete Uniform Substitution Calculus for
+  Differential Dynamic Logic} {A complete uniform substitution calculus for
+  differential dynamic logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Autom. Reas.}{59}{2}{219-265}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s10817-016-9385-1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2017}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+DBLP:journals/tocl/Platzer17}
+\APACinsertmetastar {%
+DBLP:journals/tocl/Platzer17}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Differential Hybrid Games} {Differential hybrid
+  games}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{ACM} Trans. Comput. Log.}{18}{3}{19:1-19:44}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3091123} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2018}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+DBLP:books/sp/Platzer18}
+\APACinsertmetastar {%
+DBLP:books/sp/Platzer18}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2018{\protect \BCnt {1}}}.
+\newblock
+\APACrefbtitle {Logical Foundations of Cyber-Physical Systems} {Logical
+  foundations of cyber-physical systems}.
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-63588-0}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2018}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+DBLP:conf/cade/Platzer18}
+\APACinsertmetastar {%
+DBLP:conf/cade/Platzer18}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Uniform Substitution for Differential Game Logic}
+  {Uniform substitution for differential game logic}.{\BBCQ}
+\newblock
+\BIn{} D.~Galmiche, S.~Schulz\BCBL {}\ \BBA {} R.~Sebastiani\ (\BEDS),
+  \APACrefbtitle {{IJCAR}} {{IJCAR}}\ (\BVOL\ 10900, \BPG~211-227).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-94205-6_15} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+}{%
+Platzer%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+DBLP:journals/afp/Platzer19}
+\APACinsertmetastar {%
+DBLP:journals/afp/Platzer19}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Differential Game Logic} {Differential game
+  logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Archive of Formal Proofs}{2019}{}{}.
+\newblock
+\begin{APACrefURL}
+  \url{https://www.isa-afp.org/entries/Differential\_Game\_Logic.html}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+\ \BBA {} Quesel%
+}{%
+Platzer%
+\ \BBA {} Quesel%
+}{%
+{\protect \APACyear {2008}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+DBLP:conf/cade/PlatzerQ08}
+\APACinsertmetastar {%
+DBLP:conf/cade/PlatzerQ08}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\BCBT {}\ \BBA {} Quesel, J\BHBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{KeYmaera}: A Hybrid Theorem Prover for Hybrid Systems.}
+  {{KeYmaera}: A hybrid theorem prover for hybrid systems.}{\BBCQ}
+\newblock
+\BIn{} A.~Armando, P.~Baumgartner\BCBL {}\ \BBA {} G.~Dowek\ (\BEDS),
+  \APACrefbtitle {{IJCAR}} {{IJCAR}}\ (\BVOL\ 5195, \BPG~171-178).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-540-71070-7_15} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Platzer%
+\ \BBA {} Quesel%
+}{%
+Platzer%
+\ \BBA {} Quesel%
+}{%
+{\protect \APACyear {2008}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+DBLP:conf/hybrid/PlatzerQ08}
+\APACinsertmetastar {%
+DBLP:conf/hybrid/PlatzerQ08}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\BCBT {}\ \BBA {} Quesel, J\BHBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Logical Verification and Systematic Parametric Analysis
+  in Train Control.} {Logical verification and systematic parametric analysis
+  in train control.}{\BBCQ}
+\newblock
+\BIn{} M.~Egerstedt\ \BBA {} B.~Mishra\ (\BEDS), \APACrefbtitle {{HSCC}}
+  {{HSCC}}\ (\BVOL\ 4981, \BPG~646-649).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-540-78929-1_55} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+LICS}{%
+LICS}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/lics/PlatzerT18}
+\APACinsertmetastar {%
+DBLP:conf/lics/PlatzerT18}%
+\begin{APACrefauthors}%
+Platzer, A.%
+\BCBT {}\ \BBA {} Tan, Y\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Differential Equation Axiomatization: The Impressive
+  Power of Differential Ghosts} {Differential equation axiomatization: The
+  impressive power of differential ghosts}.{\BBCQ}
+\newblock
+\BIn{} A.~Dawar\ \BBA {} E.~Gr{\"{a}}del\ (\BEDS), \APACrefbtitle {{LICS}}
+  {{LICS}}\ (\BPG~819-828).
+\newblock
+\APACaddressPublisher{New York}{ACM}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3209108.3209147} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Polaris~Industries%
+}{%
+Polaris~Industries%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+MRZR}
+\APACinsertmetastar {%
+MRZR}%
+\begin{APACrefauthors}%
+Polaris~Industries, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+\APACrefbtitle {{MRZR D4}.} {{MRZR D4}.}
+\newblock
+\begin{APACrefURL} \url{https://military.polaris.com/en-us/mrzr-d4/}
+  \end{APACrefURL}
+\newblock
+\APACrefnote{Accessed: Sep 12, 2019}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Prabhakar%
+\ \BBA {} K{\"{o}}pf%
+}{%
+Prabhakar%
+\ \BBA {} K{\"{o}}pf%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+DBLP:conf/hicons/PrabhakarK13}
+\APACinsertmetastar {%
+DBLP:conf/hicons/PrabhakarK13}%
+\begin{APACrefauthors}%
+Prabhakar, P.%
+\BCBT {}\ \BBA {} K{\"{o}}pf, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Verifying information flow properties of hybrid systems}
+  {Verifying information flow properties of hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} L.~Bushnell, L.~Rohrbough, S.~Amin\BCBL {}\ \BBA {} X\BPBI
+  D.~Koutsoukos\ (\BEDS), \APACrefbtitle {2nd {ACM} International Conference on
+  High Confidence Networked Systems (part of {CPS} Week), {HiCoNS 2013,
+  Philadelphia, PA, USA, A}pril 9-11, 2013} {2nd {ACM} international conference
+  on high confidence networked systems (part of {CPS} week), {HiCoNS 2013,
+  Philadelphia, PA, USA, A}pril 9-11, 2013}\ (\BPGS\ 77--84).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/2461446.2461458}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2461446.2461458} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Quesel%
+\ \BBA {} Platzer%
+}{%
+Quesel%
+\ \BBA {} Platzer%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+DBLP:conf/cade/QueselP12}
+\APACinsertmetastar {%
+DBLP:conf/cade/QueselP12}%
+\begin{APACrefauthors}%
+Quesel, J\BHBI D.%
+\BCBT {}\ \BBA {} Platzer, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Playing Hybrid Games with {KeYmaera}} {Playing hybrid
+  games with {KeYmaera}}.{\BBCQ}
+\newblock
+\BIn{} B.~Gramlich, D.~Miller\BCBL {}\ \BBA {} U.~Sattler\ (\BEDS),
+  \APACrefbtitle {{IJCAR}} {{IJCAR}}\ (\BVOL\ 7364, \BPG~439-453).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-31365-3_34} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Rahli%
+\ \BBA {} Bickford%
+}{%
+Rahli%
+\ \BBA {} Bickford%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+Rahli+Bickford:cpp:2016}
+\APACinsertmetastar {%
+Rahli+Bickford:cpp:2016}%
+\begin{APACrefauthors}%
+Rahli, V.%
+\BCBT {}\ \BBA {} Bickford, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A nominal exploration of intuitionism} {A nominal
+  exploration of intuitionism}.{\BBCQ}
+\newblock
+\BIn{} J.~Avigad\ \BBA {} A.~Chlipala\ (\BEDS), \APACrefbtitle {{CPP2016}}
+  {{CPP2016}}\ (\BPGS\ 130--141).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2854065.2854077}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2854065.2854077} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ramanujam%
+\ \BBA {} Simon%
+}{%
+Ramanujam%
+\ \BBA {} Simon%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+DBLP:conf/kr/RamanujamS08}
+\APACinsertmetastar {%
+DBLP:conf/kr/RamanujamS08}%
+\begin{APACrefauthors}%
+Ramanujam, R.%
+\BCBT {}\ \BBA {} Simon, S\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Dynamic Logic on Games with Structured Strategies}
+  {Dynamic logic on games with structured strategies}.{\BBCQ}
+\newblock
+\BIn{} G.~Brewka\ \BBA {} J.~Lang\ (\BEDS), \APACrefbtitle {Principles of
+  Knowledge Representation and Reasoning: Proceedings of the Eleventh
+  International Conference, {KR} 2008, {Sydney, Australia}, {September 16-19},
+  2008} {Principles of knowledge representation and reasoning: Proceedings of
+  the eleventh international conference, {KR} 2008, {Sydney, Australia},
+  {September 16-19}, 2008}\ (\BPGS\ 49--58).
+\newblock
+\APACaddressPublisher{}{{AAAI} Press}.
+\newblock
+\begin{APACrefURL} \url{http://www.aaai.org/Library/KR/2008/kr08-006.php}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ricketts%
+, Malecha%
+, Alvarez%
+, Gowda%
+\BCBL {}\ \BBA {} Lerner%
+}{%
+Ricketts%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+Ricketts:memcode:2015}
+\APACinsertmetastar {%
+Ricketts:memcode:2015}%
+\begin{APACrefauthors}%
+Ricketts, D.%
+, Malecha, G.%
+, Alvarez, M\BPBI M.%
+, Gowda, V.%
+\BCBL {}\ \BBA {} Lerner, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards verification of hybrid systems in a foundational
+  proof assistant} {Towards verification of hybrid systems in a foundational
+  proof assistant}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{MEMOCODE} 2015} {{MEMOCODE} 2015}\ (\BPGS\ 248--257).
+\newblock
+\APACaddressPublisher{}{{IEEE}}.
+\newblock
+\begin{APACrefURL} \url{http://dx.doi.org/10.1109/MEMCOD.2015.7340492}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1109/MEMCOD.2015.7340492} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ringer%
+\ \protect \BOthers {.}}{%
+Ringer%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+ringer2019qed}
+\APACinsertmetastar {%
+ringer2019qed}%
+\begin{APACrefauthors}%
+Ringer, T.%
+, Palmskog, K.%
+, Sergey, I.%
+, Gligoric, M.%
+, Tatlock, Z.%
+\BCBL {}\ \BOthersPeriod {.}\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{QED} at Large: A Survey of Engineering of Formally
+  Verified Software} {{QED} at large: A survey of engineering of formally
+  verified software}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Foundations and Trends{\textregistered} in Programming
+  Languages}{5}{2-3}{102--281}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Rizaldi%
+, Immler%
+, Sch{\"{u}}rmann%
+\BCBL {}\ \BBA {} Althoff%
+}{%
+Rizaldi%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/atva/RizaldiISA18}
+\APACinsertmetastar {%
+DBLP:conf/atva/RizaldiISA18}%
+\begin{APACrefauthors}%
+Rizaldi, A.%
+, Immler, F.%
+, Sch{\"{u}}rmann, B.%
+\BCBL {}\ \BBA {} Althoff, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Formally Verified Motion Planner for Autonomous
+  Vehicles} {A formally verified motion planner for autonomous
+  vehicles}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{ATVA}} {{ATVA}}\ (\BVOL\ 11138).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-030-01090-4_5}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Rizaldi%
+\ \protect \BOthers {.}}{%
+Rizaldi%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/ifm/RizaldiKHFIAHN17}
+\APACinsertmetastar {%
+DBLP:conf/ifm/RizaldiKHFIAHN17}%
+\begin{APACrefauthors}%
+Rizaldi, A.%
+, Keinholz, J.%
+, Huber, M.%
+, Feldle, J.%
+, Immler, F.%
+, Althoff, M.%
+\BDBL {}Nipkow, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formalising and Monitoring Traffic Rules for Autonomous
+  Vehicles in {Isabelle/HOL}} {Formalising and monitoring traffic rules for
+  autonomous vehicles in {Isabelle/HOL}}.{\BBCQ}
+\newblock
+\BIn{} N.~Polikarpova\ \BBA {} S.~Schneider\ (\BEDS), \APACrefbtitle
+  {Integrated Formal Methods - 13th International Conference, {IFM} 2017,
+  {Turin, Italy, S}eptember 20-22, 2017, Proceedings} {Integrated formal
+  methods - 13th international conference, {IFM} 2017, {Turin, Italy,
+  S}eptember 20-22, 2017, proceedings}\ (\BVOL\ 10510, \BPGS\ 50--66).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-66845-1\_4}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-66845-1_4} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Rouhling%
+}{%
+Rouhling%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/cpp/Rouhling18}
+\APACinsertmetastar {%
+DBLP:conf/cpp/Rouhling18}%
+\begin{APACrefauthors}%
+Rouhling, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A formal proof in {Coq} of a control function for the
+  inverted pendulum} {A formal proof in {Coq} of a control function for the
+  inverted pendulum}.{\BBCQ}
+\newblock
+\BIn{} J.~Andronick\ \BBA {} A\BPBI P.~Felty\ (\BEDS), \APACrefbtitle
+  {Proceedings of the 7th {ACM} {SIGPLAN} International Conference on Certified
+  Programs and Proofs, {CPP} 2018, {L}os {A}ngeles, {CA, USA, J}anuary 8-9,
+  2018} {Proceedings of the 7th {ACM} {SIGPLAN} international conference on
+  certified programs and proofs, {CPP} 2018, {L}os {A}ngeles, {CA, USA,
+  J}anuary 8-9, 2018}\ (\BPGS\ 28--41).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/3167101} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3167101} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ruchkin%
+, Sunshine%
+, Iraci%
+, Schmerl%
+\BCBL {}\ \BBA {} Garlan%
+}{%
+Ruchkin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/fm/RuchkinSISG18}
+\APACinsertmetastar {%
+DBLP:conf/fm/RuchkinSISG18}%
+\begin{APACrefauthors}%
+Ruchkin, I.%
+, Sunshine, J.%
+, Iraci, G.%
+, Schmerl, B\BPBI R.%
+\BCBL {}\ \BBA {} Garlan, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{IPL:} An Integration Property Language for Multi-model
+  Cyber-physical Systems} {{IPL:} an integration property language for
+  multi-model cyber-physical systems}.{\BBCQ}
+\newblock
+\BIn{} K.~Havelund, J.~Peleska, B.~Roscoe\BCBL {}\ \BBA {} E\BPBI P.~de Vink\
+  (\BEDS), \APACrefbtitle {Formal Methods - 22nd International Symposium, {FM}
+  2018, Held as Part of the Federated Logic Conference, {FloC 2018, Oxford, UK,
+  July} 15-17, 2018, Proceedings} {Formal methods - 22nd international
+  symposium, {FM} 2018, held as part of the federated logic conference, {FloC
+  2018, Oxford, UK, July} 15-17, 2018, proceedings}\ (\BVOL\ 10951, \BPGS\
+  165--184).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-319-95582-7\_10}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-95582-7_10} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Schiffelers%
+, van Beek%
+, Man%
+, Reniers%
+\BCBL {}\ \BBA {} Rooda%
+}{%
+Schiffelers%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2003}}%
+}]{%
+DBLP:conf/formats/SchiffelersBMRR03}
+\APACinsertmetastar {%
+DBLP:conf/formats/SchiffelersBMRR03}%
+\begin{APACrefauthors}%
+Schiffelers, R\BPBI R\BPBI H.%
+, van Beek, D\BPBI A.%
+, Man, K\BPBI L.%
+, Reniers, M\BPBI A.%
+\BCBL {}\ \BBA {} Rooda, J\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Formal Semantics of {Hybrid Chi}} {Formal semantics of
+  {Hybrid Chi}}.{\BBCQ}
+\newblock
+\BIn{} K\BPBI G.~Larsen\ \BBA {} P.~Niebert\ (\BEDS), \APACrefbtitle {Formal
+  Modeling and Analysis of Timed Systems: First International Workshop,
+  {FORMATS} 2003, {Marseille, France, S}eptember 6-7, 2003. Revised Papers}
+  {Formal modeling and analysis of timed systems: First international workshop,
+  {FORMATS} 2003, {Marseille, France, S}eptember 6-7, 2003. revised papers}\
+  (\BVOL\ 2791, \BPGS\ 151--165).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-540-40903-8\_12}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-540-40903-8_12} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Schwichtenberg%
+}{%
+Schwichtenberg%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+DBLP:journals/mst/Schwichtenberg08}
+\APACinsertmetastar {%
+DBLP:journals/mst/Schwichtenberg08}%
+\begin{APACrefauthors}%
+Schwichtenberg, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Realizability interpretation of proofs in constructive
+  analysis} {Realizability interpretation of proofs in constructive
+  analysis}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Theory Comput. Syst.}{43}{3-4}{583--602}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/s00224-007-9027-4}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s00224-007-9027-4} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{Seto}%
+, {Krogh}%
+, {Sha}%
+\BCBL {}\ \BBA {} {Chutinan}%
+}{%
+{Seto}%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1998}}%
+}]{%
+Krogh1998TheSA}
+\APACinsertmetastar {%
+Krogh1998TheSA}%
+\begin{APACrefauthors}%
+{Seto}, D.%
+, {Krogh}, B.%
+, {Sha}, L.%
+\BCBL {}\ \BBA {} {Chutinan}, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{June}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The {SIMPLEX} Architecture for Safe On-line Control
+  System Upgrades} {The {SIMPLEX} architecture for safe on-line control system
+  upgrades}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {{ACC}.} {{ACC}.}
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1109/ACC.1998.703255}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Sewell%
+, Myreen%
+\BCBL {}\ \BBA {} Klein%
+}{%
+Sewell%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+DBLP:conf/pldi/SewellMK13}
+\APACinsertmetastar {%
+DBLP:conf/pldi/SewellMK13}%
+\begin{APACrefauthors}%
+Sewell, T\BPBI A\BPBI L.%
+, Myreen, M\BPBI O.%
+\BCBL {}\ \BBA {} Klein, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Translation validation for a verified {OS} kernel}
+  {Translation validation for a verified {OS} kernel}.{\BBCQ}
+\newblock
+\BIn{} H.~Boehm\ \BBA {} C.~Flanagan\ (\BEDS), \APACrefbtitle {{PLDI}}
+  {{PLDI}}\ (\BPGS\ 471--482).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2462156.2462183}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2462156.2462183} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Shah%
+, Dey%
+, Lovett%
+\BCBL {}\ \BBA {} Kapoor%
+}{%
+Shah%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+shah2018airsim}
+\APACinsertmetastar {%
+shah2018airsim}%
+\begin{APACrefauthors}%
+Shah, S.%
+, Dey, D.%
+, Lovett, C.%
+\BCBL {}\ \BBA {} Kapoor, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{AirSim}: High-fidelity visual and physical simulation
+  for autonomous vehicles} {{AirSim}: High-fidelity visual and physical
+  simulation for autonomous vehicles}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Field Serv. Robot.} {Field serv. robot.}\ (\BVOL~5,
+  \BPGS\ 621--635).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Stampoulis%
+\ \BBA {} Shao%
+}{%
+Stampoulis%
+\ \BBA {} Shao%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:conf/icfp/StampoulisS10}
+\APACinsertmetastar {%
+DBLP:conf/icfp/StampoulisS10}%
+\begin{APACrefauthors}%
+Stampoulis, A.%
+\BCBT {}\ \BBA {} Shao, Z.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{VeriML}: typed computation of logical terms inside a
+  language with effects} {{VeriML}: typed computation of logical terms inside a
+  language with effects}.{\BBCQ}
+\newblock
+\BIn{} P.~Hudak\ \BBA {} S.~Weirich\ (\BEDS), \APACrefbtitle {Proceeding of the
+  15th {ACM} {SIGPLAN} {I}nternational {C}onference on {F}unctional
+  {P}rogramming, {ICFP} 2010, {Baltimore, Maryland, USA, September} 27-29,
+  2010} {Proceeding of the 15th {ACM} {SIGPLAN} {I}nternational {C}onference on
+  {F}unctional {P}rogramming, {ICFP} 2010, {Baltimore, Maryland, USA,
+  September} 27-29, 2010}\ (\BPGS\ 333--344).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/1863543.1863591}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/1863543.1863591} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Stampoulis%
+\ \BBA {} Shao%
+}{%
+Stampoulis%
+\ \BBA {} Shao%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+DBLP:conf/popl/StampoulisS12}
+\APACinsertmetastar {%
+DBLP:conf/popl/StampoulisS12}%
+\begin{APACrefauthors}%
+Stampoulis, A.%
+\BCBT {}\ \BBA {} Shao, Z.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Static and user-extensible proof checking} {Static and
+  user-extensible proof checking}.{\BBCQ}
+\newblock
+\BIn{} J.~Field\ \BBA {} M.~Hicks\ (\BEDS), \APACrefbtitle {Proceedings of the
+  39th {ACM} {SIGPLAN-SIGACT} Symposium on Principles of Programming Languages,
+  {POPL} 2012, {Philadelphia, Pennsylvania,} {USA, January 22-28}, 2012}
+  {Proceedings of the 39th {ACM} {SIGPLAN-SIGACT} symposium on principles of
+  programming languages, {POPL} 2012, {Philadelphia, Pennsylvania,} {USA,
+  January 22-28}, 2012}\ (\BPGS\ 273--284).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2103656.2103690}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2103656.2103690} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Suenaga%
+\ \BBA {} Hasuo%
+}{%
+Suenaga%
+\ \BBA {} Hasuo%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:conf/icalp/SuenagaH11}
+\APACinsertmetastar {%
+DBLP:conf/icalp/SuenagaH11}%
+\begin{APACrefauthors}%
+Suenaga, K.%
+\BCBT {}\ \BBA {} Hasuo, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Programming with Infinitesimals: {A} While-Language for
+  Hybrid System Modeling} {Programming with infinitesimals: {A} while-language
+  for hybrid system modeling}.{\BBCQ}
+\newblock
+\BIn{} L.~Aceto, M.~Henzinger\BCBL {}\ \BBA {} J.~Sgall\ (\BEDS),
+  \APACrefbtitle {Automata, Languages and Programming - 38th International
+  Colloquium, {ICALP} 2011, Zurich, Switzerland, July 4-8, 2011, Proceedings,
+  Part {II}} {Automata, languages and programming - 38th international
+  colloquium, {ICALP} 2011, zurich, switzerland, july 4-8, 2011, proceedings,
+  part {II}}\ (\BVOL\ 6756, \BPGS\ 392--403).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-22012-8_31}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-22012-8_31} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Syme%
+}{%
+Syme%
+}{%
+{\protect \APACyear {1997}}%
+}]{%
+Syme1997DECLAREAP}
+\APACinsertmetastar {%
+Syme1997DECLAREAP}%
+\begin{APACrefauthors}%
+Syme, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{DECLARE}: A Prototype Declarative Proof System for
+  Higher Order Logic} {{DECLARE}: A prototype declarative proof system for
+  higher order logic}.{\BBCQ}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Taly%
+\ \BBA {} Tiwari%
+}{%
+Taly%
+\ \BBA {} Tiwari%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+DBLP:conf/emsoft/TalyT10}
+\APACinsertmetastar {%
+DBLP:conf/emsoft/TalyT10}%
+\begin{APACrefauthors}%
+Taly, A.%
+\BCBT {}\ \BBA {} Tiwari, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Switching logic synthesis for reachability} {Switching
+  logic synthesis for reachability}.{\BBCQ}
+\newblock
+\BIn{} L\BPBI P.~Carloni\ \BBA {} S.~Tripakis\ (\BEDS), \APACrefbtitle
+  {{EMSOFT}} {{EMSOFT}}\ (\BPGS\ 19--28).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/1879021.1879025}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Tan%
+\ \protect \BOthers {.}}{%
+Tan%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+DBLP:conf/icfp/TanMKFON16}
+\APACinsertmetastar {%
+DBLP:conf/icfp/TanMKFON16}%
+\begin{APACrefauthors}%
+Tan, Y\BPBI K.%
+, Myreen, M\BPBI O.%
+, Kumar, R.%
+, Fox, A\BPBI C\BPBI J.%
+, Owens, S.%
+\BCBL {}\ \BBA {} Norrish, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A new verified compiler backend for {CakeML}} {A new
+  verified compiler backend for {CakeML}}.{\BBCQ}
+\newblock
+\BIn{} J.~Garrigue, G.~Keller\BCBL {}\ \BBA {} E.~Sumii\ (\BEDS),
+  \APACrefbtitle {{ICFP}} {{ICFP}}\ (\BPGS\ 60--73).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2951913.2951924}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2951913.2951924} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Tarski%
+}{%
+Tarski%
+}{%
+{\protect \APACyear {1951, reprinting 1998}}%
+}]{%
+Tarski}
+\APACinsertmetastar {%
+Tarski}%
+\begin{APACrefauthors}%
+Tarski, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1951, reprinting 1998}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Decision Method for Elementary Algebra and Geometry}
+  {A decision method for elementary algebra and geometry}.{\BBCQ}
+\newblock
+\BIn{} B\BPBI F.~Caviness\ \BBA {} J\BPBI R.~Johnson\ (\BEDS), \APACrefbtitle
+  {Quantifier Elimination and Cylindrical Algebraic Decomposition} {Quantifier
+  elimination and cylindrical algebraic decomposition}\ (\BPGS\ 24--84).
+\newblock
+\APACaddressPublisher{Vienna}{Springer}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Traut%
+\ \BBA {} Noschinski%
+}{%
+Traut%
+\ \BBA {} Noschinski%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+traut2014pattern}
+\APACinsertmetastar {%
+traut2014pattern}%
+\begin{APACrefauthors}%
+Traut, C.%
+\BCBT {}\ \BBA {} Noschinski, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Pattern-based Subterm Selection in {I}sabelle}
+  {Pattern-based subterm selection in {I}sabelle}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of {Isabelle} Workshop 2014.} {Proceedings
+  of {Isabelle} workshop 2014.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Van~Benthem%
+}{%
+Van~Benthem%
+}{%
+{\protect \APACyear {2001}}%
+}]{%
+van2001games}
+\APACinsertmetastar {%
+van2001games}%
+\begin{APACrefauthors}%
+Van~Benthem, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Games in Dynamic-Epistemic Logic} {Games in
+  dynamic-epistemic logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Bulletin of Economic Research}{53}{4}{219--248}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+van Benthem%
+}{%
+van Benthem%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:series/lncs/Benthem15}
+\APACinsertmetastar {%
+DBLP:series/lncs/Benthem15}%
+\begin{APACrefauthors}%
+van Benthem, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Logic of Strategies: What and How?} {Logic of
+  strategies: What and how?}{\BBCQ}
+\newblock
+\BIn{} J.~van Benthem, S.~Ghosh\BCBL {}\ \BBA {} R.~Verbrugge\ (\BEDS),
+  \APACrefbtitle {Models of Strategic Reasoning - Logics, Games, and
+  Communities} {Models of strategic reasoning - logics, games, and
+  communities}\ (\BVOL\ 8972, \BPGS\ 321--332).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-662-48540-8\_10}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-662-48540-8_10} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+van Benthem%
+\ \BBA {} Bezhanishvili%
+}{%
+van Benthem%
+\ \BBA {} Bezhanishvili%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+DBLP:reference/spatial/BenthemB07}
+\APACinsertmetastar {%
+DBLP:reference/spatial/BenthemB07}%
+\begin{APACrefauthors}%
+van Benthem, J.%
+\BCBT {}\ \BBA {} Bezhanishvili, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Modal Logics of Space} {Modal logics of space}.{\BBCQ}
+\newblock
+\BIn{} M.~Aiello, I.~Pratt{-}Hartmann\BCBL {}\ \BBA {} J.~van Benthem\ (\BEDS),
+  \APACrefbtitle {Handbook of Spatial Logics} {Handbook of spatial logics}\
+  (\BPGS\ 217--298).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-1-4020-5587-4\_5}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-1-4020-5587-4_5} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+van Benthem%
+, Bezhanishvili%
+\BCBL {}\ \BBA {} Enqvist%
+}{%
+van Benthem%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+DBLP:conf/lori/BenthemBE17}
+\APACinsertmetastar {%
+DBLP:conf/lori/BenthemBE17}%
+\begin{APACrefauthors}%
+van Benthem, J.%
+, Bezhanishvili, N.%
+\BCBL {}\ \BBA {} Enqvist, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Propositional Dynamic Logic for Instantial
+  Neighborhood Models} {A propositional dynamic logic for instantial
+  neighborhood models}.{\BBCQ}
+\newblock
+\BIn{} A.~Baltag, J.~Seligman\BCBL {}\ \BBA {} T.~Yamada\ (\BEDS),
+  \APACrefbtitle {Logic, Rationality, and Interaction - 6th International
+  Workshop, {LORI} 2017, {Sapporo, Japan, September 11-14}, 2017, Proceedings}
+  {Logic, rationality, and interaction - 6th international workshop, {LORI}
+  2017, {Sapporo, Japan, September 11-14}, 2017, proceedings}\ (\BVOL\ 10455,
+  \BPGS\ 137--150).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-662-55665-8\_10}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-662-55665-8_10} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+van Benthem%
+\ \BBA {} Pacuit%
+}{%
+van Benthem%
+\ \BBA {} Pacuit%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:journals/sLogica/BenthemP11}
+\APACinsertmetastar {%
+DBLP:journals/sLogica/BenthemP11}%
+\begin{APACrefauthors}%
+van Benthem, J.%
+\BCBT {}\ \BBA {} Pacuit, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Dynamic Logics of Evidence-Based Beliefs} {Dynamic
+  logics of evidence-based beliefs}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Studia Logica}{99}{1-3}{61--92}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/s11225-011-9347-x}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s11225-011-9347-x} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+van Benthem%
+, Pacuit%
+\BCBL {}\ \BBA {} Roy%
+}{%
+van Benthem%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+DBLP:journals/games/BenthemPR11}
+\APACinsertmetastar {%
+DBLP:journals/games/BenthemPR11}%
+\begin{APACrefauthors}%
+van Benthem, J.%
+, Pacuit, E.%
+\BCBL {}\ \BBA {} Roy, O.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Toward a Theory of Play: {A} Logical Perspective on
+  Games and Interaction} {Toward a theory of play: {A} logical perspective on
+  games and interaction}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Games}{2}{1}{52--86}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.3390/g2010052} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.3390/g2010052} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+van~der Hoek%
+, Jamroga%
+\BCBL {}\ \BBA {} Wooldridge%
+}{%
+van~der Hoek%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2005}}%
+}]{%
+DBLP:conf/atal/HoekJW05}
+\APACinsertmetastar {%
+DBLP:conf/atal/HoekJW05}%
+\begin{APACrefauthors}%
+van~der Hoek, W.%
+, Jamroga, W.%
+\BCBL {}\ \BBA {} Wooldridge, M\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A logic for strategic reasoning} {A logic for strategic
+  reasoning}.{\BBCQ}
+\newblock
+\BIn{} F.~Dignum, V.~Dignum, S.~Koenig, S.~Kraus, M\BPBI P.~Singh\BCBL {}\ \BBA
+  {} M\BPBI J.~Wooldridge\ (\BEDS), \APACrefbtitle {4th International Joint
+  Conference on Autonomous Agents and Multiagent Systems {(AAMAS} 2005), {July
+  25-29, 2005, Utrecht, The Netherlands}} {4th international joint conference
+  on autonomous agents and multiagent systems {(AAMAS} 2005), {July 25-29,
+  2005, Utrecht, The Netherlands}}\ (\BPGS\ 157--164).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/1082473.1082497}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/1082473.1082497} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+van Oosten%
+}{%
+van Oosten%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+DBLP:journals/mscs/Oosten02}
+\APACinsertmetastar {%
+DBLP:journals/mscs/Oosten02}%
+\begin{APACrefauthors}%
+van Oosten, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Realizability: {A} Historical Essay} {Realizability: {A}
+  historical essay}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Mathematical Structures in Computer
+  Science}{12}{3}{239--263}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1017/S0960129502003626}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1017/S0960129502003626} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Weihrauch%
+}{%
+Weihrauch%
+}{%
+{\protect \APACyear {2000}}%
+}]{%
+DBLP:series/txtcs/Weihrauch00}
+\APACinsertmetastar {%
+DBLP:series/txtcs/Weihrauch00}%
+\begin{APACrefauthors}%
+Weihrauch, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2000}.
+\newblock
+\APACrefbtitle {Computable Analysis - An Introduction} {Computable analysis -
+  an introduction}.
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-642-56999-9}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-642-56999-9} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Weispfenning%
+}{%
+Weispfenning%
+}{%
+{\protect \APACyear {1997}}%
+}]{%
+DBLP:journals/aaecc/Weispfenning97}
+\APACinsertmetastar {%
+DBLP:journals/aaecc/Weispfenning97}%
+\begin{APACrefauthors}%
+Weispfenning, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Quantifier Elimination for Real Algebra - the Quadratic
+  Case and Beyond} {Quantifier elimination for real algebra - the quadratic
+  case and beyond}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Appl. Algebra Eng. Commun. Comput.}{8}{2}{85--101}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/s002000050055} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s002000050055} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wenzel%
+}{%
+Wenzel%
+}{%
+{\protect \APACyear {1999}}%
+}]{%
+DBLP:conf/tphol/Wenzel99}
+\APACinsertmetastar {%
+DBLP:conf/tphol/Wenzel99}%
+\begin{APACrefauthors}%
+Wenzel, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Isar - {A} Generic Interpretative Approach to Readable
+  Formal Proof Documents} {Isar - {A} generic interpretative approach to
+  readable formal proof documents}.{\BBCQ}
+\newblock
+\BIn{} Y.~Bertot, G.~Dowek, A.~Hirschowitz, C.~Paulin{-}Mohring\BCBL {}\ \BBA
+  {} L.~Th{\'{e}}ry\ (\BEDS), \APACrefbtitle {Theorem Proving in Higher Order
+  Logics, 12th International Conference, {TPHOLs'99, Nice, France, September},
+  1999, Proceedings} {Theorem proving in higher order logics, 12th
+  international conference, {TPHOLs'99, Nice, France, September}, 1999,
+  proceedings}\ (\BVOL\ 1690, \BPGS\ 167--184).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/3-540-48256-3_12}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-48256-3_12} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wenzel%
+}{%
+Wenzel%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+DBLP:conf/mkm/Wenzel06}
+\APACinsertmetastar {%
+DBLP:conf/mkm/Wenzel06}%
+\begin{APACrefauthors}%
+Wenzel, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Structured Induction Proofs in {Isabelle/Isar}}
+  {Structured induction proofs in {Isabelle/Isar}}.{\BBCQ}
+\newblock
+\BIn{} J\BPBI M.~Borwein\ \BBA {} W\BPBI M.~Farmer\ (\BEDS), \APACrefbtitle
+  {Mathematical Knowledge Management, 5th International Conference, {MKM} 2006,
+  {Wokingham, UK, August 11-12}, 2006, Proceedings} {Mathematical knowledge
+  management, 5th international conference, {MKM} 2006, {Wokingham, UK, August
+  11-12}, 2006, proceedings}\ (\BVOL\ 4108, \BPGS\ 17--30).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/11812289_3} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/11812289_3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wenzel%
+}{%
+Wenzel%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+Wenzel07isabelle/isar}
+\APACinsertmetastar {%
+Wenzel07isabelle/isar}%
+\begin{APACrefauthors}%
+Wenzel, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{I}sabelle/{I}sar -- a generic framework for
+  human-readable proof documents} {{I}sabelle/{I}sar -- a generic framework for
+  human-readable proof documents}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {UNIVERSITY OF {B}IA\L{}YSTOK.} {University of
+  {B}ia\l{}ystok.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wenzel%
+\ \BBA {} Wiedijk%
+}{%
+Wenzel%
+\ \BBA {} Wiedijk%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+Wenzel2002}
+\APACinsertmetastar {%
+Wenzel2002}%
+\begin{APACrefauthors}%
+Wenzel, M.%
+\BCBT {}\ \BBA {} Wiedijk, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Comparison of {Mizar} and {Isar}} {A comparison of
+  {Mizar} and {Isar}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{J. Autom. Reasoning}{29}{3-4}{389--411}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1023/A:1021935419355}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1023/A:1021935419355} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wiedijk%
+}{%
+Wiedijk%
+}{%
+{\protect \APACyear {2001}}%
+}]{%
+DBLP:conf/tphol/Wiedijk01}
+\APACinsertmetastar {%
+DBLP:conf/tphol/Wiedijk01}%
+\begin{APACrefauthors}%
+Wiedijk, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mizar Light for {HOL} Light} {Mizar light for {HOL}
+  light}.{\BBCQ}
+\newblock
+\BIn{} R\BPBI J.~Boulton\ \BBA {} P\BPBI B.~Jackson\ (\BEDS), \APACrefbtitle
+  {Theorem Proving in Higher Order Logics, 14th International Conference,
+  {TPHOLs 2001, Edinburgh, Scotland, UK, September 3-6}, 2001, Proceedings}
+  {Theorem proving in higher order logics, 14th international conference,
+  {TPHOLs 2001, Edinburgh, Scotland, UK, September 3-6}, 2001, proceedings}\
+  (\BVOL\ 2152, \BPGS\ 378--394).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/3-540-44755-5_26}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/3-540-44755-5_26} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wijesekera%
+}{%
+Wijesekera%
+}{%
+{\protect \APACyear {1990}}%
+}]{%
+DBLP:journals/apal/Wijesekera90}
+\APACinsertmetastar {%
+DBLP:journals/apal/Wijesekera90}%
+\begin{APACrefauthors}%
+Wijesekera, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1990}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Constructive Modal Logics {I}} {Constructive modal
+  logics {I}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Ann. Pure Appl. Logic}{50}{3}{271--301}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1016/0168-0072(90)90059-B}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/0168-0072(90)90059-B} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wijesekera%
+\ \BBA {} Nerode%
+}{%
+Wijesekera%
+\ \BBA {} Nerode%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+DBLP:journals/apal/WijesekeraN05}
+\APACinsertmetastar {%
+DBLP:journals/apal/WijesekeraN05}%
+\begin{APACrefauthors}%
+Wijesekera, D.%
+\BCBT {}\ \BBA {} Nerode, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Tableaux for constructive concurrent dynamic logic}
+  {Tableaux for constructive concurrent dynamic logic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Ann. Pure Appl. Logic}{135}{1-3}{1--72}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1016/j.apal.2004.12.001}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.apal.2004.12.001} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Yu%
+}{%
+Yu%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+DBLP:journals/afp/Yu13}
+\APACinsertmetastar {%
+DBLP:journals/afp/Yu13}%
+\begin{APACrefauthors}%
+Yu, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A formal model of {IEEE} floating point arithmetic} {A
+  formal model of {IEEE} floating point arithmetic}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Archive of Formal Proofs}{}{}{}.
+\newblock
+\begin{APACrefURL}
+  \url{https://www.isa-afp.org/entries/IEEE\_Floating\_Point.shtml}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Zaliva%
+\ \BBA {} Franchetti%
+}{%
+Zaliva%
+\ \BBA {} Franchetti%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+DBLP:conf/icfp/ZalivaF18}
+\APACinsertmetastar {%
+DBLP:conf/icfp/ZalivaF18}%
+\begin{APACrefauthors}%
+Zaliva, V.%
+\BCBT {}\ \BBA {} Franchetti, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{HELIX:} a case study of a formal verification of high
+  performance program generation} {{HELIX:} a case study of a formal
+  verification of high performance program generation}.{\BBCQ}
+\newblock
+\BIn{} K.~Davis\ \BBA {} M.~Rainey\ (\BEDS), \APACrefbtitle {Proceedings of the
+  7th {ACM} {SIGPLAN} International Workshop on Functional High-Performance
+  Computing, {FHPC@ICFP} 2018, {St. Louis, MO, USA, S}eptember 29, 2018}
+  {Proceedings of the 7th {ACM} {SIGPLAN} international workshop on functional
+  high-performance computing, {FHPC@ICFP} 2018, {St. Louis, MO, USA, S}eptember
+  29, 2018}\ (\BPGS\ 1--9).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/3264738.3264739}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/3264738.3264739} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Zhou%
+, Wang%
+\BCBL {}\ \BBA {} Ravn%
+}{%
+Zhou%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1995}}%
+}]{%
+DBLP:conf/hybrid/ChaochenJR95}
+\APACinsertmetastar {%
+DBLP:conf/hybrid/ChaochenJR95}%
+\begin{APACrefauthors}%
+Zhou, C.%
+, Wang, J.%
+\BCBL {}\ \BBA {} Ravn, A\BPBI P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A Formal Description of Hybrid Systems} {A formal
+  description of hybrid systems}.{\BBCQ}
+\newblock
+\BIn{} R.~Alur, T\BPBI A.~Henzinger\BCBL {}\ \BBA {} E\BPBI D.~Sontag\ (\BEDS),
+  \APACrefbtitle {Hybrid Systems {III:} Verification and Control, Proceedings
+  of the {DIMACS/SYCON} Workshop on Verification and Control of Hybrid Systems,
+  {October} 22-25, 1995, {Rutgers University, New Brunswick, NJ}, {USA}}
+  {Hybrid systems {III:} verification and control, proceedings of the
+  {DIMACS/SYCON} workshop on verification and control of hybrid systems,
+  {October} 22-25, 1995, {Rutgers University, New Brunswick, NJ}, {USA}}\
+  (\BVOL\ 1066, \BPGS\ 511--530).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/BFb0020972} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/BFb0020972} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ziliani%
+, Dreyer%
+, Krishnaswami%
+, Nanevski%
+\BCBL {}\ \BBA {} Vafeiadis%
+}{%
+Ziliani%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+Ziliani:2013:MMT:2544174.2500579}
+\APACinsertmetastar {%
+Ziliani:2013:MMT:2544174.2500579}%
+\begin{APACrefauthors}%
+Ziliani, B.%
+, Dreyer, D.%
+, Krishnaswami, N\BPBI R.%
+, Nanevski, A.%
+\BCBL {}\ \BBA {} Vafeiadis, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{{\APACmonth{09}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mtac: A Monad for Typed Tactic Programming in {C}oq}
+  {Mtac: A monad for typed tactic programming in {C}oq}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{SIGPLAN Not.}{48}{9}{87--100}.
+\newblock
+\begin{APACrefURL} \url{http://doi.acm.org/10.1145/2544174.2500579}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2544174.2500579} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

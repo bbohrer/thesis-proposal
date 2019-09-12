@@ -1,0 +1,44 @@
+\BOOKMARK [0][-]{chapter.1}{1 Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{1.1 Related Work}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{1.1.1 Verification of Theorem Provers}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{1.1.2 Verification of CPS}{section.1.1}% 4
+\BOOKMARK [0][-]{chapter.2}{2 Background: Differential Game Logic }{}% 5
+\BOOKMARK [1][-]{section.2.1}{2.1 Syntax}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.2}{2.2 Semantics}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.3}{2.3 Proof Calculus}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{3 Completed Work: Logical Foundations}{}% 9
+\BOOKMARK [1][-]{section.3.1}{3.1 Formalization of in Isabelle/HOL}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.2}{3.2 Definite Descriptions in dL}{chapter.3}% 11
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Related Work}{section.3.2}% 12
+\BOOKMARK [0][-]{chapter.4}{4 Completed Work: End-to-End Robot Verification}{}% 13
+\BOOKMARK [1][-]{section.4.1}{4.1 VeriPhy Pipeline for End-to-End Verification}{chapter.4}% 14
+\BOOKMARK [2][-]{subsection.4.1.1}{4.1.1 Related Work}{section.4.1}% 15
+\BOOKMARK [1][-]{section.4.2}{4.2 Case Study: End-to-End Ground Robotics Verification}{chapter.4}% 16
+\BOOKMARK [2][-]{subsection.4.2.1}{4.2.1 Model}{section.4.2}% 17
+\BOOKMARK [2][-]{subsection.4.2.2}{4.2.2 Proofs}{section.4.2}% 18
+\BOOKMARK [2][-]{subsection.4.2.3}{4.2.3 Simulations}{section.4.2}% 19
+\BOOKMARK [2][-]{subsection.4.2.4}{4.2.4 Related Work}{section.4.2}% 20
+\BOOKMARK [0][-]{chapter.5}{5 Completed Work: CGL: Constructive Game Logic}{}% 21
+\BOOKMARK [1][-]{section.5.1}{5.1 Related Work}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.2}{5.2 Syntax}{chapter.5}% 23
+\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 Example Games}{section.5.2}% 24
+\BOOKMARK [1][-]{section.5.3}{5.3 Semantics}{chapter.5}% 25
+\BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 Formula and game semantics}{section.5.3}% 26
+\BOOKMARK [2][-]{subsection.5.3.2}{5.3.2 Duality semantics}{section.5.3}% 27
+\BOOKMARK [2][-]{subsection.5.3.3}{5.3.3 Demonic semantics}{section.5.3}% 28
+\BOOKMARK [1][-]{section.5.4}{5.4 Theory Results}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.5}{5.5 Soundness Theorem}{chapter.5}% 30
+\BOOKMARK [1][-]{section.5.6}{5.6 Status}{chapter.5}% 31
+\BOOKMARK [0][-]{chapter.6}{6 Proposed Work: CdGL}{}% 32
+\BOOKMARK [1][-]{section.6.1}{6.1 CdGL Theory}{chapter.6}% 33
+\BOOKMARK [1][-]{section.6.2}{6.2 Example System}{chapter.6}% 34
+\BOOKMARK [2][-]{subsection.6.2.1}{6.2.1 Relating Classical and Constructive Games}{section.6.2}% 35
+\BOOKMARK [2][-]{subsection.6.2.2}{6.2.2 Relaxing \(Constructive\) Games to \(Constructive\) Systems}{section.6.2}% 36
+\BOOKMARK [0][-]{chapter.7}{7 Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}{}% 37
+\BOOKMARK [1][-]{section.7.1}{7.1 Proposed Design}{chapter.7}% 38
+\BOOKMARK [1][-]{section.7.2}{7.2 Proposed Theory}{chapter.7}% 39
+\BOOKMARK [1][-]{section.7.3}{7.3 Related Work}{chapter.7}% 40
+\BOOKMARK [0][-]{chapter.8}{8 Proposed Work: ProofPlex, Proof-Directed Game Synthesis}{}% 41
+\BOOKMARK [0][-]{chapter.9}{9 Conclusion}{}% 42
+\BOOKMARK [1][-]{section.9.1}{9.1 Timeline}{chapter.9}% 43
+\BOOKMARK [0][-]{appendix*.34}{References}{}% 44
