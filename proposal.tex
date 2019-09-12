@@ -275,35 +275,27 @@ Fifth Member
 %Hi
 %\end{dedication}
 \begin{abstract}
-Cyber-physical systems (CPSs) combining discrete control and continuous physical dynamics are pervasive in modern society: examples include driver assistance in cars, industrial robotics, airborne collision avoidance systems, the electrical grid, and medical devices.
-Many of these systems are safety-critical or even life-critical because they operate in close proximity to humans and in some cases perform life-sustaining functions.
-Formal safety verification of these systems is a key tool for attaining the strongest possible guarantees that they meet their safety objectives.
-Therefore, as the importance of CPS in society grows, so does the importance of their formal verification.
-\emph{Hybrid systems} models, in particular, have succeeded in providing a common formalism for the discrete and continuous aspects of a CPS.
-Of the available approaches to verification, hybrid systems theorem-proving in differential dynamic logic (\dL) and its generalization differential \emph{game} logic (\dGL) is notable for its strong logical foundations and successful application in a number of case studies using the theorem provers \KeYmaera and \KeYmaeraX.
+Cyber-physical systems (CPSs) combining discrete control and continuous physical dynamics are pervasive in modern society: 
+examples include driver assistance in cars, industrial robotics, airborne collision avoidance systems, and the electrical grid.
+Many of these systems are safety-critical  because they operate in close proximity to humans.
+Formal safety verification of these systems is important because it is a key tool for attaining the strongest possible safety guarantees.
 
-Hybrid systems theorem proving has been a boon to CPS verification:
-hybrid systems are abstract enough that verification is tractable, but detailed enough to capture realistic control logic and physics.
-However, hybrid-system verification results are leaky: because we are truly interested in the safety of a system \emph{implementation},
-we lose safety guarantees when implementations are not faithful to our model.
-Further still, a safety result in a formal logic such as \dGL is lost if the software tool which checks the proof is \emph{unsound}.
+\emph{Hybrid systems} models, in particular, are a successful formalism for CPS.
+Hybrid systems theorem-proving in differential dynamic logic (\dL) and its generalization differential \emph{game} logic (\dGL) are notable for strong logical foundations and successful application in  case studies using the theorem provers \KeYmaera and \KeYmaeraX.
+However, safety verification of models does not imply safety of \emph{implementations}, which might not be faithful to the model.
+Further still, a formal proof means nothing if the proof-checking software is \emph{unsound}.
 
-My thesis is that these leaks can be sealed by placing the entire verification toolchain, from checking of safety proofs to runtime execution, on a common foundation in constructive logic and programming languages.
+This thesis addresses implementation and soundness gaps by using constructive logic and programming languages as the foundation of an end-to-end verification toolchain.
 That is: \emph{Constructive Differential Game Logic (\CdGL) enables practical, end-to-end verification of cyber-physical systems.}
-\CdGL does so by connecting the synthesis of practical implementations down to bulletproof theoretical foundations.
-We show that a logical (corr.\ languages) approach provides a keystone against which high-level proofs can be rigorously connected to their implementations and foundations.
-The same approach even facilitates the proof author's connection to their proof, enabling proof languages beyond the state of the art.
+\CdGL enables synthesis of implementations with bulletproof theoretical foundations.
+Logic is the keystone of the end-to-end connection from high-level proofs and foundations to implementations.
+Our pursuit of practical proving includes innovations in the proof scripting language itself.
 
-The first step of the toolchain we propose is a proof language Kaisar for constructive proofs about hybrid systems (or games, since adversarial dynamics are supported).
-We then propose the \CdGL, its constructive logical foundation.
-Unlike its classical predecessors \dGL and \dL, a \CdGL proof contains, in the general case, enough information to synthesize both monitors and controllers, which respectively check that the external world meets modeling assumptions and compute model-compliant (thus safe) control choices for the CPS implementation.
-The push-button-synthesized monitor itself is proven correct down to machine-code level, with an end-to-end formal guarantee in a theorem prover that the implementation code is safe.
-To connect proofs to their foundations, we also contribute a formalization of the \KeYmaeraX prover core's soundness in \Isabelle, so that proofs can be automatically cross-checked in \Isabelle, in the common special case of hybrid systems proofs.
-We evaluate our toolchain on ground robotics models, culminating in a model capable of general 2D driving with acceleration on arc-shaped paths.
-Modeling and implementation mutually inform each other: if the implementation is unsafe or physical assumptions are unrealistic, monitors ensure we notice during testing.
-More subtly, but just as important: our correct-by-construction monitors ensure our model was flexible enough for practical use, as an overly conservative model would lead to monitors which always report unsafety.
-Not only does our end-to-end approach provide formal guarantees of runtime safety while presenting a clean linguistic interface to proof, but it also validates environmental assumptions,
-providing valuable feedback on the realism of modeling assumptions.
+\CdGL proofs, in contrast to \dGL, are suitable for synthesizing \emph{controllers} which determine safe actions for a CPS and \emph{monitors} which check the compliance of the external environment with model assumptions.
+The synthesized code is automatically proven correct down to machine-code level.
+The foundations are also strengthened by our formalization of \dL's soundness in \Isabelle, allowing proofs in the fragment \dL to be exported and rechecked.
+We evaluate the toolchain on a 2D robot which follows arcs.
+The model and implementation cross-validate each other: monitors catch incorrect code and assumptions, while testing with monitors enabled allows us to assess the realism of the model.
 \end{abstract}
 
 %\begin{acknowledgments}
