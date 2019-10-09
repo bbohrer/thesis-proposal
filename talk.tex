@@ -116,9 +116,114 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\ModelPlex}{ModelPlex\xspace}
 \providecommand{\KeYmaeraX}{KeYmaera X\xspace}
 
+
 % CdGL
-\newcommand{\GL}{GL}
-\newcommand{\CdGL}{CdGL}
+\newcommand{\GL}{GL\xspace}
+\newcommand{\CdGL}{CdGL\xspace}
+
+
+\newcommand{\engineer}{\includegraphics[width=1in]{img/rosie.png}}
+\newcommand{\logician}{\includegraphics[width=1in]{img/hilbert.png}}
+\newcommand{\logicuser}{\includegraphics[width=1in]{img/hamilton.png}}
+
+\newcommand{\say}[2]{\small\begin{minipage}{1.3in}{#1}{#2}\end{minipage}}
+\newcommand{\sayHappy}[1]{\say{#1}{\Smiley}}
+\newcommand{\saySad}[1]{\say{#1}{\Frowny}}
+\newcommand{\turn}{\textsc{Turn}}
+\newcommand{\nim}{\textsc{Nim}}
+\newcommand{\cake}{\textsc{CC}}
+
+
+\newcommand{\rangevar}{\textsf{Range}}
+\newcommand{\testvar}{\textsf{test}}
+\newcommand{\elem}[2]{\textsf{Dec}[#1](#2)}
+\newcommand{\spc}{\hspace{0.15in}}
+\newcommand{\kwmod}{\textsf{mod}}
+\newcommand{\emod}[2]{#1~\kwmod~#2}
+\newcommand{\kwdiv}{\textsf{div}}
+\newcommand{\ediv}[2]{#1~\kwdiv~#2}
+\newcommand{\kwsig}{\Sigma}
+\newcommand{\sig}[1]{\kwsig(#1)}
+\newcommand{\interp}{I}
+\newcommand{\valset}[1]{\mathfrak{V}(#1)}
+\newcommand{\kwbool}{\m{\mathbb{B}}}
+\newcommand{\kwint}{\m{\mathbb{Z}}}
+\newcommand{\kwreal}{\m{\mathbb{R}}}
+\newcommand{\kwintsig}{\Xi}
+\newcommand{\intsig}[1]{\kwintsig(#1)}
+\newcommand{\churchkleene}{\omega_{\text{CK}}}
+\newcommand{\restL}[1]{#1_L}
+\newcommand{\restR}[1]{#1_R}
+\newcommand{\apL}[1]{#1_{\langle{0}\rangle}}
+\newcommand{\apR}[1]{#1_{\langle{1}\rangle}}
+\newcommand{\dpL}[1]{#1_{[0]}}
+\newcommand{\dpR}[1]{#1_{[1]}}
+
+\newcommand{\va}{a}
+\newcommand{\vb}{b}
+\newcommand{\vca}{\overline{a}}
+\newcommand{\vcb}{\overline{b}}
+
+\newcommand{\btt}{\texttt{tt}}
+\newcommand{\bff}{\texttt{ff}}
+\newcommand{\stt}{\top}
+\newcommand{\sff}{\bot}
+\newcommand{\demonactive}[2]{\textrm{aD}(#1,#2)}
+\newcommand{\demondormant}[2]{\textrm{dD}(#1,#2)}
+\newcommand{\sren}[3]{\urename[{#1}]{#2}{#3}}%{\subst[{#1}]{#2}{#3}}
+\newcommand{\ssub}[3]{\subst[{#1}]{#2}{#3}}
+\newcommand{\eren}[3]{\urename[{#1}]{#2}{#3}}%{\subst[{#1}]{#2}{#3}}
+\newcommand{\earen}[2]{\urename[{#1}]{\boundvars{#2}}{\vec{y}}}%{\subst[{#1}]{\boundvars{#2}}{\vec{y}}}
+
+\newcommand{\allcon}{\allregion}
+\newcommand{\somesemi}[2]{\epsilon #1~|~#2}
+
+\newcommand{\rzF}[2]{#1 \vdash #2}
+\newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
+\newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
+\newcommand{\rzFst}[1]{#1_0}
+\newcommand{\rzSnd}[1]{#1_1}
+\newcommand{\rzThd}[1]{#1_2}
+\newcommand{\rzFrt}[1]{#1_3}
+\newcommand{\rzApp}[2]{#1\,#2}
+\newcommand{\sa}{\omega}
+\renewcommand{\sb}{\nu}
+\newcommand{\Sc}{\mu}
+\renewcommand{\aa}{a}
+\newcommand{\ab}{b}
+\newcommand{\ac}{c}
+\newcommand{\da}{d}
+\newcommand{\db}{D}
+\newcommand{\dc}{\DJ}
+\newcommand{\allRz}{\mathcal{R}\mathbf{z}}
+\newcommand{\rzfor}[1]{#1\,\allRz}
+
+\newcommand{\mto}{\rightharpoonup}
+\newcommand{\esub}[3]{[{#3}/{#2}]{#1}}
+\newcommand{\tsub}[3]{\subst[#1]{#2}{#3}}
+
+
+%\newcommand{\rzF}[2]{#1 \vdash #2}
+%\newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
+%\newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
+\newcommand{\rzNil}{\epsilon}
+\newcommand{\rzCons}[2]{(#1,#2)}
+\newcommand{\rzBLam}[2]{\lambda #1:\allstate.~#2}
+\newcommand{\rzHOLam}[3]{\Lambda #1:\rzfor{#2}.~#3}
+\newcommand{\rzFOLam}[3]{\Lambda #1:#2.~#3}
+%\newcommand{\rzApp}[2]{#1\,#2}
+\newcommand{\fintR}[1]{\fint{#1}} %{#1#2}
+\newcommand*{\strategyforR}[2][]{{#2}\Langle{#1}\Rangle}
+\newcommand*{\istrat}[3][]{\strategyforR[#1]{#2}^{#3}}
+
+\newcommand*{\dstrategyforR}[2][]{{#2}\lenvelopewide{#1}\renvelopewide}
+%{{#2}\llbracket{#1}\rrbracket}
+\newcommand*{\idstrat}[3][]{\dstrategyforR[#1]{#2}^{#3}}
+\newcommand{\cint}[1]{\fint{\bigwedge #1}}
+\newcommand{\cintR}[1]{\fintR{\bigwedge #1}}
+\newcommand{\seq}[2]{#1 \vdash #2}
+\newcommand{\proves}[3]{#1\allowbreak\vdash #2 \allowbreak \mathop{:} #3}
+
 
 \theoremstyle{plain}
 \theoremstyle{definition}
@@ -180,7 +285,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 
 
 \newcommand{\ah}[2]{\action<#1-|alert@#1>{#2}}
-\newcommand{\ac}[2]{\action<#1->{#2}}
+\newcommand{\acl}[2]{\action<#1->{#2}}
 
 \section{Motivation}
 \begin{frame}[t]{\only<1>{Safety-Critical CPS Need Safety}
@@ -216,12 +321,12 @@ Discrete Control & Continuous Dynamics & Syntactic Proof
 %Pacemaker: 60k, Space shuttle: 400k, car: 100M, F22 > 1M, military drone >3M, 787: 14M, F35: 24M
 %codebases
 \ah{1}{Application}         & \ah{2}{Models LOC (approx.)}                      & \ah{3}{Real system LOC~\cite{codebases,OpenAPS}} \\
-\ac{1}{Insulin pump}        & \ac{2}{30~\cite{COBELLI198227}}                   & \ac{3}{35K}  \\ % number of equations in pape
-\ac{1}{Pacemaker}           & \ac{2}{650~\cite{DBLP:conf/cpsweek/AndalamMRT16}} & \ac{3}{60K}  \\ % 35 cells * 19 lines
-\ac{1}{Space shuttle}       & \ac{2}{40~\cite{DBLP:conf/cpsweek/ChanM17}}       & \ac{3}{400K}\\ % artifact provided: spaceex
-\ac{1}{Modern drone}        & \ac{2}{80~\cite{DBLP:conf/emsoft/RickettsML16}}   & \ac{3}{3M}\\
-\ac{1}{Commercial airliner} & \ac{2}{84-150~\cite{DBLP:conf/fm/PlatzerC09,DBLP:conf/emsoft/JeanninGKGSZP15}} & \ac{3}{14M} \\  % tangential roundabout study, safe_explicit.kyx 
-\ac{1}{Modern car}          & \ac{2}{29-150~\cite{DBLP:conf/fm/LoosPN11,DBLP:journals/ral/BohrerTMSP19}}  & \ac{3}{100M} %FM kym3 proof, 
+\acl{1}{Insulin pump}        & \acl{2}{30~\cite{COBELLI198227}}                   & \acl{3}{35K}  \\ % number of equations in pape
+\acl{1}{Pacemaker}           & \acl{2}{650~\cite{DBLP:conf/cpsweek/AndalamMRT16}} & \acl{3}{60K}  \\ % 35 cells * 19 lines
+\acl{1}{Space shuttle}       & \acl{2}{40~\cite{DBLP:conf/cpsweek/ChanM17}}       & \acl{3}{400K}\\ % artifact provided: spaceex
+\acl{1}{Modern drone}        & \acl{2}{80~\cite{DBLP:conf/emsoft/RickettsML16}}   & \acl{3}{3M}\\
+\acl{1}{Commercial airliner} & \acl{2}{84-150~\cite{DBLP:conf/fm/PlatzerC09,DBLP:conf/emsoft/JeanninGKGSZP15}} & \acl{3}{14M} \\  % tangential roundabout study, safe_explicit.kyx 
+\acl{1}{Modern car}          & \acl{2}{29-150~\cite{DBLP:conf/fm/LoosPN11,DBLP:journals/ral/BohrerTMSP19}}  & \acl{3}{100M} %FM kym3 proof, 
   \end{tabular}
 \end{frame}
 
@@ -236,18 +341,10 @@ Why are implementations more complicated than models?
   \end{align*}
 \end{frame}
 
-\newcommand{\engineer}{\includegraphics[width=1in]{img/rosie.png}}
-\newcommand{\logician}{\includegraphics[width=1in]{img/hilbert.png}}
-\newcommand{\logicuser}{\includegraphics[width=1in]{img/hamilton.png}}
-
-\newcommand{\say}[2]{\small\begin{minipage}{1.3in}{#1}{#2}\end{minipage}}
-\newcommand{\sayHappy}[1]{\say{#1}{\Smiley}}
-\newcommand{\saySad}[1]{\say{#1}{\Frowny}}
-
 \begin{frame}[t]{End-to-end Verification Must Meet Competing Needs}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \ac{1}{Engineer} & \ac{2}{Logician} & \ac{3}{Logic-User}
+    \acl{1}{Engineer} & \acl{2}{Logician} & \acl{3}{Logic-User}
   \end{tabular}
 \end{frame}
 
@@ -255,7 +352,7 @@ Why are implementations more complicated than models?
 \begin{frame}[t]{General-purpose interactive theorem proving}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \ac{1}{\saySad{Generated code is \\hard to integrate}} & \ac{2}{\sayHappy{Strong Foundations!}} & \ac{3}{\saySad{Long Proofs!}}
+    \acl{1}{\saySad{Generated code is \\hard to integrate}} & \acl{2}{\sayHappy{Strong Foundations!}} & \acl{3}{\saySad{Long Proofs!}}
   \end{tabular}
   \begin{itemize}
   \item ROSCoq:~\cite{DBLP:conf/itp/AnandK15}       Coq proofs + control synthesis
@@ -269,7 +366,7 @@ Why are implementations more complicated than models?
 % LTLMoP, TuLiP, Seshia
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \ac{1}{\sayHappy{Synthesis tools!}} & \ac{2}{\saySad{Paper foundations}} & \ac{3}{\saySad{Hard models!}}
+    \acl{1}{\sayHappy{Synthesis tools!}} & \acl{2}{\saySad{Paper foundations}} & \acl{3}{\saySad{Hard models!}}
   \end{tabular}
   \begin{itemize}
   \item LTLMoP~\cite{DBLP:conf/iros/FinucaneJK10} and TuLiP~\cite{DBLP:conf/IEEEcca/FilippidisDLOM16}: Fancy front-end, synthesis via discretized model
@@ -281,7 +378,7 @@ Why are implementations more complicated than models?
 \begin{frame}[t]{\dL Verification + Synthesis (before)}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \ac{1}{\saySad{Limited synthesis}} & \ac{2}{\saySad{Paper foundations}} & \ac{3}{\saySad{Don't like tactics!}}
+    \acl{1}{\saySad{Limited synthesis}} & \acl{2}{\saySad{Paper foundations}} & \acl{3}{\saySad{Don't like tactics!}}
   \end{tabular}
   \begin{itemize}
   \item Uniform substitution~\cite[\S35,\S40]{Church:1956} is foundation of differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer17}
@@ -309,7 +406,7 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 \begin{frame}[t]{\CdGL Verification + Synthesis (after)}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \ac{1}{\sayHappy{Full synthesis suite!}} & \ac{2}{\sayHappy{Formal foundations!}} & \ac{3}{\sayHappy{Structured proofs!}}
+    \acl{1}{\sayHappy{Full synthesis suite!}} & \acl{2}{\sayHappy{Formal foundations!}} & \acl{3}{\sayHappy{Structured proofs!}}
   \end{tabular}
 \begin{tabular}{@{\hskip-0.2in}l@{\hskip-0.2in}l}
 \begin{minipage}{0.6\textwidth}
@@ -333,12 +430,46 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 
 
 \section{Completed Work}
-
+% Patter: We're now going to focus in on this thesis proper.
+% First I'm going to discuss the completed works of the thesis, and for that I'm going to break
+% down the thesis as a verification *pipeline*, as a series of steps in proof and implementation.
+%
+% Just to foreshadow: We will come back to the overview when I cover proposed work.
+% The pipeline will be the same, rather the proposed work will achieve a better balance for our
+% three characters within that pipeline.
 \begin{frame}[t]{Approach of Thesis}
 \begin{center}
   \includegraphics[width=4.4in]{img/veriphy-overview.png}
 \end{center}
 \end{frame}
+
+\begin{frame}[t]{2D Driving Model is Source}
+\end{frame}
+
+\begin{frame}[t]{Sandbox Safety Proof is Synthesized}
+\end{frame}
+
+\begin{frame}[t]{Proof Term is Cross-Checked}
+\end{frame}
+
+\begin{frame}[t]{Cross-checker is Verified}
+\end{frame}
+
+\begin{frame}[t]{Sandbox is Discretized}
+\end{frame}
+
+\begin{frame}[t]{Discrete Sandbox is Compiled}
+\end{frame}
+
+\begin{frame}[t]{Compiled Code is Simulated}
+\end{frame}
+
+\begin{frame}[t]{Compiled Code is Run on Hardware}
+\end{frame}
+
+\begin{frame}[t]{More Hardware Platforms Available}
+\end{frame}
+
 %\begin{minipage}[b]{2in}
 \begin{frame}[t]{Components of Thesis}
 
@@ -402,22 +533,97 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 %  \label{fig:goals-diagram}
 %\end{figure}
 \end{frame}
-\section{Proposed Work: \CdGL Logic}
+\section{Ongoing Work: \CdGL Logic}
+% Say: CGL is already done, but for the sake of time we're presenting it together with CdGL
+\begin{frame}[t]{Games Support Synthesis}
+  \begin{tabular}{ccc}
+    Modality                  & Curry-Howard & Synthesizes \\
+    $\dbox{\alpha}{\phi}$     & Demon strategy for $\phi$ after $\alpha$ & Monitor \\
+    $\ddiamond{\alpha}{\phi}$ & Angel strategy for $\phi$ after $\alpha$ & Control
+  \end{tabular}\pause
+  \begin{itemize}
+  \item Games support monitor \emph{and} control synthesis from \emph{one} proof
+  \item Curry Howard foundation promotes general-case, robust tools
+  \item Game models are often simpler than systems
+  \end{itemize}
+\end{frame}
+
+% Formula language, game language by Nim example, example properties
+% Realizers, semantics
+% quick 1-slide "proof terms exist"
+% Soundness, prog+pres, implications for practice
+% What's next: ODE's
+\begin{frame}[t]{Nim Demonstrates Discrete Games}
+  \begin{align*}
+\turn &= \big\{\ptest{c>0};
+                 \{\humod{c}{c-1} \cup \humod{c}{c-2} \cup \humod{c}{c-3}\};
+                \ptest{c \geq 0}\big\};\\
+\nim &=\Big\{\turn; \pdual{\turn}\Big\}\\
+\textsf{Live} &\equiv c > 0 \limply \emod{c}{4} \neq 1 \limply \ddiamond{\prepeat{\nim}}{\bff}\\
+\textsf{Safe} &\equiv c > 0 \limply \emod{c}{4} = 0 \limply \dbox{\drepeat{\nim}}{\,c = 0}
+  \end{align*}
+  \begin{itemize}
+  \item $c \in \mathbb{N}$ counts remaining pebbles
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Realizers Capture Computation}
+  \begin{align*}
+\aa,\ab,\ac
+&\bebecomes \rzBLam{\om}{f} \alternative \rzFOLam{x}{\tau}{\aa} \alternative \rzHOLam{x}{\phi}{\aa} \\
+&\alternative  \rzNil \alternative \rzCons{\aa}{\ab}\alternative \rzApp{\aa}{v} \alternative \rzApp{\aa}{\ab} \alternative \rzApp{\aa}{\om} \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
+  \end{align*}
+\begin{itemize}
+  \item Semantics need to know: ``How does Angel make decisions?''
+  \item Angel uses some base programming language $f$
+  \item $\rzBLam{\om}{f}, \rzFOLam{x}{\tau}{\aa},$ and $\rzHOLam{x}{\phi}{\aa}$ take state $\om,$ base type $\tau,$ or proof parameters $\phi$, e.g., ``Demon told me how they proved $\phi$''
+  \item Conjunctive proofs $\rzCons{\aa}{\ab},$ or nullary tuple $\rzNil$ when no choice needed
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Realizability Semantics}
+\end{frame}
 
 \begin{frame}[t]{}
-  
+\end{frame}
+
+\begin{frame}[t]{}
 \end{frame}
 
 \section{Proposed Work: Kaisar Language}
 
 \begin{frame}[t]{}
-  
+
 \end{frame}
 
+\begin{frame}[t]{}
+\end{frame}
+
+
+\begin{frame}[t]{}
+\end{frame}
+
+\begin{frame}[t]{}
+\end{frame}
+
+\begin{frame}[t]{}
+\end{frame}
+
+\begin{frame}[t]{}
+\end{frame}
 \section{Proposed Work: Controller Synthesis}
 
 \begin{frame}[t]{}
   
+\end{frame}
+
+\begin{frame}[t]{}
+\end{frame}
+
+\begin{frame}[t]{}
+\end{frame}
+
+\begin{frame}[t]{}
 \end{frame}
 
 \section{Conclusion}
