@@ -1,4 +1,9 @@
-all:
+talk:
+	pdflatex talk.tex
+	bibtex talk
+	pdflatex talk.tex
+	pdflatex talk.tex
+doc:
 	pdflatex proposal.tex
 	bibtex proposal
 	pdflatex proposal.tex

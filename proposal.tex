@@ -2535,6 +2535,7 @@ When liveness proofs are inlined, they expand the set of behaviors, which preser
 The Demonic relaxation of a safe system can then be fed to \VeriPhy as we already know it is safe too.
 
 
+%TODO: Discuss Meta-F*
 \chapter{Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}
 \label{ch:kaisar}
 At this point we have identified the logic \CdGL as the backbone of our verification toolchain.
@@ -2705,7 +2706,7 @@ Consider any $\alpha,\beta,\G$ such that $C(\beta) = \alpha$.
 Then we say the pair $(A,F)$ is a \emph{modular proof} of $\ddiamond{C(\beta)}{\phi}$ in context $\G$ if:
 \begin{enumerate}
 \item $\proves{\G}{A}{D(\beta)}$
-\item $F$ is a natural transformation  from programs to proofs where for every program $\gamma$ we have $\proves{\G}{F(\gamma)}{(D(\gamma) \limply \ddiamond{C(\gamma)}{\phi})}$.
+\item $F$ is a natural transformation from programs to proofs where for every program $\gamma$ we have $\proves{\G}{F(\gamma)}{(D(\gamma) \limply \ddiamond{C(\gamma)}{\phi})}$.
 \end{enumerate}
 \end{definition}
 While this definition is subtle, the basic idea is to decompose the proven-program $\alpha$ as a subprogram $\beta$ in a context $C$.
