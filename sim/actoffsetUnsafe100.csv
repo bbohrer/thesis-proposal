@@ -1,0 +1,38 @@
+Example ctrlSpeed=-100 obstacleSpeed=0 actuatorOffset=10 duration=10 initialDistance=750000 reactionTime=220
+time,d,v,vact,tact,actuation
+0,750000,0,100,0,Normal
+220,725800,100,100,0,Normal
+440,701600,100,100,0,Normal
+660,677400,100,100,0,Normal
+880,653200,100,100,0,Normal
+1100,629000,100,100,0,Normal
+1320,604800,100,100,0,Normal
+1540,580600,100,100,0,Normal
+1760,556400,100,100,0,Normal
+1980,532200,100,100,0,Normal
+2200,508000,100,100,0,Normal
+2420,483800,100,250,0,Normal
+2640,426600,250,250,0,Normal
+2860,369400,250,250,0,Normal
+3080,312200,250,250,0,Normal
+3300,255000,250,250,0,Normal
+3520,197800,250,250,0,Normal
+3740,140600,250,250,0,Normal
+3960,83400,250,250,0,Normal
+4180,26200,250,250,0,Fallback
+4400,24000,0,250,0,Fallback
+4620,21800,0,250,0,Fallback
+4840,19600,0,250,0,Fallback
+5060,17400,0,250,0,Fallback
+5280,15200,0,250,0,Fallback
+5500,13000,0,250,0,Fallback
+5720,10800,0,250,0,Fallback
+5940,8600,0,250,0,Fallback
+6160,6400,0,250,0,Fallback
+6380,4200,0,250,0,Fallback
+6600,2000,0,250,0,Fallback
+,,,,,Plant Violation
+,,,,,Simulation summary
+,,,,,Who CtrlMon
+,,,,,Engage distance 26200
+,,,,,Final distance -200

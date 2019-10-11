@@ -1,0 +1,24 @@
+time,d,v,vact,tact
+166,667000,48,250,0,Normal
+351,652000,158,250,0,Normal
+536,607000,259,250,0,Normal
+721,568000,256,250,0,Normal
+907,524000,244,250,0,Normal
+1092,482000,245,250,0,Normal
+1277,431000,248,250,0,Normal
+1462,389000,251,250,0,Normal
+1648,348000,251,250,0,Normal
+1832,302000,245,250,0,Normal
+2017,256000,245,250,0,Normal
+2203,211000,251,250,0,Normal
+2426,153000,250,250,0,Normal
+2611,107000,248,250,0,Normal
+2795,58000,248,250,0,Normal
+2980,16000,245,0,0,Normal
+,Plant Violation
+,,,,,Experiment summary
+,,,,,Who Ctrl
+,,,,,Engage distance (- WORST_STOP_DIST) 16000
+,,,,,Final distance  (- WORST_STOP_DIST) -7000
+,,,,,Engage distance (measured) 74000
+,,,,,Final distance (measured) 51000
