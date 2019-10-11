@@ -1,5 +1,7 @@
 \documentclass[wide]{beamer}
 \usetheme{Pittsburgh}
+\usepackage{listings}
+\usepackage[utf8x]{inputenc}
 \usepackage{etex}
 \usepackage[setrelation]{math}
 \usepackage[modernsign,substopindex,shortmquant,mquantifiertype,
@@ -111,6 +113,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\tder}[2]{\der{#2(#1)}}
 \newcommand{\hasdiff}[1]{\mathsf{D}(#1)}
 \newcommand{\vepsilon}{\xi}
+\newcommand{\stepsto}{\allowbreak\mapsto\allowbreak}
 \newcommand{\bebecomes}{\mathrel{::=}}
 \newcommand{\alternative}{~|~}
 \newcommand{\ModelPlex}{ModelPlex\xspace}
@@ -120,15 +123,18 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 % CdGL
 \newcommand{\GL}{GL\xspace}
 \newcommand{\CdGL}{CdGL\xspace}
+\newcommand{\dRL}{dRL\xspace}
 
 
-\newcommand{\engineer}{\includegraphics[width=1in]{img/rosie.png}}
-\newcommand{\logician}{\includegraphics[width=1in]{img/hilbert.png}}
-\newcommand{\logicuser}{\includegraphics[width=1in]{img/hamilton.png}}
+\newcommand{\engineer}[1][1in]{\includegraphics[width=#1]{img/rosie.png}}
+\newcommand{\logician}[1][1in]{\includegraphics[width=#1]{img/hilbert.png}}
+\newcommand{\logicuser}[1][1in]{\includegraphics[width=#1]{img/hamilton.png}}
 
-\newcommand{\say}[2]{\small\begin{minipage}{1.3in}{#1}{#2}\end{minipage}}
-\newcommand{\sayHappy}[1]{\say{#1}{\Smiley}}
-\newcommand{\saySad}[1]{\say{#1}{\Frowny}}
+
+\newcommand{\speak}[2]{\small\begin{minipage}{1.3in}{#1}{#2}\end{minipage}}
+\newcommand{\say}[1]{\speak{#1}{}}
+\newcommand{\sayHappy}[1]{\speak{#1}{\Smiley}}
+\newcommand{\saySad}[1]{\speak{#1}{\Frowny}}
 \newcommand{\turn}{\textsc{Turn}}
 \newcommand{\nim}{\textsc{Nim}}
 \newcommand{\cake}{\textsc{CC}}
@@ -212,7 +218,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\rzHOLam}[3]{\Lambda #1:\rzfor{#2}.~#3}
 \newcommand{\rzFOLam}[3]{\Lambda #1:#2.~#3}
 %\newcommand{\rzApp}[2]{#1\,#2}
-\newcommand{\fintR}[1]{\fint{#1}} %{#1#2}
+\newcommand{\fintR}[1]{\fint{#1}{}} %{#1#2}
 \newcommand*{\strategyforR}[2][]{{#2}\Langle{#1}\Rangle}
 \newcommand*{\istrat}[3][]{\strategyforR[#1]{#2}^{#3}}
 
@@ -223,6 +229,150 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\cintR}[1]{\fintR{\bigwedge #1}}
 \newcommand{\seq}[2]{#1 \vdash #2}
 \newcommand{\proves}[3]{#1\allowbreak\vdash #2 \allowbreak \mathop{:} #3}
+
+\newcommand{\edOpencons}{\langle}
+\newcommand{\edClosecons}{\rangle}
+\newcommand{\edSepcons}{,}
+\newcommand{\edcons}[2]{\edOpencons{#1}\edSepcons{#2}\edClosecons}
+%\newcommand{\edcons}[2]{\langle#1,#2\rangle}
+\newcommand{\ebOpencons}{[}
+\newcommand{\ebSepcons}{,}
+\newcommand{\ebClosecons}{]}
+\newcommand{\ebcons}[2]{\ebOpencons#1\ebSepcons#2\ebClosecons}
+\newcommand{\eCons}[2]{\lstrike{#1,#2}\rstrike}
+\newcommand{\eSnoc}[2]{\llensehat{#1,#2}\rlensehat}
+\newcommand{\pmodality}[2]{\llensehat{#1}\rlensehat{#2}}
+\newcommand{\econs}[2]{\eCons{#1}{#2}}
+\newcommand{\einjL}[1]{\ell \cdot #1}
+\newcommand{\einjR}[1]{r \cdot #1}
+\newcommand{\kwcase}{\textrm{case}}
+\newcommand{\ecaseHead}[1]{\langle\kwcase\textrm{ }#1{\text{\textrm{ of }}}}
+\newcommand{\ecaseLeft}[2]{#1\Rightarrow~#2}
+\newcommand{\ecaseRight}[2]{~|~#1\Rightarrow~#2}
+\newcommand{\ecaseEnd}{\rangle}
+\newcommand{\ecasegen}[5]{\ecaseHead{#1}\allowbreak\ecaseLeft{#2}{#3}\allowbreak\ecaseRight{#4}{#5}\ecaseEnd}
+\newcommand{\ecase}[3]{\ecasegen{#1}{\ell}{#2}{r}{#3}}
+\newcommand{\edcase}[3]{\ecase{#1}{#2}{#3}}
+\newcommand{\ercase}[3]{\langle\textrm{case}_*\ #1\text{ of }\pvs\Rightarrow~#2~|~\pvg\Rightarrow#3\rangle}
+\newcommand{\eCase}[3]{\lstrike\kwcase\textrm{ }#1\textrm{ of }\allowbreak\ell\Rightarrow~#2~\allowbreak|~r\Rightarrow~#3\rstrike} %\{\textrm{case}\}\ #1\textrm{ of }\ell.~#2~|~r.~#3
+
+\newcommand{\edinjL}[1]{\langle\ell \cdot #1\rangle}
+\newcommand{\edinjR}[1]{\langle r \cdot #1\rangle}
+\newcommand{\eInjL}[1]{\lstrike\ell \cdot #1\rstrike}
+\newcommand{\eInjR}[1]{\lstrike{r \cdot #1}\rstrike}
+\newcommand{\kwrep}{\textrm{rep}}
+\newcommand{\erep}[3]{{#1}\textrm{ }\kwrep\text{ }#3.~{#2}}
+\newcommand{\eapp}[2]{#1\ #2}
+\newcommand{\elamgen}[3]{\lambda #1:#2.~ #3}
+\newcommand{\eplam}[2]{\elamgen{\pvx}{#1}{#2}}
+\newcommand{\etlam}[2]{\elamgen{x}{#1}{#2}}
+\newcommand{\ebseq}[1]{[\iota~#1]}
+\newcommand{\ebseqinv}[1]{[\iota~{#1}^{-1}]}
+\newcommand{\edseq}[1]{\langle\iota~#1\rangle}
+\newcommand{\edseqinv}[1]{\langle\iota~{#1}^{-1}\rangle}
+\newcommand{\eSeq}[1]{\lstrike\iota~#1\rstrike}
+\newcommand{\eSeqinv}[1]{\lstrike\iota~{#1}^{-1}\rstrike}
+\newcommand{\ebOpenswap}{[\textrm{yield }}
+\newcommand{\ebCloseswap}{]}
+\newcommand{\ebswap}[1]{\ebOpenswap#1\ebCloseswap}
+\newcommand{\edOpenswap}{\langle\textrm{yield }}
+\newcommand{\edCloseswap}{\rangle}
+\newcommand{\edswap}[1]{\edOpenswap#1\edCloseswap}
+%\llensehat \rlensehat  \lstrike \rstrike
+\newcommand{\eSwap}[1]{\lstrike\textrm{yield }#1\rstrike}
+\newcommand{\ePaws}[1]{\llensehat\textrm{yield }#1\rlensehat}
+\newcommand{\emonInfix}[1]{{\circ_{#1}}}
+\newcommand{\emon}[3]{{#1} \emonInfix{#3} {#2}}
+%\newcommand{\eQEpos}{\textrm{QE}_{pos}}
+%\newcommand{\eQEneg}{\textrm{QE}_{neg}}
+\newcommand{\eQE}[2]{\textsf{FO}[#1](#2)}
+%\newcommand{\eQEN}[1]{\textsf{QE}[#1]_\mathbb{N}}
+%\newcommand{\eQER}[1]{\textsf{QE}[#1]_\mathbb{R}}
+\newcommand{\emetsplit}{\textrm{split}\met}
+\newcommand{\esplit}[3]{\textrm{split }{[#1\sim#2]}~#3}
+\newcommand{\kwstop}{\textrm{stop}}
+\newcommand{\kwgo}{\textrm{go}}
+\newcommand{\estop}[1]{\langle\kwstop\ #1\rangle}
+\newcommand{\ego}[1]{\langle\kwgo\ #1\rangle}
+\newcommand{\kwroll}{\textrm{roll}}
+\newcommand{\kwunroll}{\textrm{unroll}}
+\newcommand{\ebroll}[1]{[\kwroll\ {#1}]}
+\newcommand{\ebunroll}[1]{[\kwunroll\ #1]}
+\newcommand{\eRoll}[1]{\lstrike\kwroll\ #1\rstrike}
+\newcommand{\eUnroll}[1]{\lstrike\kwunroll\ #1\rstrike}
+\newcommand{\eghost}[4]{\textrm{Ghost}[#1=#2](#3.~#4)}
+\newcommand{\eAsgn}[4]{\lstrike\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4\rstrike}
+\newcommand{\eAsgneq}[4]{\eAsgn{#1}{#2}{#3}{#4}}
+\newcommand{\etconsgen}[5]{\langle{\eren{#4}{#1}{#2}}~{{:}{*}}~#3.~#5\rangle}
+\newcommand{\etcons}[2]{\etconsgen{x}{y}{\pvx}{#1}{#2}}
+\newcommand{\ietcons}[3]{\langle{\eren{#2}{#1}{~}}~{{:}{*}}~#3\rangle}
+
+\newcommand{\ebasgneq}[4]{[\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4]}
+\newcommand{\edasgneq}[4]{\langle\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4\rangle}
+\newcommand{\edasgn}[4]{\edasgneq{#1}{#2}{#3}{#4}}
+\newcommand{\ebasgn}[4]{\ebasgneq{#1}{#2}{#3}{#4}}
+\newcommand{\iebasgn}[2]{[\humod{#1}{\eren{f}{#1}{~}}\text{ in }~#2]}
+\newcommand{\iedasgn}[2]{\langle\humod{#1}{\eren{f}{#1}{~}}\text{ in }~#2\rangle}
+%\newcommand{\iedasgn}[2]{\edasgneq{~}{#1}{#1}{#2}}
+%\newcommand{\iebasgn}[2]{\ebasgneq{~}{#1}{#1}{#2}}
+
+\newcommand{\eunpack}[2]{\textrm{unpack}(#1,\pvx y.~#2)}
+\newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
+\newcommand{\eloopelim}[3]{(#1, x.~{#2}^{#3})}
+\newcommand{\efpgen}[5]{\textit{FP}(#1, #2.~#3, #4.~#5)}
+\newcommand{\efp}[3]{\efpgen{#1}{\pvs}{#2}{\pvg}{#3}}
+\newcommand{\met}{\ensuremath{\mathcal{M}}}
+\newcommand{\conv}{\varphi\xspace}
+\newcommand{\G}{\Gamma}
+\newcommand{\Gemp}{\cdot}
+\newcommand{\issimp}[1]{{#1}\ \textrm{simp}}
+\newcommand{\eforHead}[4]{\textrm{for}(#1:\conv(\met)={#2};#3;{#4})} %#3:\met>0\land\met_0=\met
+\newcommand{\eforBody}[1]{\{#1\}}
+\newcommand{\eforgen}[5]{\eforHead{#1}{#2}{#3}{#4}\eforBody{#5}}
+\newcommand{\efor}[2]{\eforgen{\pvx}{#1}{\pvy}{#2}{\alpha}}
+\newcommand{\oldof}[1]{\textrm{old}(#1)}
+\newcommand{\isnorm}[1]{#1\text{ normal}}
+
+\newcommand{\pvx}{p}
+\newcommand{\pvy}{q}
+\newcommand{\pvz}{t}
+\newcommand{\pvl}{\ell}
+\newcommand{\pvr}{r}
+\newcommand{\pvrr}{rr}
+\newcommand{\pvs}{s}
+\newcommand{\pvg}{g}
+\newcommand{\sdual}[1]{\pdual{#1}}
+
+%%% KAISAR
+\newcommand{\spost}[2]{\mathsf{sp}(#1,#2)}
+\newcommand{\kwassume}{\textbf{assume}}
+\newcommand{\kwassert}{\textbf{assert}}
+\newcommand{\kwlet}{\textbf{let}}
+\newcommand{\kwstate}{\textbf{state}}
+\newcommand{\kwsolve}{\textbf{solve}}
+\newcommand{\kwshow}{\textbf{show}}
+%\newcommand{\kwassume}{\textbf{assume}}
+\newcommand{\kwby}{\textbf{by}}
+\newcommand{\kwusing}{\textbf{using}}
+\newcommand{\kwnote}{\textbf{note}}
+\newcommand{\kwhave}{\textbf{have}}
+\newcommand{\kwinv}{\textbf{inv}}
+\newcommand{\kwghost}{\textbf{Ghost}}
+\newcommand{\kwind}{\textbf{Ind}}
+\newcommand{\kwpre}{\textbf{Pre}}
+\newcommand{\kwfinally}{\textbf{finally}}
+\newcommand{\kwassign}{\textbf{assign}}
+\newcommand{\kwmid}{\textbf{after}}
+\newcommand{\kwfirst}{\textbf{have}}
+\newcommand{\kwthen}{\textbf{then}}
+%\newcommand{\kwcase}{\textbf{case}}
+\newcommand{\kwfocus}{\textbf{focus}}
+\newcommand{\semiset}[2]{\{#1~|~#2\}} 
+\newcommand{\sshow}[3]{\textsf{show}~{#1}:{#2}~{#3}}
+\newcommand{\shave}[4]{\textsf{have}~{#1}:{#2}~{#3}~{#4}}
+\newcommand{\snote}[4]{\textsf{note}~{#1}:{#2}~{#3}~{#4}}
+
+
 
 
 \theoremstyle{plain}
@@ -581,46 +731,245 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Realizability Semantics}
+\begin{frame}[t]{Formula Semantics}
+\begin{itemize}
+\item $\fintR{\phi}$ is the \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ that realize $\phi$.
+\item $\strategyforR[\alpha]{X}$ is the final region of game $\alpha$ starting from $X$ under Angel control
+\item $\dstrategyforR[\alpha]{X}$ is the final region assuming \emph{Demon} control
+\item Pseudo-state $\top$ indicates early success
+\end{itemize}
+\begin{align*}
+(\rzNil,\om) \in  \fintR{f \geq g}                 &\text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\\
+(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}}       &\text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\\
+(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}}              &\text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})
+\end{align*}
 \end{frame}
 
-\begin{frame}[t]{}
+\begin{frame}[t]{Angel Game Semantics}
+\begin{align*}
+\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}\\
+                                          &\cup \{\sff~|~(\aa,\om) \in X,~(\rzFst{\aa},\om) \notin \fintR{\phi}\}\\
+\strategyforR[\humod{x}{f}]{X}  &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\}&&\text{}\\
+\strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\
+\strategyforR[\alpha;\beta]{X}           &= \strategyforR[\beta]{(\strategyforR[\alpha]{X})} &&\text{}\\
+\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\
+\strategyforR[\prepeat{\alpha}]{X}     &= \bigcap\{\apL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\strategyforR[\alpha]{\apR{Z}}) \subseteq Z\}
+&&\\
+\strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}
+\end{align*}
 \end{frame}
 
-\begin{frame}[t]{}
+\begin{frame}[t]{Games Support Proof Terms}
+
+\[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
+\pause
+\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
+{
+\linferenceRule[formula]
+{\proves{\G}{A}{\ddiamond{\alpha\cup\beta}{\phi}}
+        &\proves{\G,\pvl:\ddiamond{\alpha}{\phi}}{B}{\psi}
+        &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
+{\proves{\G}{\edcase{A}{B}{C}}{\psi}}
+}{}\\[0.1in]
+\begin{calculuscollections}{\textwidth}
+  \begin{calculus}
+\cinferenceRule[dchoiceIL|{$\langle\cup\rangle${I1}}]{}
+{\linferenceRule[formula]
+  {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}
+  {\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+}{}
+  \end{calculus}
+  \begin{calculus}
+\cinferenceRule[dchoiceIR|{$\langle\cup\rangle${I2}}]{}
+{\linferenceRule[formula]
+  {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}
+  {\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+}{}
+  \end{calculus}
+\end{calculuscollections}\\[0.1in]
+\pause
+\begin{calculuscollections}{\textwidth}
+  \begin{calculus}
+\cinferenceRule[caseBetaL|{{case}$\beta$L}]{}{\edcase{\edinjL{A}}{B}{C} \stepsto \esub{B}{\ell}{A}}{}
+\cinferenceRule[caseBetaR|{{case}$\beta$R}]{}{\edcase{\edinjR{A}}{B}{C} \stepsto \esub{C}{r}{A}}{}\pause
+\cinferenceRule[caseS|caseS]{}{\linferenceRule[formula]
+{\small{A \stepsto A'}}
+{\small{\edcase{A}{B}{C} \stepsto \edcase{A'}{B}{C}}}}{}
+  \end{calculus}
+\end{calculuscollections}
+\end{frame}
+
+\begin{frame}[t]{Sound as a Logic}
+\begin{lemma}[Renaming]
+  If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
+\end{lemma}
+\begin{lemma}[Context substitution]
+  If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
+\end{lemma}
+\begin{lemma}[Variable substitution]
+  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
+\end{lemma}
+\begin{theorem}[Soundness of Proof Calculus]
+  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
+\end{theorem}
+\end{frame}
+
+\begin{frame}[t]{Sound as a Type System}
+\begin{lemma}[Progress]
+If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
+\end{lemma}
+\begin{lemma}[Preservation]
+If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
+\end{lemma}
+\begin{lemma}[Existence Property]
+If $\proves{\Gamma}{M}{(\lexists{x:\tau}{\phi})}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
+we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
+\label{lem:term-ep}
+\end{lemma}
+\begin{lemma}[Disjunction Property]
+When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists realizer $\ab$ and computable $f,$ s.t.\ for every $\om$ and $\aa$ such that $(\aa,\omega) \in \cintR{\G}$, either $f(\omega)=0$ and $(\rzFst{\ab},\omega) \in \fintR{\phi}{}$, else $f(\omega)=1$ and $(\rzSnd{\ab},\omega) \in \fintR{\psi}$.
+\end{lemma}
+%\begin{lemma}[Active Strategy Property]
+%If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$
+%then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
+%\end{lemma}
+\end{frame}
+
+\begin{frame}[t]{Proposed Work: ODE's}
+Picard iteration and Euler integration yield computational interpretations of ODE's.
+\begin{itemize}
+  \item Application: Euler proofs of $\ddiamond{\pevolve{\D{x}=\theta}}{P}$ support synthesis of Model-Predictive Control
+  \item Conjecture: Box rules $\dbox{\pevolve{\D{x}=\theta}}{P}$ ``just work''
+  \item Challenge: Which proofs lead to ``good'' monitors, controllers?
+     e.g., equalities $\theta = \eta$ are easy to prove, hard to monitor.
+  \item Related Work: Verified integration~\cite{DBLP:conf/itp/ImmlerT16}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Proposed Work: Connections}
+How do games connect with systems, and thus with VeriPhy?\\
+\begin{itemize}
+\item Extend differential refinement logic \dRL to games
+\item Make folk theorem rigorous: ``Games $\equiv$ Systems $\mod$ Strategies"
+\end{itemize}
+\pause
+How do constructive and classical games relate?
+\begin{itemize}
+\item G\"{o}del-Gentzen translation and embedding classical proofs ``as a modality''
+\item Conjecture: Classical games are ``bigger'' (higher closure ordinal) than constructive games
+\item Expand study of classical vs.\ constructive arithmetic
+\end{itemize}
 \end{frame}
 
 \section{Proposed Work: Kaisar Language}
 
-\begin{frame}[t]{}
+\begin{frame}[t]{Kaisar Combines Perspectives on Proofs}
+  \begin{tabular}{lll}
+    \ah{1}{\engineer}                         & \ah{2}{\logician}                      & \ah{3}{\logicuser}\\
+    \acl{1}{\say{Can it synthesize?}} & \acl{2}{\say{What \emph{is} a program proof?}} & \acl{3}{\say{Does it scale?}}
+  \end{tabular}
+\end{frame}
+
+%TODO: Give actual examples and motivations for nominals
+\begin{frame}[t,fragile]{Programs First, Proofs Second}
+\logician[0.5in]
+\begin{minipage}{2in}
+\begin{verbatim}
+     (x:=1 {show (x > 0) using x by auto})
+U   (x:= 2 {show (x > 0) using x by auto})
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{2in}
+\begin{verbatim}
+(x:=1 U  x:=2)
+{show (x > 0) using x by auto}
+\end{verbatim}
+\end{minipage}
+
+\begin{verbatim}
+x:=2;
+{x:=x+1}*\@{show gr1:"x>1" using x by auto}
+{show "x>0" using gr1 by auto}
+\end{verbatim}
 
 \end{frame}
 
-\begin{frame}[t]{}
+%TODO: More Logic-User slides?
+\begin{frame}[t]{Evaluation}
+\logicuser[0.5in] 
+Best-effort usability eval.\ for lightweight design guidance
+\begin{itemize}
+\item Maintenance: How do proofs change when programs change?
+\item Concision: How do ports of old proofs compare to originals?
+\item Proof Patterns: Identify common idioms. Are they easy to express?
+\end{itemize}
 \end{frame}
 
-
-\begin{frame}[t]{}
+%TODO: Change example to support the idioms
+\begin{frame}[t]{Logic-User is Hopeful}
+  \begin{itemize}
+  \item Nominals support ``predictive proof'' idiom
+  \item Lexical scope taken for granted in programs
+  \item Nominals underly abstractions which support maintenance
+  \item Deduplication is essential for concision
+  \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{}
+%TODO: Read up on bifurcations
+\begin{frame}[t]{Theory Supports Design Goals}
+\logician[0.5in]
+How much do proofs change when programs change?
+\begin{itemize}
+\item Intimately related to proof modularity
+\item Identify an interface $D(\beta)$ of facts about subprogram $\beta$ of theorem $C(\beta)$
+\item A modular proof $F$ uniformly proves $D(\gamma) \limply C(\phi)$ for \emph{all} $\gamma$
+\item Smaller $D$ means more modular
+\item Compare: ``Adaptation completeness'' in Vienna Development Method
+\end{itemize}
 \end{frame}
 
-\begin{frame}[t]{}
+\begin{frame}[t]{Predicate Transformers Meet Hybrid Logic}
+\logician[0.5in]
+How do we check proofs?
+How do we trust proofs?
+
+Compute strongest postcondition $\spost{S}{\G}$ of proof $S$ from initial context $\G$.
+\begin{align*}
+\spost{\{\sshow{x}{\phi}{U}\}}{\G}             &= \phi                                        &&\text{if U proves }\phi\\
+\spost{\{\shave{x}{\phi}{U}{S}\}}{\G}          &= \spost{S}{(\G,x:\phi)}                      &&\text{if U proves }\phi\\
+\spost{\alpha;\beta}{\G}                       &= \spost{\beta}{(\G_\alpha,\spost{\alpha}{\G})} &&\\
+\spost{\alpha\cup\beta}{\G}                    &= \spost{\alpha}{\G} \vee \spost{\beta}{\G}   &&\\
+\spost{?(x:\phi)}{\G} &= \phi &&\\
+\spost{\humod{x}{\theta}}{\G} &=(x=\theta) &&\\
+  \spost{(\alpha)^*@\{B\}}{\G} &= \spost{\{B\}}{G} &&\text{if }\spost{\alpha}{{\G_\alpha}_{\{B\}}}=\spost{\{B\}}{\G}\\
+\spost{L{:}\ \alpha}{\G} &= \spost{\alpha}{(\G,L)}
+\end{align*}
+\textbf{Soundness:} If $S$ is a proof, then $\G \vdash \spost{S}{\G}$ is valid.
 \end{frame}
 
-\begin{frame}[t]{}
+\begin{frame}[t]{Kaisar as a Playground}
+Proof technology has evolved over time.
+Let's answer:
+  \begin{tabular}{lll}
+    \ah{1}{\engineer}                         & \ah{2}{\logician}                      & \ah{3}{\logicuser}\\
+    \acl{1}{\say{How does proof format affect tooling?}} 
+& \acl{2}{\say{What are the core features?}}
+& \acl{3}{\say{How do features impact real proofs?}}
+  \end{tabular}
 \end{frame}
+
 \section{Proposed Work: Controller Synthesis}
 
-\begin{frame}[t]{}
-  
+\begin{frame}[t]{Exploit Proof Content}
 \end{frame}
 
-\begin{frame}[t]{}
+\begin{frame}[t]{Architecture}
 \end{frame}
 
-\begin{frame}[t]{}
+\begin{frame}[t]{Arithmetic}
+\end{frame}
+
+\begin{frame}[t]{Code Generation}
 \end{frame}
 
 \begin{frame}[t]{}
