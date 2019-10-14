@@ -1392,10 +1392,50 @@ Let's answer:
 \end{frame}
 
 \begin{frame}[t]{Architecture}
-Standalone checker, loose coupling with \KeYmaeraX, except when not.
-That is, may want to use Kaisar in KeYmaera, but also need standalone synthesizer
-TODO: Figure, see notes.
-TODO: Research Isar architecture.
+%Standalone checker, loose coupling with \KeYmaeraX, except when not.
+%That is, may want to use Kaisar in KeYmaera, but also need standalone synthesizer
+\begin{center}
+  \begin{tikzpicture}
+%\draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
+
+\draw (0,3) node[rectangle,draw,thin] (input) {\texttt{Proof.kai}};
+\draw (0,2) node[rectangle,draw,thin] (parse) {Parsing + Elaboration};
+\draw (0,1) node[rectangle,draw,thin] (pcheck) {Proofchecking};
+
+\draw (-3.5,0) node[rectangle,draw,thin] (bexport) {Bellerophon Export};
+\draw (-3.5,-1.5) node[rectangle,dashed,draw,thin] (bimport) {Import};
+
+\draw (2,0) node[rectangle,draw,thin] (synth) {Synthesis};
+\draw (0,-1) node[rectangle,draw,thin] (interp) {Interpreter};
+\draw (4,-1) node[rectangle,draw,thin] (comp) {Compiler};
+
+\draw (2,-2) node[rectangle,dashed,draw] (impl) {Software Simulations + Hardware Platforms};
+
+\draw (input) -- (parse);
+\draw (parse) -- (pcheck);
+%\draw (bexport) -- (synth)
+\draw (bexport) -- (synth);
+
+\node[shape=coordinate] (AST) at (0,0) {};
+\draw (pcheck) -- (AST);
+\draw[dashed] (bexport) -- (bimport);
+\draw[dashed] (comp) -- (4,-1.7);
+\draw[dashed] (interp) -- (0,-1.7);
+
+\node[shape=coordinate] (code) at (2,-1) {};
+\draw (synth) -- (code);
+\draw (interp) -- (code);
+\draw (comp) -- (code);
+% \node[shape=coordinate] (use-anchor) at (0,-3){};
+% \draw node[right=0.3cm of lop] (lop-ref) {Ch.\ 7};
+% \node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{Ch.\ 6}}] (cdgl-ref) at (cdgl) {};
+% \draw[->,very thick] (logic) -- (CdGLcirc);
+%\draw[-,black,very thick,dashed] (ptproof) -- node[anchor=east,align=center] {Soundness proof\\(\rref{sec:intervalify})} (ptanchor);
+
+  \end{tikzpicture}
+\end{center}
+%TODO: Figure, see notes.
+%TODO: Research Isar architecture.
 \end{frame}
 
 \begin{frame}[t]{Arithmetic}
