@@ -1341,10 +1341,54 @@ Let's answer:
 
 \section{Proposed Work: Controller Synthesis}
 
+%\draw (0,-1.2) node (cdgl) {\CdGL};
+%\draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
+%\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ Ch.\ 3 Ch.\ 4}}] (dl-ref) at (dl) {};
+%\draw (dl) node[circle, fill=blue!20,draw]  {\dL};
+%\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
+%\draw (-7, 2.8) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
+%\draw (-7, 1.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (generalization) {\dL Generalized};
+%\draw (-7, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
+%\draw (-7, -0.5) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
+%\draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
+%\draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
+%\draw node[left=0.3cm of cgl] (cgl-ref) {Ch.\ 5};
+%\draw node[left=0.3cm of cdgl] (cdgl-ref) {Ch.\ 6};
+%\draw[dashed] (formalization) -- (formal-ref);
+%\draw[dashed] (generalization) -- (gen-ref);
+\newcommand{\ctrlcolor}[1]{{\color{vred}{#1}}}
+\newcommand{\plantcolor}[1]{{\color{vblue}{#1}}}
 \begin{frame}[t]{Exploit Proof Content}
-TODO: Figure, see notes.
-Missing from figure: Elaboration and Normalization steps
-Control.S $\leftarrow_{{:=}*,\cup,'} (J(x) \limply \ddiamond{\ctrl}{\dbox{\plant}{J(\tilde{x} < x)}}) \rightarrow_{dC,dG}$ Monitor.S
+\begin{center}
+  \begin{tikzpicture}
+    \draw (0,1) node (thm) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
+    \draw (0,0.5) node {$\Uparrow$};
+    \draw (0.6,0.5) node {\footnotesize{\color{gray}Proof}};
+    \draw (0,0) node (mainprf) {$J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}$};
+    \draw (0,-0.5) node {$\Uparrow$};
+    \draw (0,-1) node (mainprf) {$J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$};
+    \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
+    \draw (3, -0.5) node {\plantcolor{dC}};
+    \draw (3.15, -1) node {\plantcolor{dI}};
+    \draw (3, -1.5) node {\plantcolor{dG}};
+    \draw (4.7, -1) node {\plantcolor{\texttt{Plant.S}}};
+
+    \draw[color=vblue] (3.3, -0.5) -- (3.85,-0.85);
+    \draw[color=vblue] (3.4, -1)   -- (3.9,-1);
+    \draw[color=vblue] (3.3, -1.5) -- (3.85,-1.15);
+
+    \draw (-3, -0.5) node {\ctrlcolor{$\langle{'}\rangle$}};
+    \draw (-3, -1) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
+    \draw (-3, -1.5) node {\ctrlcolor{$\langle{\cup}\rangle$}};
+    \draw (-5, -1) node {\ctrlcolor{\texttt{Control.S}}};
+
+    \draw[color=vred] (-3.5, -0.5) -- (-3.85,-0.85);
+    \draw[color=vred] (-3.4, -1)   -- (-3.9,-1);
+    \draw[color=vred] (-3.5, -1.5) -- (-3.85,-1.15);
+  \end{tikzpicture}
+\end{center}
+%Missing from figure: Elaboration and Normalization steps
+%Control.S $\leftarrow_{{:=}*,\cup,'} (J(x) \limply \ddiamond{\ctrl}{\dbox{\plant}{J(\tilde{x} < x)}}) \rightarrow_{dC,dG}$ Monitor.S
 \end{frame}
 
 \begin{frame}[t]{Architecture}
@@ -1499,7 +1543,7 @@ Kaisar builds on prior prototype, \CdGL builds on existing \CGL $\rightsquigarro
   \item Monday: Develop figures for last section
   \item Time the talk
   \item Identify nonsense slides, e.g., where background info, connecting info, explanation, context are needed.
-  \item Try to fix nonsense by Tuesday meeting. 
+  \item Try to fix nonsense by Tuesday meeting.
   \item In meeting, discuss: Slides, resubmission plans, whether to do extra practice talks
 
 
