@@ -132,22 +132,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\dRL}{dRL\xspace}
 \newcommand{\Isabelle}{Isabelle\xspace}
 \newcommand{\CakeML}{CakeML\xspace}
-
-
-\newcommand{\engineer}[1][1in]{\includegraphics[width=#1]{img/rosie.png}}
-\newcommand{\logician}[1][1in]{\includegraphics[width=#1]{img/hilbert.png}}
-\newcommand{\logicuser}[1][1in]{\includegraphics[width=#1]{img/hamilton.png}}
-
-
-\newcommand{\speak}[2]{\small\begin{minipage}{1.3in}{#1}{#2}\end{minipage}}
-\newcommand{\say}[1]{\speak{#1}{}}
-\newcommand{\sayHappy}[1]{\speak{#1}{\Smiley}}
-\newcommand{\saySad}[1]{\speak{#1}{\Frowny}}
-\newcommand{\turn}{\textsc{Turn}}
-\newcommand{\nim}{\textsc{Nim}}
-\newcommand{\cake}{\textsc{CC}}
-
-
 \newcommand{\rangevar}{\textsf{Range}}
 \newcommand{\testvar}{\textsf{test}}
 \newcommand{\elem}[2]{\textsf{Dec}[#1](#2)}
@@ -172,12 +156,10 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\apR}[1]{#1_{\langle{1}\rangle}}
 \newcommand{\dpL}[1]{#1_{[0]}}
 \newcommand{\dpR}[1]{#1_{[1]}}
-
 \newcommand{\va}{a}
 \newcommand{\vb}{b}
 \newcommand{\vca}{\overline{a}}
 \newcommand{\vcb}{\overline{b}}
-
 \newcommand{\btt}{\texttt{tt}}
 \newcommand{\bff}{\texttt{ff}}
 \newcommand{\stt}{\top}
@@ -188,10 +170,8 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\ssub}[3]{\subst[{#1}]{#2}{#3}}
 \newcommand{\eren}[3]{\urename[{#1}]{#2}{#3}}%{\subst[{#1}]{#2}{#3}}
 \newcommand{\earen}[2]{\urename[{#1}]{\boundvars{#2}}{\vec{y}}}%{\subst[{#1}]{\boundvars{#2}}{\vec{y}}}
-
 \newcommand{\allcon}{\allregion}
 \newcommand{\somesemi}[2]{\epsilon #1~|~#2}
-
 \newcommand{\rzF}[2]{#1 \vdash #2}
 \newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
 \newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
@@ -211,12 +191,9 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\dc}{\DJ}
 \newcommand{\allRz}{\mathcal{R}\mathbf{z}}
 \newcommand{\rzfor}[1]{#1\,\allRz}
-
 \newcommand{\mto}{\rightharpoonup}
 \newcommand{\esub}[3]{[{#3}/{#2}]{#1}}
 \newcommand{\tsub}[3]{\subst[#1]{#2}{#3}}
-
-
 %\newcommand{\rzF}[2]{#1 \vdash #2}
 %\newcommand{\rzA}[3]{\langle{#2}\rangle(#1)=(#3)}
 %\newcommand{\rzD}[3]{[{#2}](#1)=(#3)}
@@ -229,7 +206,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\fintR}[1]{\fint{#1}{}} %{#1#2}
 \newcommand*{\strategyforR}[2][]{{#2}\Langle{#1}\Rangle}
 \newcommand*{\istrat}[3][]{\strategyforR[#1]{#2}^{#3}}
-
 \newcommand*{\dstrategyforR}[2][]{{#2}\lenvelopewide{#1}\renvelopewide}
 %{{#2}\llbracket{#1}\rrbracket}
 \newcommand*{\idstrat}[3][]{\dstrategyforR[#1]{#2}^{#3}}
@@ -237,7 +213,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\cintR}[1]{\fintR{\bigwedge #1}}
 \newcommand{\seq}[2]{#1 \vdash #2}
 \newcommand{\proves}[3]{#1\allowbreak\vdash #2 \allowbreak \mathop{:} #3}
-
 \newcommand{\edOpencons}{\langle}
 \newcommand{\edClosecons}{\rangle}
 \newcommand{\edSepcons}{,}
@@ -263,7 +238,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\edcase}[3]{\ecase{#1}{#2}{#3}}
 \newcommand{\ercase}[3]{\langle\textrm{case}_*\ #1\text{ of }\pvs\Rightarrow~#2~|~\pvg\Rightarrow#3\rangle}
 \newcommand{\eCase}[3]{\lstrike\kwcase\textrm{ }#1\textrm{ of }\allowbreak\ell\Rightarrow~#2~\allowbreak|~r\Rightarrow~#3\rstrike} %\{\textrm{case}\}\ #1\textrm{ of }\ell.~#2~|~r.~#3
-
 \newcommand{\edinjL}[1]{\langle\ell \cdot #1\rangle}
 \newcommand{\edinjR}[1]{\langle r \cdot #1\rangle}
 \newcommand{\eInjL}[1]{\lstrike\ell \cdot #1\rstrike}
@@ -314,7 +288,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\etconsgen}[5]{\langle{\eren{#4}{#1}{#2}}~{{:}{*}}~#3.~#5\rangle}
 \newcommand{\etcons}[2]{\etconsgen{x}{y}{\pvx}{#1}{#2}}
 \newcommand{\ietcons}[3]{\langle{\eren{#2}{#1}{~}}~{{:}{*}}~#3\rangle}
-
 \newcommand{\ebasgneq}[4]{[\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4]}
 \newcommand{\edasgneq}[4]{\langle\humod{#2}{\eren{f}{#2}{#1}}\text{ in }#3.~#4\rangle}
 \newcommand{\edasgn}[4]{\edasgneq{#1}{#2}{#3}{#4}}
@@ -323,7 +296,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\iedasgn}[2]{\langle\humod{#1}{\eren{f}{#1}{~}}\text{ in }~#2\rangle}
 %\newcommand{\iedasgn}[2]{\edasgneq{~}{#1}{#1}{#2}}
 %\newcommand{\iebasgn}[2]{\ebasgneq{~}{#1}{#1}{#2}}
-
 \newcommand{\eunpack}[2]{\textrm{unpack}(#1,\pvx y.~#2)}
 \newcommand{\ewhile}[2]{\textrm{while}(#1 > 0)\{#2\}}
 \newcommand{\eloopelim}[3]{(#1, x.~{#2}^{#3})}
@@ -340,7 +312,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\efor}[2]{\eforgen{\pvx}{#1}{\pvy}{#2}{\alpha}}
 \newcommand{\oldof}[1]{\textrm{old}(#1)}
 \newcommand{\isnorm}[1]{#1\text{ normal}}
-
 \newcommand{\pvx}{p}
 \newcommand{\pvy}{q}
 \newcommand{\pvz}{t}
@@ -350,6 +321,8 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\pvs}{s}
 \newcommand{\pvg}{g}
 \newcommand{\sdual}[1]{\pdual{#1}}
+
+
 
 %%% KAISAR
 \newcommand{\spost}[2]{\mathsf{sp}(#1,#2)}
@@ -436,17 +409,16 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\short}{\\[-0.03in]}
 \newcommand{\extern}{myyellow}
 
-\definecolor{vermillion}{rgb}{0.8,0.4,0}
-\definecolor{myblue}{rgb}{0,0.45,0.7}
-\definecolor{myyellow}{rgb}{0.7,0.4,0.10}
 
 
-
+%Presentation
 
 \theoremstyle{plain}
 \theoremstyle{definition}
 \theoremstyle{remark}
-
+\definecolor{vermillion}{rgb}{0.8,0.4,0}
+\definecolor{myblue}{rgb}{0,0.45,0.7}
+\definecolor{myyellow}{rgb}{0.7,0.4,0.10}
 \definecolor{semblue}{rgb}{0,0,0.7}
 \definecolor{vgreen}{rgb}{.1,.5,0}
 \definecolor{vdarkgreen}{rgb}{.06,.3,0}
@@ -470,6 +442,23 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \definecolor{smigray}{RGB}{90,90,90}
 \definecolor{smired}{RGB}{127,0,0}
 
+\newcommand{\engineer}[1][1in]{\includegraphics[width=#1]{img/rosie.png}}
+\newcommand{\logician}[1][1in]{\includegraphics[width=#1]{img/hilbert.png}}
+\newcommand{\logicuser}[1][1in]{\includegraphics[width=#1]{img/hamilton.png}}
+\newcommand{\speak}[2]{\small\begin{minipage}{1.3in}{#1}{#2}\end{minipage}}
+\newcommand{\say}[1]{\speak{#1}{}}
+%TODO: Color the smiley and frowny for readability
+\newcommand{\sayHappy}[1]{\speak{#1}{\Smiley}}
+\newcommand{\saySad}[1]{\speak{#1}{\Frowny}}
+\newcommand{\turn}{\textsc{Turn}}
+\newcommand{\nim}{\textsc{Nim}}
+\newcommand{\cake}{\textsc{CC}}
+\newcommand{\ah}[2]{\action<#1-|alert@#1>{#2}}
+\newcommand{\acl}[2]{\action<#1->{#2}}
+
+\newcommand{\ctrlcolor}[1]{{\color{vred}{#1}}}
+\newcommand{\plantcolor}[1]{{\color{vblue}{#1}}}
+
 \title{Practical, End-to-End Verification for Cyber-Physical Systems}
 \author{Brandon Bohrer}
 \institute[Thesis Committee] % (optional, but mostly needed)
@@ -482,8 +471,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 }
 \date{Thesis Proposal\\October 25 2019}
 \setbeamertemplate{footline}[frame number]
-\AtBeginSection[]
-{
+\AtBeginSection[]{
   \begin{frame}<beamer>{Outline}
     \tableofcontents[currentsection]
   \end{frame}
@@ -496,16 +484,12 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 }
 
 \begin{document}
-
 \begin{frame}
   \titlepage
 \end{frame}
 
-
-\newcommand{\ah}[2]{\action<#1-|alert@#1>{#2}}
-\newcommand{\acl}[2]{\action<#1->{#2}}
-
 \section{Motivation}
+%TODO: Cut for space
 \begin{frame}[t]{\only<1>{Safety-Critical CPS Need Safety}
 \only<2->{Safety-Critical CPS Need Proofs}}
   \begin{center}
@@ -515,7 +499,7 @@ Planes&Drones&Robots\\
 \uncover<2->{
 & &\\
 %&$\Downarrow$&\\
-\includegraphics[width=0.6in]{img/assembly-small.png}&\includegraphics[width=1in]{img/invariant-region.png}&\infer{\Gamma \vdash A \land B}{\Gamma \vdash A}\\
+\includegraphics[width=0.6in]{img/assembly-small.png}&\includegraphics[width=1in]{img/invariant-region.png}&\infer{\Gamma \vdash A \lor B}{\Gamma \vdash A}\\
 Discrete Control & Continuous Dynamics & Syntactic Proof
 }
     \end{tabular}
@@ -533,6 +517,7 @@ Discrete Control & Continuous Dynamics & Syntactic Proof
 \end{frame}
 
 
+%TODO: Cut half for space
 \begin{frame}[t]{Verification Needs to be End-to-end}
   \begin{tabular}{lll}
 %TODO: Make sure all systems are featured in intro pictures
@@ -548,6 +533,7 @@ Discrete Control & Continuous Dynamics & Syntactic Proof
   \end{tabular}
 \end{frame}
 
+%TODO: Cut half for space
 \begin{frame}[t]{End-to-end Verification Must Close Several Gaps}
 Why are implementations more complicated than models?
   \begin{align*}
@@ -566,6 +552,7 @@ Why are implementations more complicated than models?
   \end{tabular}
 \end{frame}
 
+%TODO: Smooth out animation timing
 \section{Related Work}
 \begin{frame}[t]{General-purpose interactive theorem proving}
   \begin{tabular}{lll}
@@ -603,7 +590,6 @@ Why are implementations more complicated than models?
   \item \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} prover uses Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} language to express \dL proofs
   \item \ModelPlex~\cite{DBLP:journals/fmsd/MitschP16} synthesizes correct-by-construction monitor conditions from \dL model
   \end{itemize}
-% dL, KeYmaera X, ModelPlex
 \end{frame}
 
 \begin{frame}[t]{No prior work meets all requirements}
@@ -613,7 +599,7 @@ Why are implementations more complicated than models?
 Approach    & Logician                 & Engineer                               & Logic-User\\\hline
 GPITP       &\cellcolor{green!25}formal &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline
 Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline
-\dL before  &\cellcolor{yellow!25}paper &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline       %, less labor-intensive
+\dL before  &\cellcolor{yellow!25}paper &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause       %, less labor-intensive
 \dL after   &\cellcolor{green!25}formal &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause %, less labor-intensive
 \CdGL       &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls  &\cellcolor{green!25}least error-prone\\\hline       %, less labor-intensive
 \end{tabular}
@@ -621,6 +607,8 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
   \label{tab:approach-comparison}
 \end{table}
 \end{frame}
+
+%TODO: Fix spacing
 \begin{frame}[t]{\CdGL Verification + Synthesis (after)}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
@@ -642,8 +630,6 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 \end{itemize}}
 \end{minipage}
 \end{tabular}
-
-% dL, KeYmaera X, ModelPlex
 \end{frame}
 
 
@@ -661,9 +647,10 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 \end{center}
 \end{frame}
 
+%TODO: Greatly simplify
 \begin{frame}[t]{2D Driving Model is Source}
-\newcommand{\admiss}{\textsf{Go}} % (\xgvar,\ygvar,\vlvar,\vhvar,\kvar,\avar)
-\newcommand{\planreq}{\textsf{Feas}} % (\xgvar,\ygvar,\vlvar,\vhvar,\kvar,\avar)
+\newcommand{\admiss}{\textsf{Go}} 
+\newcommand{\planreq}{\textsf{Feas}} 
 \newcommand{\veps}{\varepsilon}
 \newcommand{\annul}{\textsf{Ann}\xspace}
 \newcommand{\adjustSpeedDist}{\delta_\mathsf{Lim}\xspace}
@@ -674,19 +661,13 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 \label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar\\
 \admiss &\equiv a \in [-B,A] \land safe(v(a,\veps),x(a,\veps))\\
 \plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
- &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\} %  ~\land~ yg > 0
+ &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
 \end{align*}}
-% \end{align*}}       ~\hspace*{-5pt}
-
-
 \end{frame}
 
-%\begin{frame}[t]{Sandbox Safety Proof is Synthesized}
 \begin{frame}[t]{Provable Monitor $\leadsto$ Provable Sandbox}
 Sandboxed controller uses {\color{myyellow}{external}}  controller when decision is {\color{vred}safe}, else uses verified {\color{vgreen}{fallback}}.
 Detects non-compliant {\color{vblue}plants}.
-%\text{see \eqref{eq:ex-safetyprop}:}
-% \text{see \eqref{eq:ex-safetyprop}}
 \begin{textblock}{8}(1,3.5)
 \small\begin{align*}
 &\prandom{\vec{x}};\\
@@ -701,6 +682,7 @@ Detects non-compliant {\color{vblue}plants}.
   \end{align*}
 \end{textblock}
 \begin{textblock}{10}(5,3.5)
+%TODO: Cut for simplicity
 \small\begin{align*}
 & \prandom{V};~\prandom{\varepsilon};~ \prandom{d};~\prandom{t}; \goback{}\\
 & \ptest{d \geq 0 \land V\geq 0 \land \varepsilon \geq 0};  \goback{}\\
@@ -715,6 +697,7 @@ Detects non-compliant {\color{vblue}plants}.
 \end{textblock}
 \end{frame}
 
+%TODO: Cut text
 \begin{frame}[t]{Proof Term is Cross-Checked}
 How to trust a theorem prover?
 Formalize it!
@@ -724,6 +707,7 @@ Formalize it!
 The synthesized checker was evaluated on a 100,000-step sandbox safety proof.
 \end{frame}
 
+%TODO: Cut text
 \begin{frame}[t]{Cross-checker is Verified}
 Decidable first-order arithmetic is assumed ``axiomatically,'' all other rules are proven sound.
 \begin{theorem}[Proof-checker soundness]
@@ -732,13 +716,14 @@ If all real arithmetic subgoals are valid and the proof checker accepts the proo
 \end{theorem}
 \end{frame}
 
+%TODO: Maybe roll into next slide? Time consuming
 \begin{frame}{Sandbox is Discretized}
 \textbf{Example:} Check whether $\pi < e$, efficiently.\\
 \textbf{Solution:} Conservative interval approximation
 \begin{example}
 Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then 
 \begin{itemize}
-%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.16in}\includegraphics[width=1.5in]{img/
+%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.16in}\includegraphics[width=1.5in]{img/}
 \item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.63in}\includegraphics[width=1.875in]{img/interval1.png}
 \item<+-> \(pi <_w e + 3\) is true ($\top$)\hspace{1.4in}\includegraphics[width=1.875in]{img/interval2.png}
 \item<+-> \(pi <_w e + 1\) is \emph{a known unknown} ($U$){\hspace{0.50875in}\includegraphics[width=1.40625in]{img/interval3.png}}
@@ -750,6 +735,7 @@ Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then
 \end{textblock}
 \end{frame}
 
+%TODO: Can this merge into sandbox slide?
 \begin{frame}[t]{Discrete Sandbox is Compiled}
   \CakeML source incorporates {\color{myyellow}{external}} control, actuation, sensing
 \footnotesize\begin{align*}
@@ -804,10 +790,6 @@ Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then
 \begin{minipage}[b]{1.51in}\centering
 \includegraphics[width=1.51in,clip,trim=0 0 0 50]{graphics/airsim.png}
 \subcaption{Simulator}\label{fig:simulator}\end{minipage}
-%\begin{minipage}[b]{.3\linewidth}\centering
-%\includegraphics[width=1.95in]{graphics/robot.jpg}
-%\subcaption{RC car}\label{fig:rccar}
-%\end{minipage}
 \begin{minipage}[b]{1in}\centering
 \includegraphics[width=1in]{graphics/screen1.png}
 \subcaption{Rectangle}\label{fig:rect}\end{minipage}\\
@@ -820,7 +802,6 @@ Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then
 \caption{Implementation and environments built in AirSim}
 \label{fig:patrol-plan}
 \end{figure}
-
 \end{frame}
 
 \newcommand{\ctrlspike}{\Large{\bf C\dag}}
@@ -833,21 +814,15 @@ Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then
 \newcommand{\obshalt}{\Large{\bf{Ob{0}}}}
 \newcommand{\graphwidth}{6.5in}
 \newcommand{\graphheight}{8.5cm}
+%TODO: Do we need two evaluation slides?
 \begin{frame}[t]{Code Executed on GoPiGo Robot}
 \begin{textblock}{8}(1.9,2.7)
 Operational Suitability? \\
-Arithmetic Precision?    
+Arithmetic Precision?
 \end{textblock}
 \begin{textblock}{8}(12,2)
 \includegraphics[width=1.2in]{img/gopigo3.jpg}\\
 \end{textblock}
-%  \begin{itemize}[<+->]
-%  \item Invariants from proof essential 
-%  to avoid false alarms
-%  \item Arithmetic precision was sufficient
-%  \item Monitors catch model deviations
-%  \item Monitors were not overly conservative
-%  \end{itemize}
 \begin{textblock}{100}(1,5.2)
     \begin{tabular}{lr}
 \begin{tikzpicture}[trim axis left,scale=\graphscale]
@@ -864,16 +839,11 @@ Arithmetic Precision?
         table[x=time,y=d,skip first n=1,col sep=comma]
         {correct100.csv};
         \addlegendentry{Controller A (correct)};
-        % \node[coordinate,pin={[align=center,pin
-        % distance=2cm]86:{\Lightning~Fault becomes\\
-        % safety-critical,\\ fallback engaged}}] at (axis
-        % cs:4400,46000) {};
         \coordinate (fault1) at (axis cs:4400,46000);
         \addplot+[vgreen,mark=,ultra thick] table[x=time,y=d,skip
         first n=1,col sep=comma]
         {ctrlbug100.csv};
         \addlegendentry{Controller B (faulty)};
-        % \coordinate (fault1) at (axis cs:4400,46000);
         \node[coordinate,pin={[align=center,pin
           distance=0.5cm]90:{\textcolor{vgreen}{\ctrlspike}}}] at
         (axis cs:2700,460000) {};
@@ -881,10 +851,6 @@ Arithmetic Precision?
         table[x=time,y=d,skip first n=1,col sep=comma]
         {backwards100.csv};
         \addlegendentry{Malicious obstacle};
-        % \node[coordinate,pin={[align=center,pin
-        % distance=0.5cm]130:{\Lightning~Fault becomes\\
-        % safety-critical,\\ fallback engaged}}] at (axis
-        % cs:3300,24000) {};
         \coordinate (fault2) at (axis cs:3300,24000) {};
         \node[coordinate,pin={[align=center,pin
           distance=0cm]180:{\textcolor{myyellow}{\ctrlspike}}}] at
@@ -919,9 +885,6 @@ Arithmetic Precision?
         cs:2600,450000) {}; \node[coordinate,pin={[align=center,pin
           distance=0cm]160:{\textcolor{myblue}{\ctrlfault}}}] at (axis
         cs:4200,3000) {};
-        % Fault becomes\\ safety-critical,\\
-        % BB%\node[coordinate,pin={[align=center,pin distance=1.2cm]265:{\Lightning~Fallback engages}}] (faulttext) at (axis cs:4400,24000) {};
-
         \node[coordinate,pin={[align=center,pin
           distance=0cm]270:{\textcolor{myblue}{\plantfault}}}] at
         (axis cs:6600,2000) {};
@@ -931,9 +894,6 @@ Arithmetic Precision?
         (fault2) {}; \node[coordinate,pin={[align=center,pin
           distance=0cm]240:{\textcolor{black}{\ctrlfault}}}] at
         (fault3) {};
-        % \draw[-,thin] (fault1) -- ($(faulttext)+(-0.9cm,-1.2cm)$);
-        % \draw[-,thin] (fault2) -- ($(faulttext)+(-0.9cm,-1.2cm)$);
-        % \draw[-,thin] (fault3) -- ($(faulttext)+(-0.9cm,-1.2cm)$);
       \end{axis}
     \end{tikzpicture}
 &\vspace{-0.8cm}
@@ -956,11 +916,9 @@ cycle list name=auto,
 clip=false,
 enlargelimits=false,
 legend style={at={(0.95,0.95)}}
-%legend style={at={(0.98,1.1)}}
 ]
  \addplot+[myblue,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/correct100.csv};
 \addlegendentry{Controller A (correct)};
-%\node[coordinate,pin={[align=center,pin distance=2cm]86:{\Lightning~Fault becomes\\ safety-critical,\\ fallback engaged}}] at (axis cs:4400,46000) {};
  \addplot+[vgreen,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/ctrlbug100.csv};
 \addlegendentry{Controller B (faulty)};
 \node[coordinate,pin={[align=center,pin distance=0.1cm]70:{\textcolor{vgreen}{\ctrlspike}}}] at (axis cs:2445,460000) {};
@@ -991,6 +949,7 @@ Control Fault \ctrlfault{}, Plant Fault \plantfault{}, Control Spike \ctrlspike{
 \end{textblock}
 \end{frame}
 
+%TODO: Move to discussion of proposed stuff?
 % https://github.com/jsford/FFAST
 \begin{frame}[t]{More Hardware Platforms Available}
 Several hardware platforms are available through collaborators if needed for further evaluation:
@@ -999,13 +958,10 @@ Several hardware platforms are available through collaborators if needed for fur
 Polaris MRZR (access on limited dates only)
 \item 1-10th scale RC Car (full access)
 \end{itemize}
-
 \end{frame}
 
-%\begin{minipage}[b]{2in}
+%TODO: Adjust colors for proposed / ongoing / finished / omitted-from-talk status
 \begin{frame}[t]{Components of Thesis}
-%\begin{figure}[tbh]
-%  \centering
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \draw (0,3.2)  node {Logic for};
@@ -1043,12 +999,9 @@ Polaris MRZR (access on limited dates only)
 \draw[dashed] (proofscript) -- (proofscript-ref);
 \draw[dashed] (proofterm) -- (proofterm-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
-%\draw (1.45,-2) -- (0,-2.7);
 \draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Usability};
-%\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
 \draw (0.3, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
 \draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
-%\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
 \draw (-2.9, -6.05) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
 \draw (2.4, -6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainable?};
 \draw node[right=0.3cm of maintainable] (maintain-ref) {Ch.\ 7};
@@ -1058,13 +1011,14 @@ Polaris MRZR (access on limited dates only)
 \draw[dashed] (CdGLcirc) -- (luser);
 \draw[dashed] (lop) -- (lop-ref);
 \draw[dashed] (maintainable) -- (maintain-ref);
+%\draw (1.45,-2) -- (0,-2.7);
+%\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
+%\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
 \end{tikzpicture}
 \end{center}
-%  \caption{Goals of the thesis}
-%  \label{fig:goals-diagram}
-%\end{figure}
 \end{frame}
-\section{Ongoing Work: \CdGL Logic}
+% TODO: Clarify finished vs. ongoing
+\section{Proposed Work: \CdGL Logic}
 % Say: CGL is already done, but for the sake of time we're presenting it together with CdGL
 \begin{frame}[t]{Games Support Synthesis}
   \begin{tabular}{ccc}
@@ -1084,6 +1038,7 @@ Polaris MRZR (access on limited dates only)
 % quick 1-slide "proof terms exist"
 % Soundness, prog+pres, implications for practice
 % What's next: ODE's
+%TODO: Reduce time. Is example needed? Can we do 2D car example?
 \begin{frame}[t]{Nim Demonstrates Discrete Games}
   \begin{align*}
 \turn &= \big\{\ptest{c>0};
@@ -1098,6 +1053,7 @@ Polaris MRZR (access on limited dates only)
   \end{itemize}
 \end{frame}
 
+%TODO: Just say "ML"?
 \begin{frame}[t]{Realizers Capture Computation}
   \begin{align*}
 \aa,\ab,\ac
@@ -1112,6 +1068,7 @@ Polaris MRZR (access on limited dates only)
 \end{itemize}
 \end{frame}
 
+%TODO: Ignore pseudo states?
 \begin{frame}[t]{Formula Semantics}
 \begin{itemize}
 \item $\fintR{\phi}$ is the \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ that realize $\phi$.
@@ -1141,7 +1098,6 @@ Polaris MRZR (access on limited dates only)
 \end{frame}
 
 \begin{frame}[t]{Games Support Proof Terms}
-
 \[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
 \pause
 \cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
@@ -1195,13 +1151,7 @@ Polaris MRZR (access on limited dates only)
 \end{theorem}
 \end{frame}
 
-\begin{frame}[t]{Sound as a Type System}
-\begin{lemma}[Progress]
-If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
-\end{lemma}
-\begin{lemma}[Preservation]
-If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
-\end{lemma}
+\begin{frame}[t]{A Constructive Logic}
 \begin{lemma}[Existence Property]
 If $\proves{\Gamma}{M}{(\lexists{x:\tau}{\phi})}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
 we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
@@ -1209,6 +1159,15 @@ we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
 \end{lemma}
 \begin{lemma}[Disjunction Property]
 When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists realizer $\ab$ and computable $f,$ s.t.\ for every $\om$ and $\aa$ such that $(\aa,\omega) \in \cintR{\G}$, either $f(\omega)=0$ and $(\rzFst{\ab},\omega) \in \fintR{\phi}{}$, else $f(\omega)=1$ and $(\rzSnd{\ab},\omega) \in \fintR{\psi}$.
+\end{lemma}
+\end{frame}
+
+\begin{frame}[t]{Sound as a Type System}
+\begin{lemma}[Progress]
+If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
+\end{lemma}
+\begin{lemma}[Preservation]
+If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
 \end{lemma}
 %\begin{lemma}[Active Strategy Property]
 %If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$
@@ -1223,6 +1182,7 @@ Picard iteration and Euler integration yield computational interpretations of OD
   \item Conjecture: Box rules $\dbox{\pevolve{\D{x}=\theta}}{P}$ ``just work''
   \item Challenge: Which proofs lead to ``good'' monitors, controllers?
      e.g., equalities $\theta = \eta$ are easy to prove, hard to monitor.
+%TODO: And constructive Picard
   \item Related Work: Verified integration~\cite{DBLP:conf/itp/ImmlerT16}
 \end{itemize}
 \end{frame}
@@ -1236,13 +1196,14 @@ How do games connect with systems, and thus with VeriPhy?\\
 \pause
 How do constructive and classical games relate?
 \begin{itemize}
+%TODO: Differentiate necessary vs. for-fun proofs
 \item G\"{o}del-Gentzen translation and embedding classical proofs ``as a modality''
 \item Conjecture: Classical games are ``bigger'' (higher closure ordinal) than constructive games
 \item Expand study of classical vs.\ constructive arithmetic
 \end{itemize}
 \end{frame}
 
-\section{Proposed Work: Kaisar Language}
+\section{Ongoing Work: Kaisar Language}
 
 \begin{frame}[t]{Kaisar Combines Perspectives on Proofs}
   \begin{tabular}{lll}
@@ -1252,6 +1213,7 @@ How do constructive and classical games relate?
 \end{frame}
 
 %TODO: Give actual examples and motivations for nominals
+%TODO: Better examples
 \begin{frame}[t,fragile]{Programs First, Proofs Second}
 \logician[0.5in]
 \begin{minipage}{2in}
@@ -1275,9 +1237,11 @@ x:=2;
 
 \end{frame}
 
-%TODO: More Logic-User slides?
+%TODO: More Logic-User slides?%
+%TODO: Spacing and formatting of characters
 \begin{frame}[t]{Evaluation}
 \logicuser[0.5in] 
+
 Best-effort usability eval.\ for lightweight design guidance
 \begin{itemize}
 \item Maintenance: How do proofs change when programs change?
@@ -1288,6 +1252,7 @@ Best-effort usability eval.\ for lightweight design guidance
 
 %TODO: Change example to support the idioms
 \begin{frame}[t]{Logic-User is Hopeful}
+\logicuser[0.5in] 
   \begin{itemize}
   \item Nominals support ``predictive proof'' idiom
   \item Lexical scope taken for granted in programs
@@ -1309,6 +1274,7 @@ How much do proofs change when programs change?
 \end{itemize}
 \end{frame}
 
+%TODO: Time consuming? Lots of text?
 \begin{frame}[t]{Predicate Transformers Meet Hybrid Logic}
 \logician[0.5in]
 How do we check proofs?
@@ -1328,12 +1294,13 @@ Compute strongest postcondition $\spost{S}{\G}$ of proof $S$ from initial contex
 \textbf{Soundness:} If $S$ is a proof, then $\G \vdash \spost{S}{\G}$ is valid.
 \end{frame}
 
+%TODO: Use as the intro slide?
 \begin{frame}[t]{Kaisar as a Playground}
 Proof technology has evolved over time.
 Let's answer:
   \begin{tabular}{lll}
     \ah{1}{\engineer}                         & \ah{2}{\logician}                      & \ah{3}{\logicuser}\\
-    \acl{1}{\say{How does proof format affect tooling?}} 
+    \acl{1}{\say{How does proof format affect tooling?}}
 & \acl{2}{\say{What are the core features?}}
 & \acl{3}{\say{How do features impact real proofs?}}
   \end{tabular}
@@ -1356,17 +1323,15 @@ Let's answer:
 %\draw node[left=0.3cm of cdgl] (cdgl-ref) {Ch.\ 6};
 %\draw[dashed] (formalization) -- (formal-ref);
 %\draw[dashed] (generalization) -- (gen-ref);
-\newcommand{\ctrlcolor}[1]{{\color{vred}{#1}}}
-\newcommand{\plantcolor}[1]{{\color{vblue}{#1}}}
+%\begin{center}
 \begin{frame}[t]{Exploit Proof Content}
-\begin{center}
   \begin{tikzpicture}
     \draw (0,1) node (thm) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
     \draw (0,0.5) node {$\Uparrow$};
     \draw (0.6,0.5) node {\footnotesize{\color{gray}Proof}};
     \draw (0,0) node (mainprf) {$J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}$};
     \draw (0,-0.5) node {$\Uparrow$};
-    \draw (0,-1) node (mainprf) {$J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$};
+    \draw (0,-1) node (nxtprf) {$J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$};
     \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
     \draw (3, -0.5) node {\plantcolor{dC}};
     \draw (3.15, -1) node {\plantcolor{dI}};
@@ -1386,18 +1351,25 @@ Let's answer:
     \draw[color=vred] (-3.4, -1)   -- (-3.9,-1);
     \draw[color=vred] (-3.5, -1.5) -- (-3.85,-1.15);
   \end{tikzpicture}
-\end{center}
+\end{frame}
+%\end{center}
 %Missing from figure: Elaboration and Normalization steps
 %Control.S $\leftarrow_{{:=}*,\cup,'} (J(x) \limply \ddiamond{\ctrl}{\dbox{\plant}{J(\tilde{x} < x)}}) \rightarrow_{dC,dG}$ Monitor.S
-\end{frame}
+
+%TODO: Add simplification self-arrow after checking
+%\draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
+%\draw (bexport) -- (synth)
+% \node[shape=coordinate] (use-anchor) at (0,-3){};
+% \draw node[right=0.3cm of lop] (lop-ref) {Ch.\ 7};
+% \node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{Ch.\ 6}}] (cdgl-ref) at (cdgl) {};
+% \draw[->,very thick] (logic) -- (CdGLcirc);
+%\draw[-,black,very thick,dashed] (ptproof) -- node[anchor=east,align=center] {Soundness proof\\(\rref{sec:intervalify})} (ptanchor);
 
 \begin{frame}[t]{Architecture}
 %Standalone checker, loose coupling with \KeYmaeraX, except when not.
 %That is, may want to use Kaisar in KeYmaera, but also need standalone synthesizer
 \begin{center}
   \begin{tikzpicture}
-%\draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
-
 \draw (0,3) node[rectangle,draw,thin] (input) {\texttt{Proof.kai}};
 \draw (0,2) node[rectangle,draw,thin] (parse) {Parsing + Elaboration};
 \draw (0,1) node[rectangle,draw,thin] (pcheck) {Proofchecking};
@@ -1413,7 +1385,6 @@ Let's answer:
 
 \draw (input) -- (parse);
 \draw (parse) -- (pcheck);
-%\draw (bexport) -- (synth)
 \draw (bexport) -- (synth);
 
 \node[shape=coordinate] (AST) at (0,0) {};
@@ -1426,18 +1397,12 @@ Let's answer:
 \draw (synth) -- (code);
 \draw (interp) -- (code);
 \draw (comp) -- (code);
-% \node[shape=coordinate] (use-anchor) at (0,-3){};
-% \draw node[right=0.3cm of lop] (lop-ref) {Ch.\ 7};
-% \node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{Ch.\ 6}}] (cdgl-ref) at (cdgl) {};
-% \draw[->,very thick] (logic) -- (CdGLcirc);
-%\draw[-,black,very thick,dashed] (ptproof) -- node[anchor=east,align=center] {Soundness proof\\(\rref{sec:intervalify})} (ptanchor);
-
   \end{tikzpicture}
 \end{center}
-%TODO: Figure, see notes.
-%TODO: Research Isar architecture.
 \end{frame}
+%TODO: Research Isar architecture.
 
+%TODO: Lots of text, lots of jumpy transitions
 \begin{frame}[t]{Arithmetic}
 \engineer[0.5in]\say{I don't like overflow errors!}
 
@@ -1456,12 +1421,14 @@ Fastest and simplest, but inconvenient.
 \end{itemize}
 \end{frame}
 
+%TODO: Cut trust discussion.
 \begin{frame}[t]{Code Generation}
 Control code is untrusted, so complex languages are acceptable.
 Sandbox monitor code should use simple language.
 Simple solution: Hook into VeriPhy compilation stages.
 \end{frame}
 
+%TODO: Deduplicate
 \begin{frame}[t]{Refinement Connects with VeriPhy}
   \begin{itemize}
   \item Prove game property
@@ -1534,6 +1501,8 @@ Simple solution: Hook into VeriPhy compilation stages.
 %\end{figure}
 \end{frame}
 
+
+%TODO: Possibly subdivide for kaisar theory work.
 \begin{frame}[t]{Thesis is Big, but Doable}
 Timeline: $\approx$\textbf{1 year}, optimistic
 \begin{itemize}
@@ -1546,6 +1515,7 @@ Timeline: $\approx$\textbf{1 year}, optimistic
 Kaisar builds on prior prototype, \CdGL builds on existing \CGL $\rightsquigarrow$ less ``rampup'' needed
 \end{frame}
 
+%TODO: Plans are important but it's hard to discuss without context
 \begin{frame}[t,allowframebreaks]{Backup Plans are in Place}
 \textbf{CdGL Backup Plans:}
 \begin{itemize}
@@ -1578,15 +1548,15 @@ Kaisar builds on prior prototype, \CdGL builds on existing \CGL $\rightsquigarro
   \end{tabular}
 \end{frame}
 
+\appendix
+\section{Appendix}
+
+%TIMED: 1:27:00,  87 mins, needs to be 45, cut 42 mins, ~50%
 \begin{frame}[t,allowframebreaks]{TODO List}
   \begin{itemize}
-  \item Monday: Develop figures for last section
-  \item Time the talk
   \item Identify nonsense slides, e.g., where background info, connecting info, explanation, context are needed.
-  \item Try to fix nonsense by Tuesday meeting.
+  \item Try to fix nonsense by Wednesday meeting.
   \item In meeting, discuss: Slides, resubmission plans, whether to do extra practice talks
-
-
   \item Research related works which inform design questions, e.g., Isar architecture and software engineering works
   \item Identify questions likely to be asked by committee, prepare answers
   \item Identify additional figures that improve slides, make said figures
@@ -1594,10 +1564,10 @@ Kaisar builds on prior prototype, \CdGL builds on existing \CGL $\rightsquigarro
   \item Practice talk in lab meeting, Oct 22
   \item Test Skype connection with Tobias
   \item Keep document updated with insights and plans arising from the talk editing, and publishing status
+  \item Explore ML programs as realizers
   \end{itemize}
 \end{frame}
 
-\appendix
 \section<presentation>*{\appendixname}
 \subsection<presentation>*{For Further Reading}
 
