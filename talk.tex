@@ -488,109 +488,105 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
   \titlepage
 \end{frame}
 
-\section{Motivation}
-%TODO: Cut for space
-\begin{frame}[t]{\only<1>{Safety-Critical CPS Need Safety}
-\only<2->{Safety-Critical CPS Need Proofs}}
-  \begin{center}
-    \begin{tabular}{ccc}
-\includegraphics[width=1in]{img/plane-real.jpg}&\includegraphics[width=1in]{img/quadcopter-real.jpg}&\includegraphics[width=1in]{img/robot-dyn-small.png}\\
-Planes&Drones&Robots\\
-\uncover<2->{
-& &\\
-%&$\Downarrow$&\\
-\includegraphics[width=0.6in]{img/assembly-small.png}&\includegraphics[width=1in]{img/invariant-region.png}&\infer{\Gamma \vdash A \lor B}{\Gamma \vdash A}\\
-Discrete Control & Continuous Dynamics & Syntactic Proof
-}
-    \end{tabular}
-  \end{center}
-  \only<1>{
-  \begin{quote}
-    How can we design cyber-physical systems people can bet their lives on? -- Jeanette Wing
-  \end{quote}
-  }
-  \only<3>{
-  \begin{quote}
-    How do proofs cope when control, dynamics are partial, discontinuous?
-  \end{quote}
-  }
-\end{frame}
+\section{Introduction}
+%%%  If I bring this slide back, connect pictures to next slide
+%\begin{frame}[t]{\only<1>{Safety-Critical CPS Need Safety}
+%\only<2->{Safety-Critical CPS Need Proofs}}
+%  \begin{center}
+%    \begin{tabular}{ccc}
+%\includegraphics[width=1in]{img/plane-real.jpg}&\includegraphics[width=1in]{img/quadcopter-real.jpg}&\includegraphics[width=1in]{img/robot-dyn-small.png}\\
+%Planes&Drones&Robots\\
+%\uncover<2->{
+%& &\\
+%\includegraphics[width=0.6in]{img/assembly-small.png}&\includegraphics[width=1in]{img/invariant-region.png}&\infer{\Gamma \vdash A \lor B}{\Gamma \vdash A}\\
+%Discrete Control & Continuous Dynamics & Syntactic Proof
+%}
+%    \end{tabular}
+%  \end{center}
+%  \only<1>{
+%  \begin{quote}
+%    How can we design cyber-physical systems people can bet their lives on? -- Jeanette Wing
+%  \end{quote}
+%  }
+%  \only<3>{
+%  \begin{quote}
+%    How do proofs connect to reality?
+%  \end{quote}
+%  }
+%\end{frame}
 
 
-%TODO: Cut half for space
 \begin{frame}[t]{Verification Needs to be End-to-end}
+\begin{center}
   \begin{tabular}{lll}
-%TODO: Make sure all systems are featured in intro pictures
-%Pacemaker: 60k, Space shuttle: 400k, car: 100M, F22 > 1M, military drone >3M, 787: 14M, F35: 24M
-%codebases
-\ah{1}{Application}         & \ah{2}{Models LOC (approx.)}                      & \ah{3}{Real system LOC~\cite{codebases,OpenAPS}} \\
-\acl{1}{Insulin pump}        & \acl{2}{30~\cite{COBELLI198227}}                   & \acl{3}{35K}  \\ % number of equations in pape
-\acl{1}{Pacemaker}           & \acl{2}{650~\cite{DBLP:conf/cpsweek/AndalamMRT16}} & \acl{3}{60K}  \\ % 35 cells * 19 lines
-\acl{1}{Space shuttle}       & \acl{2}{40~\cite{DBLP:conf/cpsweek/ChanM17}}       & \acl{3}{400K}\\ % artifact provided: spaceex
-\acl{1}{Modern drone}        & \acl{2}{80~\cite{DBLP:conf/emsoft/RickettsML16}}   & \acl{3}{3M}\\
-\acl{1}{Commercial airliner} & \acl{2}{84-150~\cite{DBLP:conf/fm/PlatzerC09,DBLP:conf/emsoft/JeanninGKGSZP15}} & \acl{3}{14M} \\  % tangential roundabout study, safe_explicit.kyx
-\acl{1}{Modern car}          & \acl{2}{29-150~\cite{DBLP:conf/fm/LoosPN11,DBLP:journals/ral/BohrerTMSP19}}  & \acl{3}{100M} %FM kym3 proof, 
+% \acl{1}{Space shuttle}       & \acl{2}{40~\cite{DBLP:conf/cpsweek/ChanM17}}       & \acl{3}{400K}\\ % artifact provided: spaceex
+% \acl{1}{Modern drone}        & \acl{2}{80~\cite{DBLP:conf/emsoft/RickettsML16}}   & \acl{3}{3M}\\
+% \acl{1}{Pacemaker}           & \acl{2}{650~\cite{DBLP:conf/cpsweek/AndalamMRT16}} & \acl{3}{60K}  \\ % 35 cells * 19 lines
+% Also: F22 ~> 1M lines, F35: 24M
+\ah{1}{Application}         & \ah{2}{Models LOC (approx.)}                      & \ah{3}{Real system LOC} \\
+\acl{1}{Insulin pump}        & \acl{2}{30~\cite{COBELLI198227}}                   & \acl{3}{35K~\cite{OpenAPS}}  \\ % number of equations in paper
+\acl{1}{Commercial airliner} & \acl{2}{84-150~\cite{DBLP:conf/fm/PlatzerC09,DBLP:conf/emsoft/JeanninGKGSZP15}} & \acl{3}{14M~\cite{codebases}} \\  % tangential roundabout study, safe_explicit.kyx
+\acl{1}{Modern car}          & \acl{2}{29-150~\cite{DBLP:conf/fm/LoosPN11,DBLP:journals/ral/BohrerTMSP19}}  & \acl{3}{100M~\cite{codebases}} %FM kym3 proof, 
   \end{tabular}
+\end{center}
 \end{frame}
 
-%TODO: Cut half for space
 \begin{frame}[t]{End-to-end Verification Must Close Several Gaps}
 Why are implementations more complicated than models?
   \begin{align*}
-    \text{Learned Controls}   &\rightsquigarrow \text{Control envelopes}\\
-    \text{Perception Systems} &\rightsquigarrow \text{Sensing assumptions}\\
-    \text{Feedback Controls}  &\rightsquigarrow \text{Actuator assumptions}\\
-    \text{Real physics}       &\rightsquigarrow \text{ODE Abstraction}\\
-    \text{Non-critical code}  &\rightsquigarrow \langle\textbf{poof}\rangle
+%    \text{Non-critical code}  &\rightsquigarrow \langle\textbf{poof}\rangle
+    \text{Learned Controls}     &\rightsquigarrow \text{Control envelopes}\\
+    \text{Sensing + Actuation}  &\rightsquigarrow \text{Model assumptions}\\
+    \text{Actual Physics}       &\rightsquigarrow \text{Diff.\ eq.}
   \end{align*}
 \end{frame}
 
 \begin{frame}[t]{End-to-end Verification Must Meet Competing Needs}
+\begin{center}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
     \acl{1}{Engineer} & \acl{2}{Logician} & \acl{3}{Logic-User}
   \end{tabular}
+\end{center}
 \end{frame}
 
-%TODO: Smooth out animation timing
-\section{Related Work}
-\begin{frame}[t]{General-purpose interactive theorem proving}
-  \begin{tabular}{lll}
-    \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \acl{1}{\saySad{Generated code is \\hard to integrate}} & \acl{2}{\sayHappy{Strong Foundations!}} & \acl{3}{\saySad{Long Proofs!}}
-  \end{tabular}
-  \begin{itemize}
-  \item ROSCoq:~\cite{DBLP:conf/itp/AnandK15}       Coq proofs + control synthesis
-  \item VeriDrone:~\cite{DBLP:conf/emsoft/RickettsML16}    LTL in Coq + monitor synthesis
-  \item Isabelle/UTP:~\cite{DBLP:conf/utp/Foster19} CPS Embedded in Isabelle
-  \end{itemize}
-% Isabelle/Coq, VeriDrone, ROSCoq
-\end{frame}
+%\section{Related Work}
+%Also: Smooth out animation timing
+%\begin{frame}[t]{General-purpose interactive theorem proving}
+%  \begin{tabular}{lll}
+%    \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
+%    \acl{1}{\saySad{Generated code is \\hard to integrate}} & \acl{2}{\sayHappy{Strong Foundations!}} & \acl{3}{\saySad{Long Proofs!}}
+%  \end{tabular}
+%  \begin{itemize}
+%  \item ROSCoq:~\cite{DBLP:conf/itp/AnandK15}            Coq proofs + control synthesis
+%  \item VeriDrone:~\cite{DBLP:conf/emsoft/RickettsML16}  LTL in Coq + monitor synthesis
+%  \item Isabelle/UTP:~\cite{DBLP:conf/utp/Foster19}      CPS Embedded in Isabelle
+%  \end{itemize}
+%\end{frame}
 
-\begin{frame}[t]{Model Checking + Synthesis}
-% LTLMoP, TuLiP, Seshia
-  \begin{tabular}{lll}
-    \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \acl{1}{\sayHappy{Synthesis tools!}} & \acl{2}{\saySad{Paper foundations}} & \acl{3}{\saySad{Hard models!}}
-  \end{tabular}
-  \begin{itemize}
-  \item LTLMoP~\cite{DBLP:conf/iros/FinucaneJK10} and TuLiP~\cite{DBLP:conf/IEEEcca/FilippidisDLOM16}: Fancy front-end, synthesis via discretized model
-  \item \cite{DBLP:conf/rv/DesaiDS17}: Constant dynamics, STL-based runtime monitor
-  \item \cite{DBLP:conf/cdc/BhatiaKV10,DBLP:journals/automatica/FainekosGKP09}: Plan synthesis, complementary to control
-  \end{itemize}
-\end{frame}
+% \begin{frame}[t]{Model Checking + Synthesis}
+%   \begin{tabular}{lll}
+%     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
+%     \acl{1}{\sayHappy{Synthesis tools!}} & \acl{2}{\saySad{Paper foundations}} & \acl{3}{\saySad{Hard models!}}
+%   \end{tabular}
+%   \begin{itemize}
+%   \item LTLMoP~\cite{DBLP:conf/iros/FinucaneJK10} and TuLiP~\cite{DBLP:conf/IEEEcca/FilippidisDLOM16}: Fancy front-end, synthesis via discretized model
+%   \item \cite{DBLP:conf/rv/DesaiDS17}: Constant dynamics, STL-based runtime monitor
+%   \item \cite{DBLP:conf/cdc/BhatiaKV10,DBLP:journals/automatica/FainekosGKP09}: Plan synthesis, complementary to control
+%   \end{itemize}
+% \end{frame}
 
-\begin{frame}[t]{\dL Verification + Synthesis (before)}
-  \begin{tabular}{lll}
-    \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \acl{1}{\saySad{Limited synthesis}} & \acl{2}{\saySad{Paper foundations}} & \acl{3}{\saySad{Don't like tactics!}}
-  \end{tabular}
-  \begin{itemize}
-  \item Uniform substitution~\cite[\S35,\S40]{Church:1956} is foundation of differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer17}
-  \item \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} prover uses Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} language to express \dL proofs
-  \item \ModelPlex~\cite{DBLP:journals/fmsd/MitschP16} synthesizes correct-by-construction monitor conditions from \dL model
-  \end{itemize}
-\end{frame}
+% \begin{frame}[t]{\dL Verification + Synthesis (before)}
+%   \begin{tabular}{lll}
+%     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
+%     \acl{1}{\saySad{Limited synthesis}} & \acl{2}{\saySad{Paper foundations}} & \acl{3}{\saySad{Don't like tactics!}}
+%   \end{tabular}
+%   \begin{itemize}
+%   \item Uniform substitution~\cite[\S35,\S40]{Church:1956} is foundation of differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer17}
+%   \item \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} prover uses Bellerophon~\cite{DBLP:conf/itp/FultonMBP17} language to express \dL proofs
+%   \item \ModelPlex~\cite{DBLP:journals/fmsd/MitschP16} synthesizes correct-by-construction monitor conditions from \dL model
+%   \end{itemize}
+% \end{frame}
 
 \begin{frame}[t]{No prior work meets all requirements}
 \begin{table}[tbh]
@@ -600,33 +596,32 @@ Approach    & Logician                 & Engineer                               
 GPITP       &\cellcolor{green!25}formal &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline
 Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline
 \dL before  &\cellcolor{yellow!25}paper &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause       %, less labor-intensive
-\dL after   &\cellcolor{green!25}formal &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause %, less labor-intensive
-\CdGL       &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls  &\cellcolor{green!25}least error-prone\\\hline       %, less labor-intensive
+Current     &\cellcolor{green!25}formal &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause %, less labor-intensive
+Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls  &\cellcolor{green!25}least error-prone\\\hline       %, less labor-intensive
 \end{tabular}
   \caption{Comparison of Verification Approaches}
   \label{tab:approach-comparison}
 \end{table}
 \end{frame}
 
-%TODO: Fix spacing
 \begin{frame}[t]{\CdGL Verification + Synthesis (after)}
-  \begin{tabular}{lll}
+  \begin{tabular}{@{\hskip0.6in}lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
     \acl{1}{\sayHappy{Full synthesis suite!}} & \acl{2}{\sayHappy{Formal foundations!}} & \acl{3}{\sayHappy{Structured proofs!}}
   \end{tabular}
-\begin{tabular}{@{\hskip-0.2in}l@{\hskip-0.2in}l}
+\begin{tabular}{@{\hskip-0.2in}l@{\hskip-0.7in}l}
 \begin{minipage}{0.6\textwidth}
 {\small\begin{itemize}
-  \item[] \textbf{Complete:} Formal soundness proof of \KeYmaeraX core
-  \item[] \textbf{Complete:} Verified compilation for \ModelPlex monitors
-  \item[] \textbf{Complete:} Logic for discrete games
+  \item[] \textbf{Complete:} Verified \dL checker
+  \item[] \textbf{Complete:} Verified  monitor compilation
+  \item[] \textbf{Complete:} Discrete-game logic
 \end{itemize}}
 \end{minipage} &
 \begin{minipage}{0.6\textwidth}
 {\small\begin{itemize}
   \item[] \textbf{In-progress:} Structured proofs
-  \item[] \textbf{Proposed:} Combined monitor, controller synthesis, via
-  \item[] \textbf{Proposed:} Logic for hybrid games
+  \item[] \textbf{Proposed:} Synthesize monitor+control via
+  \item[] \textbf{Proposed:} Hybrid-game logic
 \end{itemize}}
 \end{minipage}
 \end{tabular}
@@ -647,29 +642,45 @@ Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls 
 \end{center}
 \end{frame}
 
-%TODO: Greatly simplify
-\begin{frame}[t]{2D Driving Model is Source}
-\newcommand{\admiss}{\textsf{Go}} 
-\newcommand{\planreq}{\textsf{Feas}} 
+\newcommand{\admiss}{\textsf{Go}}
+\newcommand{\planreq}{\textsf{Feas}}
 \newcommand{\veps}{\varepsilon}
 \newcommand{\annul}{\textsf{Ann}\xspace}
 \newcommand{\adjustSpeedDist}{\delta_\mathsf{Lim}\xspace}
 \newcommand{\controllableGoalDist}{\mathsf{Lim}}
+%\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
+%\label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar\\
+%\admiss &\equiv a \in [-B,A] \land safe(v(a,\veps),x(a,\veps))\\
+%TODO: Greatly simplify
+\begin{frame}{2D Driving Model is Input}
+%\begin{tabular}{cc}
+\noindent
+\begin{minipage}{0.4\textwidth}
 {\small\begin{align*}
-\ctrl &~\equiv~ \prandom{(\xgvar,\ygvar)};\,\prandom{[\vlvar,\vhvar]};\,\prandom{\kvar};\,\ptest{\planreq};\,\underbrace{\prandom{\avar};\,\ptest{\admiss}}_{\ctrlliv}\\
-\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
-\label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar\\
-\admiss &\equiv a \in [-B,A] \land safe(v(a,\veps),x(a,\veps))\\
-\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
- &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
+\alpha~\equiv~& \prepeat{(\ctrl; \plant)}\\
+\ctrl ~\equiv~& \prandom{\text{\sf{way,k,\m{v_{\text{lim}}}}}};\,\ptest{\planreq};\\
+      &\underbrace{\prandom{\avar};\,\ptest{\admiss}}_{\ctrlliv}\\
+\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),\\
+             &~\D{\vvar}=\avar,~\D{\tvar}=1 \&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
 \end{align*}}
+\end{minipage}%
+\begin{minipage}{0.15\textwidth}~
+\end{minipage}%
+\begin{minipage}{0.45\textwidth}
+\includegraphics[width=\textwidth]{graphics/fig-ode2.pdf}
+\end{minipage}
+%\begin{minipage}{0.6\textwidth}
+%\end{minipage}
+
+%&
+%\end{tabular}
 \end{frame}
 
 \begin{frame}[t]{Provable Monitor $\leadsto$ Provable Sandbox}
 Sandboxed controller uses {\color{myyellow}{external}}  controller when decision is {\color{vred}safe}, else uses verified {\color{vgreen}{fallback}}.
 Detects non-compliant {\color{vblue}plants}.
-\begin{textblock}{8}(1,3.5)
-\small\begin{align*}
+\begin{textblock}{8}(-0.5,4)
+\footnotesize\begin{align*}
 &\prandom{\vec{x}};\\
 &\ptest{\phi}\\
 & \bigl(\hspace{.5em} \color{myyellow}{\pumod{\vec{x}^+}{\textsf{extCtrl}}}\\
@@ -678,67 +689,12 @@ Detects non-compliant {\color{vblue}plants}.
 & \quad \pumod{\vec{x}}{\vec{x}^+}\\
 & \quad \prandom{\vec{x}^+} \\
 & \quad  \ptest{\color{vblue}{\plantMon(\vec{x},\vec{x}^+)}};\\
-& \quad  \pumod{\vec{x}}{\vec{x}^+}\bigr)^* 
+& \quad  \pumod{\vec{x}}{\vec{x}^+}\bigr)^*
   \end{align*}
 \end{textblock}
-\begin{textblock}{10}(5,3.5)
-%TODO: Cut for simplicity
-\small\begin{align*}
-& \prandom{V};~\prandom{\varepsilon};~ \prandom{d};~\prandom{t}; \goback{}\\
-& \ptest{d \geq 0 \land V\geq 0 \land \varepsilon \geq 0};  \goback{}\\
-& \bigl(\hspace{.5em} \color{myyellow}{\prandom{t^+};~\prandom{v^+};~ \pumod{d^+}{d};}  \goback{}\\
-& \quad (~\phantom{\cup} \ptest{\color{vred}{\ctrlMon(d,t,v,d^+,t^+,v^+)}}\\
-& \quad \phantom{(~}\cup \color{vgreen}{\pumod{t^+}{0};~\pumod{v^+}{0}} ~); \goback{}\\
-& \quad \pumod{t}{t^+};~\pumod{v}{v^+};  \goback{}\\
-& \quad  \prandom{d^+};~\prandom{t^+};  \goback{}\\
-& \quad  \ptest{\color{vblue}{\plantMon(d,t,v,d^+,t^+,v^+)}};\\
-& \quad  \pumod{d}{d^+};~\pumod{t}{t^+}  \goback{}\bigr)^* 
-\end{align*}
-\end{textblock}
-\end{frame}
-
-%TODO: Cut text
-\begin{frame}[t]{Proof Term is Cross-Checked}
-How to trust a theorem prover?
-Formalize it!
-\Isabelle function \texttt{pteval} computes the proof state proved by a given proof term, or returns \texttt{NONE} on proofs that do not check
-\[{\tt pteval} : {\tt pt} \to {\tt proofState\ option}\]
-\KeYmaeraX is instrumented with a proofterm checker.
-The synthesized checker was evaluated on a 100,000-step sandbox safety proof.
-\end{frame}
-
-%TODO: Cut text
-\begin{frame}[t]{Cross-checker is Verified}
-Decidable first-order arithmetic is assumed ``axiomatically,'' all other rules are proven sound.
-\begin{theorem}[Proof-checker soundness]
-If all real arithmetic subgoals are valid and the proof checker accepts the proof term, the output derived rule is sound, i.e.:
-\[\small\texttt{arith\_valid pt} \land \texttt{pteval\ pt = Some rule} \limply \texttt{sound(rule)}\]
-\end{theorem}
-\end{frame}
-
-%TODO: Maybe roll into next slide? Time consuming
-\begin{frame}{Sandbox is Discretized}
-\textbf{Example:} Check whether $\pi < e$, efficiently.\\
-\textbf{Solution:} Conservative interval approximation
-\begin{example}
-Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then 
-\begin{itemize}
-%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.16in}\includegraphics[width=1.5in]{img/}
-\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.63in}\includegraphics[width=1.875in]{img/interval1.png}
-\item<+-> \(pi <_w e + 3\) is true ($\top$)\hspace{1.4in}\includegraphics[width=1.875in]{img/interval2.png}
-\item<+-> \(pi <_w e + 1\) is \emph{a known unknown} ($U$){\hspace{0.50875in}\includegraphics[width=1.40625in]{img/interval3.png}}
-\end{itemize}
-\only<4>{When truth values can be unknown, resulting logic is \emph{3-valued}}
-\end{example}
-\begin{textblock}{10}(14,1.75)
-\includegraphics[width=0.7in]{img/focus-int.png}
-\end{textblock}
-\end{frame}
-
-%TODO: Can this merge into sandbox slide?
-\begin{frame}[t]{Discrete Sandbox is Compiled}
-  \CakeML source incorporates {\color{myyellow}{external}} control, actuation, sensing
-\footnotesize\begin{align*}
+\begin{textblock}{10}(5,4)
+\uncover<2->{
+\scriptsize\begin{align*}
 \textbt{fun}&~\texttt{cmlSandbox state =}\short
 &\textbt{if}~\texttt{not ({\color{myyellow}stop ()}) }\textbt{then}\short
 &\quad\texttt{state.ctrl}^+ \texttt{:= {\color{\extern}extCtrl state};}\short
@@ -752,8 +708,75 @@ Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then
 &\quad\quad\texttt{state.sensors := state.sensors}^+\texttt{;} \short
 &\quad\quad\texttt{cmlSandbox state} \short
 &\quad\textbt{else}\texttt{ violation "Plant Violation"}
-\end{align*}
+\end{align*}}
+\end{textblock}
+\begin{textblock}{20}(1.5,14)
+\uncover<3->{
+\noindent%
+\includegraphics[width=1.6in]{img/interval1.png}\hskip0.4in%
+\includegraphics[width=1.6in]{img/interval2.png}\hskip0.4in%
+\includegraphics[width=1.1in]{img/interval3.png}}
+\end{textblock}
+
+%  \CakeML source incorporates {\color{myyellow}{external}} control, actuation, sensing
+%\begin{textblock}{10}(5,3.5)
+%%Note: Was cut for simplicity
+%\small\begin{align*}
+%& \prandom{V};~\prandom{\varepsilon};~ \prandom{d};~\prandom{t}; \goback{}\\
+%& \ptest{d \geq 0 \land V\geq 0 \land \varepsilon \geq 0};  \goback{}\\
+%& \bigl(\hspace{.5em} \color{myyellow}{\prandom{t^+};~\prandom{v^+};~ \pumod{d^+}{d};}  \goback{}\\
+%& \quad (~\phantom{\cup} \ptest{\color{vred}{\ctrlMon(d,t,v,d^+,t^+,v^+)}}\\
+%& \quad \phantom{(~}\cup \color{vgreen}{\pumod{t^+}{0};~\pumod{v^+}{0}} ~); \goback{}\\
+%& \quad \pumod{t}{t^+};~\pumod{v}{v^+};  \goback{}\\
+%& \quad  \prandom{d^+};~\prandom{t^+};  \goback{}\\
+%& \quad  \ptest{\color{vblue}{\plantMon(d,t,v,d^+,t^+,v^+)}};\\
+%& \quad  \pumod{d}{d^+};~\pumod{t}{t^+}  \goback{}\bigr)^* 
+%\end{align*}
+%\end{textblock}
 \end{frame}
+
+\begin{frame}[t]{Verified Proof Term Checker}
+Proof checker formalized as function:
+\[{\tt pteval} : {\tt pt} \to {\tt proofState\ option}\]\pause
+Soundness theorem formalized:
+\[\small\texttt{arith\_valid pt} \land \texttt{pteval\ pt = Some rule} \limply \texttt{sound(rule)}\]\pause
+Tested on real sandbox proofs ($\approx$100,000 steps)
+\end{frame}
+%How to trust a theorem prover?
+%Formalize it!
+%\Isabelle function \texttt{pteval} computes the proof state proved by a given proof term, or returns \texttt{NONE} on proofs that do not check
+%\KeYmaeraX is instrumented with a proofterm checker.
+%The synthesized checker was evaluated on a 100,000-step sandbox safety proof.
+%Decidable first-order arithmetic is assumed ``axiomatically,'' all other rules are proven sound.
+%\begin{theorem}[Proof-checker soundness]
+%If all real arithmetic subgoals are valid and the proof checker accepts the proof term, the output derived rule is sound, i.e.:
+%\end{theorem}
+
+
+%\begin{frame}{Sandbox is Discretized}
+%\textbf{Example:} Check whether $\pi < e$, efficiently.\\
+%\textbf{Solution:} Conservative interval approximation
+%\begin{example}
+%Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then 
+%\begin{itemize}
+%%%%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.16in}\includegraphics[width=1.5in]{img/}
+%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.63in}
+%\includegraphics[width=1.875in]{img/interval1.png}
+%\item<+-> \(pi <_w e + 3\) is true ($\top$)\hspace{1.4in}
+%\includegraphics[width=1.875in]{img/interval2.png}
+%\item<+-> \(pi <_w e + 1\) is \emph{a known unknown} ($U$){\hspace{0.50875in}
+%\includegraphics[width=1.40625in]{img/interval3.png}
+%}
+%\end{itemize}
+%\only<4>{When truth values can be unknown, resulting logic is \emph{3-valued}}
+%\end{example}
+%\begin{textblock}{10}(14,1.75)
+%\includegraphics[width=0.7in]{img/focus-int.png}
+%\end{textblock}
+%\end{frame}
+
+%\begin{frame}[t]{Discrete Sandbox is Compiled}
+%\end{frame}
 
 \begin{frame}[t]{Compiled Code is Simulated}
 \begin{figure}[tb]
@@ -804,220 +827,79 @@ Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then
 \end{figure}
 \end{frame}
 
-\newcommand{\ctrlspike}{\Large{\bf C\dag}}
-\newcommand{\ctrlfault}{\Large{\bf C\Lightning}}
-\newcommand{\plantfault}{\Large{\bf P\Lightning}}
-\newcommand{\ctrlrestore}{\Large{\bf C\tiny\Checkmark}}
-\newcommand{\graphscale}{0.4}
-\newcommand{\obsforward}{\Large{\bf{Ob{+}}}}
-\newcommand{\obsback}{\Large{\bf{Ob{-}}}}
-\newcommand{\obshalt}{\Large{\bf{Ob{0}}}}
-\newcommand{\graphwidth}{6.5in}
-\newcommand{\graphheight}{8.5cm}
-%TODO: Do we need two evaluation slides?
-\begin{frame}[t]{Code Executed on GoPiGo Robot}
-\begin{textblock}{8}(1.9,2.7)
-Operational Suitability? \\
-Arithmetic Precision?
-\end{textblock}
-\begin{textblock}{8}(12,2)
-\includegraphics[width=1.2in]{img/gopigo3.jpg}\\
-\end{textblock}
-\begin{textblock}{100}(1,5.2)
-    \begin{tabular}{lr}
-\begin{tikzpicture}[trim axis left,scale=\graphscale]
-      \begin{axis}[ scale only axis, width=\graphwidth, height=\graphheight,
-        ytick scale label code/.code={}, xtick scale label
-        code/.code={}, scaled x ticks=base 10:-3, scaled y ticks=base
-        10:-4, x label style={at={(axis description
-            cs:1.03,0)},anchor=north east}, xlabel={time
-          $[\textit{s}]$}, y label style={at={(axis description
-            cs:0,1.0)},rotate=-90,anchor=south west},
-        ylabel={distance $[\textit{cm}]$}, grid=both, axis on top,
-        cycle list name=auto, clip=false, enlargelimits=false, legend style={at={(0.95,0.95)}}]
-        \addplot+[myblue,mark=,solid,ultra thick]
-        table[x=time,y=d,skip first n=1,col sep=comma]
-        {correct100.csv};
-        \addlegendentry{Controller A (correct)};
-        \coordinate (fault1) at (axis cs:4400,46000);
-        \addplot+[vgreen,mark=,ultra thick] table[x=time,y=d,skip
-        first n=1,col sep=comma]
-        {ctrlbug100.csv};
-        \addlegendentry{Controller B (faulty)};
-        \node[coordinate,pin={[align=center,pin
-          distance=0.5cm]90:{\textcolor{vgreen}{\ctrlspike}}}] at
-        (axis cs:2700,460000) {};
-        \addplot+[myyellow,mark=,dashed,ultra thick]
-        table[x=time,y=d,skip first n=1,col sep=comma]
-        {backwards100.csv};
-        \addlegendentry{Malicious obstacle};
-        \coordinate (fault2) at (axis cs:3300,24000) {};
-        \node[coordinate,pin={[align=center,pin
-          distance=0cm]180:{\textcolor{myyellow}{\ctrlspike}}}] at
-        (axis cs:1900,450000) {}; \node[coordinate,pin={[pin
-          distance=0cm]260:{\textcolor{myyellow}{\plantfault}}}] at
-        (axis cs:3740,2000) {};
-        % BB%\node[coordinate,pin=below left:{\plant violation}] at (axis cs:3740,2000) {};
-        \addplot+[black,mark=,ultra thick] table[x=time,y=d,skip first
-        n=1,col sep=comma]
-        {actoffsetSafe100.csv};
-        \addlegendentry{Small disturbance};
-        % \node[coordinate,pin={[align=center,pin
-        % distance=1cm]60:{\Lightning~Fault becomes\\
-        % safety-critical,\\ fallback engaged}}] at (axis
-        % cs:5060,19600) {};
-        \coordinate (fault3) at (axis cs:5060,19600) {};
-        \node[coordinate,pin={[align=center,pin
-          distance=0cm]70:{\textcolor{black}{\ctrlspike}}}] at (axis
-        cs:2860,492600) {}; %(axis cs:2640,486000) {};
-        \node[coordinate,pin={[align=center,pin
-          distance=0.2cm]120:{\ctrlrestore}}] at (axis cs:8800,57000)
-        {}; \node[coordinate,pin={[align=center,pin
-          distance=0.2cm]205:{\ctrlfault}}] at (axis cs:9020,4200) {};
-        % Fault again\\ safety-critical,\\
-        % \coordinate (fault4) at (axis cs:9020,4200) {};
-        \addplot+[myblue,mark=,dashed,ultra thick]
-        table[x=time,y=d,skip first n=1,col sep=comma]
-        {actoffsetUnsafe100.csv};
-        \addlegendentry{Large disturbance};
-        \node[coordinate,pin={[align=center,pin
-          distance=0cm]180:{\textcolor{myblue}{\ctrlspike}}}] at (axis
-        cs:2600,450000) {}; \node[coordinate,pin={[align=center,pin
-          distance=0cm]160:{\textcolor{myblue}{\ctrlfault}}}] at (axis
-        cs:4200,3000) {};
-        \node[coordinate,pin={[align=center,pin
-          distance=0cm]270:{\textcolor{myblue}{\plantfault}}}] at
-        (axis cs:6600,2000) {};
-        \node[coordinate,pin={[align=center,pin distance=0.2cm]20:{\textcolor{vgreen}{\ctrlfault}}}] at (fault1) {};
-        \node[coordinate,pin={[align=center,pin
-          distance=0cm]180:{\textcolor{myyellow}{\ctrlfault}}}] at
-        (fault2) {}; \node[coordinate,pin={[align=center,pin
-          distance=0cm]240:{\textcolor{black}{\ctrlfault}}}] at
-        (fault3) {};
-      \end{axis}
-    \end{tikzpicture}
-&\vspace{-0.8cm}
-\begin{tikzpicture}[trim axis left,scale=\graphscale]
-\begin{axis}[
-scale only axis,
-width=\graphwidth,
-height=\graphheight,
-ytick scale label code/.code={},
-xtick scale label code/.code={},
-scaled x ticks=base 10:-3,
-scaled y ticks=base 10:-4,
-x label style={at={(axis description cs:1.03,0)},anchor=north east},
-xlabel={time $[\textit{s}]$},
-y label style={at={(axis description cs:0,1)},rotate=-90,anchor=south west},
-ylabel={distance $[\textit{cm}]$},
-grid=both,
-axis on top,
-cycle list name=auto,
-clip=false,
-enlargelimits=false,
-legend style={at={(0.95,0.95)}}
-]
- \addplot+[myblue,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/correct100.csv};
-\addlegendentry{Controller A (correct)};
- \addplot+[vgreen,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/ctrlbug100.csv};
-\addlegendentry{Controller B (faulty)};
-\node[coordinate,pin={[align=center,pin distance=0.1cm]70:{\textcolor{vgreen}{\ctrlspike}}}] at (axis cs:2445,460000) {};
-% Fault becomes\\ safety-critical,\\ f
-\node[coordinate,pin={[align=center,pin distance=-0.1cm]45:{\textcolor{vgreen}{\ctrlfault}}}] at (axis cs:4109,46000) {};
- \addplot+[myyellow,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/backwards100.csv};
-\addlegendentry{Approaching obstacle};
-\node[coordinate,pin={[align=center,pin distance=0.2cm]265:{\textcolor{myyellow}{\obsforward}}}] at (axis cs:2074,422000) {};
-\node[coordinate,pin={[align=center,pin distance=0cm]-70:{\textcolor{myyellow}{\obsback}}}] at (axis cs:4295,18000) {};
-\node[coordinate,pin={[align=center,pin distance=0cm]-0:{\textcolor{myyellow}{\obshalt}}}] at (axis cs:5774,486000) {};
-\addplot+[black,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/forwardObstCompensatesUnsafeActoffset100.csv};
-\addlegendentry{Robot follows obstacle};
-\node[coordinate,pin={[align=center,pin distance=0.2cm]86:{\obsforward}}] at (axis cs:5218,214000) {};
-\end{axis}
-\end{tikzpicture}
-    \end{tabular}
-\end{textblock}
-\renewcommand{\ctrlspike}{\small{\bf C\dag}}
-\renewcommand{\ctrlfault}{\small{\bf C\Lightning}}
-\renewcommand{\plantfault}{\small{\bf P\Lightning}}
-\renewcommand{\ctrlrestore}{\small{\bf C\tiny\Checkmark}}
-\renewcommand{\obsforward}{\small{\bf{Ob{+}}}}
-\renewcommand{\obsback}{\small{\bf{Ob{-}}}}
-\renewcommand{\obshalt}{\small{\bf{Ob{0}}}}
 
-\begin{textblock}{100}(3,12.5)
-Control Fault \ctrlfault{}, Plant Fault \plantfault{}, Control Spike \ctrlspike{}, Obstacle Motion {\textbf{Ob}}
-\end{textblock}
-\end{frame}
-
-%TODO: Move to discussion of proposed stuff?
-% https://github.com/jsford/FFAST
-\begin{frame}[t]{More Hardware Platforms Available}
-Several hardware platforms are available through collaborators if needed for further evaluation:
-\begin{itemize}
-\item\includegraphics[width=1.2in]{img/mrzr.jpg}\\
-Polaris MRZR (access on limited dates only)
-\item 1-10th scale RC Car (full access)
-\end{itemize}
-\end{frame}
-
-%TODO: Adjust colors for proposed / ongoing / finished / omitted-from-talk status
 \begin{frame}[t]{Components of Thesis}
-\begin{center}
+\newcommand{\cdone}{green!10}
+\newcommand{\cwip}{yellow!30}
+\newcommand{\cprop}{orange!30}
+%\begin{center}
+\noindent\hskip-0.2in
 \begin{tikzpicture}[scale=0.5]
 \draw (0,3.2)  node {Logic for};
 \draw (0,2.4)  node {Hybrid Systems};
 \draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{1.1cm}}};
 \draw (0,-1) node (cdgl) {\phantom{\CdGL}};
-\node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{Ch.\ 6}}] (cdgl-ref) at (cdgl) {};
+\node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{\S6}}] (cdgl-ref) at (cdgl) {};
 \draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.6cm}}};
 \draw (0,-1.2) node (cdgl) {\CdGL};
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
-\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ Ch.\ 3 Ch.\ 4}}] (dl-ref) at (dl) {};
+\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
 \draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
-\draw (-7, 2.8) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
-\draw (-7, 1.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (generalization) {\dL Generalized};
-\draw (-7, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
-\draw (-7, -0.5) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
+\draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
+\draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
+\draw (-14,1.7) node {{\small\color{vgray}Not in Talk}};
+\draw (-7, 0.6) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
+\draw (-7, -0.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
 \draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
 \draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
-\draw node[left=0.3cm of cgl] (cgl-ref) {Ch.\ 5};
-\draw node[left=0.3cm of cdgl] (cdgl-ref) {Ch.\ 6};
+\draw node[left=0.3cm of cgl] (cgl-ref) {\S5};
+\draw node[left=0.3cm of cdgl] (cdgl-ref) {\S6};
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
-\draw (5, 1.2) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Artifacts};
-\draw (5, 2.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
-\draw (5, 1.4) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (controllers) {Controls};
-\draw (5, 0.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
-\draw (5, -1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
-\draw node[right=0.3cm of monitors] (monitor-ref) {Ch.\ 4.1};
-\draw node[right=0.3cm of controllers] (controllers-ref) {Ch.\ 8};
-\draw node[right=0.3cm of proofscript] (proofscript-ref) {Ch.\ 7};
-\draw node[right=0.3cm of proofterm] (proofterm-ref) {Ch.\ 4.1};
+%2.6
+\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Artifacts};
+\draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
+\draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
+\draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+\draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
+\draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
+\draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
+\draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
+\draw node[right=0.3cm of proofterm] (proofterm-ref) {\S4.1};
 \draw[dashed] (monitors) -- (monitor-ref);
 \draw[dashed] (controllers) -- (controllers-ref);
 \draw[dashed] (proofscript) -- (proofscript-ref);
 \draw[dashed] (proofterm) -- (proofterm-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
 \draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Usability};
-\draw (0.3, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
-\draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
-\draw (-2.9, -6.05) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
-\draw (2.4, -6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainable?};
-\draw node[right=0.3cm of maintainable] (maintain-ref) {Ch.\ 7};
-\draw node[right=0.3cm of lop] (lop-ref) {Ch.\ 7};
+\draw (0.3, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
+\draw (0.1, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
+\draw (-2.9, -6.05) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
+\draw (2.4, -6) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainable?};
+\draw node[right=0.3cm of maintainable] (maintain-ref) {\S7};
+\draw node[right=0.3cm of lop] (lop-ref) {\S7};
 \draw[->,very thick] (logic) -- (CdGLcirc);
 \draw[->,very thick] (CdGLcirc) -- (engine);
 \draw[dashed] (CdGLcirc) -- (luser);
 \draw[dashed] (lop) -- (lop-ref);
 \draw[dashed] (maintainable) -- (maintain-ref);
 %\draw (1.45,-2) -- (0,-2.7);
-%\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
-%\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
+%\draw (0, -3.1) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
+%\draw (0, -4.15) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
 \end{tikzpicture}
-\end{center}
+%\end{center}
 \end{frame}
-% TODO: Clarify finished vs. ongoing
+%TODO: Make transition from systems to games
+%{\small\begin{align*}
+%\ctrl &~\equiv~ \prandom{(\xgvar,\ygvar)};\,\prandom{[\vlvar,\vhvar]};\,\prandom{\kvar};\,\ptest{\planreq};\,\underbrace{\prandom{\avar};\,\ptest{\admiss}}_{\ctrlliv}\\
+%\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
+%\label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar\\
+%\admiss &\equiv a \in [-B,A] \land safe(v(a,\veps),x(a,\veps))\\
+%\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),~\D{\vvar}=\avar,~\D{\tvar}=1 \\
+% &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
+%\end{align*}}
+
 \section{Proposed Work: \CdGL Logic}
 % Say: CGL is already done, but for the sake of time we're presenting it together with CdGL
 \begin{frame}[t]{Games Support Synthesis}
@@ -1216,12 +1098,14 @@ How do constructive and classical games relate?
 %TODO: Better examples
 \begin{frame}[t,fragile]{Programs First, Proofs Second}
 \logician[0.5in]
-\begin{minipage}{2in}
+
+\begin{minipage}{3.5in}
 \begin{verbatim}
      (x:=1 {show (x > 0) using x by auto})
 U   (x:= 2 {show (x > 0) using x by auto})
 \end{verbatim}
 \end{minipage}
+\\[0.2in]
 \begin{minipage}{2in}
 \begin{verbatim}
 (x:=1 U  x:=2)
@@ -1234,9 +1118,11 @@ x:=2;
 {x:=x+1}*\@{show gr1:"x>1" using x by auto}
 {show "x>0" using gr1 by auto}
 \end{verbatim}
-
 \end{frame}
 
+\begin{frame}{TODO: Nominals}
+
+\end{frame}
 %TODO: More Logic-User slides?%
 %TODO: Spacing and formatting of characters
 \begin{frame}[t]{Evaluation}
@@ -1276,7 +1162,7 @@ How much do proofs change when programs change?
 
 %TODO: Time consuming? Lots of text?
 \begin{frame}[t]{Predicate Transformers Meet Hybrid Logic}
-\logician[0.5in]
+%\logician[0.5in]
 How do we check proofs?
 How do we trust proofs?
 
@@ -1548,15 +1434,170 @@ Kaisar builds on prior prototype, \CdGL builds on existing \CGL $\rightsquigarro
   \end{tabular}
 \end{frame}
 
+% \newcommand{\ctrlspike}{\Large{\bf C\dag}}
+% \newcommand{\ctrlfault}{\Large{\bf C\Lightning}}
+% \newcommand{\plantfault}{\Large{\bf P\Lightning}}
+% \newcommand{\ctrlrestore}{\Large{\bf C\tiny\Checkmark}}
+% \newcommand{\graphscale}{0.4}
+% \newcommand{\obsforward}{\Large{\bf{Ob{+}}}}
+% \newcommand{\obsback}{\Large{\bf{Ob{-}}}}
+% \newcommand{\obshalt}{\Large{\bf{Ob{0}}}}
+% \newcommand{\graphwidth}{6.5in}
+% \newcommand{\graphheight}{8.5cm}
+% %TODO: Do we need two evaluation slides?
+% \begin{frame}[t]{Code Executed on GoPiGo Robot}
+% \begin{textblock}{8}(1.9,2.7)
+% Operational Suitability? \\
+% Arithmetic Precision?
+% \end{textblock}
+% \begin{textblock}{8}(12,2)
+% \includegraphics[width=1.2in]{img/gopigo3.jpg}\\
+% \end{textblock}
+% \begin{textblock}{100}(1,5.2)
+%     \begin{tabular}{lr}
+% \begin{tikzpicture}[trim axis left,scale=\graphscale]
+%       \begin{axis}[ scale only axis, width=\graphwidth, height=\graphheight,
+%         ytick scale label code/.code={}, xtick scale label
+%         code/.code={}, scaled x ticks=base 10:-3, scaled y ticks=base
+%         10:-4, x label style={at={(axis description
+%             cs:1.03,0)},anchor=north east}, xlabel={time
+%           $[\textit{s}]$}, y label style={at={(axis description
+%             cs:0,1.0)},rotate=-90,anchor=south west},
+%         ylabel={distance $[\textit{cm}]$}, grid=both, axis on top,
+%         cycle list name=auto, clip=false, enlargelimits=false, legend style={at={(0.95,0.95)}}]
+%         \addplot+[myblue,mark=,solid,ultra thick]
+%         table[x=time,y=d,skip first n=1,col sep=comma]
+%         {correct100.csv};
+%         \addlegendentry{Controller A (correct)};
+%         \coordinate (fault1) at (axis cs:4400,46000);
+%         \addplot+[vgreen,mark=,ultra thick] table[x=time,y=d,skip
+%         first n=1,col sep=comma]
+%         {ctrlbug100.csv};
+%         \addlegendentry{Controller B (faulty)};
+%         \node[coordinate,pin={[align=center,pin
+%           distance=0.5cm]90:{\textcolor{vgreen}{\ctrlspike}}}] at
+%         (axis cs:2700,460000) {};
+%         \addplot+[myyellow,mark=,dashed,ultra thick]
+%         table[x=time,y=d,skip first n=1,col sep=comma]
+%         {backwards100.csv};
+%         \addlegendentry{Malicious obstacle};
+%         \coordinate (fault2) at (axis cs:3300,24000) {};
+%         \node[coordinate,pin={[align=center,pin
+%           distance=0cm]180:{\textcolor{myyellow}{\ctrlspike}}}] at
+%         (axis cs:1900,450000) {}; \node[coordinate,pin={[pin
+%           distance=0cm]260:{\textcolor{myyellow}{\plantfault}}}] at
+%         (axis cs:3740,2000) {};
+%         % BB%\node[coordinate,pin=below left:{\plant violation}] at (axis cs:3740,2000) {};
+%         \addplot+[black,mark=,ultra thick] table[x=time,y=d,skip first
+%         n=1,col sep=comma]
+%         {actoffsetSafe100.csv};
+%         \addlegendentry{Small disturbance};
+%         % \node[coordinate,pin={[align=center,pin
+%         % distance=1cm]60:{\Lightning~Fault becomes\\
+%         % safety-critical,\\ fallback engaged}}] at (axis
+%         % cs:5060,19600) {};
+%         \coordinate (fault3) at (axis cs:5060,19600) {};
+%         \node[coordinate,pin={[align=center,pin
+%           distance=0cm]70:{\textcolor{black}{\ctrlspike}}}] at (axis
+%         cs:2860,492600) {}; %(axis cs:2640,486000) {};
+%         \node[coordinate,pin={[align=center,pin
+%           distance=0.2cm]120:{\ctrlrestore}}] at (axis cs:8800,57000)
+%         {}; \node[coordinate,pin={[align=center,pin
+%           distance=0.2cm]205:{\ctrlfault}}] at (axis cs:9020,4200) {};
+%         % Fault again\\ safety-critical,\\
+%         % \coordinate (fault4) at (axis cs:9020,4200) {};
+%         \addplot+[myblue,mark=,dashed,ultra thick]
+%         table[x=time,y=d,skip first n=1,col sep=comma]
+%         {actoffsetUnsafe100.csv};
+%         \addlegendentry{Large disturbance};
+%         \node[coordinate,pin={[align=center,pin
+%           distance=0cm]180:{\textcolor{myblue}{\ctrlspike}}}] at (axis
+%         cs:2600,450000) {}; \node[coordinate,pin={[align=center,pin
+%           distance=0cm]160:{\textcolor{myblue}{\ctrlfault}}}] at (axis
+%         cs:4200,3000) {};
+%         \node[coordinate,pin={[align=center,pin
+%           distance=0cm]270:{\textcolor{myblue}{\plantfault}}}] at
+%         (axis cs:6600,2000) {};
+%         \node[coordinate,pin={[align=center,pin distance=0.2cm]20:{\textcolor{vgreen}{\ctrlfault}}}] at (fault1) {};
+%         \node[coordinate,pin={[align=center,pin
+%           distance=0cm]180:{\textcolor{myyellow}{\ctrlfault}}}] at
+%         (fault2) {}; \node[coordinate,pin={[align=center,pin
+%           distance=0cm]240:{\textcolor{black}{\ctrlfault}}}] at
+%         (fault3) {};
+%       \end{axis}
+%     \end{tikzpicture}
+% &\vspace{-0.8cm}
+% \begin{tikzpicture}[trim axis left,scale=\graphscale]
+% \begin{axis}[
+% scale only axis,
+% width=\graphwidth,
+% height=\graphheight,
+% ytick scale label code/.code={},
+% xtick scale label code/.code={},
+% scaled x ticks=base 10:-3,
+% scaled y ticks=base 10:-4,
+% x label style={at={(axis description cs:1.03,0)},anchor=north east},
+% xlabel={time $[\textit{s}]$},
+% y label style={at={(axis description cs:0,1)},rotate=-90,anchor=south west},
+% ylabel={distance $[\textit{cm}]$},
+% grid=both,
+% axis on top,
+% cycle list name=auto,
+% clip=false,
+% enlargelimits=false,
+% legend style={at={(0.95,0.95)}}
+% ]
+%  \addplot+[myblue,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/correct100.csv};
+% \addlegendentry{Controller A (correct)};
+%  \addplot+[vgreen,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/ctrlbug100.csv};
+% \addlegendentry{Controller B (faulty)};
+% \node[coordinate,pin={[align=center,pin distance=0.1cm]70:{\textcolor{vgreen}{\ctrlspike}}}] at (axis cs:2445,460000) {};
+% % Fault becomes\\ safety-critical,\\ f
+% \node[coordinate,pin={[align=center,pin distance=-0.1cm]45:{\textcolor{vgreen}{\ctrlfault}}}] at (axis cs:4109,46000) {};
+%  \addplot+[myyellow,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/backwards100.csv};
+% \addlegendentry{Approaching obstacle};
+% \node[coordinate,pin={[align=center,pin distance=0.2cm]265:{\textcolor{myyellow}{\obsforward}}}] at (axis cs:2074,422000) {};
+% \node[coordinate,pin={[align=center,pin distance=0cm]-70:{\textcolor{myyellow}{\obsback}}}] at (axis cs:4295,18000) {};
+% \node[coordinate,pin={[align=center,pin distance=0cm]-0:{\textcolor{myyellow}{\obshalt}}}] at (axis cs:5774,486000) {};
+% \addplot+[black,mark=,ultra thick] table[x=time,y=d,skip first n=0,col sep=comma] {sim/forwardObstCompensatesUnsafeActoffset100.csv};
+% \addlegendentry{Robot follows obstacle};
+% \node[coordinate,pin={[align=center,pin distance=0.2cm]86:{\obsforward}}] at (axis cs:5218,214000) {};
+% \end{axis}
+% \end{tikzpicture}
+%     \end{tabular}
+% \end{textblock}
+%\renewcommand{\ctrlspike}{\small{\bf C\dag}}
+%\renewcommand{\ctrlfault}{\small{\bf C\Lightning}}
+%\renewcommand{\plantfault}{\small{\bf P\Lightning}}
+%\renewcommand{\ctrlrestore}{\small{\bf C\tiny\Checkmark}}
+%\renewcommand{\obsforward}{\small{\bf{Ob{+}}}}
+%\renewcommand{\obsback}{\small{\bf{Ob{-}}}}
+%\renewcommand{\obshalt}{\small{\bf{Ob{0}}}}
+
+%\begin{textblock}{100}(3,12.5)
+%Control Fault \ctrlfault{}, Plant Fault \plantfault{}, Control Spike \ctrlspike{}, Obstacle Motion {\textbf{Ob}}
+%\end{textblock}
+%\end{frame}
+
+% https://github.com/jsford/FFAST
+\begin{frame}[t]{More Hardware Platforms Available}
+Several hardware platforms are available through collaborators if needed for further evaluation:
+\begin{itemize}
+\item\includegraphics[width=1.2in]{img/mrzr.jpg}\\
+Polaris MRZR (access on limited dates only)
+\item 1-10th scale RC Car (full access)
+\end{itemize}
+\end{frame}
+
 \appendix
 \section{Appendix}
 
 %TIMED: 1:27:00,  87 mins, needs to be 45, cut 42 mins, ~50%
 \begin{frame}[t,allowframebreaks]{TODO List}
   \begin{itemize}
-  \item Identify nonsense slides, e.g., where background info, connecting info, explanation, context are needed.
-  \item Try to fix nonsense by Wednesday meeting.
-  \item In meeting, discuss: Slides, resubmission plans, whether to do extra practice talks
+%  \item Identify nonsense slides, e.g., where background info, connecting info, explanation, context are needed.
+%  \item Try to fix nonsense by Wednesday meeting.
+%  \item In meeting, discuss: Slides, resubmission plans, whether to do extra practice talks
   \item Research related works which inform design questions, e.g., Isar architecture and software engineering works
   \item Identify questions likely to be asked by committee, prepare answers
   \item Identify additional figures that improve slides, make said figures
