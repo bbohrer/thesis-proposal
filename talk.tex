@@ -162,8 +162,8 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\vcb}{\overline{b}}
 \newcommand{\btt}{\texttt{tt}}
 \newcommand{\bff}{\texttt{ff}}
-\newcommand{\stt}{\top}
-\newcommand{\sff}{\bot}
+\newcommand{\stt}{\textsf{early\_win}}
+\newcommand{\sff}{\textsf{early\_loss}}
 \newcommand{\demonactive}[2]{\textrm{aD}(#1,#2)}
 \newcommand{\demondormant}[2]{\textrm{dD}(#1,#2)}
 \newcommand{\sren}[3]{\urename[{#1}]{#2}{#3}}%{\subst[{#1}]{#2}{#3}}
@@ -448,8 +448,8 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\speak}[2]{\small\begin{minipage}{1.3in}{#1}{#2}\end{minipage}}
 \newcommand{\say}[1]{\speak{#1}{}}
 %TODO: Color the smiley and frowny for readability
-\newcommand{\sayHappy}[1]{\speak{#1}{\Smiley}}
-\newcommand{\saySad}[1]{\speak{#1}{\Frowny}}
+\newcommand{\sayHappy}[1]{\speak{#1}{\color{vgreen}{\Smiley}}}
+\newcommand{\saySad}[1]{\speak{#1}{\color{vred}{\Frowny}}}
 \newcommand{\turn}{\textsc{Turn}}
 \newcommand{\nim}{\textsc{Nim}}
 \newcommand{\cake}{\textsc{CC}}
@@ -651,7 +651,6 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 %\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
 %\label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar\\
 %\admiss &\equiv a \in [-B,A] \land safe(v(a,\veps),x(a,\veps))\\
-%TODO: Greatly simplify
 \begin{frame}{2D Driving Model is Input}
 %\begin{tabular}{cc}
 \noindent
@@ -890,7 +889,6 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \end{tikzpicture}
 %\end{center}
 \end{frame}
-%TODO: Make transition from systems to games
 %{\small\begin{align*}
 %\ctrl &~\equiv~ \prandom{(\xgvar,\ygvar)};\,\prandom{[\vlvar,\vhvar]};\,\prandom{\kvar};\,\ptest{\planreq};\,\underbrace{\prandom{\avar};\,\ptest{\admiss}}_{\ctrlliv}\\
 %\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
@@ -900,82 +898,154 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 % &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
 %\end{align*}}
 
+\newcommand{\moncolor}[1]{\plantcolor{#1}}
 \section{Proposed Work: \CdGL Logic}
 % Say: CGL is already done, but for the sake of time we're presenting it together with CdGL
-\begin{frame}[t]{Games Support Synthesis}
-  \begin{tabular}{ccc}
-    Modality                  & Curry-Howard & Synthesizes \\
-    $\dbox{\alpha}{\phi}$     & Demon strategy for $\phi$ after $\alpha$ & Monitor \\
-    $\ddiamond{\alpha}{\phi}$ & Angel strategy for $\phi$ after $\alpha$ & Control
-  \end{tabular}\pause
-  \begin{itemize}
-  \item Games support monitor \emph{and} control synthesis from \emph{one} proof
-  \item Curry Howard foundation promotes general-case, robust tools
-  \item Game models are often simpler than systems
-  \end{itemize}
+\begin{frame}[t]{\only<1>{Diamonds Support Synthesis}\only<2>{Games Extend Systems}}
+\begin{center}
+  \begin{tikzpicture}
+    \draw (0,1) node (thm) {$\dbox{\moncolor{\prandom{\vec{x}};\ptest{\planreq};}\ctrlcolor{\prandom{\avar};\ptest{\admiss}};\moncolor{\plant}}{\textsf{goal}}$};
+    \draw (0,0.5) node {$\Uparrow$};
+    \draw (0,0) node (mainprf) {$\dbox{\moncolor{\prandom{\vec{x}};\ptest{\planreq}}}{\ddiamond{\ctrlcolor{\prandom{\avar}}}{\dbox{\moncolor{\plant}}{\textsf{goal}}}}$};
+    \draw (0,-0.5) node {\only<2>{$\Uparrow$}};
+    \draw (0,-1) node (nxtprf) {\only<2>{$\dbox{\moncolor{\prandom{\vec{x}};\ptest{\planreq}};\ctrlcolor{\pdual{(\prandom{\avar})}};\moncolor{\plant}}{\textsf{goal}}$}};
+    \draw (3.2,0.5) node {\footnotesize{\color{gray}Existential Simplification} (\ctrlcolor{$\admiss$} is $\approx$1 slide!)};
+    \draw (1.7,-0.5) node {\only<2>{\footnotesize{\color{gray}Games Add Duality}}};
+  \end{tikzpicture}
+\end{center}
 \end{frame}
+%\begin{frame}[t]{Exploit Proof Content}
+%  $J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}$
+% $J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$
+%    \draw (0.6,0.5) node {\footnotesize{\color{gray}Proof}};
+%    \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
+%    \draw (3, -0.5) node {\plantcolor{dC}};
+%    \draw (3.15, -1) node {\plantcolor{dI}};
+%    \draw (3, -1.5) node {\plantcolor{dG}};
+%    \draw (4.7, -1) node {\plantcolor{\texttt{Plant.S}}};
+
+%    \draw[color=vblue] (3.3, -0.5) -- (3.85,-0.85);
+%    \draw[color=vblue] (3.4, -1)   -- (3.9,-1);
+%    \draw[color=vblue] (3.3, -1.5) -- (3.85,-1.15);
+
+%    \draw (-3, -0.5) node {\ctrlcolor{$\langle{'}\rangle$}};
+%    \draw (-3, -1) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
+%    \draw (-3, -1.5) node {\ctrlcolor{$\langle{\cup}\rangle$}};
+%    \draw (-5, -1) node {\ctrlcolor{\texttt{Control.S}}};
+
+%    \draw[color=vred] (-3.5, -0.5) -- (-3.85,-0.85);
+%    \draw[color=vred] (-3.4, -1)   -- (-3.9,-1);
+%    \draw[color=vred] (-3.5, -1.5) -- (-3.85,-1.15);
+
+%  \begin{tabular}{ccc}
+%    Modality                  & Curry-Howard & Synthesizes \\
+%    $\dbox{\alpha}{\phi}$     & Demon strategy for $\phi$ after $\alpha$ & Monitor \\
+%    $\ddiamond{\alpha}{\phi}$ & Angel strategy for $\phi$ after $\alpha$ & Control
+%  \end{tabular}\pause
+%  \begin{itemize}
+%  \item Games support monitor \emph{and} control synthesis from \emph{one} proof
+%  \item Curry Howard foundation promotes general-case, robust tools
+%  \item Game models are often simpler than systems
+%  \end{itemize}
 
 % Formula language, game language by Nim example, example properties
 % Realizers, semantics
 % quick 1-slide "proof terms exist"
 % Soundness, prog+pres, implications for practice
 % What's next: ODE's
-%TODO: Reduce time. Is example needed? Can we do 2D car example?
-\begin{frame}[t]{Nim Demonstrates Discrete Games}
-  \begin{align*}
-\turn &= \big\{\ptest{c>0};
-                 \{\humod{c}{c-1} \cup \humod{c}{c-2} \cup \humod{c}{c-3}\};
-                \ptest{c \geq 0}\big\};\\
-\nim &=\Big\{\turn; \pdual{\turn}\Big\}\\
-\textsf{Live} &\equiv c > 0 \limply \emod{c}{4} \neq 1 \limply \ddiamond{\prepeat{\nim}}{\bff}\\
-\textsf{Safe} &\equiv c > 0 \limply \emod{c}{4} = 0 \limply \dbox{\drepeat{\nim}}{\,c = 0}
-  \end{align*}
-  \begin{itemize}
-  \item $c \in \mathbb{N}$ counts remaining pebbles
-  \end{itemize}
+\begin{frame}[t]{Systems Driving Model Exists}
+\noindent
+\begin{minipage}{0.4\textwidth}
+{\small\begin{align*}
+\ctrl ~\equiv~& \prandom{\text{\sf{way,k,\m{v_{\text{lim}}}}}};\,\ptest{\planreq};\\
+      &\ctrlcolor{\prandom{\avar};\,\ptest{\admiss}}\\
+\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),\\
+             &~\D{\vvar}=\avar,~\D{\tvar}=1 \&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
+\end{align*}}%
+\end{minipage}%
+  \begin{minipage}{0.15\textwidth}~\end{minipage}%
+\begin{minipage}{0.45\textwidth}
+\includegraphics[width=2.3in]{graphics/fig-ode2.pdf}
+\end{minipage}%
 \end{frame}
 
-%TODO: Just say "ML"?
-\begin{frame}[t]{Realizers Capture Computation}
+\begin{frame}[t]{Game Model is Proposed}
+%\begin{frame}[t]{2D Driving Model is Input}
+%\begin{tabular}{cc}
+\noindent
+\begin{minipage}{0.4\textwidth}
+{\small\begin{align*}
+\ctrl ~\equiv~& \prandom{\text{\sf{way,k,\m{v_{\text{lim}}}}}};\,\ptest{\planreq};\\
+      &\ctrlcolor{\pdual{\prandom{\avar}}}\\
+\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),\\
+             &~\D{\vvar}=\avar,~\D{\tvar}=1 \&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
+\end{align*}}%
+\end{minipage}%
+\begin{minipage}{0.15\textwidth}~\end{minipage}%
+\begin{minipage}{0.45\textwidth}
+\includegraphics[width=2.3in]{graphics/fig-ode2.pdf}
+\end{minipage}%
+\end{frame}
+\begin{frame}[t]{Game Model is Proposed}
+\noindent
+\begin{minipage}{0.4\textwidth}
+{\small\begin{align*}
+\ctrl ~\equiv~& \prandom{\text{\sf{way,k,\m{v_{\text{lim}}}}}};\,\ptest{\planreq};\\
+      &\ctrlcolor{\pdual{\prandom{\avar}}}\\
+\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),\\
+             &~\D{\vvar}=\avar,~\D{\tvar}=1 \&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
+\end{align*}}%
+\end{minipage}%
+\begin{minipage}{0.15\textwidth}~\end{minipage}%
+\begin{minipage}{0.45\textwidth}
+\includegraphics[width=2.3in]{graphics/fig-ode2.pdf}
+\end{minipage}%
+\begin{center}
+\begin{align*}
+\uncover<1->{\textsf{Live}} &\uncover<1->{\equiv \dbox{\drepeat{(\ctrl;\plant)}}{\textsf{goal}}}\\
+\uncover<1->{\textsf{Safe}} &\uncover<1->{\equiv \ddiamond{\prepeat{(\ctrl;\plant)}}{\textsf{safe}}}\\%
+\only<1>{\phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrl;\plant;\ptest{\textsf{safe}})}}{\textsf{goal}}}}%
+\only<2>{\textsf{Win}  &\equiv \ddiamond{\prepeat{(\ctrl;\plant;\ptest{\textsf{safe}})}}{\textsf{goal}}}%
+\end{align*}
+\end{center}
+\end{frame}
+
+\begin{frame}[t]{Realizers are Computable Strategies}
   \begin{align*}
 \aa,\ab,\ac
-&\bebecomes \rzBLam{\om}{f} \alternative \rzFOLam{x}{\tau}{\aa} \alternative \rzHOLam{x}{\phi}{\aa} \\
-&\alternative  \rzNil \alternative \rzCons{\aa}{\ab}\alternative \rzApp{\aa}{v} \alternative \rzApp{\aa}{\ab} \alternative \rzApp{\aa}{\om} \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
+&\bebecomes f  \alternative \rzBLam{x}{\tau}{\aa} \alternative \rzApp{\aa}{\ab} \alternative  \rzNil \alternative \rzCons{\aa}{\ab}  \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
   \end{align*}
 \begin{itemize}
-  \item Semantics need to know: ``How does Angel make decisions?''
-  \item Angel uses some base programming language $f$
-  \item $\rzBLam{\om}{f}, \rzFOLam{x}{\tau}{\aa},$ and $\rzHOLam{x}{\phi}{\aa}$ take state $\om,$ base type $\tau,$ or proof parameters $\phi$, e.g., ``Demon told me how they proved $\phi$''
-  \item Conjunctive proofs $\rzCons{\aa}{\ab},$ or nullary tuple $\rzNil$ when no choice needed
+\item Abstract base language $f$
+\item Higher-order functions and tupling
+\item Think: Calculus of Inductive Constructions (dependent $\lambda$-calculus)
 \end{itemize}
 \end{frame}
 
-%TODO: Ignore pseudo states?
 \begin{frame}[t]{Formula Semantics}
-\begin{itemize}
-\item $\fintR{\phi}$ is the \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ that realize $\phi$.
-\item $\strategyforR[\alpha]{X}$ is the final region of game $\alpha$ starting from $X$ under Angel control
-\item $\dstrategyforR[\alpha]{X}$ is the final region assuming \emph{Demon} control
-\item Pseudo-state $\top$ indicates early success
-\end{itemize}
-\begin{align*}
-(\rzNil,\om) \in  \fintR{f \geq g}                 &\text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\\
-(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}}       &\text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\\
-(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}}              &\text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})
-\end{align*}
+Which \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ realizes $\phi$?
+\[(\rzNil,\om) \in  \fintR{f \geq g} \text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\]
+Starting from region $X$, where does $\alpha$ take Angel?
+\[(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}} \text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]
+Starting from region $X$, where does $\alpha$ take Demon?
+\[(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}} \text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]\pause
+``Continuation passing semantics"
 \end{frame}
 
+% Patter: In random assignments, the computational content is "how do I compute this variable"
+% In nondet choices the content is "how do I compute which branch to take"
+% Likewise we can do all the cases but 45 minute talk
 \begin{frame}[t]{Angel Game Semantics}
 \begin{align*}
-\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}\\
+\strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\
+\uncover<2->{\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\}
+\uncover<3->{\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}\\
                                           &\cup \{\sff~|~(\aa,\om) \in X,~(\rzFst{\aa},\om) \notin \fintR{\phi}\}\\
 \strategyforR[\humod{x}{f}]{X}  &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\}&&\text{}\\
-\strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\
 \strategyforR[\alpha;\beta]{X}           &= \strategyforR[\beta]{(\strategyforR[\alpha]{X})} &&\text{}\\
-\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\
 \strategyforR[\prepeat{\alpha}]{X}     &= \bigcap\{\apL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\strategyforR[\alpha]{\apR{Z}}) \subseteq Z\}
 &&\\
-\strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}
+\strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}}
 \end{align*}
 \end{frame}
 
@@ -1029,7 +1099,7 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
   If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
 \end{lemma}
 \begin{theorem}[Soundness of Proof Calculus]
-  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
+  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is valid.
 \end{theorem}
 \end{frame}
 
@@ -1064,8 +1134,7 @@ Picard iteration and Euler integration yield computational interpretations of OD
   \item Conjecture: Box rules $\dbox{\pevolve{\D{x}=\theta}}{P}$ ``just work''
   \item Challenge: Which proofs lead to ``good'' monitors, controllers?
      e.g., equalities $\theta = \eta$ are easy to prove, hard to monitor.
-%TODO: And constructive Picard
-  \item Related Work: Verified integration~\cite{DBLP:conf/itp/ImmlerT16}
+  \item Related Work: Verified integration~\cite{DBLP:conf/itp/ImmlerT16}, Picard~\cite{DBLP:conf/itp/MakarovS13}
 \end{itemize}
 \end{frame}
 
