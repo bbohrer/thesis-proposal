@@ -860,7 +860,7 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Artifacts};
 \draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
 \draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
-\draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+\draw (5, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
 \draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
 \draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
 \draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
@@ -1477,7 +1477,7 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 \draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Artifacts};
 \draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
 \draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
-\draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+\draw (5, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
 \draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
 \draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
 \draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
@@ -1505,7 +1505,6 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 \end{frame}
 
 
-%TODO: Possibly subdivide for kaisar theory work.
 \begin{frame}[t]{Thesis is Big, but Doable}
 % Upcoming deadlines:
 %  CAV Jan 2020
@@ -1523,7 +1522,6 @@ Timeline: $\approx$\textbf{14 months}, optimistic
 \item 1 month (Jul) Generalize ground robotics case study to \CdGL
 \item 2 month (Aug-Sep) Further revisions and resubmissions
 \item 3 months (Oct-Dec) Write thesis document, defend\pause
-%\item 1 month Productivity lost due to insanity
 \end{itemize}
 Amenable to change (i.e., not on job market this year)
 \end{frame}
@@ -1551,10 +1549,12 @@ Amenable to change (i.e., not on job market this year)
 \item Generalize robot model to improve synthesized monitor
 \item Minimize proof complexity to support easy synthesis
 \item Pursue a mix of hardware and simulation evaluations based on needs:
+\begin{itemize}
 \item\includegraphics[width=1.2in]{img/mrzr.jpg}\\
 Polaris MRZR (access on limited dates only)
 \item 1-10th scale RC Car (full access)
 \item AirSim simulator
+\end{itemize}
 \end{itemize}}
 \end{frame}
 
@@ -1719,16 +1719,13 @@ Polaris MRZR (access on limited dates only)
 %TIMED: 1:27:00,  87 mins, needs to be 45, cut 42 mins, ~50%
 \begin{frame}[t,allowframebreaks]{TODO List}
   \begin{itemize}
-%  \item Identify nonsense slides, e.g., where background info, connecting info, explanation, context are needed.
-%  \item Try to fix nonsense by Wednesday meeting.
-%  \item In meeting, discuss: Slides, resubmission plans, whether to do extra practice talks
+  \item Keep document updated with insights and plans arising from the talk editing, and publishing status
   \item Research related works which inform design questions, e.g., Isar architecture and software engineering works
   \item Identify questions likely to be asked by committee, prepare answers
   \item Identify additional figures that improve slides, make said figures
   \item General polish
   \item Practice talk in lab meeting, Oct 22
   \item Test Skype connection with Tobias
-  \item Keep document updated with insights and plans arising from the talk editing, and publishing status
   \item Explore ML programs as realizers
   \end{itemize}
 \end{frame}

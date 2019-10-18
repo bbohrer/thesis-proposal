@@ -397,51 +397,54 @@ However, we deem it less important to eliminate every possible assumption, and m
 
 \begin{figure}[tbh]
   \centering
-\begin{tikzpicture}
-  \draw (0,1.9)  node {Logics for Hybrid Systems};
-\draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{1.1in}}};
+\newcommand{\cdone}{green!10}
+\newcommand{\cwip}{yellow!30}
+\newcommand{\cprop}{orange!30}
+\begin{tikzpicture}[scale=0.5]
+\draw (0,3.2)  node {Logic for};
+\draw (0,2.4)  node {Hybrid Systems};
+\draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{1.1cm}}};
 \draw (0,-1) node (cdgl) {\phantom{\CdGL}};
-\node[coordinate,pin={[pin distance=0.6in]340:{\rref{ch:cdgl}}}] (cdgl-ref) at (cdgl) {};
-\draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.1in}}};
-\draw (0,-1) node (cdgl) {\CdGL};
+\node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{\S6}}] (cdgl-ref) at (cdgl) {};
+\draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.6cm}}};
+\draw (0,-1.2) node (cdgl) {\CdGL};
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
-\node[coordinate,pin={[pin distance=0.6in]210:{\rref{ch:logical-foundations},\rref{ch:end-to-end-v}}}] (dl-ref) at (dl) {};
+\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-\draw (-5, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.4in,text width=1.3in,text centered] (logic) {Foundations};
-\draw (-5, 2.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (formalization) {\dL Formalized};
-\draw (-5, 1.4) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (generalization) {\dL Generalized};
-\draw (-5, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (cgl) {Constructive \GL};
-\draw (-5, -0.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (cdgl) {Constructive \dGL};
-\draw node[left=0.3in of formalization] (formal-ref) {\rref{sec:isabelle-fml}};
-\draw node[left=0.3in of generalization] (gen-ref) {\rref{sec:definite-description}};
-\draw node[left=0.3in of cgl] (cgl-ref) {\rref{ch:cgl}};
-\draw node[left=0.3in of cdgl] (cdgl-ref) {\rref{ch:cdgl}};
+\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
+\draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
+\draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
+\draw (-14,1.7) node {{\small\color{vgray}Not in Talk}};
+\draw (-7, 0.6) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
+\draw (-7, -0.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
+\draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
+\draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
+\draw node[left=0.3cm of cgl] (cgl-ref) {\S5};
+\draw node[left=0.3cm of cdgl] (cdgl-ref) {\S6};
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
-\draw (5, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.4in,text width=0.82in,text centered] (engine) {Artifacts};
-\draw (5, 2.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors) {Monitors};
-\draw (5, 1.4) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (controllers) {Controls};
-\draw (5, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (proofscript) {Proof Script};
-\draw (5, -0.2) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (proofterm) {Proof Term};
-\draw node[right=0.3in of monitors] (monitor-ref) {\rref{sec:veriphy}};
-\draw node[right=0.3in of controllers] (controllers-ref) {\rref{ch:proofplex}};
-\draw node[right=0.3in of proofscript] (proofscript-ref) {\rref{ch:kaisar}};
-\draw node[right=0.3in of proofterm] (proofterm-ref) {\rref{sec:veriphy}};
+%2.6
+\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Artifacts};
+\draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
+\draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
+\draw (5, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+\draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
+\draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
+\draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
+\draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
+\draw node[right=0.3cm of proofterm] (proofterm-ref) {\S4.1};
 \draw[dashed] (monitors) -- (monitor-ref);
 \draw[dashed] (controllers) -- (controllers-ref);
 \draw[dashed] (proofscript) -- (proofscript-ref);
 \draw[dashed] (proofterm) -- (proofterm-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
-\draw (1.45,-2) -- (0,-2.7);
-\draw (0, -3.5) node[rectangle,rounded corners,fill=green!20,draw,text depth=0.85in,text width=1.9in,text centered] (luser) {Usability};
-%\draw (0, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
-\draw (-0.3, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (monitors)    {Simplicity};
-\draw (0.1, -3.1) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in] (lop)    {Lines of Model/Proof};
-%\draw (0, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
-\draw (-1.38, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.6in] (modelmistake) {Model Mistakes};
-\draw (0.98, -4.15) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3in,text width=0.9in] (maintainable) {Maintainable?};
-\draw node[right=0.3in of maintainable] (maintain-ref) {\rref{ch:kaisar}};
-\draw node[right=0.3in of lop] (lop-ref) {\rref{ch:kaisar}};
+\draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Usability};
+\draw (0.3, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
+\draw (0.1, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
+\draw (-2.9, -6.05) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
+\draw (2.4, -6) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainable?};
+\draw node[right=0.3cm of maintainable] (maintain-ref) {\S7};
+\draw node[right=0.3cm of lop] (lop-ref) {\S7};
 \draw[->,very thick] (logic) -- (CdGLcirc);
 \draw[->,very thick] (CdGLcirc) -- (engine);
 \draw[dashed] (CdGLcirc) -- (luser);
@@ -453,12 +456,13 @@ However, we deem it less important to eliminate every possible assumption, and m
 \end{figure}
 
 \rref{fig:goals-diagram} lays out the relationships between the chapters of the thesis.
-The already-completed works in this thesis connect implementation artifacts to foundations by way of \dL:
+The already-completed works (shown in green) in this thesis connect implementation artifacts to foundations by way of \dL:
 the monitor synthesis tool \VeriPhy (\rref{sec:veriphy}) connects an implementation (for example, of a robot: \rref{sec:ground-robotics}) to a formal model in \dL.
 \rref{ch:logical-foundations} then satisfies the Logician by putting \dL (as implemented in \KeYmaeraX) on firm footing in \Isabelle (\rref{sec:isabelle-fml}).
 \rref{sec:definite-description} generalizes the foundations of \dL to survive future development.
-\rref{ch:cgl} develops a constructive game logic for discrete games.
-The proposed work extends our logical foundation by developing \CdGL (Constructive \dGL) and Kaisar, a principled language for \CdGL proofs.
+\rref{ch:cgl} develops a constructive game logic (\CGL) for discrete games.
+A paper submission on \CGL has been made, but the work could be revised (thus shown in orange) during resubmission.
+The proposed work (in yellow) extends our logical foundation by developing \CdGL (Constructive \dGL) and Kaisar, a principled language for \CdGL proofs.
 We show that this foundation promotes simpler models (\rref{ch:cdgl}) and supports synthesis of both controllers and monitors in the general case.
 These additions meet the practical needs of the Engineer and Logic-User while providing a higher-level input language for the \VeriPhy pipeline and generating an additional output: verified controllers.
 % on one end to high-level user proofs scripts and rounds out the other end by providing verified controllers, resulting in a stronger safety guarantee than prior versions of \VeriPhy.
@@ -492,16 +496,17 @@ In general, the differences among formalizations mirror the differences among th
 Barras and Werner~\cite{Barras:1997} verified a typechecker for a fragment of Coq in Coq.
 Harrison~\cite{Harrison:2006} verified (1) a weaker version of HOL Light's kernel in HOL Light and (2) HOL Light in a stronger variant of HOL Light.
 Myreen et al.\ have extended this work, verifying HOL Light in HOL4~\cite{Myreen+Owens+Kumar:2013,DBLP:journals/jar/KumarAMO16} and using their verified compiler CakeML~\cite{DBLP:conf/popl/KumarMNO14} to ensure these guarantees apply at the machine-code level.
-%A recent work~\cite{DBLP:conf/itp/ImmlerRW19} takes the novel approach of running 
+%A recent work~\cite{DBLP:conf/itp/ImmlerRW19} takes the novel approach of running
 Myreen and Davis proved the soundness of the ACL2-like theorem prover Mitawa in HOL4~\cite{Myreen+Davis:itp:2014}.
-Anand, Bickford, and Rahli~\cite{DBLP:conf/itp/AnandR14,Rahli+Bickford:cpp:2016}
-proved the relative consistency of Nuprl's type theory~\cite{Constable+al:1986,Allen+al:2006} in Coq with the goal of generating a verified prover core.
+Anand, Bickford, and Rahli~\cite{DBLP:conf/itp/AnandR14,Rahli+Bickford:cpp:2016} proved the relative consistency of Nuprl's type theory~\cite{Constable+al:1986,Allen+al:2006} in Coq with the goal of generating a verified prover core.
 Twelf~\cite{DBLP:conf/cade/PfenningS99} was used to formalize the LF~\cite{DBLP:journals/jacm/HarperHP93} logical framework on which it is based~\cite{martens2012lf}.
+These works show that formalization is feasible for a wide array of logics, but careful attention must be given to the foundations of the host prover and the libraries it provides.
 
+% Interchange DBLP:conf/hybrid/BakBJ15  DBLP:conf/hybrid/PintoCPS06
 %
 Like the above works, the goal of \rref{sec:isabelle-fml} is to verify the correctness of a theorem prover (\KeYmaeraX).
 This goal is one part of the thesis' broader goal of bulletproof foundations: formal proofs are only as trustworthy as their foundations.
-Since proof in \dL is a lynchpin of the \VeriPhy approach, it was crucial to show the soundness of \dL's foundations.
+Since proof in \dL is a lynchpin of the \VeriPhy approach, it is crucial to show the soundness of \dL's foundations.
 %
 \rref{sec:isabelle-fml} exposed unique technical challenges because the foundations of \dL differ greatly from those of the other provers.
 Soundness for the differential equations of \dL involved significant proofs in real analysis.
@@ -543,6 +548,7 @@ A deterministic counterpart to hybrid programs has been used to investigate hybr
 Automata-theoretic representations~\cite{DBLP:conf/lics/Henzinger96} are most widely-used for model-checking.
 Process-calculi such as Hybrid CSP~\cite{DBLP:conf/hybrid/ChaochenJR95,DBLP:conf/aplas/LiuLQZZZZ10}, HyPA~\cite{DBLP:journals/jlp/CuijpersR05}, and Hybrid $\chi$~\cite{DBLP:conf/formats/SchiffelersBMRR03} have been used for model-checking and theorem-proving.
 IPL~\cite{DBLP:conf/fm/RuchkinSISG18} was introduced to promote interoperation between heterogeneous modeling languages such as these, especially those which target different levels of abstraction.
+HyST~\cite{DBLP:conf/hybrid/BakBJ15} and HSIF~\cite{DBLP:conf/hybrid/PintoCPS06} promote interoperation between tools within the shared abstraction of hybrid systems.
 % information flow: DBLP:conf/hicons/PrabhakarK13
 
 \subsubsection{Reachability Analysis}
@@ -571,8 +577,9 @@ While it is an important first step, it supports only numerical solutions of ODE
 Interactive theorem-proving is one of the main approaches to hybrid systems verification, and is characterized by high expressivity, which can come at the cost of increased verification effort.
 Domain-specific logics such as \dGL and Hybrid Hoare Logic are implemented in special-purpose theorem provers such as \KeYmaeraX~\cite{DBLP:conf/cade/FultonMQVP15} and Hybrid Hoare Prover~\cite{DBLP:conf/aplas/LiuLQZZZZ10}.
 Special-purpose provers enable a tailored experience for the Logic-User, but cannot verify systems outside their chosen logic.
-GPITP's such as Coq and Isabelle have also been used to verify hybrid systems~\cite{DBLP:conf/cpp/Rouhling18}, related models of CPS's~\cite{DBLP:conf/atva/RizaldiISA18,DBLP:conf/ifm/RizaldiKHFIAHN17,chan2016formal}, and related topics such as geometry~\cite{DBLP:conf/cpp/AffeldtC17} and dynamical systems~\cite{DBLP:conf/itp/CohenR17}.
-GPITP's provide access to large libraries of general-purpose mathematics, but do not provide a tailored experience.
+GPITP's such as Coq and Isabelle have also been used to verify hybrid systems~\cite{DBLP:conf/cpp/Rouhling18,DBLP:conf/utp/Foster19}, related models of CPS's~\cite{DBLP:conf/atva/RizaldiISA18,DBLP:conf/ifm/RizaldiKHFIAHN17,chan2016formal}, and related topics such as geometry~\cite{DBLP:conf/cpp/AffeldtC17} and dynamical systems~\cite{DBLP:conf/itp/CohenR17}.
+GPITP's provide access to large libraries of general-purpose mathematics, but do not provide as tailored an experience.
+Efforts have been made to provide some automation for hybrid systems within the tactics languages of GPITP's~\cite{DBLP:conf/utp/Foster19}.
 
 \paragraph{Differential Dynamic Logics}
 This thesis is part of a long line of work using differential dynamic logic (\dL)~\cite{DBLP:journals/jar/Platzer08,DBLP:conf/lics/Platzer12a,DBLP:journals/jar/Platzer17} and logics descended from it.
@@ -651,7 +658,7 @@ Notably, none of these approaches show correctness unconditionally: all have a t
 \begin{itemize}
 \item
   High-Assurance SPIRAL \cite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17} generates executable x64 machine code based on \dL model, and has been applied to geo-fencing and dynamic-window control~\cite{DBLP:conf/hase/LowF17}.
-  However, because SPIRAL itself emphasizes esoteric compiler optimizations, High-Assurance SPIRAL must always play catchup with SPIRAL, and will not support every optimization in practice.
+  However, because SPIRAL itself emphasizes specialized compiler optimizations, High-Assurance SPIRAL must always play catchup with SPIRAL, and will not support every optimization in practice.
   It also stops before machine code~\cite{DBLP:conf/icfp/ZalivaF18}.
   Moreover, \VeriPhy adopts a deeper understanding of hybrid systems: several stages of \VeriPhy exploit language-level semantic proofs that link the initial hybrid system model to a low-level executable semantics.
   High-Assurance SPIRAL, in contrast, discards the semantic understanding of hybrid system, which then precludes the clear connection between the system model and compiled code as provided by \VeriPhy.
@@ -692,7 +699,7 @@ While the syntax of \dGL and \dL are nearly identical, their semantic difference
 
 \section{Syntax}
 \label{sec:dgl-syntax}
-We introduce the syntax and informal meaning of \dGL here, then introduce the winning-region semantics formally in \rref{sec:dgl-semantics}.
+We recall the syntax and informal meaning of \dGL here, then recall the winning-region semantics formally in \rref{sec:dgl-semantics}.
 The syntax of \dGL consists of three syntactic classes: terms, formulas, and hybrid games.
 
 \begin{definition}[Terms of \dGL]
@@ -709,10 +716,11 @@ In \rref{sec:definite-description}, we show how to remove these simplifying assu
 
 \begin{definition}[Formulas of \dGL]
   Formulas are defined by the following grammar:
-\[\phi,\psi \bebecomes \theta \sim \eta \alternative \phi \land \psi \alternative \phi \lor \psi \alternative \neg \phi \alternative \phi \limply \psi \alternative \phi \lequiv \psi \alternative \lforall{x}{\phi} \alternative \lexists{x}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \ddiamond{\alpha}{\phi}\]
+\[\phi,\psi \bebecomes \theta \sim \eta \alternative \phi \land \psi \alternative \phi \lor \psi \alternative \lnot \phi \alternative \phi \limply \psi \alternative \phi \lequiv \psi \alternative \lforall{x}{\phi} \alternative \lexists{x}{\phi} \alternative \dbox{\alpha}{\phi} \alternative \ddiamond{\alpha}{\phi}\]
 \end{definition}
 where $\sim$ stands for any comparison operator $\sim~\in \{\leq, <, =, \neq, >, \geq\}$.
-We write conjunctions $\phi \land \psi,$ negations $\phi \lor \psi,$ disjunctions $\phi \lor \psi,$ implications $\phi \limply \psi,$ biimplications $\phi \lequiv \psi$, and quantifiers over real numbers $\lexists{x}{\phi}$ and $\lforall{x}{\phi}$.
+We write conjunctions $\phi \land \psi,$ negations $\lnot\phi,$ disjunctions $\phi \lor \psi,$ implications $\phi \limply \psi,$ biimplications $\phi \lequiv \psi$, and quantifiers over real numbers $\lexists{x}{\phi}$ and $\lforall{x}{\phi}$.
+Quantifiers bind short, e.g., $\lexists{x}{P \land Q}$ is parenthesized as $(\lexists{x}{P}) \land Q$.
 The diamond modality $\ddiamond{\alpha}{\phi}$ says that the player who is actively making decisions (typically named Angel) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
 The box modality $\dbox{\alpha}{\phi}$ says that the player who is not currently making decisions (typically named Demon) has a strategy for the game $\alpha$ which ensures postcondition $\phi$.
 This generalizes the meaning of the same modalities in \dL, where $\dbox{\alpha}{\phi}$ says postcondition $\phi$ holds for \emph{all} runs of $\alpha$, while $\ddiamond{\alpha}{\phi}$ says $\phi$ holds as a postcondition in \emph{some} run.
@@ -734,14 +742,14 @@ If Angel cannot reach the goal region without repeating $\alpha$ infinitely, the
 To play the dual game $\pdual{\alpha},$ Angel and Demon switch roles then play game $\alpha$ in their new roles.
 That is, the player previously known as Demon makes the decisions in $\alpha,$ at least until another dual operator is encountered.
 We parenthesize hybrid games $\{ \alpha \}$ for clarity and disambiguation as needed.
-We will sometimes speak of \emph{demonic} loops, choices, etc., which are derived from the angelic forms as follows:
+We will sometimes speak of \emph{Demonic} loops, choices, etc., which are derived from the Angelic forms as follows:
 \begin{align*}
 \alpha^\times &\equiv \{\prepeat{\{{\alpha{}\pdual{}}\}}\}{\pdual{}}                 & \pdual{\ptest{\phi}}      &\equiv \pdual{\{\ptest{\phi}\}}\\
 \alpha \cap \beta  &\equiv \left\{\pdual{\alpha} \cup \pdual{\beta}\right\}\pdual{} & \pdual{\pevolvein{\D{x}=\theta}{\ivr}} &\equiv \pdual{\{\pevolvein{\D{x}=\theta}{\ivr}\}}\\
 \pdual{\humod{x}{\theta}} &\equiv \humod{x}{\theta}                                      & \pdual{\{\alpha;~\beta\}} &\equiv \pdual{\alpha};~\pdual{\beta} 
 \end{align*}
-In a Demonic loop, Demon controls \emph{only} the duration of the loop, then returns control to Angel during the body.
-Likewise, Demon controls only which branch is taken in a demonic choice.
+In a Demonic loop, Demon controls \emph{only} the iterations of the loop, then returns control to Angel during the body.
+Likewise, Demon controls only which branch is taken in a Demonic choice.
 In Demonic tests and differential equations, Demon is responsible for passing the test or satisfying the domain constraint.
 In the latter, Demon also chooses the duration.
 Deterministic assignment and sequential competition are self-dual, so their Demonic forms are identical to the Angelic.
@@ -751,13 +759,14 @@ Deterministic assignment and sequential competition are self-dual, so their Demo
 
 We now give an example hybrid game and example safety and liveness properties.
 The game in \rref{ex:driving-game} is a hybrid game generalization of a standard hybrid systems model.
-The game $\alpha_s$ is a model of adversarial driving where the opponent Demon controls the duration (${}^\times$).
-We will write $\alpha_l$ to denote the counterpart where Angel controls the duration.
+The game $\alpha_s$ is a model of adversarial driving where the opponent Demon controls the iteration of (${}^\times$).
+We will write $\alpha_l$ to denote the counterpart where Angel controls iteration.
 \begin{example}[Acceleration-Controlled 1D Driving]
 \label{ex:driving-game}
 \begin{align}
 \alpha_s\equiv&\\
-\label{eq:driving-init}\humod{v}{0};~&\humod{x}{0};\pdual{(\prandom{\obsvar};\prandom{T};\prandom{A};\prandom{B}; \ptest{\obsvar > 0 \land T > 0 \land A > 0 \land B > 0})};\\
+\label{eq:driving-init}&\humod{v}{0};~\humod{x}{0};\\
+                               &\pdual{(\prandom{\obsvar};\prandom{T};\prandom{A};\prandom{B}; \ptest{\obsvar > 0 \land T > 0 \land A > 0 \land B > 0})};\\
 \label{eq:driving-angel}\big\{ &\prandom{a};~\ptest{-B \leq a \land a \leq A};\\ 
 \label{eq:driving-demon}       &\pdual{\humod{t}{0};~\{\pevolvein{\D{x}=v, \D{v}=a, \D{t}=1}{t \leq T \land v \geq 0}\}}\big\}^\times
 \end{align}
@@ -769,12 +778,14 @@ One could argue on principle that neither player really picks the timestep $T,$ 
 However, what's important is that robot's controller (the Angel player) is \emph{not} the one who picks, so a conservative model should assume the worst, which is that their opponent (the environment) gets to pick.
 The same goes for the rates $A$ and $B$.
 It would also be eminently unreasonable if the obstacle already collided with the robot at the start of the game, and would be nonsensical if the control cycle lasted zero time or less, or if the robot could not accelerate or brake, thus the environment is responsible for picking positive $\obsvar, \Tvar, \Avar$, and  $\Bvar,$ else they lose by default and Angel wins immediately.
-The remainder of the game is a \emph{demonic loop} $\cdot^\times$ where the Demon player controls the duration.
+The remainder of the game is a \emph{Demonic loop} $\cdot^\times$ where the Demon player controls the iteration of the loop.
 Angel's turn consists of making a control decision by setting the acceleration $a$.
 Angel has near complete freedom to set the acceleration: they may set any value ($\prandom{a}$) so long as it is within the physical limits of the car ($\ptest{-B \leq a \land a \leq A}$).
 It is Angel's responsibility to do so, and they lose the game if the acceleration is out of bounds.
 Next, the car moves according to ideal Newtonian physics: the velocity $v$ continuously changes according to acceleration $a$ while position changes continuously according to the velocity.
-Demon (the environment) controls the duration of the ODE, but is constrained to the timestep $t \leq T$: i.e., Angel's control action must be safe even if Demon chooses not to use the full time budget, but need not be safe past time $T$. In that case, Demon is responsible for breaking the rules, so Angel wins.
+Demon (the environment) controls the duration of the ODE, but is constrained to the timestep $t \leq T$ and to $v \geq 0$: i.e., Angel's control action must be safe even if Demon chooses not to use the full time budget, but need not be safe past time $T$. In that case, Demon is responsible for breaking the rules, so Angel wins.
+Angel is also responsible for stopping the ODE while $v \geq 0$.
+In practice, the car might stop during a cycle, in which case it is treated as the sequential composition of two cycles in the model.
 The equation $\D{t}=1$ simply says that $t$ represents the time elapsed in the current ODE run.
 We also write $\alpha_l$ for $\alpha_s$ with an Angelic loop.
 
@@ -782,7 +793,7 @@ We give examples of safety and liveness theorems:
 \begin{example}[1D Driving Game Safety and Liveness]
   \begin{align*}
     \textit{safe} &\equiv \ddiamond{\alpha_s}{\xvar \leq \obsvar}\\
-    \textit{live} &\equiv \ddiamond{\alpha_l}{\left(\xvar \geq \obsvar \lor t \leq \frac{T}{2}\right)}
+    \textit{live} &\equiv \ddiamond{\alpha_l}{\left(t \leq \frac{T}{2} \limply \xvar \geq \obsvar \right)}
   \end{align*}
 \end{example}
 The safety theorem \emph{safe} says that Angel (the robot) has a strategy to ensure $\xvar \leq \obsvar$ (i.e. a strategy not to hit the obstacle) regardless how long Demon runs the loop and the ODE.
@@ -807,17 +818,22 @@ Consider a hybrid \emph{system} version of \rref{ex:driving-game}:
 \end{align}
 \end{example}
 Note $\alpha_{\text{Sys}}$ of \rref{ex:driving-system} is much more complex and explicit than \rref{ex:driving-game}.
-This is because the \emph{strategy} by which acceleration is chosen must be explicitly given in the model as three cases:
+This is because the \emph{strategy} by which acceleration is chosen must be expressed in the model.
+In this case, the strategy has three cases:
 \rref{eq:driving-sys-forward} allows any physically-possible choice that is safe for time $\Tvar,$ \rref{eq:driving-sys-stay} lets a robot stay stopped, and \rref{eq:driving-sys-brake} allows braking.
 
-Why are \rref{ex:driving-game} and game models in general simpler? % $\alpha_{\textrm{Sys}}$ so much longer than 
-A typical game model has shape $\prepeat{(\pdual{\ctrl};~\plant)},$ where the turn-taking (or dual) operator $\pdual{\alpha}$ has the effect of switching players.
+Why are \rref{ex:driving-game} and game models in general simpler? % $\alpha_{\textrm{Sys}}$ so much longer than
+A typical game model has shape $\drepeat{(\ctrl;~\pdual{\plant})},$ where the turn-taking (or dual) operator $\pdual{\alpha}$ has the effect of switching players.
 Most often, we wish to show that there \emph{exists} a control choice where \emph{all} behaviors of the plant (physical environment) are safe and live, and so on for all iterations of the system.
 Such iterated modality alternations are precisely the one pattern expressible in \dGL but not \dL~\cite{DBLP:journals/tocl/Platzer15}.
 In vanilla \dL, safety is usually expressed in the form $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\psi}$ and the only forms of liveness which can be expressed are those with finitely-many player alternations, e.g.,
 $\phi \limply \ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}$ or $\phi \limply \dbox{\prepeat{(\ctrl;~\plant)}}{\ddiamond{\prepeat{(\ctrl;~\plant)}}{\psi}}$.
 \dGL models are simpler because in typical \dL usage, \emph{all} cases of a controller must be safe, whereas a safe choice need only \emph{exist} in a game.
-As a result, operational information (what control decision is made in which circumstances) is present in \dL models, whereas it need only appear in \emph{proofs} in \dGL.
+As a result, \dL models contain universally-quantified control strategies (given a control decision, is it allowed?),
+while \dGL puts existentially-quantified control strategies (how can one allowable decision be computed?) in \emph{proofs}.
+For this reason, games synthesis\rref{ch:proofplex} will exploit proof content.
+In return for this added effort, we will be able to synthesize both control and monitor code.
+%As a result, operational information (what control decision is made in which circumstances) is present in \dL models, whereas it need only appear in \emph{proofs} in \dGL.
 
 As discussed further in \rref{ch:cdgl}, relegating control choices to the proof has advantages for synthesis in \CdGL as well as simplicity advantages.
 That being said, the maturity of \KeYmaeraX and the many available case studies show the utility of the thesis chapters which target vanilla \dL as well.
@@ -825,7 +841,7 @@ The connections between vanilla \dL and \CdGL will be further investigated in \r
 
 \section{Semantics}
 \label{sec:dgl-semantics}
-We give the denotational semantics for classical hybrid game logic \dGL, which is divided into a semantics for terms, formulas, and games.
+We recall the denotational semantics for classical hybrid game logic \dGL~\cite{DBLP:journals/tocl/Platzer15}, which is divided into a semantics for terms, formulas, and games.
 Throughout the semantics, states are written $\omega, \nu, \mu : \allstate$ where the set of states $\allstate$ is in bijection to $\mathbb{R}^n$ for $n = \abs{\allvars \cup \D{\allvars}}$ where $\allvars$ is the set of base variables and $\D{\allvars}$ the set of differential variables.
 Regions are sets of states and are ranged over by $X, Y, Z$.
 
@@ -852,7 +868,8 @@ Because every term mentions at most a finite number of variables and the partial
 An advantage of this semantics is that it is defined in every state while agreeing with the intuitive meaning of ``time derivative of $\tint{\theta}{\om}$'' whenever a differential appears in the postcondition of an ODE~\cite{DBLP:journals/jar/Platzer17}.
 
 \begin{definition}[Classical formula semantics]\label{def:dgl-sem-fml}
-The semantics of a formula $\phi$ is given by the relation $\fint{\phi}{\om},$ which is defined inductively on $\phi$
+The semantics of a formula $\phi$ is given by the relation $\fint{\phi}{\om},$ which is defined inductively on $\phi$.
+The notation $\subst[\om]{x}{r}$ denotes the state which assigns value $r$ to variable $x$ and agrees with $\om$ on all other variables.
 \begin{align*}
 \fint{\theta \sim \eta}  &= \{\om~|~\tint{\theta}{\om} \sim \tint{\eta}{\om}\}  \ \ \ \text{ for }\sim~\in \{\leq,<,=,\neq,>,\geq\}\\
 \fint{\neg \phi}         &= \fint{\phi}^\complement  \\
@@ -883,7 +900,7 @@ For any game $\alpha$ and goal region $X \subseteq \allstate$, we inductively de
 Likewise, we define the winning regions $\dstrategyfor[\alpha]{X}$ for \emph{Demon}, which are dual to those for Angel:
 \begin{align*}
 \dstrategyfor[\humod{x}{\theta}]{X} &= \{ \om \in \allstate~|~\subst[\om]{x}{\tint{\theta}{\om}} \in X\}\\
-\dstrategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{r}{\tint{\theta}{\om}}\text{ for all }r \in \mathbb{R} \in X\} \\
+\dstrategyfor[\prandom{x}]{X}       &= \{ \om \in \allstate~|~\subst[\om]{x}{r} \in X\text{ for all }r \in \mathbb{R}\} \\
 \dstrategyfor[\pevolvein{\D{x}=\theta}{\ivr}]{X} &= \{\varphi(0) \in \allstate~|~\varphi(r) \in X\text{ for all }r \in \mathbb{R}_{\geq0}\text{ and (differentiable) }\varphi:[0,r]\to\allstate\\
 &\text{ such that }\varphi(\zeta) \in \fint{\ivr}\text{ and }\frac{\partial\varphi(t)(x)}{\partial t}(\zeta) = \tint{\theta}{\varphi(\zeta)\text{ for all }0 \leq \zeta \leq r}\}\\
 \dstrategyfor[\ptest{\phi}]{X}         &= (\fint{\phi})^\complement \cup X\\
@@ -910,15 +927,15 @@ While many basic axioms are the same in \dL and \dGL, some are necessarily diffe
     \begin{calculus}
 \cinferenceRule[dglbox|{$[\cdot]$}]{}
 {
-\linferenceRule[equiv]{\dbox{\alpha}{\phi}}{\neg\ddiamond{\alpha}{\neg\phi}}
+\linferenceRule[equiv]{\neg\ddiamond{\alpha}{\neg\phi}}{\dbox{\alpha}{\phi}}
 }{}
 \cinferenceRule[dglassign|{$\langle:=\rangle$}]{}
 {
-\linferenceRule[equiv]{\ddiamond{\humod{x}{\theta}}{\phi(x)}}{\phi(\theta)}
+\linferenceRule[equiv]{\phi(\theta)}{\ddiamond{\humod{x}{\theta}}{\phi(x)}}
 }{}
 \cinferenceRule[dglrandom|{$\langle{:}*\rangle$}]{}
 {
-\linferenceRule[equiv]{\ddiamond{\humod{x}{\theta}}{\phi(x)}}{\lexists{x}{\phi(x)}}
+\linferenceRule[equiv]{\lexists{x}{\phi(x)}}{\ddiamond{\prandom{x}}{\phi(x)}}
 }{}
 %\begin{figure}
 %  \centering
@@ -926,7 +943,7 @@ While many basic axioms are the same in \dL and \dGL, some are necessarily diffe
 %    \begin{calculus}
 \cinferenceRule[dglsolve|{$\langle'\rangle$}]{$\D{y}(t)=\theta$}
 {
-\linferenceRule[equiv]{\ddiamond{\pevolve{\D{x}=\theta}}{\phi}}{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}
+\linferenceRule[equiv]{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}{\ddiamond{\pevolve{\D{x}=\theta}}{\phi}}
 }{}
 \cinferenceRule[dgltest|{$\langle?\rangle$}]{}
 {
@@ -946,7 +963,7 @@ While many basic axioms are the same in \dL and \dGL, some are necessarily diffe
 }{}
 \cinferenceRule[dgldual|{$\langle{}^d\rangle$}]{}
 {
-\linferenceRule[equiv]{\ddiamond{\pdual{\alpha}}{\phi}}{\neg\ddiamond{\alpha}{\neg\phi}}
+\linferenceRule[equiv]{\neg\ddiamond{\alpha}{\neg\phi}}{\ddiamond{\pdual{\alpha}}{\phi}}
 }{}
 \cinferenceRule[dglMon|M]{}
 {
@@ -1044,7 +1061,7 @@ Note that we considered formalizing \dL in a proof system with built-in support 
 \section{Definite Descriptions in dL}
 \label{sec:definite-description}
 A significant gap between theory presentations of \dL and its implementation in \KeYmaeraX is that theory presentations of \dL assume polynomial or (some) rational terms, while \KeYmaeraX allows extended terms featuring arbitrary division, exponents, and certain interpreted functions.
-The formalization summarized in \rref{sec:isabelle-fml} approached this gap with brute force: division by constants, absolute value, min, and were are added to the language of terms.
+The formalization summarized in \rref{sec:isabelle-fml} approached this gap with brute force: division by constants, absolute value, min, and max were are added to the language of terms.
 However, the brute-force approach is brittle in multiple ways.
 Because every new construct comes with its own cases in the substitution algorithm and its own axioms, each new construct requires non-trivial changes to the Isabelle/HOL formalization of \dL.
 This can only be done by people familiar with that formalization.
@@ -1371,9 +1388,9 @@ It is worth this effort to gain the assumption $\ygvar > 0$ because it simplifie
 The abbreviation $\ctrlliv$ names just the control code responsible for deciding \emph{how} the waypoint is followed rather than \emph{which} waypoint is followed.
 
 
-In $\planreq,$ formula $\annul$ says we are within the \emph{annulus section} (\rref{fig:circlestaging}) ending at the waypoint $(\xgvar, \ygvar)$ with the specified curvature $\kvar$ and width $\epsilon$.
+In $\planreq,$ formula $\annul$ says we are within the \emph{annulus section} (\rref{fig:circlestaging}) ending at the waypoint $(\xgvar, \ygvar)$ with the specified curvature $\kvar$ and width $\veps$.
 A larger choice of $\veps$ yields more error tolerance in the sensed position and followed curvature at the cost of an enlarged goal region.
-Formula $\annul$ also contains a simplifying assumption that the radius of the annulus is at least $\epsilon$.
+Formula $\annul$ also contains a simplifying assumption that the radius of the annulus is at least $\veps$.
 $\planreq$ also says the speed limits are assumed distinct and large enough to not be crossed in one control cycle.
 
 \begin{figure}[h!]
@@ -1405,7 +1422,7 @@ The following \dL formula is valid:
 &\dbox{\prepeat{(\ctrl;\plant)}}{\big(\enorm{(\xgvar,\ygvar)} \leq \veps \limply \vvar \in [\vlvar,\vhvar]\big)}
 \end{align*}
 \end{theorem}
-Taken more broadly, safety also includes the fact that the robot always remains within an $\epsilon$ annulus around the arc leading to the waypoint, which arises as part of the loop invariant used to prove \rref{thm:safe}.
+Taken more broadly, safety also includes the fact that the robot always remains within an $\veps$ annulus around the arc leading to the waypoint, which arises as part of the loop invariant used to prove \rref{thm:safe}.
 The first four assumptions ($\Avar{>}0 \land \dots \land \veps{>}0$) are basic sign conditions on the symbolic constants used in the model. 
 The final assumption, $\linv$, is the loop invariant.
 The full definition of $\linv$ is deferred to \rref{sec:ground-robotics}.
@@ -2010,7 +2027,7 @@ The counter is non-negative, so setting a negative value is a violation of the r
 %Angel controls the duration of the game loop.
 \begin{proposition}[Dormant winning region]
 \label{prop:nim-demon-wins}
-Suppose $c \equiv 0 ~(\textup{mod}~ 4),$  Angel controls the loop duration, and Demon acts first.
+Suppose $c \equiv 0 ~(\textup{mod}~ 4),$  Angel controls the iteration of the loop, and Demon acts first.
 Then dormant Angel has a strategy to ensure $c = 0$.
 That is, the following \CGL formula is valid (true in every state, using a common strategy): 
 \[c > 0 \limply \emod{c}{4} = 0 \limply
@@ -2018,13 +2035,13 @@ That is, the following \CGL formula is valid (true in every state, using a commo
 \]
 \end{proposition}
 \rref{prop:nim-demon-wins} says a dormant Angel has a strategy to reduce $c$ to exactly $0$ after enough iterations.
-This implies Angel wins the game because Demon violate the rules once $c=0$ and no move is valid..
+This implies Angel wins the game because Demon will violate the rules once $c=0$ and no move is valid..
 %Stating the winning theorem for Angel requires a bit more care since Angel moves first and we wish to state that Angel can force Demon to break the rules when $c=0$.
 We now state the winning region for an active Angel player.
 Here the postcondition $\bff$; because $\bff$ is not true in any state, \rref{prop:nim-angel-wins} indicates that Angel forces Demon to break the rules by failing a test.
 \begin{proposition}[Active winning region]
 \label{prop:nim-angel-wins}
-Suppose $c \not\equiv 1 ~(\textup{mod}~ 4)$ initially, Angel controls the loop duration, and Angel acts first.
+Suppose $c \not\equiv 1 ~(\textup{mod}~ 4)$ initially, Angel controls the iteration of the loop, and Angel acts first.
 Then Angel wins by forcing a rule violation by Demon, i.e, the following \CGL formula is valid:
 \[c > 0 \limply \emod{c}{4} \neq 1 \limply \ddiamond{\prepeat{\nim}}{\bff}\]
 \end{proposition}
@@ -2066,7 +2083,7 @@ Exact comparisons on constructive reals are not decidable, e.g. formulas such as
 The standard comparison principle for constructive reals, which will appear as a rule in \rref{sec:arith-proof}, is the \emph{approximate splitting principle}:
 for any $\epsilon > 0,$ the formula $x > y \lor x < y + \epsilon$ is valid, because approximate comparisons require only finitely-many digits, making them Type-2 computable~\cite{DBLP:series/txtcs/Weihrauch00}.
 Because disjunction is defined as Angelic choice, it is no surprise that the same challenge arises when choosing which path to take in a game, e.g. Angel is forced to fail a test in $\pchoice{\ptest{x < 0}}{\ptest{x \geq 0}}$ for real-valued $x$ because unlike in classical \GL Angel cannot apply the law of excluded middle.
-Sometimes both branches of an approximate split are satisfied at once, e.g., $y < x < x + \epsilon$.
+Sometimes both branches of an approximate split are satisfied at once, e.g., $x < y < x + \epsilon$.
 In this case Angel's strategy might suggest \emph{multiple} correct moves, but the \emph{collection axiom} of constructive set theory~\cite{DBLP:journals/mst/Schwichtenberg08,bishop1967foundations,bridges2007techniques} says such strategies are still constructive: intuitively, Angel's move is determined by which of $y < x$ or $x < x + \epsilon$ happened to be demonstrated first.
 
 Because dormant Angel can choose $k$ arbitrarily close to 0.5, we argue this is not a serious practical limitation, rather we take it as confirmation that the difference between constructive and classical games, while simple, is real and arises even in simple games.
@@ -2078,6 +2095,7 @@ Certainly, Angel will not bemoan the loss of $\epsilon$ slices of cake.
 
 
 
+%TODO: Careful to introduce notations
 \section{Semantics}
 \label{sec:rel-sem}
 We now develop the semantics of \CGL.
@@ -2094,28 +2112,45 @@ We write $\ssub{\om}{x}{v}$ for the state that agrees with $\om$ except that $x$
 \label{def:term-sem}
 A term $f$ is simply a computable function of the state, so the interpretation $\tint{f}{\om}$ of term $f$ in state $\om$ is $f(\om)$.
 \end{definition}
-\begin{definition}[Realizers] 
+\begin{definition}[Realizers]
+Realizers are a formal representation of strategies used in the semantics.
+It is easiest to think of realizers as $\lambda$-calculus terms, but for the sake of generality we do not restrict realizers to a specific language;
+any language which includes the constructs below will suffice.
 Realizers $\aa,\ab,\ac \in \allRz$ (where $\allRz$ is the set of all realizers) are defined coinductively:
-\[\aa,\ab,\ac ~\bebecomes~ \rzNil \alternative \rzBLam{\om}{f} \alternative \rzFOLam{x}{\tau}{\aa} \alternative \rzHOLam{x}{\phi}{\aa} \alternative \rzCons{\aa}{\ab}\alternative \rzApp{\aa}{v} \alternative \rzApp{\aa}{\ab} \alternative \rzApp{\aa}{\om}\]
-\end{definition} 
+\[\aa,\ab,\ac ~\bebecomes~ \rzNil \alternative \rzBLam{\om}{f} \alternative \rzFOLam{x}{\tau}{\aa} \alternative \rzHOLam{x}{\phi}{\aa} \alternative \rzCons{\aa}{\ab}\alternative  \rzApp{\aa}{v} \alternative \rzApp{\aa}{\ab} \alternative \rzApp{\aa}{\om}\]
+\end{definition}
+%\rzFst{\aa} \alternative \rzSnd{\ab} \alternative
+
 where $f$ is a term over the state $\om$.
-Here $\rzNil$ is the unit realizer.
+In this way, terms $f$ serve as a ``base language'' in which control  decisions are programmed.
+
+Not every realizer will be applicable to every case of the semantics.
+We will say that $\aa$ is a $\phi$ (or $\alpha$-)-realizer if $\aa$ is applicable in the semantics of $\phi$ or $\alpha$.
+\footnote{
+In the present iteration of this chapter, I have not formalized the notion of well-typed realizers.
+I may pursue this in future versions, as I have observed that there is a nice reduction from (propositional) games to the Calculus of Inductive (and Coinductive) Constructions.
+}
+We write $\rzNil$ for the unit realizer.
 Lambda realizers, for example  $\rzBLam{\om}{f}$,consume argument $\nu$ and compute the term $f$ with $\nu$ substituted for $\om$.
 We write $\rzCons{\aa}{\ab}$ for a pair of realizers, and $\rzFst{\aa}$ and $\rzSnd{\aa}$ for its components.
-Realizers for sequential compositions $\alpha;\beta$ follow the outer structure of an $\alpha$ realizer, but return a $\beta$ realizer as a continuation on each branch.
+We explicitly note that $\rzCons{\aa}{\ab}$ is \emph{not} the realizer for $\alpha;\beta$.
+The realizer $\aa$ might have many different branches and behaviors.
+Informally, in \emph{each} case \emph{some} $\beta$-realizer must be returned.
+%Realizers for sequential compositions $\alpha;\beta$ follow the outer structure of an $\alpha$ realizer, but return a $\beta$ realizer as a continuation on each branch.
 Realizers for Angelic and Demonic repetitions $\prepeat{\alpha}$ are both coinductive streams of $\alpha$-realizers.
 Realizer application is written (e.g.) $\rzApp{\aa}{\om}$.
-%Base-lambdas of return type $\mathbb{B} \equiv \{0,1\}$ realize Angel choices $\langle{\cup}\rangle,$ while base-lambdas of return type $\Sigma(\tau)$ realize Angelic nondeterministic assignments $\langle\prandom{x}\rangle$.
-%The first-order realizer $\rzFOLam{x}{\tau}{\ab}$ realizes Demonic nondeterministic assignments $[\prandom{x}]$where $\Sigma(x) = \tau$.
-%It accepts a value $v$ of type $\tau$ and produces a $\psi$-realizer $\tsub{\ab}{x}{v}$, where $\tsub{\ab}{x}{v}$ is $\ab$ with every occurrence of $x$ replaced by $v$.
-%The higher-order realizer $\rzHOLam{x}{\phi}{\ab},$ realizes Demonic tests  $[\ptest{\phi}]$ by taking a realizer $\ac$ for $\phi$ and producing a realizer $\tsub{\ab}
-%{x}{\ac}$ for $\psi$, where $\tsub{\ab}{x}{\ac}$ is $\ab$ with every occurrence of variable $x$ replaced by realizer $\ac$.
+Base-lambdas of return type $\mathbb{B} \equiv \{0,1\}$ realize Angel choices $\langle{\cup}\rangle,$ while base-lambdas of return type $\Sigma(\tau)$ realize Angelic nondeterministic assignments $\langle\prandom{x}\rangle$.
+The first-order realizer $\rzFOLam{x}{\tau}{\ab}$ realizes Demonic nondeterministic assignments $[\prandom{x}]$where $\Sigma(x) = \tau$.
+It accepts a value $v$ of type $\tau$ and produces a $\psi$-realizer $\tsub{\ab}{x}{v}$, where $\tsub{\ab}{x}{v}$ is $\ab$ with every occurrence of $x$ replaced by $v$.
+The higher-order realizer $\rzHOLam{x}{\phi}{\ab},$ realizes Demonic tests  $[\ptest{\phi}]$ by taking a realizer $\ac$ for $\phi$ and producing a realizer $\tsub{\ab}{x}{\ac}$ for $\psi$, where $\tsub{\ab}{x}{\ac}$ is $\ab$ with every occurrence of variable $x$ replaced by realizer $\ac$.
 %Note this typing constraint on $x, \ab,$ and $\ac$ ensures termination as typical in lambda calculus.
-
 
 \subsection{Formula and game semantics}
 We write $\fintR{\phi} \subseteq \allRz \times \allstate$ for the region (written $X,Y,Z$) of realizer-state pairs which realize formula $\phi$.
 Because Angel commits to a computable strategy from the start, all nondeterminism in the game semantics is Demonic.
+The semantics of games are perhaps best understood by analogy to continuation-passing style: when playing a game $\alpha,$ a strategy is returned which plays any following game or proves any following formula.
+For instance, in evaluating a formula $\dbox{\alpha}{\phi},$ the evaluation of $\alpha$ must yield a continuation which is used to evaluate $\phi$.
+When evaluating a sequential game $\alpha;\beta,$ every evaluation of $\alpha$ must return a continuation which can play $\beta$.
 We write $\strategyforR[\alpha]{X} : \powerset{\allRz \times \allstate}$ for the set of final realizer-state pairs $(\ab,\nu)$ which result from Angel playing first in $\alpha$ for some $(\aa,\om) \in X$.
 Likewise, $\dstrategyforR[\alpha]{X} : \powerset{\allRz \times \allstate}$ gives the realizer-state pairs $(\ab,\nu)$ resulting when Demon plays first.
 The realizer $\ab$ paired with each final state $\nu$ is used to play Angel's strategy in any following game $\alpha$ (resp.\ any formula $\phi$), and serves as a continuation.
@@ -2123,6 +2158,11 @@ The definitions below implicitly assume $\sff, \stt \notin X,$ they extend to th
 $\dstrategyforR[\alpha]{(X \cup \{\sff\})} = \dstrategyforR[\alpha]{X} \cup\{\sff\}$ and 
 $\strategyforR[\alpha]{(X \cup \{\sff\})} = \strategyforR[\alpha]{X} \cup\{\sff\}$.
 That is, if Demon has already won by forcing an Angel violation initially, any remaining game can be skipped with an immediate Demon victory, and vice-versa.
+
+The program cases exploit the \emph{Angelic} $\apL{Z}, \apR{Z}$ and \emph{Demonic} projections $\dpL{Z}, \dpR{Z}$, which represent binary decisions made by constructive Angel and classical Demon, respectively.
+The Angelic projections, which are defined $\apL{Z} = \{(\rzSnd{\aa}, \om)~|~\rzFst{\aa}(\om)=0\}$ and $\apR{Z} = \{(\rzSnd{\aa}, \om)~|~\rzFst{\aa}(\om)=1\}$, filter by which branch Angel chooses with $\rzFst{\aa}(\om) \in \mathbb{B},$ then project the remaining strategy $\rzSnd{\aa}$.
+The Demonic projections, which are defined $\dpL{Z} \equiv \{(\rzFst{\aa},\om)~|~(\aa,\om) \in Z\}$ and $\dpR{Z} \equiv \{(\rzSnd{\aa},\om)\},$ contain all the same states as $Z,$ but left-project and right-project the realizer, respectively, to notify Angel which branch was taken.
+
 \begin{definition}[Formula semantics]
 \begin{align*}
 (\rzNil,\om) \in  \fintR{f \sim g}                 &\text{ iff } \tint{f}{\om} \sim \tint{g}{\om}\\
@@ -2130,6 +2170,9 @@ That is, if Demon has already won by forcing an Angel violation initially, any r
 (\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}}              &\text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})
 \end{align*}
 \end{definition}
+Comparison formulas $f \sim g$ do not require strategic reasoning.
+Modal formulas employ the strategy in playing $\alpha,$ then employ the continuation to show $\phi$.
+Both $\dbox{\alpha}{\phi}$ and $\ddiamond{\alpha}{\phi}$ ask whether Angel wins $\alpha$ by following the given strategy, and differ only in whether Demon vs.\ Angel is the active player, thus in both cases \emph{every} Demonic choice must satisfy Angel's goal, and early Demon wins are counted as Angel losses.
 
 \begin{definition}[Angel game forward semantics]
 \begin{align*}
@@ -2158,11 +2201,6 @@ That is, if Demon has already won by forcing an Angel violation initially, any r
 %\bigcup_{J\in\allfml}\fintR{\rzFst{\aa}}{J}~|~\fintR{\rzFst{\aa}}{J} \subseteq \fintR{\rzSnd{\aa}}{\dbox{\alpha}{J}} \cap \fintR{\rzThd{\aa}}{\psi}\\
 \end{align*}
 \end{definition}
-Comparisons $f \sim g$ defer to the term semantics, so the interesting cases are the program modalities.
-Both $\dbox{\alpha}{\phi}$ and $\ddiamond{\alpha}{\phi}$ ask whether Angel wins $\alpha$ by following the given strategy, and differ only in whether Demon vs.\ Angel is the active player, thus in both cases \emph{every} Demonic choice must satisfy Angel's goal, and early Demon wins are counted as Angel losses.
-The program cases exploit the \emph{Angelic} $\apL{Z}, \apR{Z}$ and \emph{Demonic} projections $\dpL{Z}, \dpR{Z}$, which represent binary decisions made by constructive Angel and classical Demon, respectively.
-The Angelic projections, which are defined $\apL{Z} = \{(\rzSnd{\aa}, \om)~|~\rzFst{\aa}(\om)=0\}$ and $\apR{Z} = \{(\rzSnd{\aa}, \om)~|~\rzFst{\aa}(\om)=1\}$, filter by which branch Angel chooses with $\rzFst{\aa}(\om) \in \mathbb{B},$ then project the remaining strategy $\rzSnd{\aa}$.
-The Demonic projections, which are defined $\dpL{Z} \equiv \{(\rzFst{\aa},\om)~|~(\aa,\om) \in Z\}$ and $\dpR{Z} \equiv \{(\rzSnd{\aa},\om)\},$ contain all the same states as $Z,$ but left-project and right-project the realizer, respectively, to notify Angel which branch was taken.
 We now discuss the Angel cases, then the Demon cases.
 
 Angelic tests $\ptest{\phi}$ end in the current state $\om$ with remaining realizer $\rzSnd{\aa}$ if Angel can realize $\phi$ with $\rzFst{\aa}$.
@@ -2236,8 +2274,20 @@ For this purpose, \CGL has a constructive natural deduction calculus equipped wi
 The use of proof terms makes it easy to study the computational content of the proofs.
 The main proof judgement is $\proves{\Gamma}{M}{\phi},$ which says term $M$ is a proof of $\phi$ in the context $\Gamma$.
 The assumptions in the context are named, so that they may be mentioned in proof terms.
-We give an example proof rule:
-\[\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
+We give an example set of introduction and elimination rules:
+\[
+\cinferenceRule[dchoiceIL|{$\langle\cup\rangle${I1}}]{}
+{\linferenceRule[formula]
+  {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}
+  {\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+}{}\ \ \ \ 
+\cinferenceRule[dchoiceIR|{$\langle\cup\rangle${I2}}]{}
+{\linferenceRule[formula]
+  {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}
+  {\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+}{}\]
+\[
+\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
 {
 \linferenceRule[formula]
 {\proves{\G}{A}{\ddiamond{\alpha\cup\beta}{\phi}}
@@ -2245,7 +2295,10 @@ We give an example proof rule:
         &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
 {\proves{\G}{\edcase{A}{B}{C}}{\psi}}
 }{}\]
-This says that a case analysis $\edcase{A}{B}{C}$ eliminates the choice $\ddiamond{\alpha\cup\beta}{\phi}$ (which must be proven by $A$) to prove any conclusion $\psi,$ so long as $B$ and $C$ prove $\psi$ assuming the left or right branch were taken, respectively.
+Rules \irref{dchoiceIL} and \irref{dchoiceIR} say that a diamond choice $\ddiamond{\alpha\cup\beta}{\phi}$ is introduced by picking between $\alpha$ or $\beta,$ then proving the corresponding branch.
+The proof terms for choices are injectors (cf.\ datatype constructors).
+Rule \irref{dchoiceE} says that a case analysis $\edcase{A}{B}{C}$ eliminates the choice $\ddiamond{\alpha\cup\beta}{\phi}$ (which must be proven by $A$) to prove any conclusion $\psi,$ so long as $B$ and $C$ prove $\psi$ assuming the left or right branch were taken, respectively.
+Because a Demonic choice is dual to an Angelic choice, the rules for Demonic choice are conjunctive while those for Angelic choice are disjunctive.
 
 For practical use, a sequent calculus could be implemented ``as a library'' on top of the natural deduction calculus.
 
@@ -2319,15 +2372,15 @@ We first list standard renaming and substitution lemmas which are required for t
   If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
 \end{lemma}
 \begin{lemma}[Variable substitution]
-  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
+  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible~\cite[Def.\ 6]{DBLP:journals/jar/Platzer08} then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
 \end{lemma}
 Given these lemmas, we can prove soundness: all provable formulas are true according to the denotational semantics which we have taken as our ground truth.
 This is a sine qua non for any proof calculus and justifies our use of the calculus to prove \CGL theorems.
 \begin{theorem}[Soundness of Proof Calculus]
-  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is realizability-valid.
+  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is valid.
 \end{theorem}
 %\begin{theorem}[Soundness of Realizability]
-%  If $\phi$ is realizability-valid, then $\phi$ is Kripke-valid.
+%  If $\phi$ is valid, then $\phi$ is Kripke-valid.
 %\end{theorem}
 The proof follows by structural induction on the derivation.
 Proofs can be assumed to be normal.
@@ -2366,11 +2419,11 @@ We briefly review the \dGL rules for differential equation games and suggest why
     \begin{calculus}
 \cinferenceRule[Qdglsolve|{$\langle'\rangle$}]{$\D{y}(t)=f$}
 {
-\linferenceRule[equiv]{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}{\ddiamond{\pevolvein{\D{x}=f}{\phi}}}
+\linferenceRule[equiv]{\lexists{t{\geq}0}{\ddiamond{\humod{x}{y(t)}}{\phi}}}{\ddiamond{\pevolve{\D{x}=f}}{\phi}}
 }{}
 \cinferenceRule[dglweak|DW]{}
 {
-\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\ivr}}{\phi}}{\dbox{\pevolvein{\D{x}=f}{\ivr}}{(\ivr\limply\phi)}}
+\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}}{\dbox{\pevolvein{\D{x}=f}{\psi}}{(\psi\limply\phi)}}
 }{}
 \cinferenceRule[dglcut|DC]{}
 {
@@ -2378,15 +2431,15 @@ We briefly review the \dGL rules for differential equation games and suggest why
 }{}
 \cinferenceRule[dglind|DI]{}
 {
-\linferenceRule[lpmi]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}}{\phi \land \dbox{\pevolvein{\D{x}=f}{\psi}}{\D{\phi}}}
+\linferenceRule[lpmi]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}}{\phi \land \dbox{\pevolvein{\D{x}=f}{\psi}}{\der{\phi}}}
 }{}
 \cinferenceRule[dglghost|DG]{}
 {
-\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}}{\lexists{y}{\dbox{\pevolvein{\D{x}=f,\D{y}=a(x)*y+b}{\psi}}{\phi}}}
+\linferenceRule[equiv]{\lexists{y}{\dbox{\pevolvein{\D{x}=f,\D{y}=a(x)*y+b}{\psi}}{\phi}}}{\dbox{\pevolvein{\D{x}=f}{\psi}}{\phi}}
 }{}
 \cinferenceRule[dglconst|DS]{}
 {
-\linferenceRule[equiv]{\dbox{\pevolvein{\D{x}=c}{\psi}}{\phi}}{(\lforall{t}{(\lforall{0{\leq}s{\leq}t}{\dbox{\humod{x}{x+cs}}{\psi}}) \limply \dbox{\humod{x}{x+ct}}{\phi}})}
+\linferenceRule[equiv]{(\lforall{t}{(\lforall{0{\leq}s{\leq}t}{\dbox{\humod{x}{x+cs}}{\psi}}) \limply \dbox{\humod{x}{x+ct}}{\phi}})}{\dbox{\pevolvein{\D{x}=c}{\psi}}{\phi}}
 }{}
 \cinferenceRule[dglvariant|DV]{}
 {\linferenceRule[lpmi]{\ddiamond{\pevolve{\D{x}=h}}{f \geq g}}{\lexists{\veps>0}{(\dbox{\pevolve{\D{x}=h}}{(f \leq g \limply \D{f} \geq \D{g}+\veps)})}}
@@ -2606,7 +2659,7 @@ While we may choose to employ other constructs in structured proofs $B,$ I give 
 \[B ::= \sshow{x}{\phi}{U}\ |\ \shave{x}{\phi}{U}{B}\ |\ \snote{x}{\phi}{F}{B}\]
 where $U$ is an unstructured proof according to the native language of the host prover and $F$ is a forward-style explicit proof term.
 Depending on the host prover, unstructured proofs could be written in Bellerophon, Coq script, and Isabelle apply-script.
-Forward style proof terms correspond loosely to the keywords \texttt{of} and \texttt{OF} in Isar, or to a minimal proof term language with modens ponens in logic or type theory.
+Forward style proof terms correspond loosely to the keywords \texttt{of} and \texttt{OF} in Isar, or to a minimal proof term language with modus ponens in logic or type theory.
 Every proof ends with $(\sshow{x}{\phi}{U})$ where the proof's conclusion $\phi$ is proven by $U$ and given name $x$.
 Proof $(\shave{x}{\phi}{U}{B})$ cuts in fact $x:\phi,$ proves it with $U,$ then continues proving $B$.
 Proof $(\snote{x}{\phi}{F}{B})$ also cuts in $x:\phi,$ with the distinction that the cut formula $\phi$ is proven with a \emph{forward} proof term $F$.
@@ -2885,23 +2938,61 @@ While end-to-end verification is the overarching theme which connects the propos
 
 \section{Timeline}
 The proposal will be October 25, 2019 at 9:00am Pittsburgh time.
-If all goes according to plan, I intend to defend in early Fall 2020.
+If all goes according to plan, I intend to defend in Fall 2020.
 I intend to finish the \CdGL theory first, since the theory will inform the implementation.
 The implementation work will be informed by \VeriPhy and the Kaisar prototype, but I still expect this to take the most time.
 
 Many of the most appropriate conferences have early 2020 deadlines.
-Since it is unlikely that all components will be finished by then, and because timelines are only estimates, I have listed several conference options for each work.
-I intend to defend approximately August 2020.
+Since it is unlikely that all components will be finished by then, and because timelines are only estimates, exact conferences may vary.
+I intend to defend approximately December 2020.
 
-Total: 12.5 months
+Total: $\approx$\textbf{14 months}, optimistic
 \begin{itemize}
-\item 2 weeks Resubmit \CGL somewhere (e.g., LICS, FSCD, FOSSACS, CSL, ICALP)
-\item 3 months (Sep-Nov) Extend \CGL theory to \CdGL theory (Submit to IJCAR around February 2020)
-\item 3 months (Dec-Feb) Implement Kaisar with \CdGL proof checking (Submit to ITP or FM late March 2020)
-\item 2 months: (Mar-Apr) Develop \ProofPlex implementation (Submit to  RV, May 2020, or if finished early, CAV in February 2020)
-\item 1 month: (May) Generalize ground robotics case study to \CdGL
-\item 3 months: (June-August) Write thesis document, defend
+\item 1 month (Nov) \CdGL theory
+\item 1 month (Dec) Game refinements
+\item 1 month (Jan) Revisions and resubmissions (CAV, IJCAR, FSCD)
+\item 1 month (Feb) Kaisar theory
+\item 2 months (Mar-Apr) Kaisar proofchecking implementation (FM?)
+\item 2 months (May-Jun) Kaisar \ProofPlex monitoring implementation (RV?)
+\item 1 month (Jul) Generalize ground robotics case study to \CdGL
+\item 2 month (Aug-Sep) Further revisions and resubmissions
+\item 3 months (Oct-Dec) Write thesis document, defend
 \end{itemize}
+
+\subsection{Backup plans}
+Because the proposed works build on my past work in fundamental ways, they are likely to succeed.
+To further improve the likelihood of success, it is helpful to identify backup plans in case some aspects of the proposed chapters should fail.
+I have collected some of the backup options here.
+
+\paragraph*{CdGL.}
+\begin{itemize}
+\item If $\ddiamond{\text{ODE}}{}$ rules are infeasible, pursue simplified ``solve'' axiom
+\item If arbitrary computable terms are infeasible, use polynomial terms with limited use of semialgebraic witnesses
+\item If model-predictive control is infeasible, focus on synthesizing assignments and conditionals
+\item If refinement work fails, can directly reimplement sandboxing on games or rely on manual refinement
+\end{itemize}
+
+\paragraph*{Kaisar.}
+\begin{itemize}
+\item If usability results are weak, extend theory results
+\item If nominal features do not provide desired benefits, refocus efforts on modularity
+\item If implementation tasks become infeasibly large, pursue tighter integration with \KeYmaeraX code base or cut ``Export to Bellerophon proof'' feature
+\end{itemize}
+
+
+\paragraph*{Driving Case Study.}
+\begin{itemize}
+\item Generalize robot model to improve synthesized monitor
+\item Minimize proof complexity to support easy synthesis
+\item Pursue a mix of hardware and simulation evaluations based on needs:
+\begin{itemize}
+\item\includegraphics[width=1.2in]{img/mrzr.jpg}\\
+Polaris MRZR (access on limited dates only)
+\item 1-10th scale RC Car (full access)
+\item AirSim simulator
+\end{itemize}
+\end{itemize}
+
 
 \appendix
 
