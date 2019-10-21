@@ -1021,54 +1021,6 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \end{textblock}
  \end{frame}
 
-%      \begin{tikzpicture}
-%\draw (0,0) node[circle,draw] (in) {in};
-%\draw (3,1.5) node[circle,draw] (outOne) {out};
-%\draw (3,-1.5) node[circle,draw] (outTwo) {out};
-%\draw[->] (in) -- (outOne) node[midway,above] {$\alpha$};
-%\draw[->] (in) -- (outTwo) node[midway,below] {$\beta$};
-%\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
-%\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
-%\draw (2.5,0) node {$\alpha~\cup~\beta$};
-%      \end{tikzpicture}
-
-%   \begin{align*}
-% \aa,\ab,\ac
-% &\bebecomes f  \alternative \rzBLam{x}{\tau}{\aa} \alternative \rzApp{\aa}{\ab} \alternative  \rzNil \alternative \rzCons{\aa}{\ab}  \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
-%   \end{align*}
-% \begin{itemize}
-% \item Abstract base language $f$
-% \item Higher-order functions and tupling
-% \item Think: Calculus of Inductive Constructions (dependent $\lambda$-calculus)
-% \end{itemize}
-
-% \begin{frame}[t]{Formula Semantics}
-% Which \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ realizes $\phi$?
-% \[(\rzNil,\om) \in  \fintR{f \geq g} \text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\]
-% Starting from region $X$, where does $\alpha$ take Angel?
-% \[(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}} \text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]
-% Starting from region $X$, where does $\alpha$ take Demon?
-% \[(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}} \text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]\pause
-% ``Continuation passing semantics"
-% \end{frame}
-
-% % Patter: In random assignments, the computational content is "how do I compute this variable"
-% % In nondet choices the content is "how do I compute which branch to take"
-% % Likewise we can do all the cases but 45 minute talk
-% \begin{frame}[t]{Angel Game Semantics}
-% \begin{align*}
-% \strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\
-% \uncover<2->{\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\}
-% \uncover<3->{\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}\\
-%                                           &\cup \{\sff~|~(\aa,\om) \in X,~(\rzFst{\aa},\om) \notin \fintR{\phi}\}\\ 
-% \strategyforR[\humod{x}{f}]{X}  &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\}&&\text{}\\
-% \strategyforR[\alpha;\beta]{X}           &= \strategyforR[\beta]{(\strategyforR[\alpha]{X})} &&\text{}\\
-% \strategyforR[\prepeat{\alpha}]{X}     &= \bigcap\{\apL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\strategyforR[\alpha]{\apR{Z}}) \subseteq Z\}
-% &&\\
-% \strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}}
-% \end{align*}
-% \end{frame}
-
 \begin{frame}[t]{Games Support Proof Terms}
 \[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
 \pause
@@ -1487,31 +1439,30 @@ Amenable to change (i.e., not on job market this year)
 \begin{frame}[t,allowframebreaks]{Backup Plans are in Place}
 \textbf{CdGL Backup Plans:}
 \begin{itemize}
-\item If $\ddiamond{\text{ODE}}{}$ rules are infeasible, pursue simplified ``solve'' axiom
-\item If arbitrary computable terms are infeasible, use polynomial terms with limited use of semialgebraic witnesses
-\item If model-predictive control is infeasible, focus on synthesizing assignments and conditionals
-\item If refinement work fails, can directly reimplement sandboxing on games or rely on manual refinement
+\item If $\ddiamond{\pevolve{\D{x}=\theta}}{P}$ axiom is infeasible, reason by solutions
+\item If $\ddiamond{\pevolve{\D{x}=\theta}}{P}$ synthesis is infeasible, prioritize assignments + conditionals
+\item If automatic refinement fails, rely on manual refinement.
+\item Focus on polynomial terms if needed.
 \end{itemize}
 \framebreak
 \textbf{Kaisar Backup Plans:}
 \begin{itemize}
-\item If usability results are weak, extend theory results
-\item If nominal features do not provide desired benefits, refocus efforts on modularity
-\item If implementation tasks become infeasibly large, pursue tighter integration with \KeYmaeraX code base or cut ``Export to Bellerophon proof'' feature
+\item Proofs still complicated? Focus on modularity
+\item Poor usability results? Focus on theory
+\item Too much implementation? \\Exploit \KeYmaeraX codebase, or cut ``Export'' feature
 \end{itemize}
 \framebreak
 
 {\textbf{Robot Backup Plans:}
 \begin{itemize}
-\item Generalize robot model to improve synthesized monitor
-\item Minimize proof complexity to support easy synthesis
-\item Pursue a mix of hardware and simulation evaluations based on needs:
+\item Poor monitors? Refine model
+\item Synthesis hard? Simplify proof
+\item Pick evaluation platform(s) based on needs:
 \begin{itemize}
 \item\includegraphics[width=1.2in]{img/mrzr.jpg}\\
 Polaris MRZR (access on limited dates only)
-\item 1-10th scale RC Car (full access)
+\item GoPiGo robot and F1/10 RC Car (full access)
 \item AirSim simulator
-\item GoPiGo
 \end{itemize}
 \end{itemize}}
 \end{frame}
@@ -1830,4 +1781,54 @@ Polaris MRZR (access on limited dates only)
 % %If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$
 % %then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
 % %\end{lemma}
+% \end{frame}
+
+
+
+%      \begin{tikzpicture}
+%\draw (0,0) node[circle,draw] (in) {in};
+%\draw (3,1.5) node[circle,draw] (outOne) {out};
+%\draw (3,-1.5) node[circle,draw] (outTwo) {out};
+%\draw[->] (in) -- (outOne) node[midway,above] {$\alpha$};
+%\draw[->] (in) -- (outTwo) node[midway,below] {$\beta$};
+%\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+%\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+%\draw (2.5,0) node {$\alpha~\cup~\beta$};
+%      \end{tikzpicture}
+
+%   \begin{align*}
+% \aa,\ab,\ac
+% &\bebecomes f  \alternative \rzBLam{x}{\tau}{\aa} \alternative \rzApp{\aa}{\ab} \alternative  \rzNil \alternative \rzCons{\aa}{\ab}  \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
+%   \end{align*}
+% \begin{itemize}
+% \item Abstract base language $f$
+% \item Higher-order functions and tupling
+% \item Think: Calculus of Inductive Constructions (dependent $\lambda$-calculus)
+% \end{itemize}
+
+% \begin{frame}[t]{Formula Semantics}
+% Which \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ realizes $\phi$?
+% \[(\rzNil,\om) \in  \fintR{f \geq g} \text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\]
+% Starting from region $X$, where does $\alpha$ take Angel?
+% \[(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}} \text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]
+% Starting from region $X$, where does $\alpha$ take Demon?
+% \[(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}} \text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]\pause
+% ``Continuation passing semantics"
+% \end{frame}
+
+% % Patter: In random assignments, the computational content is "how do I compute this variable"
+% % In nondet choices the content is "how do I compute which branch to take"
+% % Likewise we can do all the cases but 45 minute talk
+% \begin{frame}[t]{Angel Game Semantics}
+% \begin{align*}
+% \strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\
+% \uncover<2->{\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\}
+% \uncover<3->{\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}\\
+%                                           &\cup \{\sff~|~(\aa,\om) \in X,~(\rzFst{\aa},\om) \notin \fintR{\phi}\}\\ 
+% \strategyforR[\humod{x}{f}]{X}  &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\}&&\text{}\\
+% \strategyforR[\alpha;\beta]{X}           &= \strategyforR[\beta]{(\strategyforR[\alpha]{X})} &&\text{}\\
+% \strategyforR[\prepeat{\alpha}]{X}     &= \bigcap\{\apL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\strategyforR[\alpha]{\apR{Z}}) \subseteq Z\}
+% &&\\
+% \strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}}
+% \end{align*}
 % \end{frame}
