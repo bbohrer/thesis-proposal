@@ -458,6 +458,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 
 \newcommand{\ctrlcolor}[1]{{\color{vred}{#1}}}
 \newcommand{\plantcolor}[1]{{\color{vblue}{#1}}}
+\newcommand{\moncolor}[1]{\plantcolor{#1}}
 
 \title{Practical, End-to-End Verification for Cyber-Physical Systems}
 \author{Brandon Bohrer}
@@ -489,33 +490,8 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \end{frame}
 
 \section{Introduction}
-%%%  If I bring this slide back, connect pictures to next slide
-%\begin{frame}[t]{\only<1>{Safety-Critical CPS Need Safety}
-%\only<2->{Safety-Critical CPS Need Proofs}}
-%  \begin{center}
-%    \begin{tabular}{ccc}
-%\includegraphics[width=1in]{img/plane-real.jpg}&\includegraphics[width=1in]{img/quadcopter-real.jpg}&\includegraphics[width=1in]{img/robot-dyn-small.png}\\
-%Planes&Drones&Robots\\
-%\uncover<2->{
-%& &\\
-%\includegraphics[width=0.6in]{img/assembly-small.png}&\includegraphics[width=1in]{img/invariant-region.png}&\infer{\Gamma \vdash A \lor B}{\Gamma \vdash A}\\
-%Discrete Control & Continuous Dynamics & Syntactic Proof
-%}
-%    \end{tabular}
-%  \end{center}
-%  \only<1>{
-%  \begin{quote}
-%    How can we design cyber-physical systems people can bet their lives on? -- Jeanette Wing
-%  \end{quote}
-%  }
-%  \only<3>{
-%  \begin{quote}
-%    How do proofs connect to reality?
-%  \end{quote}
-%  }
-%\end{frame}
 
-
+%TODO: Introduce [a]P and basic concepts at some point
 \begin{frame}[t]{Verification Needs to be End-to-end}
 \begin{center}
   \begin{tabular}{lll}
@@ -523,7 +499,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 % \acl{1}{Modern drone}        & \acl{2}{80~\cite{DBLP:conf/emsoft/RickettsML16}}   & \acl{3}{3M}\\
 % \acl{1}{Pacemaker}           & \acl{2}{650~\cite{DBLP:conf/cpsweek/AndalamMRT16}} & \acl{3}{60K}  \\ % 35 cells * 19 lines
 % Also: F22 ~> 1M lines, F35: 24M
-\ah{1}{Application}         & \ah{2}{Models LOC (approx.)}                      & \ah{3}{Real system LOC} \\
+\ah{1}{Application}         & \ah{2}{Models LOC (approx.)}                      & \ah{3}{Real system LOC} \\\hline
 \acl{1}{Insulin pump}        & \acl{2}{30~\cite{COBELLI198227}}                   & \acl{3}{35K~\cite{OpenAPS}}  \\ % number of equations in paper
 \acl{1}{Commercial airliner} & \acl{2}{84-150~\cite{DBLP:conf/fm/PlatzerC09,DBLP:conf/emsoft/JeanninGKGSZP15}} & \acl{3}{14M~\cite{codebases}} \\  % tangential roundabout study, safe_explicit.kyx
 \acl{1}{Modern car}          & \acl{2}{29-150~\cite{DBLP:conf/fm/LoosPN11,DBLP:journals/ral/BohrerTMSP19}}  & \acl{3}{100M~\cite{codebases}} %FM kym3 proof, 
@@ -531,6 +507,8 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \end{center}
 \end{frame}
 
+%Patter: This is my working definition of end-to-end.
+% Importantly, completely work already does this better than state-of-the-art
 \begin{frame}[t]{End-to-end Verification Must Close Several Gaps}
 Why are implementations more complicated than models?
   \begin{align*}
@@ -541,7 +519,9 @@ Why are implementations more complicated than models?
   \end{align*}
 \end{frame}
 
-\begin{frame}[t]{End-to-end Verification Must Meet Competing Needs}
+% Patter: This is my working definition of practical.
+% The thesis-to-proposal work aims to become practical while keeping end-to-end
+\begin{frame}[t]{Practical Verification Must Meet Competing Needs}
 \begin{center}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
@@ -593,8 +573,8 @@ Why are implementations more complicated than models?
   \centering
 \begin{tabular}{l|c|c|r}
 Approach    & Logician                 & Engineer                               & Logic-User\\\hline
-GPITP       &\cellcolor{green!25}formal &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline
-Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline
+GPITP       &\cellcolor{green!25}formal &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline\pause
+Automata    &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline\pause
 \dL before  &\cellcolor{yellow!25}paper &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause       %, less labor-intensive
 Current     &\cellcolor{green!25}formal &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause %, less labor-intensive
 Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls  &\cellcolor{green!25}least error-prone\\\hline       %, less labor-intensive
@@ -606,25 +586,25 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 
 \begin{frame}[t]{\CdGL Verification + Synthesis (after)}
   \begin{tabular}{@{\hskip0.6in}lll}
-    \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
-    \acl{1}{\sayHappy{Full synthesis suite!}} & \acl{2}{\sayHappy{Formal foundations!}} & \acl{3}{\sayHappy{Structured proofs!}}
+    \ah{1}{\engineer} & \ah{1}{\logician} & \ah{1}{\logicuser}\\
+    \acl{1}{\sayHappy{Full synthesis suite!}} & \acl{1}{\sayHappy{Formal foundations!}} & \acl{1}{\sayHappy{Structured proofs!}}
   \end{tabular}
-\begin{tabular}{@{\hskip-0.2in}l@{\hskip-0.7in}l}
-\begin{minipage}{0.6\textwidth}
-{\small\begin{itemize}
-  \item[] \textbf{Complete:} Verified \dL checker
-  \item[] \textbf{Complete:} Verified  monitor compilation
-  \item[] \textbf{Complete:} Discrete-game logic
-\end{itemize}}
-\end{minipage} &
-\begin{minipage}{0.6\textwidth}
-{\small\begin{itemize}
-  \item[] \textbf{In-progress:} Structured proofs
-  \item[] \textbf{Proposed:} Synthesize monitor+control via
-  \item[] \textbf{Proposed:} Hybrid-game logic
-\end{itemize}}
-\end{minipage}
-\end{tabular}
+%\begin{tabular}{@{\hskip-0.2in}l@{\hskip-0.7in}l}
+%\begin{minipage}{0.6\textwidth}
+%{\small\begin{itemize}
+%  \item[] \textbf{Complete:} Verified \dL checker
+%  \item[] \textbf{Complete:} Verified  monitor compilation
+%  \item[] \textbf{Complete:} Discrete-game logic
+%\end{itemize}}
+%\end{minipage} &
+%\begin{minipage}{0.6\textwidth}
+%{\small\begin{itemize}
+%  \item[] \textbf{In-progress:} Structured proofs
+%  \item[] \textbf{Proposed:} Synthesize monitor+control via
+%  \item[] \textbf{Proposed:} Hybrid-game logic
+%\end{itemize}}
+%\end{minipage}
+%\end{tabular}
 \end{frame}
 
 
@@ -636,7 +616,7 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 % Just to foreshadow: We will come back to the overview when I cover proposed work.
 % The pipeline will be the same, rather the proposed work will achieve a better balance for our
 % three characters within that pipeline.
-\begin{frame}[t]{Approach of Thesis}
+\begin{frame}[t]{What is End-to-End Verification?}
 \begin{center}
   \includegraphics[width=4.4in]{img/veriphy-overview.png}
 \end{center}
@@ -658,8 +638,8 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 {\small\begin{align*}
 \alpha~\equiv~& \prepeat{(\ctrl; \plant)}\\
 \ctrl ~\equiv~& \prandom{\text{\sf{way,k,\m{v_{\text{lim}}}}}};\,\ptest{\planreq};\\
-      &\underbrace{\prandom{\avar};\,\ptest{\admiss}}_{\ctrlliv}\\
-\plant\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),\\
+      &\underbrace{\prandom{\avar};\,\ptest{\ctrlcolor{\admiss}}}_{\ctrlliv}\\
+\moncolor{\plant}\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),\\
              &~\D{\vvar}=\avar,~\D{\tvar}=1 \&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
 \end{align*}}
 \end{minipage}%
@@ -677,7 +657,7 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 
 \begin{frame}[t]{Provable Monitor $\leadsto$ Provable Sandbox}
 Sandboxed controller uses {\color{myyellow}{external}}  controller when decision is {\color{vred}safe}, else uses verified {\color{vgreen}{fallback}}.
-Detects non-compliant {\color{vblue}plants}.
+Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monitor.
 \begin{textblock}{8}(-0.5,4)
 \footnotesize\begin{align*}
 &\prandom{\vec{x}};\\
@@ -734,13 +714,6 @@ Detects non-compliant {\color{vblue}plants}.
 %\end{textblock}
 \end{frame}
 
-\begin{frame}[t]{Verified Proof Term Checker}
-Proof checker formalized as function:
-\[{\tt pteval} : {\tt pt} \to {\tt proofState\ option}\]\pause
-Soundness theorem formalized:
-\[\small\texttt{arith\_valid pt} \land \texttt{pteval\ pt = Some rule} \limply \texttt{sound(rule)}\]\pause
-Tested on real sandbox proofs ($\approx$100,000 steps)
-\end{frame}
 %How to trust a theorem prover?
 %Formalize it!
 %\Isabelle function \texttt{pteval} computes the proof state proved by a given proof term, or returns \texttt{NONE} on proofs that do not check
@@ -781,7 +754,7 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \begin{figure}[tb]
 \centering
 \begin{minipage}[b]{2in}\centering
-\begin{tikzpicture}[->,draw,thick,yscale=0.9,inner sep=1pt]
+\begin{tikzpicture}[->,draw,thick,yscale=0.7,inner sep=1pt]
 \tikzstyle{arc}=[circle,draw]
 \tikzstyle{line}=[rectangle,draw]
 \tikzstyle{way}=[diamond,draw]
@@ -808,26 +781,35 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \draw (j) edge [bend left]  node {} (a);
 \draw (i) edge [bend right] node {} (a);
 \end{tikzpicture}
-\subcaption{Example mission}\label{fig:patrol-mission-plan}\end{minipage}
-\begin{minipage}[b]{1.51in}\centering
-\includegraphics[width=1.51in,clip,trim=0 0 0 50]{graphics/airsim.png}
-\subcaption{Simulator}\label{fig:simulator}\end{minipage}
-\begin{minipage}[b]{1in}\centering
-\includegraphics[width=1in]{graphics/screen1.png}
-\subcaption{Rectangle}\label{fig:rect}\end{minipage}\\
-\begin{minipage}[b]{1in}\centering
-\includegraphics[width=1in]{graphics/screen2.png}
-\subcaption{Tight turns}\label{fig:turns}\end{minipage}
-\begin{minipage}[b]{1in}\centering
-\includegraphics[width=0.8in]{graphics/screen3.png}
-\subcaption{Large clover}\label{fig:clover}\end{minipage}
-\caption{Implementation and environments built in AirSim}
+%\subcaption{Example mission}\label{fig:patrol-mission-plan}%
+\end{minipage}\ \ 
+\begin{minipage}[b]{1.51in}\centering%
+\includegraphics[width=1.51in,clip,trim=0 0 0 100]{graphics/airsim.png}%
+%\subcaption{Simulator}\label{fig:simulator}%
+\end{minipage}\ \ 
+\begin{minipage}[b]{1in}\centering%
+\includegraphics[width=1in]{graphics/screen1.png}%
+%\subcaption{Rectangle}\label{fig:rect}%
+\end{minipage}\\[0.1in]
+\begin{minipage}[b]{1in}\centering%
+\includegraphics[width=1in]{graphics/screen2.png}%
+%\subcaption{Tight turns}\label{fig:turns}%
+\end{minipage}\ \ %
+\begin{minipage}[b]{1in}\centering%
+\includegraphics[width=1in]{graphics/screen3.png}%
+%\subcaption{Large clover}\label{fig:clover}%
+\end{minipage}\ \ %
+\begin{minipage}[b]{1.1in}\centering%
+\includegraphics[width=1.1in,clip,trim=0 0 0 75]{img/gopigo3.jpg}%
+%\subcaption{Robot}%
+\end{minipage}
+%\caption{Implementation and environments built in AirSim}
 \label{fig:patrol-plan}
 \end{figure}
 \end{frame}
 
 
-\begin{frame}[t]{Components of Thesis}
+\begin{frame}[t]{Already End-to-end, but Practical?}
 \newcommand{\cdone}{green!10}
 \newcommand{\cwip}{yellow!30}
 \newcommand{\cprop}{orange!30}
@@ -844,11 +826,12 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
 \node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
-\draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
+\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Logician};
+\draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\color{vgray}\dL Formalized};
 \draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
+\draw (-14,2.8) node {{\small\color{vgray}Not in Talk}};
 \draw (-14,1.7) node {{\small\color{vgray}Not in Talk}};
-\draw (-7, 0.6) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
+\draw (-7, 0.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
 \draw (-7, -0.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
 \draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
 \draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
@@ -857,10 +840,10 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
 %2.6
-\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Artifacts};
+\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Engineer};
 \draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
 \draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
-\draw (5, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+\draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
 \draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
 \draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
 \draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
@@ -871,7 +854,7 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \draw[dashed] (proofscript) -- (proofscript-ref);
 \draw[dashed] (proofterm) -- (proofterm-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
-\draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Usability};
+\draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Logic-User};
 \draw (0.3, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
 \draw (0.1, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
 \draw (-2.9, -6.05) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
@@ -898,7 +881,14 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 % &\&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
 %\end{align*}}
 
-\newcommand{\moncolor}[1]{\plantcolor{#1}}
+%\begin{frame}[t]{Verified Proof Term Checker}
+%Proof checker formalized as function:
+%\[{\tt pteval} : {\tt pt} \to {\tt proofState\ option}\]\pause
+%Soundness theorem formalized:
+%\[\small\texttt{arith\_valid pt} \land \texttt{pteval\ pt = Some rule} \limply \texttt{sound(rule)}\]\pause
+%Tested on real sandbox proofs ($\approx$100,000 steps)
+%\end{frame}
+
 \section{Ongoing Work: \CdGL Logic}
 % Say: CGL is already done, but for the sake of time we're presenting it together with CdGL
 \begin{frame}[t]{\only<1>{Diamonds Support Synthesis}\only<2>{Games Extend Systems}}
@@ -914,39 +904,6 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
   \end{tikzpicture}
 \end{center}
 \end{frame}
-%\begin{frame}[t]{Exploit Proof Content}
-%  $J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}$
-% $J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$
-%    \draw (0.6,0.5) node {\footnotesize{\color{gray}Proof}};
-%    \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
-%    \draw (3, -0.5) node {\plantcolor{dC}};
-%    \draw (3.15, -1) node {\plantcolor{dI}};
-%    \draw (3, -1.5) node {\plantcolor{dG}};
-%    \draw (4.7, -1) node {\plantcolor{\texttt{Plant.S}}};
-
-%    \draw[color=vblue] (3.3, -0.5) -- (3.85,-0.85);
-%    \draw[color=vblue] (3.4, -1)   -- (3.9,-1);
-%    \draw[color=vblue] (3.3, -1.5) -- (3.85,-1.15);
-
-%    \draw (-3, -0.5) node {\ctrlcolor{$\langle{'}\rangle$}};
-%    \draw (-3, -1) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
-%    \draw (-3, -1.5) node {\ctrlcolor{$\langle{\cup}\rangle$}};
-%    \draw (-5, -1) node {\ctrlcolor{\texttt{Control.S}}};
-
-%    \draw[color=vred] (-3.5, -0.5) -- (-3.85,-0.85);
-%    \draw[color=vred] (-3.4, -1)   -- (-3.9,-1);
-%    \draw[color=vred] (-3.5, -1.5) -- (-3.85,-1.15);
-
-%  \begin{tabular}{ccc}
-%    Modality                  & Curry-Howard & Synthesizes \\
-%    $\dbox{\alpha}{\phi}$     & Demon strategy for $\phi$ after $\alpha$ & Monitor \\
-%    $\ddiamond{\alpha}{\phi}$ & Angel strategy for $\phi$ after $\alpha$ & Control
-%  \end{tabular}\pause
-%  \begin{itemize}
-%  \item Games support monitor \emph{and} control synthesis from \emph{one} proof
-%  \item Curry Howard foundation promotes general-case, robust tools
-%  \item Game models are often simpler than systems
-%  \end{itemize}
 
 % Formula language, game language by Nim example, example properties
 % Realizers, semantics
@@ -969,6 +926,7 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \end{minipage}%
 \end{frame}
 
+%TODO: Minimize no. slides?
 \begin{frame}[t]{Game Model is Proposed}
 %\begin{frame}[t]{2D Driving Model is Input}
 %\begin{tabular}{cc}
@@ -1010,44 +968,106 @@ Tested on real sandbox proofs ($\approx$100,000 steps)
 \end{center}
 \end{frame}
 
-\begin{frame}[t]{Realizers are Computable Strategies}
-  \begin{align*}
-\aa,\ab,\ac
-&\bebecomes f  \alternative \rzBLam{x}{\tau}{\aa} \alternative \rzApp{\aa}{\ab} \alternative  \rzNil \alternative \rzCons{\aa}{\ab}  \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
-  \end{align*}
-\begin{itemize}
-\item Abstract base language $f$
-\item Higher-order functions and tupling
-\item Think: Calculus of Inductive Constructions (dependent $\lambda$-calculus)
-\end{itemize}
-\end{frame}
+%TODO: cgl is Long
+\begin{frame}[t]{Games = Systems mod Realizers}
+\begin{textblock}{20}(2,3)
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
+\draw[->] (in) -- (outOne) node[midway,above] {$\rzFst{\aa}|\alpha$};
+\draw[->] (in) -- (outTwo) node[midway,below] {$\rzSnd{\aa}|\beta$};
+\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+\draw (2.5,0) node {\plantcolor{$\dbox{\alpha~\cup~\beta}{}$}};
+      \end{tikzpicture}
+\end{textblock}
+\begin{textblock}{20}(8,2.5)
+\uncover<2->{
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
+\draw[->] (in) -- (outOne) node[midway,above] (labA) {$\rzSnd{\aa}|\alpha$};
+\draw node[above=-0.1 of labA] {\footnotesize if $\rzFst{\aa}(\om) = 0$};
+\draw[->] (in) -- (outTwo) node[midway,below] (labB) {$\rzSnd{\aa}|\beta$};
+\draw node[below=-0.1 of labB] {\footnotesize if $\rzFst{\aa}(\om) = 1$};
+\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+\draw (2.5,0) node {\ctrlcolor{$\ddiamond{\alpha~\cup~\beta}{}$}};
+      \end{tikzpicture}}
+\end{textblock}
+\begin{textblock}{20}(1,9)
+\uncover<3->{
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
+\draw[->] (in) -- (outOne) node[midway,above left] {\footnotesize$\aa(v_1)|\om\subst{x}{\aa(v_1)}$};
+\draw[->] (in) -- (outTwo) node[midway,below left] {\footnotesize$\aa(v_2)|\om\subst{x}{\aa(v_2)}$};
+\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+\draw (2.5,0) node {\plantcolor{$\dbox{\prandom{x}}{}$}};
+      \end{tikzpicture}}
+\end{textblock}
+\begin{textblock}{20}(8,10.4)
+\uncover<4->{
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,0) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw[->] (in) -- (outOne) node[midway,below=0.2cm] {$\rzSnd{\aa}|\om\subst{x}{\rzFst{\aa}}$};
+\draw (1.5,0.5) node {\ctrlcolor{$\ddiamond{\prandom{x}}{}$}};
+      \end{tikzpicture}}
+\end{textblock}
+ \end{frame}
 
-\begin{frame}[t]{Formula Semantics}
-Which \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ realizes $\phi$?
-\[(\rzNil,\om) \in  \fintR{f \geq g} \text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\]
-Starting from region $X$, where does $\alpha$ take Angel?
-\[(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}} \text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]
-Starting from region $X$, where does $\alpha$ take Demon?
-\[(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}} \text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]\pause
-``Continuation passing semantics"
-\end{frame}
+%      \begin{tikzpicture}
+%\draw (0,0) node[circle,draw] (in) {in};
+%\draw (3,1.5) node[circle,draw] (outOne) {out};
+%\draw (3,-1.5) node[circle,draw] (outTwo) {out};
+%\draw[->] (in) -- (outOne) node[midway,above] {$\alpha$};
+%\draw[->] (in) -- (outTwo) node[midway,below] {$\beta$};
+%\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+%\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+%\draw (2.5,0) node {$\alpha~\cup~\beta$};
+%      \end{tikzpicture}
 
-% Patter: In random assignments, the computational content is "how do I compute this variable"
-% In nondet choices the content is "how do I compute which branch to take"
-% Likewise we can do all the cases but 45 minute talk
-\begin{frame}[t]{Angel Game Semantics}
-\begin{align*}
-\strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\
-\uncover<2->{\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\}
-\uncover<3->{\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}\\
-                                          &\cup \{\sff~|~(\aa,\om) \in X,~(\rzFst{\aa},\om) \notin \fintR{\phi}\}\\
-\strategyforR[\humod{x}{f}]{X}  &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\}&&\text{}\\
-\strategyforR[\alpha;\beta]{X}           &= \strategyforR[\beta]{(\strategyforR[\alpha]{X})} &&\text{}\\
-\strategyforR[\prepeat{\alpha}]{X}     &= \bigcap\{\apL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\strategyforR[\alpha]{\apR{Z}}) \subseteq Z\}
-&&\\
-\strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}}
-\end{align*}
-\end{frame}
+%   \begin{align*}
+% \aa,\ab,\ac
+% &\bebecomes f  \alternative \rzBLam{x}{\tau}{\aa} \alternative \rzApp{\aa}{\ab} \alternative  \rzNil \alternative \rzCons{\aa}{\ab}  \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
+%   \end{align*}
+% \begin{itemize}
+% \item Abstract base language $f$
+% \item Higher-order functions and tupling
+% \item Think: Calculus of Inductive Constructions (dependent $\lambda$-calculus)
+% \end{itemize}
+
+% \begin{frame}[t]{Formula Semantics}
+% Which \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ realizes $\phi$?
+% \[(\rzNil,\om) \in  \fintR{f \geq g} \text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\]
+% Starting from region $X$, where does $\alpha$ take Angel?
+% \[(\aa,\om) \in  \fintR{\ddiamond{\alpha}{\phi}} \text{ iff } \strategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]
+% Starting from region $X$, where does $\alpha$ take Demon?
+% \[(\aa,\om) \in  \fintR{\dbox{\alpha}{\phi}} \text{ iff } \dstrategyforR[\alpha]{\{(\aa,\om)\}} \subseteq (\fintR{\phi} \cup \{\stt\})\]\pause
+% ``Continuation passing semantics"
+% \end{frame}
+
+% % Patter: In random assignments, the computational content is "how do I compute this variable"
+% % In nondet choices the content is "how do I compute which branch to take"
+% % Likewise we can do all the cases but 45 minute talk
+% \begin{frame}[t]{Angel Game Semantics}
+% \begin{align*}
+% \strategyforR[\prandom{x}]{X}          &= \{(\rzSnd{\aa},\ssub{\om}{x}{\rzFst{\aa}(\om)})~|~(\aa,\om) \in X\}&&\text{}\\
+% \uncover<2->{\strategyforR[\alpha\cup\beta]{X}      &= \strategyforR[\alpha]{\apL{X}} \cup \strategyforR[\beta]{\apR{X}}&&\text{}\\}
+% \uncover<3->{\strategyforR[\ptest{\phi}]{X}            &= \{(\rzSnd{\aa},\om)~|~ (\aa,\om) \in X,~(\rzFst{\aa},\om) \in \fintR{\phi}\}\\
+%                                           &\cup \{\sff~|~(\aa,\om) \in X,~(\rzFst{\aa},\om) \notin \fintR{\phi}\}\\ 
+% \strategyforR[\humod{x}{f}]{X}  &= \{(\aa,\ssub{\om}{x}{\tint{f}{\om}})~|~(\aa,\om) \in X\}&&\text{}\\
+% \strategyforR[\alpha;\beta]{X}           &= \strategyforR[\beta]{(\strategyforR[\alpha]{X})} &&\text{}\\
+% \strategyforR[\prepeat{\alpha}]{X}     &= \bigcap\{\apL{Z}\subseteq \allRz \times \allstate~|~ X \cup (\strategyforR[\alpha]{\apR{Z}}) \subseteq Z\}
+% &&\\
+% \strategyforR[\pdual{\alpha}]{X}        &= (\dstrategyforR[\alpha]{X})&&\text{}}
+% \end{align*}
+% \end{frame}
 
 \begin{frame}[t]{Games Support Proof Terms}
 \[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
@@ -1059,28 +1079,28 @@ Starting from region $X$, where does $\alpha$ take Demon?
         &\proves{\G,\pvl:\ddiamond{\alpha}{\phi}}{B}{\psi}
         &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
 {\proves{\G}{\edcase{A}{B}{C}}{\psi}}
-}{}\\[0.1in]
-\begin{calculuscollections}{\textwidth}
-  \begin{calculus}
-\cinferenceRule[dchoiceIL|{$\langle\cup\rangle${I1}}]{}
-{\linferenceRule[formula]
-  {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}
-  {\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
-}{}
-  \end{calculus}
-  \begin{calculus}
-\cinferenceRule[dchoiceIR|{$\langle\cup\rangle${I2}}]{}
-{\linferenceRule[formula]
-  {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}
-  {\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
-}{}
-  \end{calculus}
-\end{calculuscollections}\\[0.1in]
+}{}\\[0.5in]
+% \begin{calculuscollections}{\textwidth}
+%   \begin{calculus}
+% \cinferenceRule[dchoiceIL|{$\langle\cup\rangle${I1}}]{}
+% {\linferenceRule[formula]
+%   {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}
+%   {\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+% }{}
+%   \end{calculus}
+%   \begin{calculus}
+% \cinferenceRule[dchoiceIR|{$\langle\cup\rangle${I2}}]{}
+% {\linferenceRule[formula]
+%   {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}
+%   {\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+% }{}
+%   \end{calculus}
+% \end{calculuscollections}\\[0.1in]
 \pause
 \begin{calculuscollections}{\textwidth}
   \begin{calculus}
 \cinferenceRule[caseBetaL|{{case}$\beta$L}]{}{\edcase{\edinjL{A}}{B}{C} \stepsto \esub{B}{\ell}{A}}{}
-\cinferenceRule[caseBetaR|{{case}$\beta$R}]{}{\edcase{\edinjR{A}}{B}{C} \stepsto \esub{C}{r}{A}}{}\pause
+%\cinferenceRule[caseBetaR|{{case}$\beta$R}]{}{\edcase{\edinjR{A}}{B}{C} \stepsto \esub{C}{r}{A}}{}\pause
 \cinferenceRule[caseS|caseS]{}{\linferenceRule[formula]
 {\small{A \stepsto A'}}
 {\small{\edcase{A}{B}{C} \stepsto \edcase{A'}{B}{C}}}}{}
@@ -1088,69 +1108,43 @@ Starting from region $X$, where does $\alpha$ take Demon?
 \end{calculuscollections}
 \end{frame}
 
-\begin{frame}[t]{Sound as a Logic}
-\begin{lemma}[Renaming]
-  If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
-\end{lemma}
-\begin{lemma}[Context substitution]
-  If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
-\end{lemma}
-\begin{lemma}[Variable substitution]
-  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
-\end{lemma}
-\begin{theorem}[Soundness of Proof Calculus]
-  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is valid.
-\end{theorem}
+\begin{frame}[t]{\CGL Has Rich Theory}
+  \begin{itemize}
+  \item Sound Type System: Progress + Preservation
+  \item Sound Logic: Proved Implies True
+  \item Constructive Logic: Proved Implies Witness
+  \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{A Constructive Logic}
-\begin{lemma}[Existence Property]
-If $\proves{\Gamma}{M}{(\lexists{x:\tau}{\phi})}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
-we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
-\label{lem:term-ep}
-\end{lemma}
-\begin{lemma}[Disjunction Property]
-When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists realizer $\ab$ and computable $f,$ s.t.\ for every $\om$ and $\aa$ such that $(\aa,\omega) \in \cintR{\G}$, either $f(\omega)=0$ and $(\rzFst{\ab},\omega) \in \fintR{\phi}{}$, else $f(\omega)=1$ and $(\rzSnd{\ab},\omega) \in \fintR{\psi}$.
-\end{lemma}
-\end{frame}
-
-\begin{frame}[t]{Sound as a Type System}
-\begin{lemma}[Progress]
-If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
-\end{lemma}
-\begin{lemma}[Preservation]
-If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
-\end{lemma}
-%\begin{lemma}[Active Strategy Property]
-%If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$
-%then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
-%\end{lemma}
-\end{frame}
-
-\begin{frame}[t]{Proposed Work: ODE's}
-Picard iteration and Euler integration yield computational interpretations of ODE's.
+\begin{frame}[t]{Proposed: How do ODEs Compute?}
+Picard iteration + Euler integration compute ODE's
 \begin{itemize}
-  \item Application: Euler proofs of $\ddiamond{\pevolve{\D{x}=\theta}}{P}$ support synthesis of Model-Predictive Control
   \item Conjecture: Box rules $\dbox{\pevolve{\D{x}=\theta}}{P}$ ``just work''
-  \item Challenge: Which proofs lead to ``good'' monitors, controllers?
-     e.g., equalities $\theta = \eta$ are easy to prove, hard to monitor.
-  \item Related Work: Verified integration~\cite{DBLP:conf/itp/ImmlerT16}, Picard~\cite{DBLP:conf/itp/MakarovS13}
+  \item Challenge: Synthesis of model-predictive $\ddiamond{\pevolve{\D{x}=\theta}}{P}$ requires integration
 \end{itemize}
 \end{frame}
+%TODO: What is a good proof -> earlier
+%  \item Challenge: Which 
+%Which proofs lead to ``good'' monitors, controllers?
+%     e.g., equalities $\theta = \eta$ are easy to prove, hard to monitor.
+%  \item Related Work: Verified integration~\cite{DBLP:conf/itp/ImmlerT16}, Picard~\cite{DBLP:conf/itp/MakarovS13}
+%Picard iteration and Euler integration yield computational interpretations of ODE's.
+
 
 \begin{frame}[t]{Proposed Work: Connections}
 VeriPhy needs: games vs.\ systems
 \begin{itemize}
-\item Extend differential refinement logic \dRL to games
+\item Extend differential refinement logic \dRL~\cite{Loos16} to games
 \item Prove folklore: ``Games $\equiv$ Systems $\mod$ Strategies"
 \end{itemize}
-\pause
-Non-essential:  Constructive vs.\ classical
-\begin{itemize}
-\item G\"{o}del-Gentzen
-\item Arithmetic
-\item Loop expressivity (jargon:``closure ordinal'')
-\end{itemize}
+And more!
+% \pause
+% Non-essential:  Constructive vs.\ classical
+% \begin{itemize}
+% \item G\"{o}del-Gentzen
+% \item Arithmetic
+% \item Loop expressivity (jargon:``closure ordinal'')
+% \end{itemize}
 \end{frame}
 
 \section{Ongoing Work: Kaisar Language}
@@ -1161,12 +1155,6 @@ Non-essential:  Constructive vs.\ classical
     \acl{1}{\say{How does proof format affect tooling?}}
 & \acl{1}{\say{What are program proofs?}}
 & \acl{1}{\say{How do features impact real proofs?}}
-  \end{tabular}
-\end{frame}
-\begin{frame}[t]{Kaisar Combines Perspectives on Proofs}
-  \begin{tabular}{lll}
-    \ah{1}{\engineer}                         & \ah{2}{\logician}                      & \ah{3}{\logicuser}\\
-    \acl{1}{\say{Can it synthesize?}} & \acl{2}{\say{What \emph{is} a program proof?}} & \acl{3}{\say{Does it scale?}}
   \end{tabular}
 \end{frame}
 
@@ -1320,32 +1308,12 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 \end{frame}
 
 \section{Proposed Work: Controller Synthesis}
-
-%\draw (0,-1.2) node (cdgl) {\CdGL};
-%\draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
-%\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ Ch.\ 3 Ch.\ 4}}] (dl-ref) at (dl) {};
-%\draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-%\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
-%\draw (-7, 2.8) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
-%\draw (-7, 1.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (generalization) {\dL Generalized};
-%\draw (-7, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
-%\draw (-7, -0.5) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
-%\draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
-%\draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
-%\draw node[left=0.3cm of cgl] (cgl-ref) {Ch.\ 5};
-%\draw node[left=0.3cm of cdgl] (cdgl-ref) {Ch.\ 6};
-%\draw[dashed] (formalization) -- (formal-ref);
-%\draw[dashed] (generalization) -- (gen-ref);
-%\begin{center}
 \begin{frame}[t]{Exploit Proof Content}
   \begin{tikzpicture}
-    \draw (0,1) node (thm) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
-    \draw (0,0.5) node {$\Uparrow$};
-    \draw (0.6,0.5) node {\footnotesize{\color{gray}Proof}};
-    \draw (0,0) node (mainprf) {$J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}$};
+    \draw (0,0) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
     \draw (0,-0.5) node {$\Uparrow$};
+    \draw (0.6,-0.5) node {\footnotesize{\color{gray}Proof}};
     \draw (0,-1) node (nxtprf) {$J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$};
-    \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
     \draw (3, -0.5) node {\plantcolor{dC}};
     \draw (3.15, -1) node {\plantcolor{dI}};
     \draw (3, -1.5) node {\plantcolor{dG}};
@@ -1365,19 +1333,8 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
     \draw[color=vred] (-3.5, -1.5) -- (-3.85,-1.15);
   \end{tikzpicture}
 \end{frame}
-%\end{center}
-%Missing from figure: Elaboration and Normalization steps
-%Control.S $\leftarrow_{{:=}*,\cup,'} (J(x) \limply \ddiamond{\ctrl}{\dbox{\plant}{J(\tilde{x} < x)}}) \rightarrow_{dC,dG}$ Monitor.S
 
-%TODO: Add simplification self-arrow after checking
-%\draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
-%\draw (bexport) -- (synth)
-% \node[shape=coordinate] (use-anchor) at (0,-3){};
-% \draw node[right=0.3cm of lop] (lop-ref) {Ch.\ 7};
-% \node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{Ch.\ 6}}] (cdgl-ref) at (cdgl) {};
-% \draw[->,very thick] (logic) -- (CdGLcirc);
-%\draw[-,black,very thick,dashed] (ptproof) -- node[anchor=east,align=center] {Soundness proof\\(\rref{sec:intervalify})} (ptanchor);
-
+%TODO maybe: Add simplification self-arrow after checking
 \begin{frame}[t]{Architecture}
 %Standalone checker, loose coupling with \KeYmaeraX, except when not.
 %That is, may want to use Kaisar in KeYmaera, but also need standalone synthesizer
@@ -1414,7 +1371,6 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
   \end{tikzpicture}
 \end{center}
 \end{frame}
-%TODO: Research Isar architecture.
 
 \begin{frame}[t]{Arithmetic Implementation Tradeoffs}
 \engineer[0.5in]~\saySad{Overflow bad!}
@@ -1461,11 +1417,12 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
 \node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
-\draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
+\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Logician};
+\draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\color{vgray}\dL Formalized};
 \draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
+\draw (-14,2.8) node {{\small\color{vgray}Not in Talk}};
 \draw (-14,1.7) node {{\small\color{vgray}Not in Talk}};
-\draw (-7, 0.6) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
+\draw (-7, 0.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
 \draw (-7, -0.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
 \draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
 \draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
@@ -1474,10 +1431,10 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
 %2.6
-\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Artifacts};
+\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Engineer};
 \draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
 \draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
-\draw (5, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+\draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
 \draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
 \draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
 \draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
@@ -1488,7 +1445,7 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 \draw[dashed] (proofscript) -- (proofscript-ref);
 \draw[dashed] (proofterm) -- (proofterm-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
-\draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Usability};
+\draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Logic-User};
 \draw (0.3, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
 \draw (0.1, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
 \draw (-2.9, -6.05) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
@@ -1518,7 +1475,7 @@ Timeline: $\approx$\textbf{14 months}, optimistic
 \item 1 month (Jan) Revisions and resubmissions
 \item 1 month (Feb) Kaisar theory
 \item 2 months (Mar-Apr) Kaisar proofchecking implementation
-\item 2 months (May-Jun) Kaisar \ProofPlex monitoring implementation
+\item 2 months (May-Jun) Kaisar synthesis implementation
 \item 1 month (Jul) Generalize ground robotics case study to \CdGL
 \item 2 month (Aug-Sep) Further revisions and resubmissions
 \item 3 months (Oct-Dec) Write thesis document, defend\pause
@@ -1526,7 +1483,7 @@ Timeline: $\approx$\textbf{14 months}, optimistic
 Amenable to change (i.e., not on job market this year)
 \end{frame}
 
-%TODO: Plans are important but it's hard to discuss without context
+% TODO: Polish, shorten
 \begin{frame}[t,allowframebreaks]{Backup Plans are in Place}
 \textbf{CdGL Backup Plans:}
 \begin{itemize}
@@ -1554,6 +1511,7 @@ Amenable to change (i.e., not on job market this year)
 Polaris MRZR (access on limited dates only)
 \item 1-10th scale RC Car (full access)
 \item AirSim simulator
+\item GoPiGo
 \end{itemize}
 \end{itemize}}
 \end{frame}
@@ -1565,6 +1523,37 @@ Polaris MRZR (access on limited dates only)
     \acl{1}{\sayHappy{Full synthesis suite!}} & \acl{1}{\sayHappy{Formal foundations!}} & \acl{1}{\sayHappy{Structured proofs!}}
   \end{tabular}
 \end{frame}
+
+% TODO: Solidarity slide lmaooo
+
+\appendix
+\section{Appendix}
+%TIMED (1): 1:27:00,  87 mins, needs to be 45, cut 42 mins, ~50%
+%TIMED (2): 1:07:30,  67 mins, cut 22 mins, 33%
+\begin{frame}[t,allowframebreaks]{TODO List}
+  \begin{itemize}
+  \item Identify questions likely to be asked by committee, prepare answers
+  \item Research related works which inform design questions, e.g., Isar architecture and software engineering works
+  \item Identify additional figures that improve slides, make said figures
+  \item General polish
+  \item Practice talk in lab meeting, Oct 22
+  \item Test Skype connection with Tobias
+  \item Explore CIC programs as realizers
+  \item Keep document updated with insights and plans arising from the talk editing, and publishing status
+  \end{itemize}
+\end{frame}
+
+\section<presentation>*{\appendixname}
+\subsection<presentation>*{For Further Reading}
+
+\begin{frame}[t, allowframebreaks]
+\frametitle{References}
+\bibliographystyle{amsalpha}
+\bibliography{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL,constructive-games,kaisar}
+\end{frame}
+
+\end{document}
+
 
 % \newcommand{\ctrlspike}{\Large{\bf C\dag}}
 % \newcommand{\ctrlfault}{\Large{\bf C\Lightning}}
@@ -1713,30 +1702,132 @@ Polaris MRZR (access on limited dates only)
 
 % https://github.com/jsford/FFAST
 
-\appendix
-\section{Appendix}
 
-%TIMED: 1:27:00,  87 mins, needs to be 45, cut 42 mins, ~50%
-\begin{frame}[t,allowframebreaks]{TODO List}
-  \begin{itemize}
-  \item Keep document updated with insights and plans arising from the talk editing, and publishing status
-  \item Research related works which inform design questions, e.g., Isar architecture and software engineering works
-  \item Identify questions likely to be asked by committee, prepare answers
-  \item Identify additional figures that improve slides, make said figures
-  \item General polish
-  \item Practice talk in lab meeting, Oct 22
-  \item Test Skype connection with Tobias
-  \item Explore ML programs as realizers
-  \end{itemize}
-\end{frame}
 
-\section<presentation>*{\appendixname}
-\subsection<presentation>*{For Further Reading}
+%\begin{frame}[t]{Exploit Proof Content}
+%  $J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}$
+% $J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$
+%    \draw (0.6,0.5) node {\footnotesize{\color{gray}Proof}};
+%    \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
+%    \draw (3, -0.5) node {\plantcolor{dC}};
+%    \draw (3.15, -1) node {\plantcolor{dI}};
+%    \draw (3, -1.5) node {\plantcolor{dG}};
+%    \draw (4.7, -1) node {\plantcolor{\texttt{Plant.S}}};
 
-\begin{frame}[t, allowframebreaks]
-\frametitle{References}
-\bibliographystyle{amsalpha}
-\bibliography{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL,constructive-games,kaisar}
-\end{frame}
+%    \draw[color=vblue] (3.3, -0.5) -- (3.85,-0.85);
+%    \draw[color=vblue] (3.4, -1)   -- (3.9,-1);
+%    \draw[color=vblue] (3.3, -1.5) -- (3.85,-1.15);
 
-\end{document}
+%    \draw (-3, -0.5) node {\ctrlcolor{$\langle{'}\rangle$}};
+%    \draw (-3, -1) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
+%    \draw (-3, -1.5) node {\ctrlcolor{$\langle{\cup}\rangle$}};
+%    \draw (-5, -1) node {\ctrlcolor{\texttt{Control.S}}};
+
+%    \draw[color=vred] (-3.5, -0.5) -- (-3.85,-0.85);
+%    \draw[color=vred] (-3.4, -1)   -- (-3.9,-1);
+%    \draw[color=vred] (-3.5, -1.5) -- (-3.85,-1.15);
+
+%  \begin{tabular}{ccc}
+%    Modality                  & Curry-Howard & Synthesizes \\
+%    $\dbox{\alpha}{\phi}$     & Demon strategy for $\phi$ after $\alpha$ & Monitor \\
+%    $\ddiamond{\alpha}{\phi}$ & Angel strategy for $\phi$ after $\alpha$ & Control
+%  \end{tabular}\pause
+%  \begin{itemize}
+%  \item Games support monitor \emph{and} control synthesis from \emph{one} proof
+%  \item Curry Howard foundation promotes general-case, robust tools
+%  \item Game models are often simpler than systems
+%  \end{itemize}
+
+%%%  If I bring this slide back, connect pictures to next slide
+%\begin{frame}[t]{\only<1>{Safety-Critical CPS Need Safety}
+%\only<2->{Safety-Critical CPS Need Proofs}}
+%  \begin{center}
+%    \begin{tabular}{ccc}
+%\includegraphics[width=1in]{img/plane-real.jpg}&\includegraphics[width=1in]{img/quadcopter-real.jpg}&\includegraphics[width=1in]{img/robot-dyn-small.png}\\
+%Planes&Drones&Robots\\
+%\uncover<2->{
+%& &\\
+%\includegraphics[width=0.6in]{img/assembly-small.png}&\includegraphics[width=1in]{img/invariant-region.png}&\infer{\Gamma \vdash A \lor B}{\Gamma \vdash A}\\
+%Discrete Control & Continuous Dynamics & Syntactic Proof
+%}
+%    \end{tabular}
+%  \end{center}
+%  \only<1>{
+%  \begin{quote}
+%    How can we design cyber-physical systems people can bet their lives on? -- Jeanette Wing
+%  \end{quote}
+%  }
+%  \only<3>{
+%  \begin{quote}
+%    How do proofs connect to reality?
+%  \end{quote}
+%  }
+%\end{frame}
+%\draw (0,-1.2) node (cdgl) {\CdGL};
+%\draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
+%\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ Ch.\ 3 Ch.\ 4}}] (dl-ref) at (dl) {};
+%\draw (dl) node[circle, fill=blue!20,draw]  {\dL};
+%\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
+%\draw (-7, 2.8) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
+%\draw (-7, 1.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (generalization) {\dL Generalized};
+%\draw (-7, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
+%\draw (-7, -0.5) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
+%\draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
+%\draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
+%\draw node[left=0.3cm of cgl] (cgl-ref) {Ch.\ 5};
+%\draw node[left=0.3cm of cdgl] (cdgl-ref) {Ch.\ 6};
+%\draw[dashed] (formalization) -- (formal-ref);
+%\draw[dashed] (generalization) -- (gen-ref);
+%\begin{center}
+%    \draw (0,1) node (thm) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
+%    \draw (0,0.5) node {$\Uparrow$};
+% $J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}
+%    \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
+%\end{center}
+%Missing from figure: Elaboration and Normalization steps
+%Control.S $\leftarrow_{{:=}*,\cup,'} (J(x) \limply \ddiamond{\ctrl}{\dbox{\plant}{J(\tilde{x} < x)}}) \rightarrow_{dC,dG}$ Monitor.S
+%\draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
+%\draw (bexport) -- (synth)
+% \node[shape=coordinate] (use-anchor) at (0,-3){};
+% \draw node[right=0.3cm of lop] (lop-ref) {Ch.\ 7};
+% \node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{Ch.\ 6}}] (cdgl-ref) at (cdgl) {};
+% \draw[->,very thick] (logic) -- (CdGLcirc);
+%\draw[-,black,very thick,dashed] (ptproof) -- node[anchor=east,align=center] {Soundness proof\\(\rref{sec:intervalify})} (ptanchor);
+
+
+% \begin{lemma}[Renaming]
+%   If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
+% \end{lemma}
+% \begin{lemma}[Context substitution]
+%   If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
+% \end{lemma}
+% \begin{lemma}[Variable substitution]
+%   If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
+% \end{lemma}
+% \begin{theorem}[Soundness of Proof Calculus]
+%   If $\proves{\cdot}{M}{\phi}$ then $\phi$ is valid.
+% \end{theorem}
+
+% \begin{frame}[t]{A Constructive Logic}
+% \begin{lemma}[Existence Property]
+% If $\proves{\Gamma}{M}{(\lexists{x:\tau}{\phi})}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
+% we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
+% \label{lem:term-ep}
+% \end{lemma}
+% \begin{lemma}[Disjunction Property]
+% When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists realizer $\ab$ and computable $f,$ s.t.\ for every $\om$ and $\aa$ such that $(\aa,\omega) \in \cintR{\G}$, either $f(\omega)=0$ and $(\rzFst{\ab},\omega) \in \fintR{\phi}{}$, else $f(\omega)=1$ and $(\rzSnd{\ab},\omega) \in \fintR{\psi}$.
+% \end{lemma}
+% \end{frame}
+
+% \begin{frame}[t]{Sound as a Type System}
+% \begin{lemma}[Progress]
+% If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
+% \end{lemma}
+% \begin{lemma}[Preservation]
+% If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
+% \end{lemma}
+% %\begin{lemma}[Active Strategy Property]
+% %If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$
+% %then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
+% %\end{lemma}
+% \end{frame}
