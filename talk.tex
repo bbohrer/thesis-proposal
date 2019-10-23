@@ -461,6 +461,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\fallbackcolor}[1]{{\color{vgreen}{#1}}}
 \newcommand{\plantcolor}[1]{{\color{vblue}{#1}}}
 \newcommand{\moncolor}[1]{\plantcolor{#1}}
+\newcommand{\iconsize}{0.5cm}
 
 \title{Practical, End-to-End Verification for Cyber-Physical Systems}
 \author{Brandon Bohrer}
@@ -551,11 +552,14 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
   \caption{Comparison of Verification Approaches}
   \label{tab:approach-comparison}
 \end{table}
+\pause
+{\Large What language choices make good tooling possible?}\\\pause
+{\Large Thesis statement: \CdGL + Kaisar proofs enable good tools}
 \end{frame}
 
 %TODO: Introduce notation at right time.
 %Patter: Needs to be games. Needs to be constructive.
-\begin{frame}[t]{Exploit Proof Content}
+\begin{frame}[t]{Tools Should Exploit Proof Content}
   \begin{tikzpicture}
     \draw (0,0) node (mainprf) {System Safe};
     \draw (0,-0.5) node {$\Uparrow$};
@@ -614,23 +618,19 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 %
  \begin{frame}[t]{What is End-to-End Verification?}
 \begin{center}
-  \includegraphics[width=4.4in]{img/veriphy-overview.png}
+\noindent
+\only<1>{\includegraphics[width=4.4in]{img/veriphy-anim1.png}}%
+\only<2>{\includegraphics[width=4.4in]{img/veriphy-anim2.png}}%
+\only<3>{\includegraphics[width=4.4in]{img/veriphy-anim3.png}}%
+\only<4>{\includegraphics[width=4.4in]{img/veriphy-overview.png}}%
 \end{center}
 \end{frame}
 
-%TODO: Need altered version of overview graphic
-%TODO: Also next slide to talk about formal artifacts
-\begin{frame}[t]{Simplex Sandboxing is Essential}
-\begin{center}
-  \includegraphics[width=4.4in]{img/veriphy-overview.png}
-\end{center}
-\end{frame}
 %\ctrl ~\equiv~& \prandom{\text{\sf{way,k,\m{v_{\text{lim}}}}}};\,\ptest{\planreq};\\
 %      &\underbrace{\prandom{\avar};\,\ptest{\ctrlcolor{\admiss}}}_{\ctrlliv}\\
 %\moncolor{\plant}\equiv \{&\D{\xgvar}=-\vvar~\kvar~\ygvar,~\D{\ygvar}=\vvar~(\kvar~\xgvar-1),\\
 %             &~\D{\vvar}=\avar,~\D{\tvar}=1 \&~\tvar\leq \Tvar ~\land~ \vvar \geq 0\}
 
-%TODO: Revise model, animate
 \newcommand{\admiss}{\textsf{Go}}
 \newcommand{\planreq}{\textsf{Feas}}
 \newcommand{\veps}{\varepsilon}
@@ -638,14 +638,19 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \newcommand{\adjustSpeedDist}{\delta_\mathsf{Lim}\xspace}
 \newcommand{\controllableGoalDist}{\mathsf{Lim}}
 %TODO: Cleaner formatting, animate in tips for pacing, introduce constructs
-\begin{frame}{2D Driving Model is Input}
+\begin{frame}[t]{2D Driving Model is Input}
 \noindent
 \begin{center}
 \includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}%
 \\%
 {\small\begin{align*}
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
-\end{align*}}
+\end{align*}}\\
+\begin{align*}
+\phantom{\textsf{Safe}} &\phantom{\equiv \dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\%
+\phantom{\textsf{Live}} &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\%
+\phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
+\end{align*}
 \end{center}
 \end{frame}
 
@@ -658,8 +663,9 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
 \end{align*}}\\
 \begin{align*}
-%\uncover<1->{\textsf{Live}} &\uncover<1->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\
 \uncover<1->{\textsf{Safe}} &\uncover<1->{\equiv \dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\%
+\phantom{\textsf{Live}} &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\%
+\phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \end{center}
 \end{frame}
@@ -693,14 +699,14 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \begin{frame}[t]{What about Liveness?}
 \noindent
 \begin{center}
-\includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}%
-\\%
+\includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}\\%
 {\small\begin{align*}
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
-\end{align*}}\\
+\end{align*}}%
 \begin{align*}
 \uncover<1->{\textsf{Safe}} &\uncover<1->{\equiv \dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\%
 \uncover<1->{\textsf{Live}} &\uncover<1->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\
+\phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \end{center}
 \end{frame}
@@ -713,12 +719,11 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}\\
 {\small\begin{align*}
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\pdual{(\plant)}})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\pdual{\extCtrl;}} \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}
-\end{align*}}
+\end{align*}}%
 \begin{align*}
 \uncover<1->{\textsf{Safe}} &\uncover<1->{\equiv \ddiamond{\drepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\
 \uncover<1->{\textsf{Live}} &\uncover<1->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\
-\\%
-\only<1>{\phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}}%
+\phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \end{center}
 \end{frame}
@@ -747,7 +752,7 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
     \draw (0,0) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{(\plantcolor{\plant})}; \ptest{\textsf{safe}})}}{\textsf{goal}}$};
     \draw (0,-0.5) node {$\Uparrow$};
     \draw (0.6,-0.5) node {\footnotesize{\color{gray}Proof}};
-    \draw (0,-1) node (nxtprf) {$\textsf{inv}(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{\textsf{inv}(\texttt{--}x)}}$};\pause
+    \draw (0,-1) node (nxtprf) {$\textsf{inv} \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{\ddiamond{\ptest{\ctrlcolor{\textsf{safe}}}}{\textsf{inv}}}}$};\pause
     \draw (3, -0.5) node {\plantcolor{dC}};
     \draw (3.15, -1) node {\plantcolor{dI}};
     \draw (3, -1.5) node {\plantcolor{dG}};
@@ -813,86 +818,154 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \end{textblock}
 \end{frame}
 
-%TODO: Expected more on this, say more while saying less.
-%TODO: Describe, what do we actually do with this?
-% How do we evaluate it?
-\begin{frame}[t]{Compiled Code is Simulated}
-\begin{figure}[tb]
-\centering
-\begin{minipage}[b]{2in}\centering
-\begin{tikzpicture}[->,draw,thick,yscale=0.7,inner sep=1pt]
-\tikzstyle{arc}=[circle,draw]
-\tikzstyle{line}=[rectangle,draw]
-\tikzstyle{way}=[diamond,draw]
-\node[way] (a) at (1,3) {A};
-\node[way] (b) at (4,3) {B};
-\node[way] (c) at (4.75,1.5) {C};
-\node[way] (d) at (3.25,1.5) {D};
-\node[way] (e) at (4,0) {E};
-\node[way] (f) at (1,0) {F};
-\node[way] (g) at (1.75,0.90) {G};
-\node[way] (h) at (0.25,0.90) {H};
-\node[way] (i) at (1.75,2.15) {I};
-\node[way] (j) at (0.25,2.15) {J};
-\draw (a) -> (b);
-\draw (b) edge [bend left] node {} (c);
-\draw (b) edge [bend right] node {} (d);
-\draw (c) edge [bend left]node {} (e);
-\draw (d) edge [bend right] node {} (e);
-\draw (e) -> (f);
-\draw (f) edge [bend left]  node {} (h);
-\draw (f) edge [bend right] node {} (g);
-\draw (h) -> (j);
-\draw (g) -> (i);
-\draw (j) edge [bend left]  node {} (a);
-\draw (i) edge [bend right] node {} (a);
-\end{tikzpicture}
-%\subcaption{Example mission}\label{fig:patrol-mission-plan}%
-\end{minipage}\ \ 
-\begin{minipage}[b]{1.51in}\centering%
-\includegraphics[width=1.51in,clip,trim=0 0 0 100]{graphics/airsim.png}%
-%\subcaption{Simulator}\label{fig:simulator}%
-\end{minipage}\ \ 
-\begin{minipage}[b]{1in}\centering%
-\includegraphics[width=1in]{graphics/screen1.png}%
-%\subcaption{Rectangle}\label{fig:rect}%
-\end{minipage}\\[0.1in]
-\begin{minipage}[b]{1in}\centering%
-\includegraphics[width=1in]{graphics/screen2.png}%
-%\subcaption{Tight turns}\label{fig:turns}%
-\end{minipage}\ \ %
-\begin{minipage}[b]{1in}\centering%
-\includegraphics[width=1in]{graphics/screen3.png}%
-%\subcaption{Large clover}\label{fig:clover}%
-\end{minipage}\ \ %
-\begin{minipage}[b]{1.1in}\centering%
-\includegraphics[width=1.1in,clip,trim=0 0 0 75]{img/gopigo3.jpg}%
-%\subcaption{Robot}%
-\end{minipage}
-%\caption{Implementation and environments built in AirSim}
-\label{fig:patrol-plan}
-\end{figure}
+  \begin{frame}[t]{System-Wide Behavior is Evaluated}
+\begin{center}
+\noindent
+\only<1>{\includegraphics[width=4.4in]{img/veriphy-roles.png}}%
+\end{center}
 \end{frame}
+% % How do we evaluate it?
+% \begin{frame}[t]{Compiled Code is Simulated}
+% \begin{figure}[tb]
+% \centering
+% \begin{minipage}[b]{2in}\centering
+% \begin{tikzpicture}[->,draw,thick,yscale=0.7,inner sep=1pt]
+% \tikzstyle{arc}=[circle,draw]
+% \tikzstyle{line}=[rectangle,draw]
+% \tikzstyle{way}=[diamond,draw]
+% \node[way] (a) at (1,3) {A};
+% \node[way] (b) at (4,3) {B};
+% \node[way] (c) at (4.75,1.5) {C};
+% \node[way] (d) at (3.25,1.5) {D};
+% \node[way] (e) at (4,0) {E};
+% \node[way] (f) at (1,0) {F};
+% \node[way] (g) at (1.75,0.90) {G};
+% \node[way] (h) at (0.25,0.90) {H};
+% \node[way] (i) at (1.75,2.15) {I};
+% \node[way] (j) at (0.25,2.15) {J};
+% \draw (a) -> (b);
+% \draw (b) edge [bend left] node {} (c);
+% \draw (b) edge [bend right] node {} (d);
+% \draw (c) edge [bend left]node {} (e);
+% \draw (d) edge [bend right] node {} (e);
+% \draw (e) -> (f);
+% \draw (f) edge [bend left]  node {} (h);
+% \draw (f) edge [bend right] node {} (g);
+% \draw (h) -> (j);
+% \draw (g) -> (i);
+% \draw (j) edge [bend left]  node {} (a);
+% \draw (i) edge [bend right] node {} (a);
+% \end{tikzpicture}
+% %\subcaption{Example mission}\label{fig:patrol-mission-plan}%
+% \end{minipage}\ \ 
+% \begin{minipage}[b]{1.51in}\centering%
+% \includegraphics[width=1.51in,clip,trim=0 0 0 100]{graphics/airsim.png}%
+% %\subcaption{Simulator}\label{fig:simulator}%
+% \end{minipage}\ \ 
+% \begin{minipage}[b]{1in}\centering%
+% \includegraphics[width=1in]{graphics/screen1.png}%
+% %\subcaption{Rectangle}\label{fig:rect}%
+% \end{minipage}\\[0.1in]
+% \begin{minipage}[b]{1in}\centering%
+% \includegraphics[width=1in]{graphics/screen2.png}%
+% %\subcaption{Tight turns}\label{fig:turns}%
+% \end{minipage}\ \ %
+% \begin{minipage}[b]{1in}\centering%
+% \includegraphics[width=1in]{graphics/screen3.png}%
+% %\subcaption{Large clover}\label{fig:clover}%
+% \end{minipage}\ \ %
+% \begin{minipage}[b]{1.1in}\centering%
+% \includegraphics[width=1.1in,clip,trim=0 0 0 75]{img/gopigo3.jpg}%
+% %\subcaption{Robot}%
+% \end{minipage}
+% %\caption{Implementation and environments built in AirSim}
+% \label{fig:patrol-plan}
+% \end{figure}
+% \end{frame}
 
 
-\begin{frame}[t]{Already End-to-end, but Practical?}
-\newcommand{\cdone}{green!10}
+\begin{frame}[t]{Done: End-to-end}
+\newcommand{\cdone}{green!30}
 \newcommand{\cwip}{yellow!30}
 \newcommand{\cprop}{orange!30}
+\newcommand{\cback}{green!15}
 %\begin{center}
 \noindent\hskip-0.2in
 \begin{tikzpicture}[scale=0.5]
-\draw (0,3.2)  node {Logic for};
-\draw (0,2.4)  node {Hybrid Systems};
+%\draw (0,3.2)  node {Logic for};
+%\draw (0,2.4)  node {Hybrid Systems};
+\draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{0.5cm}}};
+\draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
+\draw (dl) node[circle, fill=blue!20,draw]  {\dL};
+\draw (-7, 1.6) node[rectangle,rounded corners,fill=\cback,draw,text depth=1in,text width=1.2in,text centered] (logic) {\logician[\iconsize]Logician};
+\draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\color{vgray}\dL Formalized};
+\draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
+\draw (-14,2.8) node {{\small\color{vgray}Not in Talk}};
+\draw (-14,1.7) node {{\small\color{vgray}Not in Talk}};
+%\draw (-7, 0.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
+\draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
+\draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
+%\draw node[left=0.3cm of cgl] (cgl-ref) {\S5};
+\draw[dashed] (formalization) -- (formal-ref);
+\draw[dashed] (generalization) -- (gen-ref);
+%\draw[dashed] (cgl) -- (cgl-ref);
+\draw (5.2, 2) node[rectangle,rounded corners,fill=\cback,draw,text depth=0.75in,text width=2.3cm,text centered] (engine) {\engineer[\iconsize]Engineer};
+\draw (5.2, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
+\draw node[right=0.6cm of monitors] (monitor-ref) {\S4};
+\draw[dashed] (monitors) -- (monitor-ref);
+\node[shape=coordinate] (use-anchor) at (0,-3){};
+\draw (0, -5.3) node[rectangle,rounded corners,fill=\cback,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {\logicuser[\iconsize]Logic-User};
+\draw[->,very thick] (logic) -- (CdGLcirc);
+\draw[->,very thick] (CdGLcirc) -- (engine);
+
+\draw (-9, -4.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cdone] {};
+\draw (-9, -5.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cprop] {};
+\draw (-9, -6.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cwip] {};
+
+\draw (-9, -4.5) node {Done};
+\draw (-9, -5.5) node {Ongoing};
+\draw (-9, -6.5) node {Proposed};
+\end{tikzpicture}
+\end{frame}
+%\draw (5, 1.4) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+%\draw node[right=0.22cm of maintainable] (maintain-ref) {\S7};
+%\draw node[right=0.32cm of lop] (lop-ref) {\S7};
+%\draw[dashed] (lop) -- (lop-ref);
+%\draw[dashed] (maintainable) -- (maintain-ref);
+%\draw node[right=0.6cm of controllers] (controllers-ref) {\S8};
+%\draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
+%\draw[dashed] (controllers) -- (controllers-ref);
+%\draw[dashed] (proofscript) -- (proofscript-ref);
+%\draw[dashed] (proofterm) -- (proofterm-ref);
+%2.6
+%\draw (0,-1) node (cdgl) {\phantom{\CdGL}};
+%\draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.6cm}}};
+%\draw (0,-1.2) node (cdgl) {\CdGL};
+%\draw (-7, -0.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
+%\draw node[left=0.3cm of cdgl] (cdgl-ref) {\S6};
+%\draw[dashed] (cdgl) -- (cdgl-ref);
+%\draw (5, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
+%\draw (0.1, -5.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Modest Proof Effort};
+%\draw (-2.9, -6.53) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Transparency};
+%\draw (2.4, -6.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainability};
+
+\begin{frame}[t]{Proposed: End-to-end \textbf{and Practical}}
+\newcommand{\cdone}{green!30}
+\newcommand{\cwip}{yellow!30}
+\newcommand{\cprop}{orange!30}
+\newcommand{\cback}{green!15}
+%\begin{center}
+\noindent\hskip-0.2in
+\begin{tikzpicture}[scale=0.5]
+%\draw (0,3.2)  node {Logic for};
+%\draw (0,2.4)  node {Hybrid Systems};
 \draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{1.1cm}}};
 \draw (0,-1) node (cdgl) {\phantom{\CdGL}};
-\node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{\S6}}] (cdgl-ref) at (cdgl) {};
 \draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.6cm}}};
 \draw (0,-1.2) node (cdgl) {\CdGL};
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
-\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Logician};
+\draw (-7, 1.6) node[rectangle,rounded corners,fill=\cback,draw,text depth=1in,text width=1.2in,text centered] (logic) {\logician[\iconsize]Logician};
 \draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\color{vgray}\dL Formalized};
 \draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
 \draw (-14,2.8) node {{\small\color{vgray}Not in Talk}};
@@ -905,39 +978,55 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \draw node[left=0.3cm of cdgl] (cdgl-ref) {\S6};
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
-%2.6
-\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Engineer};
-\draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
-\draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
-\draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
-\draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
-\draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
-\draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
-\draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
-\draw node[right=0.3cm of proofterm] (proofterm-ref) {\S4.1};
+\draw[dashed] (cgl) -- (cgl-ref);
+\draw[dashed] (cdgl) -- (cdgl-ref);
+\draw (5.2, 2) node[rectangle,rounded corners,fill=\cback,draw,text depth=0.75in,text width=2.3cm,text centered] (engine) {\engineer[\iconsize]Engineer};
+\draw (5.2, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
+\draw (5.2, 1.4) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
+\draw (5.2, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (transp) {Transparency};
+\draw node[right=0.6cm of monitors] (monitor-ref) {\S4};
+\draw node[right=0.6cm of controllers] (controllers-ref) {\S8};
+\draw node[right=0.6cm of transp] (transp-ref) {\S4};
 \draw[dashed] (monitors) -- (monitor-ref);
 \draw[dashed] (controllers) -- (controllers-ref);
-\draw[dashed] (proofscript) -- (proofscript-ref);
-\draw[dashed] (proofterm) -- (proofterm-ref);
+%\draw[dashed] (proofterm) -- (proofterm-ref);
+\draw[dashed] (transp) -- (transp-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
-\draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Logic-User};
-\draw (0.3, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
-\draw (0.1, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
-\draw (-2.9, -6.05) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
-\draw (2.4, -6) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainable?};
-\draw node[right=0.3cm of maintainable] (maintain-ref) {\S7};
-\draw node[right=0.3cm of lop] (lop-ref) {\S7};
+\draw (0, -5.3) node[rectangle,rounded corners,fill=\cback,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {\logicuser[\iconsize]Logic-User};
+\draw (0.1, -5.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Modest Proof Effort};
+\draw (-2.9, -6.53) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Transparency};
+\draw (2.4, -6.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainability};
+\draw node[right=0.22cm of maintainable] (maintain-ref) {\S7};
+\draw node[right=0.32cm of lop] (lop-ref) {\S7};
 \draw[->,very thick] (logic) -- (CdGLcirc);
 \draw[->,very thick] (CdGLcirc) -- (engine);
-\draw[dashed] (CdGLcirc) -- (luser);
 \draw[dashed] (lop) -- (lop-ref);
 \draw[dashed] (maintainable) -- (maintain-ref);
+
+\draw (-9, -4.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cdone] {};
+\draw (-9, -5.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cprop] {};
+\draw (-9, -6.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cwip] {};
+
+\draw (-9, -4.5) node {Done};
+\draw (-9, -5.5) node {Ongoing};
+\draw (-9, -6.5) node {Proposed};
+\end{tikzpicture}
+\end{frame}
+%2.6
+%\draw (5, 1.4) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
+%\draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
+%\draw[dashed] (proofscript) -- (proofscript-ref);
+%\draw (0.3, -5.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
+%\draw node[right=0.3cm of proofterm] (proofterm-ref) {\S4.1};
+%\node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{\S6}}] (cdgl-ref) at (cdgl) {};
+%\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
+%\draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {\color{vgray}Proof Term};
+%\draw (10, 2.6) node {{\small\color{vgray}Not in Talk}};
+%\draw[dashed] (CdGLcirc) -- (luser);
+
 %\draw (1.45,-2) -- (0,-2.7);
 %\draw (0, -3.1) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
 %\draw (0, -4.15) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3in,text width=0.7in] (controllers) {Modeling Mistakes};
-\end{tikzpicture}
-%\end{center}
-\end{frame}
 %{\small\begin{align*}
 %\ctrl &~\equiv~ \prandom{(\xgvar,\ygvar)};\,\prandom{[\vlvar,\vhvar]};\,\prandom{\kvar};\,\ptest{\planreq};\,\underbrace{\prandom{\avar};\,\ptest{\admiss}}_{\ctrlliv}\\
 %\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
@@ -956,38 +1045,55 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 %\end{frame}
 
 \section{Ongoing Work: \CdGL Logic}
+\begin{frame}{Constructive Games Strengthen Proof Content}
+  \begin{tabular}{lll}
+    \ah{1}{\engineer} & \ah{1}{\logician} & \ah{1}{\logicuser}\\
+    \acl{1}{\sayHappy{Program the proof!}} & \acl{1}{\sayHappy{Curry Howard!}} & \acl{1}{\saySad{Low-level proofs!}}
+  \end{tabular}
+\end{frame}
 
 % Formula language, game language by Nim example, example properties
 % Realizers, semantics
 % quick 1-slide "proof terms exist"
 % Soundness, prog+pres, implications for practice
 % What's next: ODE's
-\begin{frame}[t]{Exploit Proof Content}
+\begin{frame}[t]{Proof Content is Code}
+\begin{textblock}{20}(0.5,3.5)
   \begin{tikzpicture}
-    \draw (0,0) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
-    \draw (0,-0.5) node {$\Uparrow$};
-    \draw (0.6,-0.5) node {\footnotesize{\color{gray}Proof}};
-    \draw (0,-1) node (nxtprf) {$J(x) \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$};
-    \draw (3, -0.5) node {\plantcolor{dC}};
-    \draw (3.15, -1) node {\plantcolor{dI}};
-    \draw (3, -1.5) node {\plantcolor{dG}};
-    \draw (4.7, -1) node {\plantcolor{\texttt{Plant.S}}};
+    \draw (0,-2) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
+    \draw (-3,-1.5)  -- (3,-1.5); \draw (3.5, -1.5) node {$\ctrlcolor{\langle{;}\rangle}$};
+    \draw (0,-1) node (nxtprf) {$J \limply \ddiamond{(\extCtrlcolor{\pdual{\extCtrl;}} \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}}{\dbox{\plantcolor{\plant}}{J}}$};
+    \draw (-3,-0.5) -- (3,-0.5); \draw (3.5, -0.5) node {$\ctrlcolor{\langle{\cup}\rangle}$};
+    \draw (0, 0) node (nxtprf) {$J, \ldots \limply \dbox{\extCtrlcolor{\extCtrl};}{\ddiamond{\ctrlcolor{(\prandom{\avar})}}{\dbox{\plantcolor{\plant}}{J}}}$};
+    \draw (-2.5, 0.5) -- (2.5,0.5); \draw (3,0.5) node {$\moncolor{[{?}]}$};
+    \draw (0, 1) node (nxtprf) {$J, \ldots \limply \ddiamond{\ctrlcolor{(\prandom{\avar})}}{\dbox{\plantcolor{\plant}}{J}}$};
+    \draw (-2, 1.5) -- (2, 1.5); \draw (2.5,1.5) node {$\ctrlcolor{\langle{:}{*}\rangle}$};
+    \draw (0,2) node (nxtprf) {$J \limply \dbox{\plantcolor{\plant}}{J}$};
+    \draw (-1.2,2.5) -- (1.2,2.5); \draw (2.2,2.5) node {\moncolor{dC, dG,$\ldots$}};
+    \draw (0,3) node (nxtprf) {*};
+    \draw (5.8, 1) node {\plantcolor{dC}};
+    \draw (5.8, 0.5) node {\plantcolor{$[{?}]$}};
+    \draw (5.8, 0) node {\plantcolor{dG}};
+    \draw (7, 0.5) node {\plantcolor{\texttt{Plant.S}}};
 
-    \draw[color=vblue] (3.3, -0.5) -- (3.85,-0.85);
-    \draw[color=vblue] (3.4, -1)   -- (3.9,-1);
-    \draw[color=vblue] (3.3, -1.5) -- (3.85,-1.15);
+    \draw[color=vblue] (5.2, 1) -- (4.75,0.65);
+    \draw[color=vblue] (5.3, 0.5)   -- (4.8,0.5);
+    \draw[color=vblue] (5.2, 0) -- (4.75,0.35);
 
-    \draw (-3, -0.5) node {\ctrlcolor{$\langle{'}\rangle$}};
-    \draw (-3, -1) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
-    \draw (-3, -1.5) node {\ctrlcolor{$\langle{\cup}\rangle$}};
-    \draw (-5, -1) node {\ctrlcolor{\texttt{Control.S}}};
+    \draw (-5, 1) node {\ctrlcolor{$\langle{'}\rangle$}};
+    \draw (-5, 0.5) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
+    \draw (-5, 0) node {\ctrlcolor{$\langle{\cup}\rangle$}};
+    \draw (-6, 0.5) node {\ctrlcolor{\texttt{Ctrl.S}}};
 
-    \draw[color=vred] (-3.5, -0.5) -- (-3.85,-0.85);
-    \draw[color=vred] (-3.4, -1)   -- (-3.9,-1);
-    \draw[color=vred] (-3.5, -1.5) -- (-3.85,-1.15);
+    \draw[color=vred] (-4.7, 1) -- (-4.05,0.65);
+    \draw[color=vred] (-4.6, 0.5)   -- (-4.1,0.5);
+    \draw[color=vred] (-4.7, 0) -- (-4.05,0.35);
   \end{tikzpicture}
+\end{textblock}
 \end{frame}
-% \begin{frame}[t]{Systems Driving Model Exists}
+%    \draw (0.6,-0.5) node {\footnotesize{\color{gray}Proof}}; 
+%    \draw (0.6,-1.5) node {\footnotesize{\color{gray}Proof}};
+%\pause  %\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$};% \begin{frame}[t]{Systems Driving Model Exists}
 % \noindent
 % \begin{minipage}{0.4\textwidth}
 % {\small\begin{align*}
@@ -1005,112 +1111,18 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 
 %TODO: Minimize no. slides?
 
-%TODO: cgl is Long
-\begin{frame}[t]{Games = Systems mod Realizers}
-\begin{textblock}{20}(2,3)
-      \begin{tikzpicture}[yscale=0.8]
-\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
-\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
-\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
-\draw[->] (in) -- (outOne) node[midway,above] {$\rzFst{\aa}|\alpha$};
-\draw[->] (in) -- (outTwo) node[midway,below] {$\rzSnd{\aa}|\beta$};
-\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
-\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
-\draw (2.5,0) node {\plantcolor{$\dbox{\alpha~\cup~\beta}{}$}};
-      \end{tikzpicture}
-\end{textblock}
-\begin{textblock}{20}(8,2.5)
-\uncover<2->{
-      \begin{tikzpicture}[yscale=0.8]
-\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
-\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
-\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
-\draw[->] (in) -- (outOne) node[midway,above] (labA) {$\rzSnd{\aa}|\alpha$};
-\draw node[above=-0.1 of labA] {\footnotesize if $\rzFst{\aa}(\om) = 0$};
-\draw[->] (in) -- (outTwo) node[midway,below] (labB) {$\rzSnd{\aa}|\beta$};
-\draw node[below=-0.1 of labB] {\footnotesize if $\rzFst{\aa}(\om) = 1$};
-\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
-\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
-\draw (2.5,0) node {\ctrlcolor{$\ddiamond{\alpha~\cup~\beta}{}$}};
-      \end{tikzpicture}}
-\end{textblock}
-\begin{textblock}{20}(1,9)
-\uncover<3->{
-      \begin{tikzpicture}[yscale=0.8]
-\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
-\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
-\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
-\draw[->] (in) -- (outOne) node[midway,above left] {\footnotesize$\aa(v_1)|\om\subst{x}{\aa(v_1)}$};
-\draw[->] (in) -- (outTwo) node[midway,below left] {\footnotesize$\aa(v_2)|\om\subst{x}{\aa(v_2)}$};
-\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
-\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
-\draw (2.5,0) node {\plantcolor{$\dbox{\prandom{x}}{}$}};
-      \end{tikzpicture}}
-\end{textblock}
-\begin{textblock}{20}(8,10.4)
-\uncover<4->{
-      \begin{tikzpicture}[yscale=0.8]
-\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
-\draw (3,0) node[rectangle,rounded corners,draw] (outOne) {out};
-\draw[->] (in) -- (outOne) node[midway,below=0.2cm] {$\rzSnd{\aa}|\om\subst{x}{\rzFst{\aa}}$};
-\draw (1.5,0.5) node {\ctrlcolor{$\ddiamond{\prandom{x}}{}$}};
-      \end{tikzpicture}}
-\end{textblock}
- \end{frame}
 
-\begin{frame}[t]{Games Support Proof Terms}
-\[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
-\pause
-\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
-{
-\linferenceRule[formula]
-{\proves{\G}{A}{\ddiamond{\alpha\cup\beta}{\phi}}
-        &\proves{\G,\pvl:\ddiamond{\alpha}{\phi}}{B}{\psi}
-        &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
-{\proves{\G}{\edcase{A}{B}{C}}{\psi}}
-}{}\\[0.5in]
-% \begin{calculuscollections}{\textwidth}
-%   \begin{calculus}
-% \cinferenceRule[dchoiceIL|{$\langle\cup\rangle${I1}}]{}
-% {\linferenceRule[formula]
-%   {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}
-%   {\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
-% }{}
-%   \end{calculus}
-%   \begin{calculus}
-% \cinferenceRule[dchoiceIR|{$\langle\cup\rangle${I2}}]{}
-% {\linferenceRule[formula]
-%   {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}
-%   {\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
-% }{}
-%   \end{calculus}
-% \end{calculuscollections}\\[0.1in]
-\pause
-\begin{calculuscollections}{\textwidth}
-  \begin{calculus}
-\cinferenceRule[caseBetaL|{{case}$\beta$L}]{}{\edcase{\edinjL{A}}{B}{C} \stepsto \esub{B}{\ell}{A}}{}
-%\cinferenceRule[caseBetaR|{{case}$\beta$R}]{}{\edcase{\edinjR{A}}{B}{C} \stepsto \esub{C}{r}{A}}{}\pause
-\cinferenceRule[caseS|caseS]{}{\linferenceRule[formula]
-{\small{A \stepsto A'}}
-{\small{\edcase{A}{B}{C} \stepsto \edcase{A'}{B}{C}}}}{}
-  \end{calculus}
-\end{calculuscollections}
-\end{frame}
 
-\begin{frame}[t]{\CGL Has Rich Theory}
+
+\begin{frame}[t]{Proposed Work: How do ODEs Compute?}
   \begin{itemize}
-  \item Sound Type System: Progress + Preservation
-  \item Sound Logic: Proved Implies True
-  \item Constructive Logic: Proved Implies Witness
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[t]{Proposed: How do ODEs Compute?}
-Picard iteration + Euler integration compute ODE's
+  \item Semantics: Picard iteration or Euler integration
+  \item Proofs:
 \begin{itemize}
-  \item Conjecture: Box rules $\dbox{\pevolve{\D{x}=\theta}}{P}$ ``just work''
-  \item Challenge: Synthesis of model-predictive $\ddiamond{\pevolve{\D{x}=\theta}}{P}$ requires integration
+  \item Conjecture: Box rules $\dbox{\pevolve{\D{x}=\theta}}{P}$ unchanged
+  \item Challenge: How to compute $\ddiamond{\pevolve{\D{x}=\theta}}{P}$?
 \end{itemize}
+  \end{itemize}
 \end{frame}
 %TODO: What is a good proof -> earlier
 %  \item Challenge: Which 
@@ -1121,12 +1133,11 @@ Picard iteration + Euler integration compute ODE's
 
 
 \begin{frame}[t]{Proposed Work: Connections}
-VeriPhy needs: games vs.\ systems
-\begin{itemize}
-\item Extend differential refinement logic \dRL~\cite{Loos16} to games
-\item Prove folklore: ``Games $\equiv$ Systems $\mod$ Strategies"
-\end{itemize}
-And more!
+New proofs are \CdGL, but old tools use \dL. % VeriPhy needs: games vs.\ systems
+\begin{enumerate}
+\item Formally prove and implement: ``Games $\equiv$ Systems $\mod$ Strategies", or
+\item Generalize existing \dL tools to \CdGL
+\end{enumerate}
 % \pause
 % Non-essential:  Constructive vs.\ classical
 % \begin{itemize}
@@ -1215,34 +1226,43 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 %That is, may want to use Kaisar in KeYmaera, but also need standalone synthesizer
 \begin{center}
   \begin{tikzpicture}
-\draw (0,3) node[rectangle,draw,thin] (input) {\texttt{Proof.kai}};
-\draw (0,2) node[rectangle,draw,thin] (parse) {Parsing + Elaboration};
-\draw (0,1) node[rectangle,draw,thin] (pcheck) {Proofchecking};
+\draw (0,4.5) node[rectangle,draw,thin] (input) {\logicuser[\iconsize]\texttt{Proof.kai}};
+\draw (0,3) node[rectangle,draw,thin] (parse) {\logician[\iconsize]{Parsing + Elaboration}};
+\draw (0,1.8) node[rectangle,draw,thin] (pcheck) {\logician[\iconsize]{Proofchecking}};
 
-\draw (-3.5,0.6) node (bref) {\color{vgray}Game Refinement};
-\draw (-3.5,0) node[rectangle,draw,thin] (bexport) {Bellerophon Export};
-\draw (-3.5,-1.5) node[rectangle,dashed,draw,thin] (bimport) {Import};
+%\draw (-3.5,0.6) node (bref) {\color{vgray}Game Refinement};
+%\draw (-3.5,0) node[rectangle,draw,thin] (bexport) {Bellerophon Export};
+\draw (-4,0.6) node[rectangle,dashed,draw,thin] (bimport) {\dL export};
+\draw (-5,1.4) node {\logician[\iconsize]Generate?};
+\draw (-5,0.2) node {\logicuser[\iconsize]Rewrite?};
+\draw (0,0.6) node[rectangle,draw,thin] (synth) {\logician[\iconsize]{Interpret/Compile}};
+%\draw (0,-1.5) node[rectangle,draw,thin] (interp) {\logician[\iconsize]{Interpreter}};
+%\draw (4,-1.5) node[rectangle,draw,thin] (comp) {\logician[\iconsize]{Compiler}};
 
-\draw (2,0) node[rectangle,draw,thin] (synth) {Synthesis};
-\draw (0,-1) node[rectangle,draw,thin] (interp) {Interpreter};
-\draw (4,-1) node[rectangle,draw,thin] (comp) {Compiler};
+\draw (0,-1) node[rectangle,draw,thin] (impl) {\engineer[\iconsize]{Software Simulations + Hardware Platforms}};
 
-\draw (2,-2) node[rectangle,dashed,draw] (impl) {Software Simulations + Hardware Platforms};
+\draw (1.4,-0.3) node {\color{vgray}FFI, socket, \ldots};
 
 \draw (input) -- (parse);
 \draw (parse) -- (pcheck);
-\draw (bexport) -- (synth);
+\draw (pcheck) -- (synth);
+\draw[dashed] (bimport) -- (synth);
+\draw[dashed] (impl) -- (synth);
 
-\node[shape=coordinate] (AST) at (0,0) {};
-\draw (pcheck) -- (AST);
-\draw[dashed] (bexport) -- (bimport);
-\draw[dashed] (comp) -- (4,-1.7);
-\draw[dashed] (interp) -- (0,-1.7);
+%\draw[thin,dotted] (-2.5,3.8) rectangle (2.5,-0.8) {};
+%\draw (3.8,1.5) node {Black box};
 
-\node[shape=coordinate] (code) at (2,-1) {};
-\draw (synth) -- (code);
-\draw (interp) -- (code);
-\draw (comp) -- (code);
+%\draw[dashed] (synth) -- (bimport);
+%\node[shape=coordinate] (AST) at (0,0) {};
+%\draw (pcheck) -- (AST);
+%\draw[dashed] (bexport) -- (bimport);
+%\draw[dashed] (comp) -- (4,-1.7);
+%\draw[dashed] (interp) -- (0,-1.7);
+
+%\node[shape=coordinate] (code) at (2,-1) {};
+%\draw (synth) -- (code);
+%\draw (interp) -- (code);
+%\draw (comp) -- (code);
   \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -1257,30 +1277,15 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 \end{enumerate}
 \end{frame}
 
-%\begin{frame}[t]{Code Generation}
-%Control code is untrusted, so complex languages are acceptable.
-%Sandbox monitor code should use simple language.
-%Simple solution: Hook into VeriPhy compilation stages.
-%\end{frame}
-
-%&\begin{frame}[t]{Refinement Connects with VeriPhy}
-%  \begin{itemize}
-%  \item Prove game property
-%  \item Synthesize controller from game proof
-%  \item Automatically prove refinement
-%  \item Synthesize sandbox from refined theorem and refinement proof
-%  \end{itemize}
-%\end{frame}
 
 \section{Conclusion}
 \begin{frame}[t]{New Work Builds on Old}
-\newcommand{\cdone}{green!10}
+\newcommand{\cdone}{green!30}
 \newcommand{\cwip}{yellow!30}
 \newcommand{\cprop}{orange!30}
-
-%\begin{figure}[tbh]
-%  \centering
-\begin{center}
+\newcommand{\cback}{green!15}
+%\begin{center}
+\noindent\hskip-0.2in
 \begin{tikzpicture}[scale=0.5]
 \draw (0,3.2)  node {Logic for};
 \draw (0,2.4)  node {Hybrid Systems};
@@ -1292,7 +1297,7 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
 \node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-\draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Logician};
+\draw (-7, 1.3) node[rectangle,rounded corners,fill=\cback,draw,text depth=1in,text width=1.2in,text centered] (logic) {Logician};
 \draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\color{vgray}\dL Formalized};
 \draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
 \draw (-14,2.8) node {{\small\color{vgray}Not in Talk}};
@@ -1306,13 +1311,13 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 \draw[dashed] (formalization) -- (formal-ref);
 \draw[dashed] (generalization) -- (gen-ref);
 %2.6
-\draw (5, 1.4) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Engineer};
+\draw (5, 1.4) node[rectangle,rounded corners,fill=\cback,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Engineer};
 \draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
 \draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
 \draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
 \draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
 \draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
-\draw node[right=0.3cm of controllers] (controllers-ref) {\S8};
+\draw node[right=0.4cm of controllers] (controllers-ref) {\S8};
 \draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
 \draw node[right=0.3cm of proofterm] (proofterm-ref) {\S4.1};
 \draw[dashed] (monitors) -- (monitor-ref);
@@ -1320,7 +1325,7 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 \draw[dashed] (proofscript) -- (proofscript-ref);
 \draw[dashed] (proofterm) -- (proofterm-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
-\draw (0, -5.1) node[rectangle,rounded corners,fill=green!20,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Logic-User};
+\draw (0, -5.1) node[rectangle,rounded corners,fill=\cback,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Logic-User};
 \draw (0.3, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
 \draw (0.1, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
 \draw (-2.9, -6.05) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
@@ -1332,13 +1337,21 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 \draw[dashed] (CdGLcirc) -- (luser);
 \draw[dashed] (lop) -- (lop-ref);
 \draw[dashed] (maintainable) -- (maintain-ref);
+
+\draw (-9, -4.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cdone] {};
+\draw (-9, -5.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cprop] {};
+\draw (-9, -6.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cwip] {};
+
+\draw (-9, -4.5) node {Done};
+\draw (-9, -5.5) node {Ongoing};
+\draw (-9, -6.5) node {Proposed};
+
 \end{tikzpicture}
-\end{center}
 \end{frame}
 
 
 
-\begin{frame}[t]{Thesis Makes the Whole Crew Happy}
+\begin{frame}[t]{Thesis Makes the Whole Team Happy}
   \begin{tabular}{lll}
     \ah{1}{\engineer} & \ah{1}{\logician} & \ah{1}{\logicuser}\\
     \acl{1}{\sayHappy{Full synthesis suite!}} & \acl{1}{\sayHappy{Formal foundations!}} & \acl{1}{\sayHappy{Structured proofs!}}
@@ -1368,7 +1381,72 @@ Amenable to change (i.e., not on job market this year)
 \end{frame}
 
 \appendix
-\section{Appendix}
+
+\section*{Backup Slides}
+
+
+\begin{frame}[t]{Games Support Proof Terms}
+\[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
+\pause
+\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
+{
+\linferenceRule[formula]
+{\proves{\G}{A}{\ddiamond{\alpha\cup\beta}{\phi}}
+        &\proves{\G,\pvl:\ddiamond{\alpha}{\phi}}{B}{\psi}
+        &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
+{\proves{\G}{\edcase{A}{B}{C}}{\psi}}
+}{}\\[0.5in]
+% \begin{calculuscollections}{\textwidth}
+%   \begin{calculus}
+% \cinferenceRule[dchoiceIL|{$\langle\cup\rangle${I1}}]{}
+% {\linferenceRule[formula]
+%   {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}
+%   {\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+% }{}
+%   \end{calculus}
+%   \begin{calculus}
+% \cinferenceRule[dchoiceIR|{$\langle\cup\rangle${I2}}]{}
+% {\linferenceRule[formula]
+%   {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}
+%   {\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
+% }{}
+%   \end{calculus}
+% \end{calculuscollections}\\[0.1in]
+\pause
+\begin{calculuscollections}{\textwidth}
+  \begin{calculus}
+\cinferenceRule[caseBetaL|{{case}$\beta$L}]{}{\edcase{\edinjL{A}}{B}{C} \stepsto \esub{B}{\ell}{A}}{}
+%\cinferenceRule[caseBetaR|{{case}$\beta$R}]{}{\edcase{\edinjR{A}}{B}{C} \stepsto \esub{C}{r}{A}}{}\pause
+\cinferenceRule[caseS|caseS]{}{\linferenceRule[formula]
+{\small{A \stepsto A'}}
+{\small{\edcase{A}{B}{C} \stepsto \edcase{A'}{B}{C}}}}{}
+  \end{calculus}
+\end{calculuscollections}
+\end{frame}
+
+\begin{frame}[t]{Code Generation}
+Control code is untrusted, so complex languages are acceptable.
+Sandbox monitor code should use simple language.
+Simple solution: Hook into VeriPhy compilation stages.
+\end{frame}
+
+\begin{frame}[t]{Refinement Connects with VeriPhy}
+  \begin{itemize}
+  \item Prove game property
+  \item Synthesize controller from game proof
+  \item Automatically prove refinement
+  \item Synthesize sandbox from refined theorem and refinement proof
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{\CGL Has Rich Theory}
+  \begin{itemize}
+  \item Sound Type System: Progress + Preservation
+  \item Sound Logic: Proved Implies True
+  \item Constructive Logic: Proved Implies Witness
+  \end{itemize}
+\end{frame}
+
 
 %  \CakeML source incorporates {\color{myyellow}{external}} control, actuation, sensing
 %\begin{textblock}{10}(5,3.5)
@@ -1813,16 +1891,58 @@ Starting from region $X$, where does $\alpha$ take Demon?
 \end{align*}
 \end{frame}
 
-
-
-\section<presentation>*{\appendixname}
-\subsection<presentation>*{For Further Reading}
-
-\begin{frame}[t, allowframebreaks]
-\frametitle{References}
-\bibliographystyle{amsalpha}
-\bibliography{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL,constructive-games,kaisar}
-\end{frame}
+%TODO: cgl is Long
+\begin{frame}[t]{Games = Systems mod Realizers}
+\begin{textblock}{20}(2,3)
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
+\draw[->] (in) -- (outOne) node[midway,above] {$\rzFst{\aa}|\alpha$};
+\draw[->] (in) -- (outTwo) node[midway,below] {$\rzSnd{\aa}|\beta$};
+\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+\draw (2.5,0) node {\plantcolor{$\dbox{\alpha~\cup~\beta}{}$}};
+      \end{tikzpicture}
+\end{textblock}
+\begin{textblock}{20}(8,2.5)
+\uncover<2->{
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
+\draw[->] (in) -- (outOne) node[midway,above] (labA) {$\rzSnd{\aa}|\alpha$};
+\draw node[above=-0.1 of labA] {\footnotesize if $\rzFst{\aa}(\om) = 0$};
+\draw[->] (in) -- (outTwo) node[midway,below] (labB) {$\rzSnd{\aa}|\beta$};
+\draw node[below=-0.1 of labB] {\footnotesize if $\rzFst{\aa}(\om) = 1$};
+\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+\draw (2.5,0) node {\ctrlcolor{$\ddiamond{\alpha~\cup~\beta}{}$}};
+      \end{tikzpicture}}
+\end{textblock}
+\begin{textblock}{20}(1,9)
+\uncover<3->{
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,1.5) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw (3,-1.5) node[rectangle,rounded corners,draw] (outTwo) {out};
+\draw[->] (in) -- (outOne) node[midway,above left] {\footnotesize$\aa(v_1)|\om\subst{x}{\aa(v_1)}$};
+\draw[->] (in) -- (outTwo) node[midway,below left] {\footnotesize$\aa(v_2)|\om\subst{x}{\aa(v_2)}$};
+\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+\draw (2.5,0) node {\plantcolor{$\dbox{\prandom{x}}{}$}};
+      \end{tikzpicture}}
+\end{textblock}
+\begin{textblock}{20}(8,10.4)
+\uncover<4->{
+      \begin{tikzpicture}[yscale=0.8]
+\draw (0,0) node[rectangle,rounded corners,draw] (in) {$\aa|\om$};
+\draw (3,0) node[rectangle,rounded corners,draw] (outOne) {out};
+\draw[->] (in) -- (outOne) node[midway,below=0.2cm] {$\rzSnd{\aa}|\om\subst{x}{\rzFst{\aa}}$};
+\draw (1.5,0.5) node {\ctrlcolor{$\ddiamond{\prandom{x}}{}$}};
+      \end{tikzpicture}}
+\end{textblock}
+ \end{frame}
 
 
 \begin{frame}[t]{Modularity Theorem Support Design Goals}
@@ -1851,6 +1971,15 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 %\spost{?(x:\phi)}{\G} &= \phi &&\\
 \end{align*}
 \textbf{Soundness:} If $S$ is a proof, then $\G \vdash \spost{S}{\G}$ is valid.
+\end{frame}
+
+\section<presentation>*{\appendixname}
+\subsection<presentation>*{For Further Reading}
+
+\begin{frame}[t, allowframebreaks]
+\frametitle{References}
+\bibliographystyle{amsalpha}
+\bibliography{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL,constructive-games,kaisar}
 \end{frame}
 
 \end{document}
