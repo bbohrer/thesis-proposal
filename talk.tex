@@ -494,7 +494,6 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 
 \section{Introduction}
 
-%TODO: Introduce [a]P and basic concepts at some point
 \begin{frame}[t]{Verification Needs to be End-to-end}
 \begin{center}
   \begin{tabular}{lll}
@@ -610,12 +609,12 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 
 
 \section{Completed Work}
-% TODO: What did completed work teach us about how we need to do different
 % Patter: We're now going to focus in on this thesis proper.
 % First I'm going to discuss the completed works of the thesis, and for that I'm going to break
 % down the thesis as a verification *pipeline*, as a series of steps in proof and implementation.
 % Everything here has been done for systems and needs to be done for games
 %
+% Patter: Define MONITORS and CONTROLS
  \begin{frame}[t]{What is End-to-End Verification?}
 \begin{center}
 \noindent
@@ -637,14 +636,16 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \newcommand{\annul}{\textsf{Ann}\xspace}
 \newcommand{\adjustSpeedDist}{\delta_\mathsf{Lim}\xspace}
 \newcommand{\controllableGoalDist}{\mathsf{Lim}}
-%TODO: Cleaner formatting, animate in tips for pacing, introduce constructs
+
+% Patter: Model system as a system
+% Patter: Point to example of untrusted CONTROL
 \begin{frame}[t]{2D Driving Model is Input}
 \noindent
 \begin{center}
 \includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}%
 \\%
 {\small\begin{align*}
-\alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
+\alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\memnode{asgn}\prandom{\avar}; \memnode{test}\ptest{\admiss}}) \memnode{choice}\cup \fallbackcolor{\fallback}
 \end{align*}}\\
 \begin{align*}
 \phantom{\textsf{Safe}} &\phantom{\equiv \dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\%
@@ -652,6 +653,12 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \end{center}
+\uncover<2->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (choice) -- +(0,-1) node[notebox,text width=1.2cm] {Branch};}}
+\uncover<3->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (asgn) -- +(-1.4,1.4) node[notebox,text width=2cm] {Instantiate};}}
+\uncover<4->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (test) -- +(0,+1) node[notebox,text width=2cm] {Demonstrate};}}
 \end{frame}
 
 \begin{frame}[t]{Model is Safe}
@@ -663,7 +670,9 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
 \end{align*}}\\
 \begin{align*}
-\uncover<1->{\textsf{Safe}} &\uncover<1->{\equiv \dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\%
+\textsf{Safe} &\equiv \memnode{boxen}\dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}\\%
+\tikz[remember picture,overlay]{
+                 \draw[noteline] (boxen) -- +(-3,0.3) node[notebox,text width=2.5cm] {All behaviors};}
 \phantom{\textsf{Live}} &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\%
 \phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
@@ -704,49 +713,46 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
 \end{align*}}%
 \begin{align*}
-\uncover<1->{\textsf{Safe}} &\uncover<1->{\equiv \dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\%
-\uncover<1->{\textsf{Live}} &\uncover<1->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\
+\uncover<1->{\textsf{Safe}} &\equiv \memnode{boxen}\dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}\\%
+\uncover<1->{\textsf{Live}} &\equiv \memnode{diamonds}\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}\\
 \phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
+\tikz[remember picture,overlay]{
+                 \draw[noteline] (boxen) -- +(-3,0.3) node[notebox,text width=2.5cm] {All behaviors};}
+\tikz[remember picture,overlay]{
+                 \draw[noteline] (diamonds) -- +(-3,-0.3) node[notebox,text width=2.5cm] {Some behavior};}
 \end{center}
 \end{frame}
 
 
-%TODO: Careful intro Angel and Demon at right time
-\begin{frame}[t]{Game Model is Proposed}
+%Patter: Say the game is between angel (us) and Demon (environment)
+\begin{frame}[t]{\only<1-3>{Game Model is Proposed}\only<1-4>{Game Model is Victorious}}
 \noindent
 \begin{center}
 \includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}\\
 {\small\begin{align*}
-\alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\pdual{(\plant)}})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\pdual{\extCtrl;}} \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}
+\alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\pdual{(\plant)\memnode{dual}}})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\pdual{\extCtrl;}} \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}
 \end{align*}}%
 \begin{align*}
-\uncover<1->{\textsf{Safe}} &\uncover<1->{\equiv \ddiamond{\drepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\
-\uncover<1->{\textsf{Live}} &\uncover<1->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}}\\
-\phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
+\uncover<1->{\textsf{Safe}} &\equiv \ddiamond{\memnode{loopz}\drepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}\\
+\uncover<1->{\textsf{Live}} &\equiv \memnode{diamonds}\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}\\
+\uncover<4->{{\textsf{Win}}}  &\uncover<4->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \end{center}
+\uncover<4->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (loopz) -- +(-3,0.3) node[notebox,text width=2.5cm] {Enemy controls loop};}}
+\uncover<3->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (diamonds) -- +(-3,-0.3) node[notebox,text width=2.5cm] {Player can};}}
+\uncover<2->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (dual) -- +(-1,1.2) node[notebox,text width=1.5cm] {Switch players};}}
 \end{frame}
 
 
-\begin{frame}[t]{Game Model is Victorious}
-\noindent
-\begin{center}
-\includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}\\
-{\small\begin{align*}
-\alpha~\equiv~ \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\pdual{(\plant)}})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\pdual{\extCtrl;}} \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}
-\end{align*}}%
-\begin{align*}
-\textsf{Safe} &\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}\\
-\textsf{Live} &\equiv \dbox{\drepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}\\
-\textsf{Win}  &\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}%
-\end{align*}
-\end{center}
-\end{frame}
 
-%TODO: Define early: what is monitor, what is control, why do we want both
 % Say: Try proofs again, it works now
 % Patter: We will look in detail at the systems case which is the done part.
+% Patter: Proofs should give us MONITOR and CONTROL. Just monitor is pretty good,
+% But it's best to know both are correct
 \begin{frame}[t]{\only<1>{Diamonds are Controllers}\only<2>{Games Do It All}}
   \begin{tikzpicture}
     \draw (0,0) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{(\plantcolor{\plant})}; \ptest{\textsf{safe}})}}{\textsf{goal}}$};
@@ -774,7 +780,7 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \end{frame}
 
 
-%TODO: Discuss limitations discovered about arithmetic and code generation
+%Patter: Discuss limitations discovered about arithmetic and code generation
 \begin{frame}[t]{Provable Monitor $\leadsto$ Provable Sandbox}
 Sandboxed controller uses {\color{myyellow}{external}}  controller when decision is {\color{vred}safe}, else uses verified {\color{vgreen}{fallback}}.
 Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monitor.
@@ -785,7 +791,7 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 & \bigl(\hspace{.5em} \color{myyellow}{\pumod{\vec{x}^+}{\textsf{extCtrl}}}\\
 & \quad (~\phantom{\cup} \ptest{\color{vred}{\ctrlMon(\vec{x},\vec{x}^+)}}\\
 & \quad \phantom{(~}\cup {\color{vgreen}{\fallback}} ~); \goback{}\\
-& \quad \pumod{\vec{x}}{\vec{x}^+}\\
+& \quad \memnode{asgn}\pumod{\vec{x}}{\vec{x}^+}\\
 & \quad \prandom{\vec{x}^+} \\
 & \quad  \ptest{\color{vblue}{\plantMon(\vec{x},\vec{x}^+)}};\\
 & \quad  \pumod{\vec{x}}{\vec{x}^+}\bigr)^*
@@ -816,6 +822,9 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \includegraphics[width=1.6in]{img/interval2.png}\hskip0.4in%
 \includegraphics[width=1.1in]{img/interval3.png}}
 \end{textblock}
+\uncover<1->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (asgn) -- +(-1.25,-0.5) node[notebox,text width=1.8cm] {Det.\ assign};}}
+
 \end{frame}
 
   \begin{frame}[t]{System-Wide Behavior is Evaluated}
@@ -1109,7 +1118,6 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 % \end{minipage}%
 % \end{frame}
 
-%TODO: Minimize no. slides?
 
 
 
@@ -1124,7 +1132,6 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \end{itemize}
   \end{itemize}
 \end{frame}
-%TODO: What is a good proof -> earlier
 %  \item Challenge: Which 
 %Which proofs lead to ``good'' monitors, controllers?
 %     e.g., equalities $\theta = \eta$ are easy to prove, hard to monitor.
@@ -1220,7 +1227,6 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 
 \section{Proposed Work: Controller Synthesis}
 
-%TODO maybe: Add simplification self-arrow after checking
 \begin{frame}[t]{Architecture}
 %Standalone checker, loose coupling with \KeYmaeraX, except when not.
 %That is, may want to use Kaisar in KeYmaera, but also need standalone synthesizer
@@ -1497,7 +1503,6 @@ Simple solution: Hook into VeriPhy compilation stages.
 %\end{textblock}
 %\end{frame}
 
-% TODO: Polish, shorten
 \begin{frame}[t,allowframebreaks]{Backup Plans are in Place}
 \textbf{CdGL Backup Plans:}
 \begin{itemize}
