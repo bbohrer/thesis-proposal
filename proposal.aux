@@ -46,6 +46,8 @@
 \newlabel{tab:approach-comparison}{{1.1}{3}{Comparison of Verification Approaches\relax }{table.caption.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Goals of the thesis\relax }}{4}{figure.caption.3}}
 \newlabel{fig:goals-diagram}{{1.1}{4}{Goals of the thesis\relax }{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}Related Work}{4}{section.1.1}}
+\newlabel{sec:relwork}{{1.1}{4}{Related Work}{section.1.1}{}}
 \citation{Barras:1997}
 \citation{Harrison:2006}
 \citation{Myreen+Owens+Kumar:2013}
@@ -61,9 +63,8 @@
 \citation{martens2012lf}
 \citation{DBLP:journals/jar/Platzer17}
 \citation{DBLP:journals/afp/Platzer19}
-\@writefile{toc}{\contentsline {section}{\numberline {1.1}Related Work}{5}{section.1.1}}
-\newlabel{sec:relwork}{{1.1}{5}{Related Work}{section.1.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1.1}Verification of Theorem Provers}{5}{subsection.1.1.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.2}Verification of CPS}{5}{subsection.1.1.2}}
 \citation{DBLP:books/sp/Platzer18}
 \citation{DBLP:conf/hicons/PrabhakarK13}
 \citation{DBLP:conf/icalp/SuenagaH11}
@@ -73,15 +74,16 @@
 \citation{DBLP:journals/jlp/CuijpersR05}
 \citation{DBLP:conf/formats/SchiffelersBMRR03}
 \citation{DBLP:conf/fm/RuchkinSISG18}
+\citation{DBLP:conf/hybrid/BakBJ15}
+\citation{DBLP:conf/hybrid/PintoCPS06}
 \citation{DBLP:conf/cav/FrehseGDCRLRGDM11}
 \citation{DBLP:conf/cav/ChenAS13}
 \citation{DBLP:conf/tacas/DuggiralaMVP15}
 \citation{chen2015benchmark}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.2}Verification of CPS}{6}{subsection.1.1.2}}
-\@writefile{toc}{\contentsline {subsubsection}{Formalisms for Hybrid Systems}{6}{section*.4}}
-\@writefile{toc}{\contentsline {subsubsection}{Reachability Analysis}{6}{section*.5}}
 \citation{DBLP:journals/trob/AlthoffD14}
 \citation{DBLP:conf/icra/PereiraA15}
+\@writefile{toc}{\contentsline {subsubsection}{Formalisms for Hybrid Systems}{6}{section*.4}}
+\@writefile{toc}{\contentsline {subsubsection}{Reachability Analysis}{6}{section*.5}}
 \citation{DBLP:conf/tacas/CimattiGMT15}
 \citation{DBLP:conf/cav/CimattiGMT14}
 \citation{DBLP:conf/tacas/Immler15}
@@ -89,11 +91,13 @@
 \citation{DBLP:conf/cade/FultonMQVP15}
 \citation{DBLP:conf/aplas/LiuLQZZZZ10}
 \citation{DBLP:conf/cpp/Rouhling18}
+\citation{DBLP:conf/utp/Foster19}
 \citation{DBLP:conf/atva/RizaldiISA18}
 \citation{DBLP:conf/ifm/RizaldiKHFIAHN17}
 \citation{chan2016formal}
 \citation{DBLP:conf/cpp/AffeldtC17}
 \citation{DBLP:conf/itp/CohenR17}
+\citation{DBLP:conf/utp/Foster19}
 \citation{DBLP:journals/jar/Platzer08}
 \citation{DBLP:conf/lics/Platzer12a}
 \citation{DBLP:journals/jar/Platzer17}
@@ -147,8 +151,8 @@
 \newlabel{sec:dgl-syntax}{{2.1}{11}{Syntax}{section.2.1}{}}
 \newlabel{ex:driving-game}{{1}{13}{Acceleration-Controlled 1D Driving}{example.1}{}}
 \newlabel{eq:driving-init}{{2.2}{13}{Acceleration-Controlled 1D Driving}{equation.2.1.2}{}}
-\newlabel{eq:driving-angel}{{2.3}{13}{Acceleration-Controlled 1D Driving}{equation.2.1.3}{}}
-\newlabel{eq:driving-demon}{{2.4}{13}{Acceleration-Controlled 1D Driving}{equation.2.1.4}{}}
+\newlabel{eq:driving-angel}{{2.4}{13}{Acceleration-Controlled 1D Driving}{equation.2.1.4}{}}
+\newlabel{eq:driving-demon}{{2.5}{13}{Acceleration-Controlled 1D Driving}{equation.2.1.5}{}}
 \citation{DBLP:conf/cade/QueselP12}
 \citation{DBLP:conf/emsoft/JeanninGKGSZP15}
 \citation{DBLP:conf/fm/LoosPN11}
@@ -156,34 +160,35 @@
 \citation{DBLP:conf/hybrid/PlatzerQ08}
 \citation{DBLP:journals/tocl/Platzer15}
 \newlabel{ex:driving-system}{{3}{14}{Acceleration-Controlled 1D Driving System}{example.3}{}}
-\newlabel{eq:driving-sys-pre}{{2.5}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.5}{}}
-\newlabel{eq:driving-sys-forward}{{2.7}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.7}{}}
-\newlabel{eq:driving-sys-stay}{{2.8}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.8}{}}
-\newlabel{eq:driving-sys-brake}{{2.9}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.9}{}}
-\newlabel{eq:driving-sys-demon}{{2.10}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.10}{}}
+\newlabel{eq:driving-sys-pre}{{2.6}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.6}{}}
+\newlabel{eq:driving-sys-forward}{{2.8}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.8}{}}
+\newlabel{eq:driving-sys-stay}{{2.9}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.9}{}}
+\newlabel{eq:driving-sys-brake}{{2.10}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.10}{}}
+\newlabel{eq:driving-sys-demon}{{2.11}{14}{Acceleration-Controlled 1D Driving System}{equation.2.1.11}{}}
+\citation{DBLP:journals/tocl/Platzer15}
 \citation{DBLP:journals/jar/Platzer17}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Semantics}{15}{section.2.2}}
 \newlabel{sec:dgl-semantics}{{2.2}{15}{Semantics}{section.2.2}{}}
 \newlabel{def:dgl-sem-term}{{4}{15}{Classical term semantics}{definition.4}{}}
 \newlabel{def:dgl-sem-fml}{{5}{15}{Classical formula semantics}{definition.5}{}}
-\newlabel{def:dgl-sem-game}{{6}{15}{Classical game semantics}{definition.6}{}}
+\newlabel{def:dgl-sem-game}{{6}{16}{Classical game semantics}{definition.6}{}}
 \citation{DBLP:books/sp/Platzer18}
-\newlabel{ir:dglbox}{{$[\cdot ]$}{16}{$[\cdot ]$}{ir:dglbox}{}}
-\newlabel{ir:dglassign}{{$\delimiter "426830A :=\delimiter "526930B $}{16}{$\delimiter "426830A :=\delimiter "526930B $}{ir:dglassign}{}}
-\newlabel{ir:dglrandom}{{$\delimiter "426830A {:}*\delimiter "526930B $}{16}{$\delimiter "426830A {:}*\delimiter "526930B $}{ir:dglrandom}{}}
-\newlabel{ir:dglsolve}{{$\delimiter "426830A '\delimiter "526930B $}{16}{$\delimiter "426830A '\delimiter "526930B $}{ir:dglsolve}{}}
-\newlabel{ir:dgltest}{{$\delimiter "426830A ?\delimiter "526930B $}{16}{$\delimiter "426830A ?\delimiter "526930B $}{ir:dgltest}{}}
-\newlabel{ir:dglchoice}{{$\delimiter "426830A \cup \delimiter "526930B $}{16}{$\delimiter "426830A \cup \delimiter "526930B $}{ir:dglchoice}{}}
-\newlabel{ir:dglcompose}{{$\delimiter "426830A ;\delimiter "526930B $}{16}{$\delimiter "426830A ;\delimiter "526930B $}{ir:dglcompose}{}}
-\newlabel{ir:dgliter}{{$\delimiter "426830A *\delimiter "526930B $}{16}{$\delimiter "426830A *\delimiter "526930B $}{ir:dgliter}{}}
-\newlabel{ir:dgldual}{{$\delimiter "426830A {}^d\delimiter "526930B $}{16}{$\delimiter "426830A {}^d\delimiter "526930B $}{ir:dgldual}{}}
-\newlabel{ir:dglMon}{{M}{16}{M}{ir:dglMon}{}}
-\newlabel{ir:dglfixpoint}{{FP}{16}{FP}{ir:dglfixpoint}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Proof Calculus}{16}{section.2.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Selected axioms and rules for \dGL \relax }}{17}{figure.caption.11}}
-\newlabel{fig:dgl-axioms}{{2.1}{17}{Selected axioms and rules for \dGL \relax }{figure.caption.11}{}}
-\newlabel{ir:dglSwitch}{{${\delimiter "426830A \cdot \delimiter "526930B }^d$}{18}{${\delimiter "426830A \cdot \delimiter "526930B }^d$}{ir:dglSwitch}{}}
+\newlabel{ir:dglbox}{{$[\cdot ]$}{17}{$[\cdot ]$}{ir:dglbox}{}}
+\newlabel{ir:dglassign}{{$\delimiter "426830A :=\delimiter "526930B $}{17}{$\delimiter "426830A :=\delimiter "526930B $}{ir:dglassign}{}}
+\newlabel{ir:dglrandom}{{$\delimiter "426830A {:}*\delimiter "526930B $}{17}{$\delimiter "426830A {:}*\delimiter "526930B $}{ir:dglrandom}{}}
+\newlabel{ir:dglsolve}{{$\delimiter "426830A '\delimiter "526930B $}{17}{$\delimiter "426830A '\delimiter "526930B $}{ir:dglsolve}{}}
+\newlabel{ir:dgltest}{{$\delimiter "426830A ?\delimiter "526930B $}{17}{$\delimiter "426830A ?\delimiter "526930B $}{ir:dgltest}{}}
+\newlabel{ir:dglchoice}{{$\delimiter "426830A \cup \delimiter "526930B $}{17}{$\delimiter "426830A \cup \delimiter "526930B $}{ir:dglchoice}{}}
+\newlabel{ir:dglcompose}{{$\delimiter "426830A ;\delimiter "526930B $}{17}{$\delimiter "426830A ;\delimiter "526930B $}{ir:dglcompose}{}}
+\newlabel{ir:dgliter}{{$\delimiter "426830A *\delimiter "526930B $}{17}{$\delimiter "426830A *\delimiter "526930B $}{ir:dgliter}{}}
+\newlabel{ir:dgldual}{{$\delimiter "426830A {}^d\delimiter "526930B $}{17}{$\delimiter "426830A {}^d\delimiter "526930B $}{ir:dgldual}{}}
+\newlabel{ir:dglMon}{{M}{17}{M}{ir:dglMon}{}}
+\newlabel{ir:dglfixpoint}{{FP}{17}{FP}{ir:dglfixpoint}{}}
+\newlabel{ir:dglSwitch}{{${\delimiter "426830A \cdot \delimiter "526930B }^d$}{17}{${\delimiter "426830A \cdot \delimiter "526930B }^d$}{ir:dglSwitch}{}}
 \citation{DBLP:books/sp/Platzer18}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Proof Calculus}{17}{section.2.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Selected axioms and rules for \dGL \relax }}{18}{figure.caption.11}}
+\newlabel{fig:dgl-axioms}{{2.1}{18}{Selected axioms and rules for \dGL \relax }{figure.caption.11}{}}
 \citation{Tarski}
 \citation{Davenport1988}
 \citation{DBLP:journals/aaecc/Weispfenning97}
@@ -192,12 +197,12 @@
 \citation{DBLP:conf/cade/FultonMQVP15}
 \citation{DBLP:books/sp/NipkowPW02}
 \citation{COQ}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Completed Work: Logical Foundations}{19}{chapter.3}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Completed Work: Logical Foundations}{21}{chapter.3}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:logical-foundations}{{3}{19}{Completed Work: Logical Foundations}{chapter.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Formalization of \dDL in Isabelle/HOL\xspace  }{19}{section.3.1}}
-\newlabel{sec:isabelle-fml}{{3.1}{19}{Formalization of \dL in \Isabelle }{section.3.1}{}}
+\newlabel{ch:logical-foundations}{{3}{21}{Completed Work: Logical Foundations}{chapter.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Formalization of \dDL in Isabelle/HOL\xspace  }{21}{section.3.1}}
+\newlabel{sec:isabelle-fml}{{3.1}{21}{Formalization of \dL in \Isabelle }{section.3.1}{}}
 \citation{DBLP:journals/jar/Platzer17}
 \citation{DBLP:books/sp/NipkowPW02}
 \citation{DBLP:conf/cpp/BohrerRVVP17}
@@ -206,8 +211,8 @@
 \citation{DBLP:conf/pldi/PfenningE88}
 \citation{DBLP:conf/cade/PfenningS99}
 \citation{DBLP:conf/cade/BohrerFP19}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Definite Descriptions in dL}{21}{section.3.2}}
-\newlabel{sec:definite-description}{{3.2}{21}{Definite Descriptions in dL}{section.3.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Definite Descriptions in dL}{23}{section.3.2}}
+\newlabel{sec:definite-description}{{3.2}{23}{Definite Descriptions in dL}{section.3.2}{}}
 \citation{DBLP:conf/pldi/BohrerTMMP18}
 \citation{DBLP:journals/jfrea/Barras10}
 \citation{DBLP:conf/itp/AnandR14}
@@ -219,23 +224,23 @@
 \citation{Hubbard}
 \citation{DBLP:journals/lmcs/Platzer12b}
 \citation{DBLP:journals/jar/KumarAMO16}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces \ensuremath  {\dDL _\iota }\xspace  features and technical challenges\relax }}{22}{figure.caption.12}}
-\newlabel{fig:dli-overview}{{3.1}{22}{\dLi features and technical challenges\relax }{figure.caption.12}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Related Work}{22}{subsection.3.2.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Prover formalizations and challenges\relax }}{23}{figure.caption.13}}
-\newlabel{fig:prover-formalizations}{{3.2}{23}{Prover formalizations and challenges\relax }{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces \ensuremath  {\dDL _\iota }\xspace  features and technical challenges\relax }}{24}{figure.caption.12}}
+\newlabel{fig:dli-overview}{{3.1}{24}{\dLi features and technical challenges\relax }{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Related Work}{24}{subsection.3.2.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Prover formalizations and challenges\relax }}{25}{figure.caption.13}}
+\newlabel{fig:prover-formalizations}{{3.2}{25}{Prover formalizations and challenges\relax }{figure.caption.13}{}}
 \citation{citeulike:12223454}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Completed Work: End-to-End Robot Verification}{25}{chapter.4}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Completed Work: End-to-End Robot Verification}{27}{chapter.4}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:end-to-end-v}{{4}{25}{Completed Work: End-to-End Robot Verification}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}VeriPhy\xspace  Pipeline for End-to-End Verification}{25}{section.4.1}}
-\newlabel{sec:veriphy}{{4.1}{25}{\VeriPhy Pipeline for End-to-End Verification}{section.4.1}{}}
+\newlabel{ch:end-to-end-v}{{4}{27}{Completed Work: End-to-End Robot Verification}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}VeriPhy\xspace  Pipeline for End-to-End Verification}{27}{section.4.1}}
+\newlabel{sec:veriphy}{{4.1}{27}{\VeriPhy Pipeline for End-to-End Verification}{section.4.1}{}}
 \citation{DBLP:journals/fmsd/MitschP16}
 \citation{DBLP:journals/jar/KumarAMO16}
 \citation{DBLP:conf/cade/HoAKMTN18}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces High assurance artifacts and steps in the VeriPhy\xspace  verification pipeline\relax }}{26}{figure.caption.14}}
-\newlabel{fig:pipelineoverview}{{4.1}{26}{High assurance artifacts and steps in the \VeriPhy verification pipeline\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces High assurance artifacts and steps in the VeriPhy\xspace  verification pipeline\relax }}{28}{figure.caption.14}}
+\newlabel{fig:pipelineoverview}{{4.1}{28}{High assurance artifacts and steps in the \VeriPhy verification pipeline\relax }{figure.caption.14}{}}
 \citation{DBLP:conf/cade/HoAKMTN18}
 \citation{DBLP:conf/pldi/BohrerTMMP18}
 \citation{DBLP:conf/pldi/BohrerTMMP18}
@@ -269,8 +274,8 @@
 \citation{DBLP:conf/icfp/TanMKFON16}
 \citation{DBLP:conf/icfp/TanMKFON16}
 \citation{DBLP:conf/icfp/TanMKFON16}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces End-to-end proof chain for end-to-end result\relax }}{27}{figure.caption.15}}
-\newlabel{fig:proofchainoverview}{{4.2}{27}{End-to-end proof chain for end-to-end result\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces End-to-end proof chain for end-to-end result\relax }}{29}{figure.caption.15}}
+\newlabel{fig:proofchainoverview}{{4.2}{29}{End-to-end proof chain for end-to-end result\relax }{figure.caption.15}{}}
 \citation{DBLP:conf/icfp/TanMKFON16}
 \citation{DBLP:conf/icfp/MyreenO12}
 \citation{DBLP:conf/esop/GueneauMKN17}
@@ -298,48 +303,48 @@
 \citation{DBLP:conf/emsoft/MartinezMST10}
 \citation{DBLP:conf/emsoft/MajumdarSZ12}
 \citation{DBLP:conf/cav/BouissouGPTV09}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Related Work}{28}{subsection.4.1.1}}
-\@writefile{toc}{\contentsline {paragraph}{Verified Compilation.}{28}{section*.16}}
-\@writefile{toc}{\contentsline {paragraph}{Machine Arithmetic Verification.}{28}{section*.17}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Related Work}{30}{subsection.4.1.1}}
+\@writefile{toc}{\contentsline {paragraph}{Verified Compilation.}{30}{section*.16}}
+\@writefile{toc}{\contentsline {paragraph}{Machine Arithmetic Verification.}{30}{section*.17}}
 \citation{DBLP:journals/ral/BohrerTMSP19}
 \citation{DBLP:conf/pldi/BohrerTMMP18}
 \citation{citeulike:12223454}
 \citation{MRZR}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Case Study: End-to-End Ground Robotics Verification}{29}{section.4.2}}
-\newlabel{sec:ground-robotics}{{4.2}{29}{Case Study: End-to-End Ground Robotics Verification}{section.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Model}{29}{subsection.4.2.1}}
-\newlabel{sec:planar-driving-system}{{4.2.1}{29}{Model}{subsection.4.2.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Trajectories of dynamics for different choices of \textsf  {k}.\relax }}{30}{figure.caption.18}}
-\newlabel{fig:ode1}{{4.3}{30}{Trajectories of dynamics for different choices of \kvar .\relax }{figure.caption.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Trajectories of \textsf  {plant}\xspace  for choices of $\textsf  {k}< 0$ when $\varepsilon = 1$.\relax }}{30}{figure.caption.19}}
-\newlabel{fig:ode2}{{4.4}{30}{Trajectories of \plant for choices of $\kvar < 0$ when $\varepsilon = 1$.\relax }{figure.caption.19}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Annular section through the (blue) waypoint $(2.5,2.5)$. Trajectories from the displaced green and red waypoints with slightly different curvatures remain within the annulus.\relax }}{31}{figure.caption.20}}
-\newlabel{fig:circlestaging}{{4.5}{31}{Annular section through the (blue) waypoint $(2.5,2.5)$. Trajectories from the displaced green and red waypoints with slightly different curvatures remain within the annulus.\relax }{figure.caption.20}{}}
-\newlabel{fig:circlestaging}{{4.5}{31}{Annular section through the (blue) waypoint $(2.5,2.5)$. Trajectories from the displaced green and red waypoints with slightly different curvatures remain within the annulus.\relax }{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Case Study: End-to-End Ground Robotics Verification}{31}{section.4.2}}
+\newlabel{sec:ground-robotics}{{4.2}{31}{Case Study: End-to-End Ground Robotics Verification}{section.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Model}{31}{subsection.4.2.1}}
+\newlabel{sec:planar-driving-system}{{4.2.1}{31}{Model}{subsection.4.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Trajectories of dynamics for different choices of \textsf  {k}.\relax }}{32}{figure.caption.18}}
+\newlabel{fig:ode1}{{4.3}{32}{Trajectories of dynamics for different choices of \kvar .\relax }{figure.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Trajectories of \textsf  {plant}\xspace  for choices of $\textsf  {k}< 0$ when $\varepsilon = 1$.\relax }}{32}{figure.caption.19}}
+\newlabel{fig:ode2}{{4.4}{32}{Trajectories of \plant for choices of $\kvar < 0$ when $\varepsilon = 1$.\relax }{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Annular section through the (blue) waypoint $(2.5,2.5)$. Trajectories from the displaced green and red waypoints with slightly different curvatures remain within the annulus.\relax }}{33}{figure.caption.20}}
+\newlabel{fig:circlestaging}{{4.5}{33}{Annular section through the (blue) waypoint $(2.5,2.5)$. Trajectories from the displaced green and red waypoints with slightly different curvatures remain within the annulus.\relax }{figure.caption.20}{}}
+\newlabel{fig:circlestaging}{{4.5}{33}{Annular section through the (blue) waypoint $(2.5,2.5)$. Trajectories from the displaced green and red waypoints with slightly different curvatures remain within the annulus.\relax }{figure.caption.20}{}}
 \citation{DBLP:journals/ijrr/MitschGVP17}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Proofs}{32}{subsection.4.2.2}}
-\newlabel{thm:safe}{{1}{32}{Safety}{theorem.1}{}}
-\newlabel{thm:liveness}{{2}{32}{Liveness}{theorem.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Proofs}{34}{subsection.4.2.2}}
+\newlabel{thm:safe}{{1}{34}{Safety}{theorem.1}{}}
+\newlabel{thm:liveness}{{2}{34}{Liveness}{theorem.2}{}}
 \citation{shah2018airsim}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Simulations}{33}{subsection.4.2.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Related Work}{33}{subsection.4.2.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Simulations}{35}{subsection.4.2.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Related Work}{35}{subsection.4.2.4}}
 \citation{shah2018airsim}
-\newlabel{fig:patrol-mission-plan}{{4.6a}{34}{Example mission\relax }{figure.caption.21}{}}
-\newlabel{sub@fig:patrol-mission-plan}{{a}{34}{Example mission\relax }{figure.caption.21}{}}
-\newlabel{fig:simulator}{{4.6b}{34}{Simulator\relax }{figure.caption.21}{}}
-\newlabel{sub@fig:simulator}{{b}{34}{Simulator\relax }{figure.caption.21}{}}
-\newlabel{fig:rect}{{4.6c}{34}{Rectangle\relax }{figure.caption.21}{}}
-\newlabel{sub@fig:rect}{{c}{34}{Rectangle\relax }{figure.caption.21}{}}
-\newlabel{fig:turns}{{4.6d}{34}{Tight turns\relax }{figure.caption.21}{}}
-\newlabel{sub@fig:turns}{{d}{34}{Tight turns\relax }{figure.caption.21}{}}
-\newlabel{fig:clover}{{4.6e}{34}{Large clover\relax }{figure.caption.21}{}}
-\newlabel{sub@fig:clover}{{e}{34}{Large clover\relax }{figure.caption.21}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Implementation and environments built in AirSim\relax }}{34}{figure.caption.21}}
-\newlabel{fig:patrol-plan}{{4.6}{34}{Implementation and environments built in AirSim\relax }{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Completed Work: \textsf  {CGL}\xspace  : Constructive Game Logic}{35}{chapter.5}}
+\newlabel{fig:patrol-mission-plan}{{4.6a}{36}{Example mission\relax }{figure.caption.21}{}}
+\newlabel{sub@fig:patrol-mission-plan}{{a}{36}{Example mission\relax }{figure.caption.21}{}}
+\newlabel{fig:simulator}{{4.6b}{36}{Simulator\relax }{figure.caption.21}{}}
+\newlabel{sub@fig:simulator}{{b}{36}{Simulator\relax }{figure.caption.21}{}}
+\newlabel{fig:rect}{{4.6c}{36}{Rectangle\relax }{figure.caption.21}{}}
+\newlabel{sub@fig:rect}{{c}{36}{Rectangle\relax }{figure.caption.21}{}}
+\newlabel{fig:turns}{{4.6d}{36}{Tight turns\relax }{figure.caption.21}{}}
+\newlabel{sub@fig:turns}{{d}{36}{Tight turns\relax }{figure.caption.21}{}}
+\newlabel{fig:clover}{{4.6e}{36}{Large clover\relax }{figure.caption.21}{}}
+\newlabel{sub@fig:clover}{{e}{36}{Large clover\relax }{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Implementation and environments built in AirSim\relax }}{36}{figure.caption.21}}
+\newlabel{fig:patrol-plan}{{4.6}{36}{Implementation and environments built in AirSim\relax }{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Completed Work: \textsf  {CGL}\xspace  : Constructive Game Logic}{37}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:cgl}{{5}{35}{Completed Work: \CGL : Constructive Game Logic}{chapter.5}{}}
+\newlabel{ch:cgl}{{5}{37}{Completed Work: \CGL : Constructive Game Logic}{chapter.5}{}}
 \citation{poplcgl}
 \citation{DBLP:conf/focs/Parikh83}
 \citation{DBLP:journals/logcom/Pauly02}
@@ -374,10 +379,10 @@
 \citation{DBLP:journals/aml/Ghilardi89}
 \citation{DBLP:journals/corr/abs-1109-3685}
 \citation{DBLP:journals/sLogica/Goranko03}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Related Work}{37}{section.5.1}}
-\newlabel{sec:cgl-relwork}{{5.1}{37}{Related Work}{section.5.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Games in Logic}{37}{section*.22}}
-\@writefile{toc}{\contentsline {paragraph}{Constructive Modal Logics}{37}{section*.23}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Related Work}{39}{section.5.1}}
+\newlabel{sec:cgl-relwork}{{5.1}{39}{Related Work}{section.5.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Games in Logic}{39}{section*.22}}
+\@writefile{toc}{\contentsline {paragraph}{Constructive Modal Logics}{39}{section*.23}}
 \citation{bishop1967foundations}
 \citation{bridges2007techniques}
 \citation{DBLP:journals/mst/Schwichtenberg08}
@@ -391,86 +396,89 @@
 \citation{DBLP:journals/logcom/FrittellaGKPS16}
 \citation{DBLP:journals/japll/KamideW10}
 \citation{DBLP:journals/fuin/Celani01}
-\@writefile{toc}{\contentsline {paragraph}{Constructivity and Dynamic Logic}{38}{section*.24}}
+\@writefile{toc}{\contentsline {paragraph}{Constructivity and Dynamic Logic}{40}{section*.24}}
 \citation{DBLP:series/txtcs/Weihrauch00}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Syntax}{39}{section.5.2}}
-\newlabel{def:terms}{{7}{39}{Terms}{definition.7}{}}
-\newlabel{def:cgl-formula}{{8}{39}{\CGL Formulas}{definition.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Example Games}{40}{subsection.5.2.1}}
-\newlabel{sec:example-games}{{5.2.1}{40}{Example Games}{subsection.5.2.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Nim.}{40}{section*.25}}
-\newlabel{prop:nim-demon-wins}{{3}{40}{Dormant winning region}{theorem.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Syntax}{41}{section.5.2}}
+\newlabel{def:terms}{{7}{41}{Terms}{definition.7}{}}
+\newlabel{def:cgl-formula}{{8}{41}{\CGL Formulas}{definition.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Example Games}{42}{subsection.5.2.1}}
+\newlabel{sec:example-games}{{5.2.1}{42}{Example Games}{subsection.5.2.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nim.}{42}{section*.25}}
+\newlabel{prop:nim-demon-wins}{{3}{42}{Dormant winning region}{theorem.3}{}}
 \citation{DBLP:journals/sLogica/PaulyP03a}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Example game: Nim\relax }}{41}{figure.caption.26}}
-\newlabel{fig:CGL-nim}{{5.1}{41}{Example game: Nim\relax }{figure.caption.26}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Example game: cake-cutting\relax }}{41}{figure.caption.28}}
-\newlabel{fig:CGL-cake}{{5.2}{41}{Example game: cake-cutting\relax }{figure.caption.28}{}}
-\newlabel{prop:nim-angel-wins}{{4}{41}{Active winning region}{theorem.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{Cake-cutting.}{41}{section*.27}}
-\newlabel{prop:cake-angel-wins}{{5}{41}{Active winning region}{theorem.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Example game: Nim\relax }}{43}{figure.caption.26}}
+\newlabel{fig:CGL-nim}{{5.1}{43}{Example game: Nim\relax }{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Example game: cake-cutting\relax }}{43}{figure.caption.28}}
+\newlabel{fig:CGL-cake}{{5.2}{43}{Example game: cake-cutting\relax }{figure.caption.28}{}}
+\newlabel{prop:nim-angel-wins}{{4}{43}{Active winning region}{theorem.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Cake-cutting.}{43}{section*.27}}
+\newlabel{prop:cake-angel-wins}{{5}{43}{Active winning region}{theorem.5}{}}
 \citation{DBLP:series/txtcs/Weihrauch00}
 \citation{DBLP:journals/mst/Schwichtenberg08}
 \citation{bishop1967foundations}
 \citation{bridges2007techniques}
 \citation{DBLP:journals/mscs/Oosten02}
 \citation{lipton1992constructive}
-\newlabel{prop:cake-demon-wins}{{6}{42}{Dormant winning region}{theorem.6}{}}
-\@writefile{toc}{\contentsline {paragraph}{Computability and reals.}{42}{section*.29}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Semantics}{42}{section.5.3}}
-\newlabel{sec:rel-sem}{{5.3}{42}{Semantics}{section.5.3}{}}
-\newlabel{def:term-sem}{{9}{43}{Arithmetic term semantics}{definition.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Formula and game semantics}{43}{subsection.5.3.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Duality semantics}{44}{subsection.5.3.2}}
-\newlabel{sec:dual-sem}{{5.3.2}{44}{Duality semantics}{subsection.5.3.2}{}}
-\newlabel{ir:dchoiceE}{{$\delimiter "426830A \cup \delimiter "526930B ${E}}{45}{$\delimiter "426830A \cup \delimiter "526930B ${E}}{ir:dchoiceE}{}}
-\newlabel{rem:cdd}{{2}{45}{Classical duality}{remark.2}{}}
-\newlabel{rem:consistencydeterminacyduality}{{3}{45}{Classical interdefinability}{remark.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Demonic semantics}{45}{subsection.5.3.3}}
-\@writefile{toc}{\contentsline {paragraph}{Proof Calculus}{45}{section*.30}}
-\@writefile{toc}{\contentsline {paragraph}{Operational Semantics}{46}{section*.31}}
-\newlabel{lem:normal-forms-alt}{{8}{46}{Normal Form Characterization}{theorem.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Theory Results}{46}{section.5.4}}
-\newlabel{lem:term-ep}{{11}{46}{Existence Property}{theorem.11}{}}
+\newlabel{prop:cake-demon-wins}{{6}{44}{Dormant winning region}{theorem.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Computability and reals.}{44}{section*.29}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Semantics}{44}{section.5.3}}
+\newlabel{sec:rel-sem}{{5.3}{44}{Semantics}{section.5.3}{}}
+\newlabel{def:term-sem}{{9}{45}{Arithmetic term semantics}{definition.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Formula and game semantics}{45}{subsection.5.3.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Duality semantics}{47}{subsection.5.3.2}}
+\newlabel{sec:dual-sem}{{5.3.2}{47}{Duality semantics}{subsection.5.3.2}{}}
+\newlabel{rem:cdd}{{2}{47}{Classical duality}{remark.2}{}}
+\newlabel{rem:consistencydeterminacyduality}{{3}{47}{Classical interdefinability}{remark.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Demonic semantics}{47}{subsection.5.3.3}}
+\newlabel{ir:dchoiceIL}{{$\delimiter "426830A \cup \delimiter "526930B ${I1}}{48}{$\delimiter "426830A \cup \delimiter "526930B ${I1}}{ir:dchoiceIL}{}}
+\newlabel{ir:dchoiceIR}{{$\delimiter "426830A \cup \delimiter "526930B ${I2}}{48}{$\delimiter "426830A \cup \delimiter "526930B ${I2}}{ir:dchoiceIR}{}}
+\newlabel{ir:dchoiceE}{{$\delimiter "426830A \cup \delimiter "526930B ${E}}{48}{$\delimiter "426830A \cup \delimiter "526930B ${E}}{ir:dchoiceE}{}}
+\@writefile{toc}{\contentsline {paragraph}{Proof Calculus}{48}{section*.30}}
+\@writefile{toc}{\contentsline {paragraph}{Operational Semantics}{48}{section*.31}}
 \citation{constructiveRealAlgebra}
+\newlabel{lem:normal-forms-alt}{{8}{49}{Normal Form Characterization}{theorem.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Theory Results}{49}{section.5.4}}
+\newlabel{lem:term-ep}{{11}{49}{Existence Property}{theorem.11}{}}
+\newlabel{sec:arith-proof}{{5.4}{49}{Arithmetic Proofs}{section*.32}{}}
+\citation{DBLP:journals/jar/Platzer08}
 \citation{poplcgl}
 \citation{DBLP:journals/tocl/Platzer17}
-\newlabel{sec:arith-proof}{{5.4}{47}{Arithmetic Proofs}{section*.32}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Soundness Theorem}{47}{section.5.5}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.6}Status}{47}{section.5.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Soundness Theorem}{50}{section.5.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Status}{50}{section.5.6}}
 \citation{Krebbers+Spitters:lmcs:corn:2011}
-\newlabel{ir:Qdglsolve}{{$\delimiter "426830A '\delimiter "526930B $}{49}{$\delimiter "426830A '\delimiter "526930B $}{ir:Qdglsolve}{}}
-\newlabel{ir:dglweak}{{DW}{49}{DW}{ir:dglweak}{}}
-\newlabel{ir:dglcut}{{DC}{49}{DC}{ir:dglcut}{}}
-\newlabel{ir:dglind}{{DI}{49}{DI}{ir:dglind}{}}
-\newlabel{ir:dglghost}{{DG}{49}{DG}{ir:dglghost}{}}
-\newlabel{ir:dglconst}{{DS}{49}{DS}{ir:dglconst}{}}
-\newlabel{ir:dglvariant}{{DV}{49}{DV}{ir:dglvariant}{}}
+\newlabel{ir:Qdglsolve}{{$\delimiter "426830A '\delimiter "526930B $}{51}{$\delimiter "426830A '\delimiter "526930B $}{ir:Qdglsolve}{}}
+\newlabel{ir:dglweak}{{DW}{51}{DW}{ir:dglweak}{}}
+\newlabel{ir:dglcut}{{DC}{51}{DC}{ir:dglcut}{}}
+\newlabel{ir:dglind}{{DI}{51}{DI}{ir:dglind}{}}
+\newlabel{ir:dglghost}{{DG}{51}{DG}{ir:dglghost}{}}
+\newlabel{ir:dglconst}{{DS}{51}{DS}{ir:dglconst}{}}
+\newlabel{ir:dglvariant}{{DV}{51}{DV}{ir:dglvariant}{}}
 \citation{Krebbers+Spitters:lmcs:corn:2011}
 \citation{Krebbers+Spitters:lmcs:corn:2011}
 \citation{DBLP:conf/lics/PlatzerT18}
 \citation{Krebbers+Spitters:lmcs:corn:2011}
 \citation{Krebbers+Spitters:lmcs:corn:2011}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Proposed Work: \textsf  {CdGL}\xspace  }{49}{chapter.6}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Proposed Work: \textsf  {CdGL}\xspace  }{51}{chapter.6}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:cdgl}{{6}{49}{Proposed Work: \CdGL }{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}\textsf  {CdGL}\xspace  Theory}{49}{section.6.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Differential equation rules\relax }}{50}{figure.caption.33}}
-\newlabel{fig:diffeq-rules}{{6.1}{50}{Differential equation rules\relax }{figure.caption.33}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Example System}{50}{section.6.2}}
-\newlabel{thm:angel-wins}{{19}{51}{Angel Robot Winnability}{theorem.19}{}}
-\newlabel{thm:angel-wins-gen}{{20}{51}{Generalized Angel Robot Winnability}{theorem.20}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Relating Classical and Constructive Games}{52}{subsection.6.2.1}}
-\newlabel{thm:conv-embed}{{22}{52}{Converse embedding}{theorem.22}{}}
+\newlabel{ch:cdgl}{{6}{51}{Proposed Work: \CdGL }{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}\textsf  {CdGL}\xspace  Theory}{51}{section.6.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Differential equation rules\relax }}{52}{figure.caption.33}}
+\newlabel{fig:diffeq-rules}{{6.1}{52}{Differential equation rules\relax }{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Example System}{52}{section.6.2}}
+\newlabel{thm:angel-wins}{{19}{53}{Angel Robot Winnability}{theorem.19}{}}
+\newlabel{thm:angel-wins-gen}{{20}{53}{Generalized Angel Robot Winnability}{theorem.20}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Relating Classical and Constructive Games}{54}{subsection.6.2.1}}
+\newlabel{thm:conv-embed}{{22}{54}{Converse embedding}{theorem.22}{}}
 \citation{DBLP:conf/lics/LoosP16}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Relaxing (Constructive) Games to (Constructive) Systems}{53}{subsection.6.2.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Relaxing (Constructive) Games to (Constructive) Systems}{55}{subsection.6.2.2}}
 \citation{DBLP:conf/itp/FultonMBP17}
 \citation{Wenzel07isabelle/isar}
 \citation{DBLP:books/sp/NipkowPW02}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}{55}{chapter.7}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}{57}{chapter.7}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:kaisar}{{7}{55}{Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}{chapter.7}{}}
+\newlabel{ch:kaisar}{{7}{57}{Ongoing Work: Kaisar, Structured Proofs for Dynamic Logics}{chapter.7}{}}
 \citation{DBLP:journals/corr/abs-1908-05535}
 \citation{DBLP:conf/lpar/Leino10}
 \citation{DBLP:conf/lics/BohrerP18}
@@ -478,8 +486,8 @@
 \citation{DBLP:conf/lics/BohrerP18}
 \citation{Owicki1976}
 \citation{DBLP:journals/tse/Lamport77}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Proposed Design}{57}{section.7.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}Proposed Theory}{58}{section.7.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Proposed Design}{59}{section.7.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Proposed Theory}{60}{section.7.2}}
 \citation{DBLP:journals/fac/Kleymann99}
 \citation{conf/mkm/BancerekBGKMNPU15}
 \citation{Wenzel2002}
@@ -514,8 +522,8 @@
 \citation{COQ}
 \citation{DBLP:books/sp/NipkowPW02}
 \citation{DBLP:conf/itp/FultonMBP17}
-\@writefile{toc}{\contentsline {section}{\numberline {7.3}Related Work}{60}{section.7.3}}
-\newlabel{sec:kaisar-relwork}{{7.3}{60}{Related Work}{section.7.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Related Work}{62}{section.7.3}}
+\newlabel{sec:kaisar-relwork}{{7.3}{62}{Related Work}{section.7.3}{}}
 \citation{DBLP:conf/icfp/StampoulisS10}
 \citation{DBLP:conf/popl/StampoulisS12}
 \citation{DBLP:conf/lics/BohrerP18}
@@ -548,15 +556,16 @@
 \citation{DBLP:conf/pldi/PadonMPSS16}
 \citation{DBLP:journals/fmsd/MitschP16}
 \citation{DBLP:conf/pldi/BohrerTMMP18}
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Proposed Work: ProofPlex\xspace  , Proof-Directed Game Synthesis}{63}{chapter.8}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Proposed Work: ProofPlex\xspace  , Proof-Directed Game Synthesis}{65}{chapter.8}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:proofplex}{{8}{63}{Proposed Work: \ProofPlex , Proof-Directed Game Synthesis}{chapter.8}{}}
+\newlabel{ch:proofplex}{{8}{65}{Proposed Work: \ProofPlex , Proof-Directed Game Synthesis}{chapter.8}{}}
 \citation{DBLP:conf/lics/PlatzerT18}
-\@writefile{toc}{\contentsline {chapter}{\numberline {9}Conclusion}{67}{chapter.9}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {9}Conclusion}{69}{chapter.9}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {9.1}Timeline}{67}{section.9.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.1}Timeline}{69}{section.9.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.2}Backup plans}{70}{section.9.2}}
 \bibstyle{apacite}
 \bibdata{proposal,platzer,verified-pipeline,hilbert-epsilons,ground-robotics,verified-dL,constructive-games,kaisar}
 \bibcite{DBLP:journals/iandc/AbramskyJM00}{\citeauthoryear {Abramsky, Jagadeesan,{}\ \BBA{} Malacaria}{Abramsky\ \BOthers {.}}{{\APACyear {2000}}}}
@@ -581,7 +590,7 @@
 \APACbibcite{anand2017certicoq}{\citeauthoryear {Anand\ \BOthers {.}}{Anand\ \BOthers {.}}{{\APACyear {2017}}}}
 \bibcite{DBLP:conf/itp/AnandK15}{\citeauthoryear {Anand\ \BBA{} Knepper}{Anand\ \BBA{} Knepper}{{\APACyear {2015}}}}
 \APACbibcite{DBLP:conf/itp/AnandK15}{\citeauthoryear {Anand\ \BBA{} Knepper}{Anand\ \BBA{} Knepper}{{\APACyear {2015}}}}
-\@writefile{toc}{\contentsline {chapter}{References}{69}{appendix*.34}}
+\@writefile{toc}{\contentsline {chapter}{References}{73}{appendix*.37}}
 \bibcite{DBLP:conf/itp/AnandR14}{\citeauthoryear {Anand\ \BBA{} Rahli}{Anand\ \BBA{} Rahli}{{\APACyear {2014}}}}
 \APACbibcite{DBLP:conf/itp/AnandR14}{\citeauthoryear {Anand\ \BBA{} Rahli}{Anand\ \BBA{} Rahli}{{\APACyear {2014}}}}
 \bibcite{DBLP:conf/cpp/2018}{\citeauthoryear {Andronick\ \BBA{} Felty}{Andronick\ \BBA{} Felty}{{\APACyear {2018}}}}
@@ -596,6 +605,8 @@
 \APACbibcite{DBLP:conf/cpp/2016}{\citeauthoryear {Avigad\ \BBA{} Chlipala}{Avigad\ \BBA{} Chlipala}{{\APACyear {2016}}}}
 \bibcite{DBLP:conf/tacas/2015}{\citeauthoryear {Baier\ \BBA{} Tinelli}{Baier\ \BBA{} Tinelli}{{\APACyear {2015}}}}
 \APACbibcite{DBLP:conf/tacas/2015}{\citeauthoryear {Baier\ \BBA{} Tinelli}{Baier\ \BBA{} Tinelli}{{\APACyear {2015}}}}
+\bibcite{DBLP:conf/hybrid/BakBJ15}{\citeauthoryear {Bak, Bogomolov,{}\ \BBA{} Johnson}{Bak\ \BOthers {.}}{{\APACyear {2015}}}}
+\APACbibcite{DBLP:conf/hybrid/BakBJ15}{\citeauthoryear {Bak, Bogomolov,{}\ \BBA{} Johnson}{Bak\ \BOthers {.}}{{\APACyear {2015}}}}
 \bibcite{conf/mkm/BancerekBGKMNPU15}{\citeauthoryear {Bancerek\ \BOthers {.}}{Bancerek\ \BOthers {.}}{{\APACyear {2015}}}}
 \APACbibcite{conf/mkm/BancerekBGKMNPU15}{\citeauthoryear {Bancerek\ \BOthers {.}}{Bancerek\ \BOthers {.}}{{\APACyear {2015}}}}
 \bibcite{Barnett2005}{\citeauthoryear {Barnett, Leino,{}\ \BBA{} Schulte}{Barnett\ \BOthers {.}}{{\APACyear {2005}}}}
@@ -698,6 +709,8 @@
 \APACbibcite{DBLP:conf/IEEEcca/FilippidisDLOM16}{\citeauthoryear {Filippidis, Dathathri, Livingston, Ozay,{}\ \BBA{} Murray}{Filippidis\ \BOthers {.}}{{\APACyear {2016}}}}
 \bibcite{DBLP:conf/iros/FinucaneJK10}{\citeauthoryear {Finucane, Jing,{}\ \BBA{} Kress{-}Gazit}{Finucane\ \BOthers {.}}{{\APACyear {2010}}}}
 \APACbibcite{DBLP:conf/iros/FinucaneJK10}{\citeauthoryear {Finucane, Jing,{}\ \BBA{} Kress{-}Gazit}{Finucane\ \BOthers {.}}{{\APACyear {2010}}}}
+\bibcite{DBLP:conf/utp/Foster19}{\citeauthoryear {Foster}{Foster}{{\APACyear {2019}}}}
+\APACbibcite{DBLP:conf/utp/Foster19}{\citeauthoryear {Foster}{Foster}{{\APACyear {2019}}}}
 \bibcite{DBLP:journals/ram/FoxBT97}{\citeauthoryear {Fox, Burgard,{}\ \BBA{} Thrun}{Fox\ \BOthers {.}}{{\APACyear {1997}}}}
 \APACbibcite{DBLP:journals/ram/FoxBT97}{\citeauthoryear {Fox, Burgard,{}\ \BBA{} Thrun}{Fox\ \BOthers {.}}{{\APACyear {1997}}}}
 \bibcite{DBLP:journals/csm/FranchettiLMMGPPKMFJPV17}{\citeauthoryear {Franchetti\ \BOthers {.}}{Franchetti\ \BOthers {.}}{{\APACyear {2017}}}}
@@ -874,6 +887,8 @@
 \APACbibcite{DBLP:conf/pldi/PfenningE88}{\citeauthoryear {Pfenning\ \BBA{} Elliott}{Pfenning\ \BBA{} Elliott}{{\APACyear {1988}}}}
 \bibcite{DBLP:conf/cade/PfenningS99}{\citeauthoryear {Pfenning\ \BBA{} Sch{\"{u}}rmann}{Pfenning\ \BBA{} Sch{\"{u}}rmann}{{\APACyear {1999}}}}
 \APACbibcite{DBLP:conf/cade/PfenningS99}{\citeauthoryear {Pfenning\ \BBA{} Sch{\"{u}}rmann}{Pfenning\ \BBA{} Sch{\"{u}}rmann}{{\APACyear {1999}}}}
+\bibcite{DBLP:conf/hybrid/PintoCPS06}{\citeauthoryear {Pinto, Carloni, Passerone,{}\ \BBA{} Sangiovanni{-}Vincentelli}{Pinto\ \BOthers {.}}{{\APACyear {2006}}}}
+\APACbibcite{DBLP:conf/hybrid/PintoCPS06}{\citeauthoryear {Pinto, Carloni, Passerone,{}\ \BBA{} Sangiovanni{-}Vincentelli}{Pinto\ \BOthers {.}}{{\APACyear {2006}}}}
 \bibcite{DBLP:journals/entcs/Platzer07}{\citeauthoryear {Platzer}{Platzer}{{\APACyear {2007}}}}
 \APACbibcite{DBLP:journals/entcs/Platzer07}{\citeauthoryear {Platzer}{Platzer}{{\APACyear {2007}}}}
 \bibcite{DBLP:journals/jar/Platzer08}{\citeauthoryear {Platzer}{Platzer}{{\APACyear {2008}}}}

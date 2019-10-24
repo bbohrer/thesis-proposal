@@ -388,7 +388,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \newcommand{\avar}{{\sf a}\xspace}
 \newcommand{\ctrl}{\textsf{ctrl}\xspace}
 \newcommand{\ctrlliv}{\ctrl_{\text{a}}}
-\newcommand{\plant}{\textsf{plant}\xspace}
+\newcommand{\plant}{\textsf{phys}\xspace}
 \newcommand{\psimp}{\ensuremath{\alpha_{SV}}\xspace}
 \newcommand{\sandbox}{\textsf{\upshape sandbox}\xspace}
 \newcommand{\fallback}{\textsf{\upshape fallback}\xspace}
@@ -467,7 +467,7 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
 \author{Brandon Bohrer}
 \institute[Thesis Committee] % (optional, but mostly needed)
 {
-  Andr\'{e} Platzer\\
+  Andr\'{e} Platzer, Chair\\
   Stefan Mitsch\\
   Frank Pfenning\\
   Bradley Schmerl, ISR\\
@@ -492,8 +492,10 @@ setfixinterpret,modifopindex,seqinfers,seqoptional,footnotecalculus,abbrseqconte
   \titlepage
 \end{frame}
 
+%Patter: Warning: left out several papers and details of theoretical proposed stuff. Questions welcome.
 \section{Introduction}
 
+%TODO: Andre has citation suggestions.
 \begin{frame}[t]{Verification Needs to be End-to-end}
 \begin{center}
   \begin{tabular}{lll}
@@ -542,23 +544,23 @@ Why are implementations more complicated than models?
   \centering
 \begin{tabular}{l|c|c|r}
 Approach    & Logician                 & Engineer                               & Logic-User\\\hline
-Interactive &\cellcolor{green!25}formal &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline\pause
-Automatic   &\cellcolor{yellow!25}paper &\cellcolor{green!25}monitors, controls  &\cellcolor{orange!25}error-prone \\\hline\pause
-\dL before  &\cellcolor{yellow!25}paper &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause       %, less labor-intensive
-Current     &\cellcolor{green!25}formal &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}less error-prone\\\hline\pause %, less labor-intensive
-Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls  &\cellcolor{green!25}least error-prone\\\hline       %, less labor-intensive
+Interactive &\cellcolor{green!25}formal    &\cellcolor{yellow!25}manual effort      &\cellcolor{orange!25}labor-intensive\\\hline\pause
+Automatic   &\cellcolor{orange!25}disjoint &\cellcolor{green!25}monitors, controls  &\cellcolor{yellow!25}low-fi \\\hline\pause
+\dL (start)   &\cellcolor{orange!25}disjoint &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}unstructured\\\hline\pause       %, less labor-intensive
+\dL (current) &\cellcolor{green!25}formal    &\cellcolor{yellow!25}some monitors      &\cellcolor{yellow!25}unstructured\\\hline\pause %, less labor-intensive
+\dL (final)   &\cellcolor{green!25}formal    &\cellcolor{green!25}monitors, controls  &\cellcolor{green!25}structured\\\hline       %, less labor-intensive
 \end{tabular}
   \caption{Comparison of Verification Approaches}
   \label{tab:approach-comparison}
 \end{table}
 \pause
-{\Large What language choices make good tooling possible?}\\\pause
-{\Large Thesis statement: \CdGL + Kaisar proofs enable good tools}
+{\Large What language choices support practical verification?}\\\pause
+{\Large Thesis statement: \CdGL + Kaisar proofs do}
 \end{frame}
 
 %TODO: Introduce notation at right time.
-%Patter: Needs to be games. Needs to be constructive.
-\begin{frame}[t]{Tools Should Exploit Proof Content}
+%Patter: This is preview of talk body. Constructive + Games Good
+\begin{frame}[t]{Preview: Tools Should Exploit Proof Content}
   \begin{tikzpicture}
     \draw (0,0) node (mainprf) {System Safe};
     \draw (0,-0.5) node {$\Uparrow$};
@@ -567,7 +569,7 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
     \draw (3, -0.5) node {\plantcolor{dC}};
     \draw (3.15, -1) node {\plantcolor{dI}};
     \draw (3, -1.5) node {\plantcolor{dG}};
-    \draw (4.7, -1) node {\plantcolor{\texttt{Plant.S}}};
+    \draw (5, -1) node {\plantcolor{\texttt{Monitor.S}}};
 
     \draw[color=vblue] (3.3, -0.5) -- (3.85,-0.85);
     \draw[color=vblue] (3.4, -1)   -- (3.9,-1);
@@ -618,10 +620,22 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
  \begin{frame}[t]{What is End-to-End Verification?}
 \begin{center}
 \noindent
+% End-to-end means bridge the gap
 \only<1>{\includegraphics[width=4.4in]{img/veriphy-anim1.png}}%
+% How do we "put the model on the implementation? Simplex monitoring!"
 \only<2>{\includegraphics[width=4.4in]{img/veriphy-anim2.png}}%
+% What makes us special is that we have proofs all the way through (not disjoint)
 \only<3>{\includegraphics[width=4.4in]{img/veriphy-anim3.png}}%
+% And there's good separation of concern so that easy things are easy, hard things are possible.
+% Engineer only cares about drivers for sensing, actuation, external control.
+% For small changes (think new hardware version) they can tweak parameters in the model.
+% For big changes, they call the Logic User. But neither of them should have to call the Logician.
+% All the proofs tying model to practice are done once or done automatically.
 \only<4>{\includegraphics[width=4.4in]{img/veriphy-overview.png}}%
+%BIG TRANSITION: We're gonna run through the whole pipeline end-to-end.
+% As I do this keep in mind that what's implemented today is for dL (classical, systems).
+% For the sake of time, I'm going to compare the existing dL version to the proposed CdGL (constructive, games) version as we go.
+% I intend to do a mix of new tools and revisions to existing tools to support this upgrade.
 \end{center}
 \end{frame}
 
@@ -642,10 +656,10 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \begin{frame}[t]{2D Driving Model is Input}
 \noindent
 \begin{center}
-\includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}%
+\includegraphics[width=0.4\textwidth]{graphics/fig-ode1.pdf}%
 \\%
 {\small\begin{align*}
-\alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\memnode{asgn}\prandom{\avar}; \memnode{test}\ptest{\admiss}}) \memnode{choice}\cup \fallbackcolor{\fallback}
+\alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}\memnode{compose}; \plantcolor{\plant})\memnode{repeat}}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar\memnode{asgn}}; \memnode{test}\ptest{\admiss}}) \memnode{choice}\cup \fallbackcolor{\fallback}
 \end{align*}}\\
 \begin{align*}
 \phantom{\textsf{Safe}} &\phantom{\equiv \dbox{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}}\\%
@@ -653,18 +667,22 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \end{center}
+\uncover<1->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (compose) -- +(-0.8,-1.5) node[notebox,text width=1.6cm] {Sequence};}}
 \uncover<2->{\tikz[remember picture,overlay]{
-                 \draw[noteline] (choice) -- +(0,-1) node[notebox,text width=1.2cm] {Branch};}}
+                 \draw[noteline] (repeat) -- +(0.6,-1.3) node[notebox,text width=1.2cm] {Repeat};}}
 \uncover<3->{\tikz[remember picture,overlay]{
-                 \draw[noteline] (asgn) -- +(-1.4,1.4) node[notebox,text width=2cm] {Instantiate};}}
+                 \draw[noteline] (choice) -- +(0,-1.4) node[notebox,text width=1.2cm] {Branch};}}
 \uncover<4->{\tikz[remember picture,overlay]{
-                 \draw[noteline] (test) -- +(0,+1) node[notebox,text width=2cm] {Demonstrate};}}
+                 \draw[noteline] (asgn) -- +(-1.6,1.6) node[notebox,text width=2cm] {Instantiate};}}
+\uncover<5->{\tikz[remember picture,overlay]{
+                 \draw[noteline] (test) -- +(0.6,+1.8) node[notebox,text width=2.2cm] {Demonstrate};}}
 \end{frame}
 
 \begin{frame}[t]{Model is Safe}
 \noindent
 \begin{center}
-\includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}%
+\includegraphics[width=0.4\textwidth]{graphics/fig-ode1.pdf}%
 \\%
 {\small\begin{align*}
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
@@ -679,12 +697,17 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \end{center}
 \end{frame}
 
+% Patter: We have this monitor and proof today, and we have synthesis today, but today's synthesis
+% Only gives monitors for controls and plants.
+% These do allow an end-to-end safety guarantee, but the system-wide guarantee isn't as strong as
+% we'd like. How do we know the car achieves functional objectives? How do we know it reaches its
+% goal and doesn't just sit there with the monitor blaring?
 \begin{frame}[t]{Box Proofs Are (Only) Monitors}
   \begin{tikzpicture}
     \draw (0,0) node (mainprf) {$\ddiamond{\prepeat{(\plantcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}$};
     \draw (0,-0.5) node {$\Uparrow$};
     \draw (0.6,-0.5) node {\footnotesize{\color{gray}Proof}};
-    \draw (0,-1) node (nxtprf) {$J(x) \limply \dbox{\plantcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(\texttt{--}x)}}$};
+    \draw (0,-1) node (nxtprf) {$\textsf{inv} \limply \dbox{\plantcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{\textsf{inv}}}$};
     \draw (3, -0.5) node {\plantcolor{dC}};
     \draw (3.15, -1) node {\plantcolor{dI}};
     \draw (3, -1.5) node {\plantcolor{dG}};
@@ -705,10 +728,23 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
   \end{tikzpicture}
 \end{frame}
 
+%Patter: Liveness says there exists a condition that gets us there.
+% We'd still have to trust the plant because you're doomed if physics is broken.
+% But liveness helps.
+% But dL synthesis from liveness is an open question and there are two reasons that we're going
+% to switch to CdGL for this
+% 1) We've got two separate safety/liveness theorems here.
+% That's definitely a lot of duplicated work for the logic-user and seems inelegant for the Logician
+% when they have to use this proof to implement synthesis.
+% 2) The proofs don't quite fit what we want for synthesis.
+% We know that all behaviors of the system are safe, we can put a box around safety.
+% We know some behavior is live, we can put a diamond around liveness.
+% But we'd really like to put diamonds around the controller and boxes around the plant
+% to capture the idea that we control the plant but someone else controls the environment.
 \begin{frame}[t]{What about Liveness?}
 \noindent
 \begin{center}
-\includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}\\%
+\includegraphics[width=0.4\textwidth]{graphics/fig-ode1.pdf}\\%
 {\small\begin{align*}
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\plant})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\extCtrl;} \ctrlcolor{\prandom{\avar}; \ptest{\admiss}}) \cup \fallbackcolor{\fallback}
 \end{align*}}%
@@ -718,31 +754,36 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \phantom{\textsf{Win}}  &\phantom{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \tikz[remember picture,overlay]{
-                 \draw[noteline] (boxen) -- +(-3,0.3) node[notebox,text width=2.5cm] {All behaviors};}
+                 \draw[noteline] (boxen) -- +(-3,0.45) node[notebox,text width=2.5cm] {All behaviors};}
 \tikz[remember picture,overlay]{
-                 \draw[noteline] (diamonds) -- +(-3,-0.3) node[notebox,text width=2.5cm] {Some behavior};}
+                 \draw[noteline] (diamonds) -- +(-3,-0.45) node[notebox,text width=2.5cm] {Some behavior};}
 \end{center}
 \end{frame}
 
 
-%Patter: Say the game is between angel (us) and Demon (environment)
-\begin{frame}[t]{\only<1-3>{Game Model is Proposed}\only<1-4>{Game Model is Victorious}}
+% Patter / transition: That's exactly the idea that we can't express with systems,
+% and which made me choose games for the thesis.
+% Games say that there's an Angel (us) who lives in the diamond and makes control decisions.
+% Patter: Say the game is between angel (us) and Demon (environment).
+% System execution is now a game between us and our opponent Demon who lives in the box and controls
+% the environment.
+\begin{frame}[t]{\only<1-3>{Game Model is Proposed}\only<4->{Game Model is Victorious}}
 \noindent
 \begin{center}
-\includegraphics[width=0.4\textwidth]{graphics/fig-ode2.pdf}\\
+\includegraphics[width=0.4\textwidth]{graphics/fig-ode1.pdf}\\
 {\small\begin{align*}
 \alpha~\equiv~& \prepeat{(\ctrlcolor{\ctrl}; \plantcolor{\pdual{(\plant)\memnode{dual}}})}\ \ \ \ctrlcolor{\ctrl} \equiv  (\extCtrlcolor{\pdual{\extCtrl;}} \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}
 \end{align*}}%
 \begin{align*}
-\uncover<1->{\textsf{Safe}} &\equiv \ddiamond{\memnode{loopz}\drepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{safe}}\\
-\uncover<1->{\textsf{Live}} &\equiv \memnode{diamonds}\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant})}}{\textsf{goal}}\\
-\uncover<4->{{\textsf{Win}}}  &\uncover<4->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\plant};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
+\uncover<1->{\textsf{Safe}} &\equiv \ddiamond{\drepeat{(\ctrlcolor{\ctrl};\plantcolor{\pdual{\plant}})\memnode{loopz}}}{\textsf{safe}}\\
+\uncover<1->{\textsf{Live}} &\equiv \memnode{diamonds}\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\pdual{\plant}})}}{\textsf{goal}}\\
+\uncover<4->{{\textsf{Win}}}  &\uncover<4->{\equiv \ddiamond{\prepeat{(\ctrlcolor{\ctrl};\plantcolor{\pdual{\plant}};\ptest{\textsf{safe}})}}{\textsf{goal}}}%
 \end{align*}
 \end{center}
 \uncover<4->{\tikz[remember picture,overlay]{
-                 \draw[noteline] (loopz) -- +(-3,0.3) node[notebox,text width=2.5cm] {Enemy controls loop};}}
+                 \draw[noteline] (loopz) -- +(3,0) node[notebox,text width=3.5cm] {Enemy controls loop};}}
 \uncover<3->{\tikz[remember picture,overlay]{
-                 \draw[noteline] (diamonds) -- +(-3,-0.3) node[notebox,text width=2.5cm] {Player can};}}
+                 \draw[noteline] (diamonds) -- +(-3,-0.3) node[notebox,text width=2.5cm] {Angel modality};}}
 \uncover<2->{\tikz[remember picture,overlay]{
                  \draw[noteline] (dual) -- +(-1,1.2) node[notebox,text width=1.5cm] {Switch players};}}
 \end{frame}
@@ -755,14 +796,14 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 % But it's best to know both are correct
 \begin{frame}[t]{\only<1>{Diamonds are Controllers}\only<2>{Games Do It All}}
   \begin{tikzpicture}
-    \draw (0,0) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{(\plantcolor{\plant})}; \ptest{\textsf{safe}})}}{\textsf{goal}}$};
+    \draw (0,0) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{(\plantcolor{\plant})}; \ptest{\ctrlcolor{\textsf{safe}}})}}{\textsf{goal}}$};
     \draw (0,-0.5) node {$\Uparrow$};
     \draw (0.6,-0.5) node {\footnotesize{\color{gray}Proof}};
     \draw (0,-1) node (nxtprf) {$\textsf{inv} \limply \ddiamond{\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{\ddiamond{\ptest{\ctrlcolor{\textsf{safe}}}}{\textsf{inv}}}}$};\pause
     \draw (3, -0.5) node {\plantcolor{dC}};
     \draw (3.15, -1) node {\plantcolor{dI}};
     \draw (3, -1.5) node {\plantcolor{dG}};
-    \draw (4.7, -1) node {\plantcolor{\texttt{Plant.S}}};
+    \draw (5, -1) node {\plantcolor{\texttt{Monitor.S}}};
 
     \draw[color=vblue] (3.3, -0.5) -- (3.85,-0.85);
     \draw[color=vblue] (3.4, -1)   -- (3.9,-1);
@@ -780,8 +821,11 @@ Proposed    &\cellcolor{green!25}formal &\cellcolor{green!25}monitors, controls 
 \end{frame}
 
 
+%Transition: And that's the ideal I expect to achieve for games.
+% Now let's pull back to reality and see the current synthesis for systems.
+% We take the ctrl-plant model and elaborate it into a sandbox style for simplex.
 %Patter: Discuss limitations discovered about arithmetic and code generation
-\begin{frame}[t]{Provable Monitor $\leadsto$ Provable Sandbox}
+\begin{frame}[t]{Back to Systems: Provable Monitor $\leadsto$ Provable Sandbox}
 Sandboxed controller uses {\color{myyellow}{external}}  controller when decision is {\color{vred}safe}, else uses verified {\color{vgreen}{fallback}}.
 Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monitor.
 \begin{textblock}{8}(-0.5,4)
@@ -823,7 +867,7 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \includegraphics[width=1.1in]{img/interval3.png}}
 \end{textblock}
 \uncover<1->{\tikz[remember picture,overlay]{
-                 \draw[noteline] (asgn) -- +(-1.25,-0.5) node[notebox,text width=1.8cm] {Det.\ assign};}}
+                 \draw[noteline] (asgn) -- +(-1.25,0) node[notebox,text width=1.8cm] {Det.\ assign};}}
 
 \end{frame}
 
@@ -893,7 +937,7 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 % \end{frame}
 
 
-\begin{frame}[t]{Done: End-to-end}
+\begin{frame}[t]{Done: End-to-end for Classical Systems}
 \newcommand{\cdone}{green!30}
 \newcommand{\cwip}{yellow!30}
 \newcommand{\cprop}{orange!30}
@@ -915,13 +959,13 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
 \draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
 %\draw node[left=0.3cm of cgl] (cgl-ref) {\S5};
-\draw[dashed] (formalization) -- (formal-ref);
-\draw[dashed] (generalization) -- (gen-ref);
+%\draw[dashed] (formalization) -- (formal-ref);
+%\draw[dashed] (generalization) -- (gen-ref);
 %\draw[dashed] (cgl) -- (cgl-ref);
 \draw (5.2, 2) node[rectangle,rounded corners,fill=\cback,draw,text depth=0.75in,text width=2.3cm,text centered] (engine) {\engineer[\iconsize]Engineer};
 \draw (5.2, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
 \draw node[right=0.6cm of monitors] (monitor-ref) {\S4};
-\draw[dashed] (monitors) -- (monitor-ref);
+%\draw[dashed] (monitors) -- (monitor-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
 \draw (0, -5.3) node[rectangle,rounded corners,fill=\cback,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {\logicuser[\iconsize]Logic-User};
 \draw[->,very thick] (logic) -- (CdGLcirc);
@@ -960,14 +1004,12 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 
 \begin{frame}[t]{Proposed: End-to-end \textbf{and Practical}}
 \newcommand{\cdone}{green!30}
-\newcommand{\cwip}{yellow!30}
-\newcommand{\cprop}{orange!30}
+%\newcommand{\cwip}{yellow!30}
+\newcommand{\cprop}{yellow!30}
 \newcommand{\cback}{green!15}
 %\begin{center}
 \noindent\hskip-0.2in
 \begin{tikzpicture}[scale=0.5]
-%\draw (0,3.2)  node {Logic for};
-%\draw (0,2.4)  node {Hybrid Systems};
 \draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{1.1cm}}};
 \draw (0,-1) node (cdgl) {\phantom{\CdGL}};
 \draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.6cm}}};
@@ -985,10 +1027,10 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
 \draw node[left=0.3cm of cgl] (cgl-ref) {\S5};
 \draw node[left=0.3cm of cdgl] (cdgl-ref) {\S6};
-\draw[dashed] (formalization) -- (formal-ref);
-\draw[dashed] (generalization) -- (gen-ref);
-\draw[dashed] (cgl) -- (cgl-ref);
-\draw[dashed] (cdgl) -- (cdgl-ref);
+%\draw[dashed] (formalization) -- (formal-ref);
+%\draw[dashed] (generalization) -- (gen-ref);
+%\draw[dashed] (cgl) -- (cgl-ref);
+%\draw[dashed] (cdgl) -- (cdgl-ref);
 \draw (5.2, 2) node[rectangle,rounded corners,fill=\cback,draw,text depth=0.75in,text width=2.3cm,text centered] (engine) {\engineer[\iconsize]Engineer};
 \draw (5.2, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
 \draw (5.2, 1.4) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
@@ -996,10 +1038,9 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \draw node[right=0.6cm of monitors] (monitor-ref) {\S4};
 \draw node[right=0.6cm of controllers] (controllers-ref) {\S8};
 \draw node[right=0.6cm of transp] (transp-ref) {\S4};
-\draw[dashed] (monitors) -- (monitor-ref);
-\draw[dashed] (controllers) -- (controllers-ref);
-%\draw[dashed] (proofterm) -- (proofterm-ref);
-\draw[dashed] (transp) -- (transp-ref);
+%\draw[dashed] (monitors) -- (monitor-ref);
+%\draw[dashed] (controllers) -- (controllers-ref);
+%\draw[dashed] (transp) -- (transp-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
 \draw (0, -5.3) node[rectangle,rounded corners,fill=\cback,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {\logicuser[\iconsize]Logic-User};
 \draw (0.1, -5.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Modest Proof Effort};
@@ -1009,18 +1050,21 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \draw node[right=0.32cm of lop] (lop-ref) {\S7};
 \draw[->,very thick] (logic) -- (CdGLcirc);
 \draw[->,very thick] (CdGLcirc) -- (engine);
-\draw[dashed] (lop) -- (lop-ref);
-\draw[dashed] (maintainable) -- (maintain-ref);
+%\draw[dashed] (lop) -- (lop-ref);
+%\draw[dashed] (maintainable) -- (maintain-ref);
 
 \draw (-9, -4.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cdone] {};
 \draw (-9, -5.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cprop] {};
-\draw (-9, -6.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cwip] {};
 
 \draw (-9, -4.5) node {Done};
-\draw (-9, -5.5) node {Ongoing};
-\draw (-9, -6.5) node {Proposed};
+\draw (-9, -5.5) node {Proposed};
 \end{tikzpicture}
 \end{frame}
+%\draw (0,3.2)  node {Logic for};
+%\draw (0,2.4)  node {Hybrid Systems};
+%\draw[dashed] (proofterm) -- (proofterm-ref);
+%\draw (-9, -6.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cwip] {};
+%\draw (-9, -6.5) node {Proposed};
 %2.6
 %\draw (5, 1.4) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
 %\draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
@@ -1069,40 +1113,40 @@ Detects non-compliant {\color{vblue}plants}. Looser model $\limply$ looser monit
 \begin{frame}[t]{Proof Content is Code}
 \begin{textblock}{20}(0.5,3.5)
   \begin{tikzpicture}
-    \draw (0,-2) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
+    \draw (0,-2) node (mainprf) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{(\plantcolor{\plant})})}}{\textsf{goal}}$};
     \draw (-3,-1.5)  -- (3,-1.5); \draw (3.5, -1.5) node {$\ctrlcolor{\langle{;}\rangle}$};
-    \draw (0,-1) node (nxtprf) {$J \limply \ddiamond{(\extCtrlcolor{\pdual{\extCtrl;}} \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}}{\dbox{\plantcolor{\plant}}{J}}$};
+    \draw (0,-1) node (nxtprf) {$\textsf{inv} \limply \ddiamond{(\extCtrlcolor{\pdual{(\extCtrl)}}; \ctrlcolor{(\prandom{\avar})}) \cup \fallbackcolor{\fallback}}{\dbox{\plantcolor{\plant}}{\textsf{inv}}}$};
     \draw (-3,-0.5) -- (3,-0.5); \draw (3.5, -0.5) node {$\ctrlcolor{\langle{\cup}\rangle}$};
-    \draw (0, 0) node (nxtprf) {$J, \ldots \limply \dbox{\extCtrlcolor{\extCtrl};}{\ddiamond{\ctrlcolor{(\prandom{\avar})}}{\dbox{\plantcolor{\plant}}{J}}}$};
+    \draw (0, 0) node (nxtprf) {$\textsf{inv}, \ldots \limply \dbox{\extCtrlcolor{\extCtrl};}{\ddiamond{\ctrlcolor{(\prandom{\avar})}}{\dbox{\plantcolor{\plant}}{\textsf{inv}}}}$};
     \draw (-2.5, 0.5) -- (2.5,0.5); \draw (3,0.5) node {$\moncolor{[{?}]}$};
-    \draw (0, 1) node (nxtprf) {$J, \ldots \limply \ddiamond{\ctrlcolor{(\prandom{\avar})}}{\dbox{\plantcolor{\plant}}{J}}$};
+    \draw (0, 1) node (nxtprf) {$\textsf{inv} \limply \ddiamond{\ctrlcolor{(\prandom{\avar})}}{\dbox{\plantcolor{\plant}}{\textsf{inv}}}$};
     \draw (-2, 1.5) -- (2, 1.5); \draw (2.5,1.5) node {$\ctrlcolor{\langle{:}{*}\rangle}$};
-    \draw (0,2) node (nxtprf) {$J \limply \dbox{\plantcolor{\plant}}{J}$};
+    \draw (0,2) node (nxtprf) {$\textsf{inv} \limply \dbox{\plantcolor{\plant}}{\textsf{inv}}$};
     \draw (-1.2,2.5) -- (1.2,2.5); \draw (2.2,2.5) node {\moncolor{dC, dG,$\ldots$}};
     \draw (0,3) node (nxtprf) {*};
     \draw (5.8, 1) node {\plantcolor{dC}};
     \draw (5.8, 0.5) node {\plantcolor{$[{?}]$}};
     \draw (5.8, 0) node {\plantcolor{dG}};
-    \draw (7, 0.5) node {\plantcolor{\texttt{Plant.S}}};
+    \draw (7.3, 0.5) node {\plantcolor{\texttt{Monitor.S}}};
 
     \draw[color=vblue] (5.2, 1) -- (4.75,0.65);
     \draw[color=vblue] (5.3, 0.5)   -- (4.8,0.5);
     \draw[color=vblue] (5.2, 0) -- (4.75,0.35);
 
-    \draw (-5, 1) node {\ctrlcolor{$\langle{'}\rangle$}};
-    \draw (-5, 0.5) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
-    \draw (-5, 0) node {\ctrlcolor{$\langle{\cup}\rangle$}};
-    \draw (-6, 0.5) node {\ctrlcolor{\texttt{Ctrl.S}}};
+    \draw (-4.5, 1) node {\ctrlcolor{$\langle{'}\rangle$}};
+    \draw (-4.5, 0.5) node {\ctrlcolor{$\langle{:}{*}\rangle$}};
+    \draw (-4.5, 0) node {\ctrlcolor{$\langle{\cup}\rangle$}};
+    \draw (-5.8, 0.5) node {\ctrlcolor{\texttt{Control.S}}};
 
-    \draw[color=vred] (-4.7, 1) -- (-4.05,0.65);
-    \draw[color=vred] (-4.6, 0.5)   -- (-4.1,0.5);
-    \draw[color=vred] (-4.7, 0) -- (-4.05,0.35);
+    \draw[color=vred] (-4.2, 1) -- (-3.55,0.65);
+    \draw[color=vred] (-4.1, 0.5)   -- (-3.6,0.5);
+    \draw[color=vred] (-4.2, 0) -- (-3.55,0.35);
   \end{tikzpicture}
 \end{textblock}
 \end{frame}
 %    \draw (0.6,-0.5) node {\footnotesize{\color{gray}Proof}}; 
 %    \draw (0.6,-1.5) node {\footnotesize{\color{gray}Proof}};
-%\pause  %\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{J(y<x)}}$};% \begin{frame}[t]{Systems Driving Model Exists}
+%\pause  %\ctrlcolor{\ctrl}}{\dbox{\plantcolor{\plant}}{inv}}$};% \begin{frame}[t]{Systems Driving Model Exists}
 % \noindent
 % \begin{minipage}{0.4\textwidth}
 % {\small\begin{align*}
@@ -1177,7 +1221,6 @@ implyR(1); andL(-1); andL(-2); loop({`INVARIANT`}, 1) <(
     hide(-12=={`FORMULA`}); ...; hide(-17=={`FORMULA`});
     andR(1) <(auto, hide(-11); cut({`FORMULA`}) <(QE
     , orL(-5) <(allL2R(-17); hide(-2); QE, QE)))>
-  , /* Coast: */ ...
   , /* Brake: */ ...
  )
 )  ... ~150 lines
@@ -1189,17 +1232,14 @@ implyR(1); andL(-1); andL(-2); loop({`INVARIANT`}, 1) <(
 
 
  pre:FML ->
- { if( ... ) { /* Accelerate */
+ { if(canAccel) {
      a <- A;
      {plant} I:INVARIANT
-     show SAFE { /* Arithmetic proof */ }
-   } else if (...) { /* Coast */
-     a <- 0;
-     ... show SAFE
-   } else {    /* Brake */
+     show SAFE { <proof> }
+   } else {
      a <- -B;
-     ... show SAFE
-   }}* J:INVARIANT
+     show SAFE { <proof> }
+   }}* inv:INVARIANT
 \end{verbatim}
 \end{frame}
 
@@ -1216,14 +1256,6 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 \end{center}
 \end{frame}
 
-\begin{frame}[t]{Kaisar as a Playground}
-  \begin{tabular}{lll}
-    \ah{1}{\engineer}                         & \ah{1}{\logician}                      & \ah{1}{\logicuser}\\
-    \acl{1}{\say{How does proof format affect tooling?}}
-& \acl{1}{\say{What are program proofs?}}
-& \acl{1}{\say{How do features impact real proofs?}}
-  \end{tabular}
-\end{frame}
 
 \section{Proposed Work: Controller Synthesis}
 
@@ -1278,7 +1310,7 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 
 \begin{enumerate}
 \item Scala's \texttt{spire} has computable reals.
-\item Isabelle software floats: Fabian provides integration (slow).
+\item Isabelle software floats: support integrals (slower).
 \item Fixed-precision interval arithmetic (fast, annoying).
 \end{enumerate}
 \end{frame}
@@ -1293,17 +1325,13 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 %\begin{center}
 \noindent\hskip-0.2in
 \begin{tikzpicture}[scale=0.5]
-\draw (0,3.2)  node {Logic for};
-\draw (0,2.4)  node {Hybrid Systems};
 \draw (0,0)   node[circle]      (CdGLcirc) {\phantom{\hspace{1.1cm}}};
 \draw (0,-1) node (cdgl) {\phantom{\CdGL}};
-\node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{\S6}}] (cdgl-ref) at (cdgl) {};
 \draw (0,0)   node[circle, fill=red!20,draw]      (CdGLcirc) {\phantom{\hspace{1.6cm}}};
 \draw (0,-1.2) node (cdgl) {\CdGL};
 \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
-\node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ \ \ \ \ \ \S3 \S4}}] (dl-ref) at (dl) {};
 \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-\draw (-7, 1.3) node[rectangle,rounded corners,fill=\cback,draw,text depth=1in,text width=1.2in,text centered] (logic) {Logician};
+\draw (-7, 1.6) node[rectangle,rounded corners,fill=\cback,draw,text depth=1in,text width=1.2in,text centered] (logic) {\logician[\iconsize]Logician};
 \draw (-7, 2.8) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (formalization) {\color{vgray}\dL Formalized};
 \draw (-7, 1.7) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (generalization) {\color{vgray}\dL Generalized};
 \draw (-14,2.8) node {{\small\color{vgray}Not in Talk}};
@@ -1314,44 +1342,37 @@ Idiom Support   & Survey prior work & Nominals, Definitions
 \draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
 \draw node[left=0.3cm of cgl] (cgl-ref) {\S5};
 \draw node[left=0.3cm of cdgl] (cdgl-ref) {\S6};
-\draw[dashed] (formalization) -- (formal-ref);
-\draw[dashed] (generalization) -- (gen-ref);
-%2.6
-\draw (5, 1.4) node[rectangle,rounded corners,fill=\cback,draw,text depth=1in,text width=2.1cm,text centered] (engine) {Engineer};
-\draw (5, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (proofterm) {Proof Term};
-\draw (5, 1.4) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
-\draw (5, 0.2) node[rectangle,rounded corners,fill=\cwip,draw,thin,minimum height=0.3cm] (proofscript) {Proof Script};
-\draw (5, -1) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
-\draw node[right=0.3cm of monitors] (monitor-ref) {\S4.1};
-\draw node[right=0.4cm of controllers] (controllers-ref) {\S8};
-\draw node[right=0.3cm of proofscript] (proofscript-ref) {\S7};
-\draw node[right=0.3cm of proofterm] (proofterm-ref) {\S4.1};
-\draw[dashed] (monitors) -- (monitor-ref);
-\draw[dashed] (controllers) -- (controllers-ref);
-\draw[dashed] (proofscript) -- (proofscript-ref);
-\draw[dashed] (proofterm) -- (proofterm-ref);
+%\draw[dashed] (formalization) -- (formal-ref);
+%\draw[dashed] (generalization) -- (gen-ref);
+%\draw[dashed] (cgl) -- (cgl-ref);
+%\draw[dashed] (cdgl) -- (cdgl-ref);
+\draw (5.2, 2) node[rectangle,rounded corners,fill=\cback,draw,text depth=0.75in,text width=2.3cm,text centered] (engine) {\engineer[\iconsize]Engineer};
+\draw (5.2, 2.6) node[rectangle,rounded corners,fill=\cdone,draw,thin,minimum height=0.3cm] (monitors) {Monitors};
+\draw (5.2, 1.4) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (controllers) {Controls};
+\draw (5.2, 0.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (transp) {Transparency};
+\draw node[right=0.6cm of monitors] (monitor-ref) {\S4};
+\draw node[right=0.6cm of controllers] (controllers-ref) {\S8};
+\draw node[right=0.6cm of transp] (transp-ref) {\S4};
+%\draw[dashed] (monitors) -- (monitor-ref);
+%\draw[dashed] (controllers) -- (controllers-ref);
+%\draw[dashed] (transp) -- (transp-ref);
 \node[shape=coordinate] (use-anchor) at (0,-3){};
-\draw (0, -5.1) node[rectangle,rounded corners,fill=\cback,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {Logic-User};
-\draw (0.3, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm] (monitors)    {Simplicity};
-\draw (0.1, -4.7) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
-\draw (-2.9, -6.05) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Model Bugs};
-\draw (2.4, -6) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainable?};
-\draw node[right=0.3cm of maintainable] (maintain-ref) {\S7};
-\draw node[right=0.3cm of lop] (lop-ref) {\S7};
+\draw (0, -5.3) node[rectangle,rounded corners,fill=\cback,draw,text depth=1.6cm,text width=2.1in,text centered] (luser) {\logicuser[\iconsize]Logic-User};
+\draw (0.1, -5.2) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Modest Proof Effort};
+\draw (-2.9, -6.53) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2cm] (modelmistake) {Transparency};
+\draw (2.4, -6.5) node[rectangle,rounded corners,fill=\cprop,draw,thin,minimum height=0.3cm,text width=2.4cm] (maintainable) {Maintainability};
+\draw node[right=0.22cm of maintainable] (maintain-ref) {\S7};
+\draw node[right=0.32cm of lop] (lop-ref) {\S7};
 \draw[->,very thick] (logic) -- (CdGLcirc);
 \draw[->,very thick] (CdGLcirc) -- (engine);
-\draw[dashed] (CdGLcirc) -- (luser);
-\draw[dashed] (lop) -- (lop-ref);
-\draw[dashed] (maintainable) -- (maintain-ref);
+%\draw[dashed] (lop) -- (lop-ref);
+%\draw[dashed] (maintainable) -- (maintain-ref);
 
 \draw (-9, -4.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cdone] {};
 \draw (-9, -5.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cprop] {};
-\draw (-9, -6.5) node[rectangle, text width = 2cm,minimum height=0.5cm,fill=\cwip] {};
 
 \draw (-9, -4.5) node {Done};
-\draw (-9, -5.5) node {Ongoing};
-\draw (-9, -6.5) node {Proposed};
-
+\draw (-9, -5.5) node {Proposed};
 \end{tikzpicture}
 \end{frame}
 
@@ -1364,7 +1385,20 @@ Idiom Support   & Survey prior work & Nominals, Definitions
   \end{tabular}
 \end{frame}
 
-% End on this slide
+\begin{frame}[t]{Dedicated to Those Who Clean This Room}
+  \begin{center}
+    \includegraphics[width=2in]{img/seiu.jpg}
+  \end{center}
+\end{frame}
+
+
+\appendix
+
+\section{Backup Slides}
+
+\subsection{Planning}
+
+% End on this slide?
 \begin{frame}[t]{Thesis is Big, but Doable. Questions?}
 % Upcoming deadlines:
 %  CAV Jan 2020
@@ -1385,123 +1419,6 @@ Timeline: $\approx$\textbf{14 months}, optimistic
 \end{itemize}
 Amenable to change (i.e., not on job market this year)
 \end{frame}
-
-\appendix
-
-\section*{Backup Slides}
-
-
-\begin{frame}[t]{Games Support Proof Terms}
-\[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
-\pause
-\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
-{
-\linferenceRule[formula]
-{\proves{\G}{A}{\ddiamond{\alpha\cup\beta}{\phi}}
-        &\proves{\G,\pvl:\ddiamond{\alpha}{\phi}}{B}{\psi}
-        &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
-{\proves{\G}{\edcase{A}{B}{C}}{\psi}}
-}{}\\[0.5in]
-% \begin{calculuscollections}{\textwidth}
-%   \begin{calculus}
-% \cinferenceRule[dchoiceIL|{$\langle\cup\rangle${I1}}]{}
-% {\linferenceRule[formula]
-%   {\proves{\G}{M}{\ddiamond{\alpha}{\phi}}}
-%   {\proves{\G}{\edinjL{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
-% }{}
-%   \end{calculus}
-%   \begin{calculus}
-% \cinferenceRule[dchoiceIR|{$\langle\cup\rangle${I2}}]{}
-% {\linferenceRule[formula]
-%   {\proves{\G}{M}{\ddiamond{\beta}{\phi}}}
-%   {\proves{\G}{\edinjR{M}}{\ddiamond{\alpha\cup\beta}{\phi}}}
-% }{}
-%   \end{calculus}
-% \end{calculuscollections}\\[0.1in]
-\pause
-\begin{calculuscollections}{\textwidth}
-  \begin{calculus}
-\cinferenceRule[caseBetaL|{{case}$\beta$L}]{}{\edcase{\edinjL{A}}{B}{C} \stepsto \esub{B}{\ell}{A}}{}
-%\cinferenceRule[caseBetaR|{{case}$\beta$R}]{}{\edcase{\edinjR{A}}{B}{C} \stepsto \esub{C}{r}{A}}{}\pause
-\cinferenceRule[caseS|caseS]{}{\linferenceRule[formula]
-{\small{A \stepsto A'}}
-{\small{\edcase{A}{B}{C} \stepsto \edcase{A'}{B}{C}}}}{}
-  \end{calculus}
-\end{calculuscollections}
-\end{frame}
-
-\begin{frame}[t]{Code Generation}
-Control code is untrusted, so complex languages are acceptable.
-Sandbox monitor code should use simple language.
-Simple solution: Hook into VeriPhy compilation stages.
-\end{frame}
-
-\begin{frame}[t]{Refinement Connects with VeriPhy}
-  \begin{itemize}
-  \item Prove game property
-  \item Synthesize controller from game proof
-  \item Automatically prove refinement
-  \item Synthesize sandbox from refined theorem and refinement proof
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[t]{\CGL Has Rich Theory}
-  \begin{itemize}
-  \item Sound Type System: Progress + Preservation
-  \item Sound Logic: Proved Implies True
-  \item Constructive Logic: Proved Implies Witness
-  \end{itemize}
-\end{frame}
-
-
-%  \CakeML source incorporates {\color{myyellow}{external}} control, actuation, sensing
-%\begin{textblock}{10}(5,3.5)
-%%Note: Was cut for simplicity
-%\small\begin{align*}
-%& \prandom{V};~\prandom{\varepsilon};~ \prandom{d};~\prandom{t}; \goback{}\\
-%& \ptest{d \geq 0 \land V\geq 0 \land \varepsilon \geq 0};  \goback{}\\
-%& \bigl(\hspace{.5em} \color{myyellow}{\prandom{t^+};~\prandom{v^+};~ \pumod{d^+}{d};}  \goback{}\\
-%& \quad (~\phantom{\cup} \ptest{\color{vred}{\ctrlMon(d,t,v,d^+,t^+,v^+)}}\\
-%& \quad \phantom{(~}\cup \color{vgreen}{\pumod{t^+}{0};~\pumod{v^+}{0}} ~); \goback{}\\
-%& \quad \pumod{t}{t^+};~\pumod{v}{v^+};  \goback{}\\
-%& \quad  \prandom{d^+};~\prandom{t^+};  \goback{}\\
-%& \quad  \ptest{\color{vblue}{\plantMon(d,t,v,d^+,t^+,v^+)}};\\
-%& \quad  \pumod{d}{d^+};~\pumod{t}{t^+}  \goback{}\bigr)^* 
-%\end{align*}
-%\end{textblock}
-
-%How to trust a theorem prover?
-%Formalize it!
-%\Isabelle function \texttt{pteval} computes the proof state proved by a given proof term, or returns \texttt{NONE} on proofs that do not check
-%\KeYmaeraX is instrumented with a proofterm checker.
-%The synthesized checker was evaluated on a 100,000-step sandbox safety proof.
-%Decidable first-order arithmetic is assumed ``axiomatically,'' all other rules are proven sound.
-%\begin{theorem}[Proof-checker soundness]
-%If all real arithmetic subgoals are valid and the proof checker accepts the proof term, the output derived rule is sound, i.e.:
-%\end{theorem}
-
-
-%\begin{frame}{Sandbox is Discretized}
-%\textbf{Example:} Check whether $\pi < e$, efficiently.\\
-%\textbf{Solution:} Conservative interval approximation
-%\begin{example}
-%Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then 
-%\begin{itemize}
-%%%%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.16in}\includegraphics[width=1.5in]{img/}
-%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.63in}
-%\includegraphics[width=1.875in]{img/interval1.png}
-%\item<+-> \(pi <_w e + 3\) is true ($\top$)\hspace{1.4in}
-%\includegraphics[width=1.875in]{img/interval2.png}
-%\item<+-> \(pi <_w e + 1\) is \emph{a known unknown} ($U$){\hspace{0.50875in}
-%\includegraphics[width=1.40625in]{img/interval3.png}
-%}
-%\end{itemize}
-%\only<4>{When truth values can be unknown, resulting logic is \emph{3-valued}}
-%\end{example}
-%\begin{textblock}{10}(14,1.75)
-%\includegraphics[width=0.7in]{img/focus-int.png}
-%\end{textblock}
-%\end{frame}
 
 \begin{frame}[t,allowframebreaks]{Backup Plans are in Place}
 \textbf{CdGL Backup Plans:}
@@ -1534,85 +1451,7 @@ Polaris MRZR (access on limited dates only)
 \end{itemize}}
 \end{frame}
 
-
-%TIMED (1): 1:27:00,  87 mins, needs to be 45, cut 42 mins, ~50%
-%TIMED (2): 1:07:30,  67 mins, cut 22 mins, 33%
-\begin{frame}[t,allowframebreaks]{TODO List}
-  \begin{itemize}
-  \item Identify questions likely to be asked by committee, prepare answers
-  \item Research related works which inform design questions, e.g., Isar architecture and software engineering works
-  \item Identify additional figures that improve slides, make said figures
-  \item General polish
-  \item Practice talk in lab meeting, Oct 22
-  \item Test Skype connection with Tobias
-  \item Explore CIC programs as realizers
-  \item Keep document updated with insights and plans arising from the talk editing, and publishing status
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[t,fragile]{Let Makes Proofs Happy}
-\begin{verbatim}
-let D = (x^2 + y^2)^(1/2),  M (a,t) = vt + at^2/2;
-let SH(a,t) = ...,  SL(a,t) = ..., SB = ...;
-pre:FML ->
- { if(M(A,T) + SH(A,T) <= D) { /* Accelerate */
-     a <- A;
-     {plant} I:INVARIANT
-     show INVARIANT { /* Arithmetic proof */ }
-   } else if (M(0,T) + SL(0,T) <= D) { /* Coast */
-     a <- 0;
-     ... show INVARIANT
-   } else {    /* Brake */
-     a <- -B;
-     ... show INVARIANT
-   }}* J:INVARIANT
-
-\end{verbatim}
-\end{frame}
-
-\begin{frame}[t,fragile]{Cuts Make Proofs Happy}
-\begin{verbatim}
-let D = (x^2 + y^2)^(1/2),  M (a,t) = vt + at^2/2;
-let SH(a,t) = ...,  SL(a,t) = ..., SB = ...;
-pre:FML ->
- { if(M(A,T) + SH(A,T) <= D) { /* Accelerate */
-     a <- A;
-     {plant} I:INVARIANT
-     have (M(a,T) + SB(a,T) <= D) { /* Short proof */ }
-   } else if (M(0,T) + SL(0,T) <= D) { /* Coast */
-     a <- 0;
-     have (M(a,T) + SB(a,T) <= D) ...
-   } else {    /* Brake */
-     a <- -B;
-     have (M(a,T) + SB(a,T) <= D) ...
-   } then show INVARIANT /* Short proof */
-  }* J:INVARIANT
-
-\end{verbatim}
-\end{frame}
-
-\begin{frame}[t,fragile]{Nominals Make Proofs Happy}
-\begin{verbatim}
-let D = (x^2 + y^2)^(1/2),  M (a,t) = vt + at^2/2;
-let SH(a,t) = ...,  SL(a,t) = ..., SB = ...;
-pre:FML ->
- { if(M(A,T) + SH(A,T) <= D) { /* Accelerate */
-     a <- A;
-   } else if (M(0,T) + SL(0,T) <= D) { /* Coast */
-     a <- 0;
-   } else {    /* Brake */
-     a <- -B;
-   } have (@End: SB <= D) auto
-   {plant} I:INVARIANT
-End: show INVARIANT /* Short proof */
-  }* J:INVARIANT
-
-
-\end{verbatim}
-\end{frame}
-
-\section{Related Work}
-Also: Smooth out animation timing
+\subsection{Related Work}
 \begin{frame}[t]{General-purpose interactive theorem proving}
  \begin{tabular}{lll}
    \ah{1}{\engineer} & \ah{2}{\logician} & \ah{3}{\logicuser}\\
@@ -1649,6 +1488,7 @@ Also: Smooth out animation timing
   \end{itemize}
 \end{frame}
 
+\subsection{Evaluation}
 
 \newcommand{\ctrlspike}{\Large{\bf C\dag}}
 \newcommand{\ctrlfault}{\Large{\bf C\Lightning}}
@@ -1790,85 +1630,7 @@ Control Fault \ctrlfault{}, Plant Fault \plantfault{}, Control Spike \ctrlspike{
 \end{textblock}
 \end{frame}
 
-%https://github.com/jsford/FFAST
-
-
-
-\begin{frame}[t]{Exploit Proof Content}
- \begin{tabular}{ccc}
-   Modality                  & Curry-Howard & Synthesizes \\
-   $\dbox{\alpha}{\phi}$     & Demon strategy for $\phi$ after $\alpha$ & Monitor \\
-   $\ddiamond{\alpha}{\phi}$ & Angel strategy for $\phi$ after $\alpha$ & Control
- \end{tabular}\pause
- \begin{itemize}
- \item Games support monitor \emph{and} control synthesis from \emph{one} proof
- \item Curry Howard foundation promotes general-case, robust tools
- \item Game models are often simpler than systems
- \end{itemize}
-\end{frame}
-
-\begin{frame}{Sound Logic}
-\begin{lemma}[Renaming]
-  If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
-\end{lemma}
-\begin{lemma}[Context substitution]
-  If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
-\end{lemma}
-\begin{lemma}[Variable substitution]
-  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
-\end{lemma}
-\begin{theorem}[Soundness of Proof Calculus]
-  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is valid.
-\end{theorem}
-\end{frame}
-
-\begin{frame}[t]{A Constructive Logic}
-\begin{lemma}[Existence Property]
-If $\proves{\Gamma}{M}{(\lexists{x:\tau}{\phi})}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
-we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
-\label{lem:term-ep}
-\end{lemma}
-\begin{lemma}[Disjunction Property]
-When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists realizer $\ab$ and computable $f,$ s.t.\ for every $\om$ and $\aa$ such that $(\aa,\omega) \in \cintR{\G}$, either $f(\omega)=0$ and $(\rzFst{\ab},\omega) \in \fintR{\phi}{}$, else $f(\omega)=1$ and $(\rzSnd{\ab},\omega) \in \fintR{\psi}$.
-\end{lemma}
-\end{frame}
-
-\begin{frame}[t]{Sound as a Type System}
-\begin{lemma}[Progress]
-If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
-\end{lemma}
-\begin{lemma}[Preservation]
-If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
-\end{lemma}
-%\begin{lemma}[Active Strategy Property]
-%If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$
-%then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
-%\end{lemma}
-\end{frame}
-
-
-
-     \begin{tikzpicture}
-\draw (0,0) node[circle,draw] (in) {in};
-\draw (3,1.5) node[circle,draw] (outOne) {out};
-\draw (3,-1.5) node[circle,draw] (outTwo) {out};
-\draw[->] (in) -- (outOne) node[midway,above] {$\alpha$};
-\draw[->] (in) -- (outTwo) node[midway,below] {$\beta$};
-\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
-\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
-\draw (2.5,0) node {$\alpha~\cup~\beta$};
-     \end{tikzpicture}
-
-  \begin{align*}
-\aa,\ab,\ac
-&\bebecomes f  \alternative \rzBLam{x}{\tau}{\aa} \alternative \rzApp{\aa}{\ab} \alternative  \rzNil \alternative \rzCons{\aa}{\ab}  \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
-  \end{align*}
-\begin{itemize}
-\item Abstract base language $f$
-\item Higher-order functions and tupling
-\item Think: Calculus of Inductive Constructions (dependent $\lambda$-calculus)
-\end{itemize}
-
+\subsection{\CGL}
 \begin{frame}[t]{Formula Semantics}
 Which \emph{region} $X$ of strategy-state pairs $(\aa,\om)$ realizes $\phi$?
 \[(\rzNil,\om) \in  \fintR{f \geq g} \text{ iff } \tint{f}{\om} \geq \tint{g}{\om}\]
@@ -1949,6 +1711,91 @@ Starting from region $X$, where does $\alpha$ take Demon?
 \end{textblock}
  \end{frame}
 
+\begin{frame}[t]{Games Support Proof Terms}
+\[M,N \bebecomes \edcase{A}{B}{C} \alternative \edinjL{A} \alternative \cdots \] % \ebcons{A}{B}
+\pause
+\cinferenceRule[dchoiceE|{$\langle\cup\rangle${E}}]{}
+{
+\linferenceRule[formula]
+{\proves{\G}{A}{\ddiamond{\alpha\cup\beta}{\phi}}
+        &\proves{\G,\pvl:\ddiamond{\alpha}{\phi}}{B}{\psi}
+        &\proves{\G,\pvr:\ddiamond{\beta}{\phi}}{C}{\psi}}
+{\proves{\G}{\edcase{A}{B}{C}}{\psi}}
+}{}\\[0.5in]
+\pause
+\begin{calculuscollections}{\textwidth}
+  \begin{calculus}
+\cinferenceRule[caseBetaL|{{case}$\beta$L}]{}{\edcase{\edinjL{A}}{B}{C} \stepsto \esub{B}{\ell}{A}}{}
+\cinferenceRule[caseS|caseS]{}{\linferenceRule[formula]
+{\small{A \stepsto A'}}
+{\small{\edcase{A}{B}{C} \stepsto \edcase{A'}{B}{C}}}}{}
+  \end{calculus}
+\end{calculuscollections}
+\end{frame}
+
+\begin{frame}{Sound Logic}
+\begin{lemma}[Renaming]
+  If $\proves{\G}{M}{\phi}$ then $\proves{\esub{\G}{x}{y}}{\esub{M}{x}{y}}{\esub{\phi}{x}{y}}$.
+\end{lemma}
+\begin{lemma}[Context substitution]
+  If $\proves{\G,x:\psi}{M}{\phi}$ and $\proves{\G}{N}{\psi}$ then $\proves{\G}{\esub{M}{x}{N}}{\phi}$.
+\end{lemma}
+\begin{lemma}[Variable substitution]
+  If $\proves{\G}{M}{\phi}$ and $\esub{\phi}{x}{\theta}$ is admissible then $\proves{\esub{\G}{x}{\theta}}{\esub{M}{x}{\theta}}{\esub{\phi}{x}{\theta}}$.
+\end{lemma}
+\begin{theorem}[Soundness of Proof Calculus]
+  If $\proves{\cdot}{M}{\phi}$ then $\phi$ is valid.
+\end{theorem}
+\end{frame}
+
+\begin{frame}[t]{A Constructive Logic}
+\begin{lemma}[Existence Property]
+If $\proves{\Gamma}{M}{(\lexists{x:\tau}{\phi})}$ then there exists a term $f$ and realizer $\ab$ such that for all $(\aa,\om) \in \cintR{\G},$
+we have $(\rzApp{\ab}{\aa},\ssub{\om}{x}{f(\om)}) \in \fintR{\phi}$.
+\label{lem:term-ep}
+\end{lemma}
+\begin{lemma}[Disjunction Property]
+When $\proves{\Gamma}{M}{\phi \lor \psi}$ there exists realizer $\ab$ and computable $f,$ s.t.\ for every $\om$ and $\aa$ such that $(\aa,\omega) \in \cintR{\G}$, either $f(\omega)=0$ and $(\rzFst{\ab},\omega) \in \fintR{\phi}{}$, else $f(\omega)=1$ and $(\rzSnd{\ab},\omega) \in \fintR{\psi}$.
+\end{lemma}
+\end{frame}
+
+\begin{frame}[t]{Sound as a Type System}
+\begin{lemma}[Progress]
+If $\proves{\Gamma}{M}{\phi},$ then either $M$ is normal or $M \stepsto N$ for some $N$.
+\end{lemma}
+\begin{lemma}[Preservation]
+If $\proves{\Gamma}{M}{\phi}$ and $M \stepsto^* N,$ then $\proves{\Gamma}{N}{\phi}$
+\end{lemma}
+%\begin{lemma}[Active Strategy Property]
+%If $\proves{\Gamma}{M}{\ddiamond{\alpha}{\phi}},$ then there exists a realizer $\ab$ such that for all $\om$ and realizers $\aa$ such that $(\aa,\om) \in \cintR{\G},$
+%then $\strategyforR[\alpha]{\{(\rzApp{\ab}{\aa},\om)\}} \subseteq \fintR{\phi} \cup \{\stt\}$.
+%\end{lemma}
+\end{frame}
+
+
+
+     \begin{tikzpicture}
+\draw (0,0) node[circle,draw] (in) {in};
+\draw (3,1.5) node[circle,draw] (outOne) {out};
+\draw (3,-1.5) node[circle,draw] (outTwo) {out};
+\draw[->] (in) -- (outOne) node[midway,above] {$\alpha$};
+\draw[->] (in) -- (outTwo) node[midway,below] {$\beta$};
+\draw[->,line width=0.6mm] (in) to[bend right=25] (outOne);
+\draw[->,line width=0.6mm] (in) to[bend left=25] (outTwo);
+\draw (2.5,0) node {$\alpha~\cup~\beta$};
+     \end{tikzpicture}
+
+  \begin{align*}
+\aa,\ab,\ac
+&\bebecomes f  \alternative \rzBLam{x}{\tau}{\aa} \alternative \rzApp{\aa}{\ab} \alternative  \rzNil \alternative \rzCons{\aa}{\ab}  \alternative \rzFst{\aa} \alternative \rzSnd{\aa}
+  \end{align*}
+\begin{itemize}
+\item Abstract base language $f$
+\item Higher-order functions and tupling
+\item Think: Calculus of Inductive Constructions (dependent $\lambda$-calculus)
+\end{itemize}
+
+
 
 \begin{frame}[t]{Modularity Theorem Support Design Goals}
 \logician[0.5in]
@@ -1962,6 +1809,73 @@ When $\alpha$ changes to $\beta,$ how does proof of $C(\alpha)$ change?
 \end{center}
 \end{frame}
 
+
+
+\subsection{Kaisar}
+\begin{frame}[t,fragile]{Let Makes Proofs Happy}
+\begin{verbatim}
+let D = (x^2 + y^2)^(1/2),  M (a,t) = vt + at^2/2;
+let SH(a,t) = ...,  SL(a,t) = ..., SB = ...;
+pre:FML ->
+ { if(M(A,T) + SH(A,T) <= D) { /* Accelerate */
+     a <- A;
+     {plant} I:INVARIANT
+     show INVARIANT { /* Arithmetic proof */ }
+   } else if (M(0,T) + SL(0,T) <= D) { /* Coast */
+     a <- 0;
+     ... show INVARIANT
+   } else {    /* Brake */
+     a <- -B;
+     ... show INVARIANT
+   }}* J:INVARIANT
+
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[t,fragile]{Cuts Make Proofs Happy}
+\begin{verbatim}
+let D = (x^2 + y^2)^(1/2),  M (a,t) = vt + at^2/2;
+let SH(a,t) = ...,  SL(a,t) = ..., SB = ...;
+pre:FML ->
+ { if(M(A,T) + SH(A,T) <= D) { /* Accelerate */
+     a <- A;
+     {plant} I:INVARIANT
+     have (M(a,T) + SB(a,T) <= D) { /* Short proof */ }
+   } else if (M(0,T) + SL(0,T) <= D) { /* Coast */
+     a <- 0;
+     have (M(a,T) + SB(a,T) <= D) ...
+   } else {    /* Brake */
+     a <- -B;
+     have (M(a,T) + SB(a,T) <= D) ...
+   } then show INVARIANT /* Short proof */
+  }* J:INVARIANT
+
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[t,fragile]{Nominals Make Proofs Happy}
+\begin{verbatim}
+let D = (x^2 + y^2)^(1/2),  M (a,t) = vt + at^2/2;
+let SH(a,t) = ...,  SL(a,t) = ..., SB = ...;
+pre:FML ->
+ { if(M(A,T) + SH(A,T) <= D) { /* Accelerate */
+     a <- A;
+   } else if (M(0,T) + SL(0,T) <= D) { /* Coast */
+     a <- 0;
+   } else {    /* Brake */
+     a <- -B;
+   } have (@End: SB <= D) auto
+   {plant} I:INVARIANT
+End: show INVARIANT /* Short proof */
+  }* J:INVARIANT
+
+
+\end{verbatim}
+\end{frame}
+
+
+%https://github.com/jsford/FFAST
+
 \begin{frame}[t]{Predicate Transformers Support Proofchecking}
 %\logician[0.5in]
 The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}{\G}$.
@@ -1971,11 +1885,49 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
   \spost{(\alpha)^*@\{B\}}{\G} &= \spost{\{B\}}{G}\ \ \ \ \ \text{if }\spost{\alpha}{{\G_\alpha}_{\{B\}}}=\spost{\{B\}}{\G}\\
 \spost{\humod{x}{\theta}}{\G} &=(x=\theta) \\
 \spost{L{:}\ \alpha}{\G} &= \spost{\alpha}{(\G,L)}
-%\spost{\{\sshow{x}{\phi}{U}\}}{\G}             &= \phi                                        &&\text{if U proves }\phi\\
-%\spost{\{\shave{x}{\phi}{U}{S}\}}{\G}          &= \spost{S}{(\G,x:\phi)}                      &&\text{if U proves }\phi\\
-%\spost{?(x:\phi)}{\G} &= \phi &&\\
 \end{align*}
 \textbf{Soundness:} If $S$ is a proof, then $\G \vdash \spost{S}{\G}$ is valid.
+\end{frame}
+
+\subsection{End-to-End implementation}
+\begin{frame}
+How to trust a theorem prover?
+Formalize it!
+\Isabelle function \texttt{pteval} computes the proof state proved by a given proof term, or returns \texttt{NONE} on proofs that do not check
+\KeYmaeraX is instrumented with a proofterm checker.
+The synthesized checker was evaluated on a 100,000-step sandbox safety proof.
+Decidable first-order arithmetic is assumed ``axiomatically,'' all other rules are proven sound.
+\begin{theorem}[Proof-checker soundness]
+If all real arithmetic subgoals are valid and the proof checker accepts the proof term, the output derived rule is sound, i.e.:
+\end{theorem}
+\end{frame}
+
+\begin{frame}{Sandbox is Discretized}
+\textbf{Example:} Check whether $\pi < e$, efficiently.\\
+\textbf{Solution:} Conservative interval approximation
+\begin{example}
+Let $\nu_I=\{pi\mapsto[3,4],e\mapsto[2,3]\}$, then 
+\begin{itemize}
+%\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.16in}\includegraphics[width=1.5in]{img/}
+\item<+-> \(pi <_w e\) is false ($\bot$)\hspace{1.63in}
+\includegraphics[width=1.875in]{img/interval1.png}
+\item<+-> \(pi <_w e + 3\) is true ($\top$)\hspace{1.4in}
+\includegraphics[width=1.875in]{img/interval2.png}
+\item<+-> \(pi <_w e + 1\) is \emph{a known unknown} ($U$){\hspace{0.50875in}
+\includegraphics[width=1.40625in]{img/interval3.png}
+}
+\end{itemize}
+\only<4>{When truth values can be unknown, resulting logic is \emph{3-valued}}
+\end{example}
+\begin{textblock}{10}(14,1.75)
+\includegraphics[width=0.7in]{img/focus-int.png}
+\end{textblock}
+\end{frame}
+
+\begin{frame}[t]{Code Generation}
+Control code is untrusted, so complex languages are acceptable.
+Sandbox monitor code should use simple language.
+Simple solution: Hook into VeriPhy compilation stages.
 \end{frame}
 
 \section<presentation>*{\appendixname}
@@ -1989,75 +1941,6 @@ The strongest postcondition of proof $S$ from initial context $\G$ is $\spost{S}
 
 \end{document}
 
-
-
-
-
-
-%  If I bring this slide back, connect pictures to next slide
-%\begin{frame}[t]{\only<1>{Safety-Critical CPS Need Safety}
-%\only<2->{Safety-Critical CPS Need Proofs}}
-% \begin{center}
-%   \begin{tabular}{ccc}
-%\includegraphics[width=1in]{img/plane-real.jpg}&\includegraphics[width=1in]{img/quadcopter-real.jpg}&\includegraphics[width=1in]{img/robot-dyn-small.png}\\
-%Planes&Drones&Robots\\
-% \uncover<2->{
-% & &\\
-% \includegraphics[width=0.6in]{img/assembly-small.png}&\includegraphics[width=1in]{img/invariant-region.png}&\infer{\Gamma \vdash A \lor B}{\Gamma \vdash A}\\
-% Discrete Control & Continuous Dynamics & Syntactic Proof
-% }
-%    \end{tabular}
-%  \end{center}
-%  \only<1>{
-%  \begin{quote}
-%    How can we design cyber-physical systems people can bet their lives on? -- Jeanette Wing
-%  \end{quote}
-%  }
-%  \only<3>{
-%  \begin{quote}
-%    How do proofs connect to reality?
-%  \end{quote}
-%  }
-% \end{frame}
-% \draw (0,-1.2) node (cdgl) {\CdGL};
-% \draw (0,0)   node[circle]  (dl)  {\phantom{\dL}};
-% \node[coordinate,pin={[pin distance=0.9cm,text width=3cm]265:{\ \ \ \ Ch.\ 3 Ch.\ 4}}] (dl-ref) at (dl) {};
-% \draw (dl) node[circle, fill=blue!20,draw]  {\dL};
-% \draw (-7, 1.3) node[rectangle,rounded corners,fill=green!20,draw,text depth=1in,text width=1.2in,text centered] (logic) {Foundations};
-% \draw (-7, 2.8) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (formalization) {\dL Formalized};
-% \draw (-7, 1.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (generalization) {\dL Generalized};
-% \draw (-7, 0.6) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cgl) {Constructive \GL};
-% \draw (-7, -0.5) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm] (cdgl) {Constructive \dGL};
-% \draw node[left=0.3cm of formalization] (formal-ref) {\S3.1};
-% \draw node[left=0.3cm of generalization] (gen-ref) {\S3.2};
-% \draw node[left=0.3cm of cgl] (cgl-ref) {Ch.\ 5};
-% \draw node[left=0.3cm of cdgl] (cdgl-ref) {Ch.\ 6};
-% \draw[dashed] (formalization) -- (formal-ref);
-% \draw[dashed] (generalization) -- (gen-ref);
-% \begin{center}
-%    \draw (0,1) node (thm) {$\ddiamond{\prepeat{(\ctrlcolor{\ctrl};\pdual{\plantcolor{\plant}})}}{\textsf{goal}}$};
-%    \draw (0,0.5) node {$\Uparrow$};
-% % $J(x) \limply \ddiamond{\overline{\ctrlcolor{\ctrl}}}{\dbox{\plantcolor{\overline{\plant}}}{J(y<x)}}$
-%    \draw (1.1,-0.5) node {\footnotesize{\color{gray}Elaboration}};
-% \end{center}
-% Missing from figure: Elaboration and Normalization steps
-% Control.S $\leftarrow_{{:=}*,\cup,'} (J(x) \limply \ddiamond{\ctrl}{\dbox{\plant}{J(\tilde{x} < x)}}) \rightarrow_{dC,dG}$ Monitor.S
-% \draw (0.1, -4.7) node[rectangle,rounded corners,fill=green!10,draw,thin,minimum height=0.3cm,text width=4.8cm] (lop)    {Lines of Model/Proof};
-% \draw (bexport) -- (synth)
-% \node[shape=coordinate] (use-anchor) at (0,-3){};
-% \draw node[right=0.3cm of lop] (lop-ref) {Ch.\ 7};
-% \node[coordinate,pin={[pin distance=0.55cm,text width=2cm]320:{Ch.\ 6}}] (cdgl-ref) at (cdgl) {};
-% \draw[->,very thick] (logic) -- (CdGLcirc);
-% \draw[-,black,very thick,dashed] (ptproof) -- node[anchor=east,align=center] {Soundness proof\\(\rref{sec:intervalify})} (ptanchor);
-
-
-%\begin{frame}[t]{2D Driving Model is Input}
-%\begin{tabular}{cc}
-%\annul &~\mequiv~\abs{\kvar}\veps \leq 1 \land \Big|\frac{ \kvar~\left(\xgvar^2 +\ygvar^2 - \veps^2 \right)}{2} - \xgvar\Big| < \veps\\
-%\label{eq:planReq} \planreq &~\equiv \annul \land \ygvar{>}0 \land 0{\leq}\vlvar{<}\vhvar \land \Avar\Tvar{\leq}\vhvar-\vlvar \land \Bvar\Tvar{\leq}\vhvar-\vlvar\\
-%\admiss &\equiv a \in [-B,A] \land safe(v(a,\veps),x(a,\veps))\\
-%\begin{tabular}{cc}
-%\begin{minipage}{0.6\textwidth}
-%\end{minipage}
-%&
-%\end{tabular}
+%TIMED (1): 1:27:00,  87 mins, needs to be 45, cut 42 mins, ~50%
+%TIMED (2): 1:07:30,  67 mins, cut 22 mins, 33%
+%TIMED (3): 42:30,  2.5min under.

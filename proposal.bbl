@@ -593,6 +593,46 @@ Baier, C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Bak%
+, Bogomolov%
+\BCBL {}\ \BBA {} Johnson%
+}{%
+Bak%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+DBLP:conf/hybrid/BakBJ15}
+\APACinsertmetastar {%
+DBLP:conf/hybrid/BakBJ15}%
+\begin{APACrefauthors}%
+Bak, S.%
+, Bogomolov, S.%
+\BCBL {}\ \BBA {} Johnson, T\BPBI T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{HYST:} a source transformation and translation tool for
+  hybrid automaton models} {{HYST:} a source transformation and translation
+  tool for hybrid automaton models}.{\BBCQ}
+\newblock
+\BIn{} A.~Girard\ \BBA {} S.~Sankaranarayanan\ (\BEDS), \APACrefbtitle
+  {Proceedings of the 18th International Conference on Hybrid Systems:
+  Computation and Control, HSCC'15, Seattle, WA, USA, April 14-16, 2015}
+  {Proceedings of the 18th international conference on hybrid systems:
+  Computation and control, hscc'15, seattle, wa, usa, april 14-16, 2015}\
+  (\BPGS\ 128--133).
+\newblock
+\APACaddressPublisher{}{{ACM}}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1145/2728606.2728630}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2728606.2728630} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Bancerek%
 \ \protect \BOthers {.}}{%
 Bancerek%
@@ -1011,7 +1051,7 @@ Bohrer, B.%
 \newblock
 \APACaddressPublisher{}{{ACM}}.
 \newblock
-\APACrefnote{Under review}
+\APACrefnote{Draft, Rejected}
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2256,6 +2296,42 @@ Finucane, C.%
 \newblock
 \begin{APACrefURL} \url{https://doi.org/10.1109/IROS.2010.5650371}
   \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Foster%
+}{%
+Foster%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+DBLP:conf/utp/Foster19}
+\APACinsertmetastar {%
+DBLP:conf/utp/Foster19}%
+\begin{APACrefauthors}%
+Foster, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Hybrid Relations in Isabelle/UTP} {Hybrid relations in
+  isabelle/utp}.{\BBCQ}
+\newblock
+\BIn{} P.~Ribeiro\ \BBA {} A.~Sampaio\ (\BEDS), \APACrefbtitle {Unifying
+  Theories of Programming - 7th International Symposium, {UTP} 2019, Dedicated
+  to Tony Hoare on the Occasion of His 85th Birthday, Porto, Portugal, October
+  8, 2019, Proceedings} {Unifying theories of programming - 7th international
+  symposium, {UTP} 2019, dedicated to tony hoare on the occasion of his 85th
+  birthday, porto, portugal, october 8, 2019, proceedings}\ (\BVOL\ 11885,
+  \BPGS\ 130--153).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/978-3-030-31038-7\_7}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-030-31038-7\_7} \end{APACrefDOI}
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -5050,6 +5126,47 @@ Pfenning, F.%
   \end{APACrefURL}
 \newblock
 \begin{APACrefDOI} \doi{10.1007/3-540-48660-7_14} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Pinto%
+, Carloni%
+, Passerone%
+\BCBL {}\ \BBA {} Sangiovanni{-}Vincentelli%
+}{%
+Pinto%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2006}}%
+}]{%
+DBLP:conf/hybrid/PintoCPS06}
+\APACinsertmetastar {%
+DBLP:conf/hybrid/PintoCPS06}%
+\begin{APACrefauthors}%
+Pinto, A.%
+, Carloni, L\BPBI P.%
+, Passerone, R.%
+\BCBL {}\ \BBA {} Sangiovanni{-}Vincentelli, A\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Interchange Format for Hybrid Systems: Abstract
+  Semantics} {Interchange format for hybrid systems: Abstract
+  semantics}.{\BBCQ}
+\newblock
+\BIn{} J\BPBI P.~Hespanha\ \BBA {} A.~Tiwari\ (\BEDS), \APACrefbtitle {Hybrid
+  Systems: Computation and Control, 9th International Workshop, {HSCC} 2006,
+  Santa Barbara, CA, USA, March 29-31, 2006, Proceedings} {Hybrid systems:
+  Computation and control, 9th international workshop, {HSCC} 2006, santa
+  barbara, ca, usa, march 29-31, 2006, proceedings}\ (\BVOL\ 3927, \BPGS\
+  491--506).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.1007/11730637\_37} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.1007/11730637\_37} \end{APACrefDOI}
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
